@@ -1,0 +1,1040 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0E5B6CE76D0C7EF8FA7F84DF /* Pods_LinkedNoteTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C923E310951FC7F9255FFD39 /* Pods_LinkedNoteTests.framework */; };
+		9BB12095DEC38C7AA06AEC5E /* Pods_LinkedNoteUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DABC6D3DE1353450DA80AAF /* Pods_LinkedNoteUITests.framework */; };
+		A05E172F1EE261DD005C4566 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A05E172E1EE261DD005C4566 /* Assets.xcassets */; };
+		A05E17321EE261DD005C4566 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E17301EE261DD005C4566 /* LaunchScreen.storyboard */; };
+		A05E173D1EE261DD005C4566 /* LinkedNoteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E173C1EE261DD005C4566 /* LinkedNoteTests.swift */; };
+		A05E17481EE261DD005C4566 /* LinkedNoteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17471EE261DD005C4566 /* LinkedNoteUITests.swift */; };
+		A05E17991EE26218005C4566 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17561EE26218005C4566 /* AppDelegate.swift */; };
+		A05E179A1EE26218005C4566 /* AccontViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17581EE26218005C4566 /* AccontViewController.swift */; };
+		A05E179B1EE26218005C4566 /* ArticleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17591EE26218005C4566 /* ArticleListViewController.swift */; };
+		A05E179C1EE26218005C4566 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E175A1EE26218005C4566 /* ArticleViewController.swift */; };
+		A05E179D1EE26218005C4566 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E175B1EE26218005C4566 /* MainTabBarController.swift */; };
+		A05E179E1EE26218005C4566 /* NoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E175C1EE26218005C4566 /* NoteListViewController.swift */; };
+		A05E179F1EE26218005C4566 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E175D1EE26218005C4566 /* NoteViewController.swift */; };
+		A05E17A01EE26218005C4566 /* TagEditableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E175E1EE26218005C4566 /* TagEditableViewController.swift */; };
+		A05E17A11EE26218005C4566 /* TagListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E175F1EE26218005C4566 /* TagListViewController.swift */; };
+		A05E17A21EE26218005C4566 /* AlertCreater.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17611EE26218005C4566 /* AlertCreater.swift */; };
+		A05E17A31EE26218005C4566 /* APIWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17631EE26218005C4566 /* APIWrapper.swift */; };
+		A05E17A41EE26218005C4566 /* PocketAPIWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17641EE26218005C4566 /* PocketAPIWrapper.swift */; };
+		A05E17A51EE26218005C4566 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17661EE26218005C4566 /* Api.swift */; };
+		A05E17A61EE26218005C4566 /* ApiAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17671EE26218005C4566 /* ApiAccount.swift */; };
+		A05E17A71EE26218005C4566 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17681EE26218005C4566 /* Article.swift */; };
+		A05E17A81EE26218005C4566 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17691EE26218005C4566 /* Note.swift */; };
+		A05E17A91EE26218005C4566 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E176A1EE26218005C4566 /* Tag.swift */; };
+		A05E17AA1EE26218005C4566 /* ArticleListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E176C1EE26218005C4566 /* ArticleListPresenter.swift */; };
+		A05E17AB1EE26218005C4566 /* NoteListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E176D1EE26218005C4566 /* NoteListPresenter.swift */; };
+		A05E17AC1EE26218005C4566 /* TagCollectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E176E1EE26218005C4566 /* TagCollectionPresenter.swift */; };
+		A05E17AD1EE26218005C4566 /* TagListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E176F1EE26218005C4566 /* TagListPresenter.swift */; };
+		A05E17AE1EE26218005C4566 /* TagPickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17701EE26218005C4566 /* TagPickerPresenter.swift */; };
+		A05E17AF1EE26218005C4566 /* UIImageView+downloadedFrom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17711EE26218005C4566 /* UIImageView+downloadedFrom.swift */; };
+		A05E17B01EE26218005C4566 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17731EE26218005C4566 /* UIColor+.swift */; };
+		A05E17B21EE26218005C4566 /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17781EE26218005C4566 /* ProgressHUD.swift */; };
+		A05E17B31EE26218005C4566 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17791EE26218005C4566 /* TagCollectionViewCell.swift */; };
+		A05E17B41EE26218005C4566 /* TagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E177A1EE26218005C4566 /* TagCollectionViewCell.xib */; };
+		A05E17B51EE26218005C4566 /* Account.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E177D1EE26218005C4566 /* Account.xib */; };
+		A05E17B61EE26218005C4566 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E177E1EE26218005C4566 /* AccountView.swift */; };
+		A05E17B71EE26218005C4566 /* SignIn.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E177F1EE26218005C4566 /* SignIn.xib */; };
+		A05E17B81EE26218005C4566 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17801EE26218005C4566 /* SignInView.swift */; };
+		A05E17B91EE26218005C4566 /* ArticleList.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E17821EE26218005C4566 /* ArticleList.xib */; };
+		A05E17BA1EE26218005C4566 /* ArticleListCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17831EE26218005C4566 /* ArticleListCustomCell.swift */; };
+		A05E17BB1EE26218005C4566 /* ArticleListCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E17841EE26218005C4566 /* ArticleListCustomCell.xib */; };
+		A05E17BC1EE26218005C4566 /* ArticleListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17851EE26218005C4566 /* ArticleListTableView.swift */; };
+		A05E17BD1EE26218005C4566 /* ArticleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17861EE26218005C4566 /* ArticleListView.swift */; };
+		A05E17BE1EE26218005C4566 /* Article.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E17881EE26218005C4566 /* Article.xib */; };
+		A05E17BF1EE26218005C4566 /* ArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17891EE26218005C4566 /* ArticleView.swift */; };
+		A05E17C01EE26218005C4566 /* NoteList.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E178B1EE26218005C4566 /* NoteList.xib */; };
+		A05E17C11EE26218005C4566 /* NoteListCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E178C1EE26218005C4566 /* NoteListCustomCell.swift */; };
+		A05E17C21EE26218005C4566 /* NoteListCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E178D1EE26218005C4566 /* NoteListCustomCell.xib */; };
+		A05E17C31EE26218005C4566 /* NoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E178E1EE26218005C4566 /* NoteListView.swift */; };
+		A05E17C41EE26218005C4566 /* TagMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E178F1EE26218005C4566 /* TagMenu.xib */; };
+		A05E17C51EE26218005C4566 /* TagMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17901EE26218005C4566 /* TagMenuView.swift */; };
+		A05E17C61EE26218005C4566 /* Note.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E17921EE26218005C4566 /* Note.xib */; };
+		A05E17C71EE26218005C4566 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17931EE26218005C4566 /* NoteView.swift */; };
+		A05E17C81EE26218005C4566 /* TagList.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E17951EE26218005C4566 /* TagList.xib */; };
+		A05E17C91EE26218005C4566 /* TagListCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17961EE26218005C4566 /* TagListCustomCell.swift */; };
+		A05E17CA1EE26218005C4566 /* TagListCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E17971EE26218005C4566 /* TagListCustomCell.xib */; };
+		A05E17CB1EE26218005C4566 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17981EE26218005C4566 /* TagListView.swift */; };
+		EE62733917C6FB9171176B13 /* Pods_LinkedNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50EA9EFCC3AF4212863C844D /* Pods_LinkedNote.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A05E17391EE261DD005C4566 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A05E171C1EE261DD005C4566 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A05E17231EE261DD005C4566;
+			remoteInfo = LinkedNote;
+		};
+		A05E17441EE261DD005C4566 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A05E171C1EE261DD005C4566 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A05E17231EE261DD005C4566;
+			remoteInfo = LinkedNote;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		01314C2A546B2F55B04D3A70 /* Pods-LinkedNoteTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNoteTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNoteTests/Pods-LinkedNoteTests.release.xcconfig"; sourceTree = "<group>"; };
+		38A9834388FD3C9159855939 /* Pods-LinkedNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNote.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNote/Pods-LinkedNote.release.xcconfig"; sourceTree = "<group>"; };
+		50EA9EFCC3AF4212863C844D /* Pods_LinkedNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkedNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DABC6D3DE1353450DA80AAF /* Pods_LinkedNoteUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkedNoteUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A05E17241EE261DD005C4566 /* LinkedNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinkedNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A05E172E1EE261DD005C4566 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A05E17311EE261DD005C4566 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A05E17331EE261DD005C4566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A05E17381EE261DD005C4566 /* LinkedNoteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinkedNoteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A05E173C1EE261DD005C4566 /* LinkedNoteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedNoteTests.swift; sourceTree = "<group>"; };
+		A05E173E1EE261DD005C4566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A05E17431EE261DD005C4566 /* LinkedNoteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinkedNoteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A05E17471EE261DD005C4566 /* LinkedNoteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedNoteUITests.swift; sourceTree = "<group>"; };
+		A05E17491EE261DD005C4566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A05E17561EE26218005C4566 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A05E17581EE26218005C4566 /* AccontViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccontViewController.swift; sourceTree = "<group>"; };
+		A05E17591EE26218005C4566 /* ArticleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListViewController.swift; sourceTree = "<group>"; };
+		A05E175A1EE26218005C4566 /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
+		A05E175B1EE26218005C4566 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		A05E175C1EE26218005C4566 /* NoteListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteListViewController.swift; sourceTree = "<group>"; };
+		A05E175D1EE26218005C4566 /* NoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
+		A05E175E1EE26218005C4566 /* TagEditableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagEditableViewController.swift; sourceTree = "<group>"; };
+		A05E175F1EE26218005C4566 /* TagListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListViewController.swift; sourceTree = "<group>"; };
+		A05E17611EE26218005C4566 /* AlertCreater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertCreater.swift; sourceTree = "<group>"; };
+		A05E17631EE26218005C4566 /* APIWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIWrapper.swift; sourceTree = "<group>"; };
+		A05E17641EE26218005C4566 /* PocketAPIWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PocketAPIWrapper.swift; sourceTree = "<group>"; };
+		A05E17661EE26218005C4566 /* Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		A05E17671EE26218005C4566 /* ApiAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiAccount.swift; sourceTree = "<group>"; };
+		A05E17681EE26218005C4566 /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		A05E17691EE26218005C4566 /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		A05E176A1EE26218005C4566 /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		A05E176C1EE26218005C4566 /* ArticleListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListPresenter.swift; sourceTree = "<group>"; };
+		A05E176D1EE26218005C4566 /* NoteListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteListPresenter.swift; sourceTree = "<group>"; };
+		A05E176E1EE26218005C4566 /* TagCollectionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCollectionPresenter.swift; sourceTree = "<group>"; };
+		A05E176F1EE26218005C4566 /* TagListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListPresenter.swift; sourceTree = "<group>"; };
+		A05E17701EE26218005C4566 /* TagPickerPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagPickerPresenter.swift; sourceTree = "<group>"; };
+		A05E17711EE26218005C4566 /* UIImageView+downloadedFrom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+downloadedFrom.swift"; sourceTree = "<group>"; };
+		A05E17731EE26218005C4566 /* UIColor+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		A05E17781EE26218005C4566 /* ProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
+		A05E17791EE26218005C4566 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
+		A05E177A1EE26218005C4566 /* TagCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagCollectionViewCell.xib; sourceTree = "<group>"; };
+		A05E177D1EE26218005C4566 /* Account.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Account.xib; sourceTree = "<group>"; };
+		A05E177E1EE26218005C4566 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		A05E177F1EE26218005C4566 /* SignIn.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignIn.xib; sourceTree = "<group>"; };
+		A05E17801EE26218005C4566 /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		A05E17821EE26218005C4566 /* ArticleList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticleList.xib; sourceTree = "<group>"; };
+		A05E17831EE26218005C4566 /* ArticleListCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListCustomCell.swift; sourceTree = "<group>"; };
+		A05E17841EE26218005C4566 /* ArticleListCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticleListCustomCell.xib; sourceTree = "<group>"; };
+		A05E17851EE26218005C4566 /* ArticleListTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListTableView.swift; sourceTree = "<group>"; };
+		A05E17861EE26218005C4566 /* ArticleListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListView.swift; sourceTree = "<group>"; };
+		A05E17881EE26218005C4566 /* Article.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Article.xib; sourceTree = "<group>"; };
+		A05E17891EE26218005C4566 /* ArticleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleView.swift; sourceTree = "<group>"; };
+		A05E178B1EE26218005C4566 /* NoteList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoteList.xib; sourceTree = "<group>"; };
+		A05E178C1EE26218005C4566 /* NoteListCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteListCustomCell.swift; sourceTree = "<group>"; };
+		A05E178D1EE26218005C4566 /* NoteListCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoteListCustomCell.xib; sourceTree = "<group>"; };
+		A05E178E1EE26218005C4566 /* NoteListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteListView.swift; sourceTree = "<group>"; };
+		A05E178F1EE26218005C4566 /* TagMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagMenu.xib; sourceTree = "<group>"; };
+		A05E17901EE26218005C4566 /* TagMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagMenuView.swift; sourceTree = "<group>"; };
+		A05E17921EE26218005C4566 /* Note.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Note.xib; sourceTree = "<group>"; };
+		A05E17931EE26218005C4566 /* NoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
+		A05E17951EE26218005C4566 /* TagList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagList.xib; sourceTree = "<group>"; };
+		A05E17961EE26218005C4566 /* TagListCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListCustomCell.swift; sourceTree = "<group>"; };
+		A05E17971EE26218005C4566 /* TagListCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagListCustomCell.xib; sourceTree = "<group>"; };
+		A05E17981EE26218005C4566 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
+		A625C72BD3134EC14E545E07 /* Pods-LinkedNoteUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNoteUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNoteUITests/Pods-LinkedNoteUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C923E310951FC7F9255FFD39 /* Pods_LinkedNoteTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkedNoteTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF1A0B2F829D1BB6115EB532 /* Pods-LinkedNote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNote.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNote/Pods-LinkedNote.debug.xcconfig"; sourceTree = "<group>"; };
+		D57B489A138FB881C0D63DE4 /* Pods-LinkedNoteUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNoteUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNoteUITests/Pods-LinkedNoteUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		F8A1C9F0556CD68F77B82363 /* Pods-LinkedNoteTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNoteTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNoteTests/Pods-LinkedNoteTests.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A05E17211EE261DD005C4566 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE62733917C6FB9171176B13 /* Pods_LinkedNote.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A05E17351EE261DD005C4566 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E5B6CE76D0C7EF8FA7F84DF /* Pods_LinkedNoteTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A05E17401EE261DD005C4566 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BB12095DEC38C7AA06AEC5E /* Pods_LinkedNoteUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7C1099DC066F6A4EE38A4052 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				50EA9EFCC3AF4212863C844D /* Pods_LinkedNote.framework */,
+				C923E310951FC7F9255FFD39 /* Pods_LinkedNoteTests.framework */,
+				6DABC6D3DE1353450DA80AAF /* Pods_LinkedNoteUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A05E171B1EE261DD005C4566 = {
+			isa = PBXGroup;
+			children = (
+				A05E17261EE261DD005C4566 /* LinkedNote */,
+				A05E173B1EE261DD005C4566 /* LinkedNoteTests */,
+				A05E17461EE261DD005C4566 /* LinkedNoteUITests */,
+				A05E17251EE261DD005C4566 /* Products */,
+				FB80585D9F87D53A3E70A53C /* Pods */,
+				7C1099DC066F6A4EE38A4052 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		A05E17251EE261DD005C4566 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A05E17241EE261DD005C4566 /* LinkedNote.app */,
+				A05E17381EE261DD005C4566 /* LinkedNoteTests.xctest */,
+				A05E17431EE261DD005C4566 /* LinkedNoteUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A05E17261EE261DD005C4566 /* LinkedNote */ = {
+			isa = PBXGroup;
+			children = (
+				A05E17CC1EE2622D005C4566 /* resources */,
+				A05E17551EE26218005C4566 /* src */,
+			);
+			path = LinkedNote;
+			sourceTree = "<group>";
+		};
+		A05E173B1EE261DD005C4566 /* LinkedNoteTests */ = {
+			isa = PBXGroup;
+			children = (
+				A05E173C1EE261DD005C4566 /* LinkedNoteTests.swift */,
+				A05E173E1EE261DD005C4566 /* Info.plist */,
+			);
+			path = LinkedNoteTests;
+			sourceTree = "<group>";
+		};
+		A05E17461EE261DD005C4566 /* LinkedNoteUITests */ = {
+			isa = PBXGroup;
+			children = (
+				A05E17471EE261DD005C4566 /* LinkedNoteUITests.swift */,
+				A05E17491EE261DD005C4566 /* Info.plist */,
+			);
+			path = LinkedNoteUITests;
+			sourceTree = "<group>";
+		};
+		A05E17551EE26218005C4566 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				A05E17561EE26218005C4566 /* AppDelegate.swift */,
+				A05E17571EE26218005C4566 /* Controllers */,
+				A05E17601EE26218005C4566 /* Models */,
+				A05E17721EE26218005C4566 /* Utils */,
+				A05E17741EE26218005C4566 /* Views */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		A05E17571EE26218005C4566 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A05E17581EE26218005C4566 /* AccontViewController.swift */,
+				A05E17591EE26218005C4566 /* ArticleListViewController.swift */,
+				A05E175A1EE26218005C4566 /* ArticleViewController.swift */,
+				A05E175B1EE26218005C4566 /* MainTabBarController.swift */,
+				A05E175C1EE26218005C4566 /* NoteListViewController.swift */,
+				A05E175D1EE26218005C4566 /* NoteViewController.swift */,
+				A05E175E1EE26218005C4566 /* TagEditableViewController.swift */,
+				A05E175F1EE26218005C4566 /* TagListViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		A05E17601EE26218005C4566 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A05E17611EE26218005C4566 /* AlertCreater.swift */,
+				A05E17621EE26218005C4566 /* API Wrappers */,
+				A05E17651EE26218005C4566 /* Data Models */,
+				A05E176B1EE26218005C4566 /* Presenter */,
+				A05E17711EE26218005C4566 /* UIImageView+downloadedFrom.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A05E17621EE26218005C4566 /* API Wrappers */ = {
+			isa = PBXGroup;
+			children = (
+				A05E17631EE26218005C4566 /* APIWrapper.swift */,
+				A05E17641EE26218005C4566 /* PocketAPIWrapper.swift */,
+			);
+			path = "API Wrappers";
+			sourceTree = "<group>";
+		};
+		A05E17651EE26218005C4566 /* Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				A05E17661EE26218005C4566 /* Api.swift */,
+				A05E17671EE26218005C4566 /* ApiAccount.swift */,
+				A05E17681EE26218005C4566 /* Article.swift */,
+				A05E17691EE26218005C4566 /* Note.swift */,
+				A05E176A1EE26218005C4566 /* Tag.swift */,
+			);
+			path = "Data Models";
+			sourceTree = "<group>";
+		};
+		A05E176B1EE26218005C4566 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				A05E176C1EE26218005C4566 /* ArticleListPresenter.swift */,
+				A05E176D1EE26218005C4566 /* NoteListPresenter.swift */,
+				A05E176E1EE26218005C4566 /* TagCollectionPresenter.swift */,
+				A05E176F1EE26218005C4566 /* TagListPresenter.swift */,
+				A05E17701EE26218005C4566 /* TagPickerPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		A05E17721EE26218005C4566 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				A05E17731EE26218005C4566 /* UIColor+.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		A05E17741EE26218005C4566 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A05E17301EE261DD005C4566 /* LaunchScreen.storyboard */,
+				A05E17771EE26218005C4566 /* Components */,
+				A05E177B1EE26218005C4566 /* views */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A05E17771EE26218005C4566 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				A05E17781EE26218005C4566 /* ProgressHUD.swift */,
+				A05E17791EE26218005C4566 /* TagCollectionViewCell.swift */,
+				A05E177A1EE26218005C4566 /* TagCollectionViewCell.xib */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		A05E177B1EE26218005C4566 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				A05E177C1EE26218005C4566 /* Account View */,
+				A05E17811EE26218005C4566 /* Article List View */,
+				A05E17871EE26218005C4566 /* Article View */,
+				A05E178A1EE26218005C4566 /* Note List View */,
+				A05E17911EE26218005C4566 /* Note View */,
+				A05E17941EE26218005C4566 /* Tag List View */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		A05E177C1EE26218005C4566 /* Account View */ = {
+			isa = PBXGroup;
+			children = (
+				A05E177D1EE26218005C4566 /* Account.xib */,
+				A05E177E1EE26218005C4566 /* AccountView.swift */,
+				A05E177F1EE26218005C4566 /* SignIn.xib */,
+				A05E17801EE26218005C4566 /* SignInView.swift */,
+			);
+			path = "Account View";
+			sourceTree = "<group>";
+		};
+		A05E17811EE26218005C4566 /* Article List View */ = {
+			isa = PBXGroup;
+			children = (
+				A05E17821EE26218005C4566 /* ArticleList.xib */,
+				A05E17831EE26218005C4566 /* ArticleListCustomCell.swift */,
+				A05E17841EE26218005C4566 /* ArticleListCustomCell.xib */,
+				A05E17851EE26218005C4566 /* ArticleListTableView.swift */,
+				A05E17861EE26218005C4566 /* ArticleListView.swift */,
+			);
+			path = "Article List View";
+			sourceTree = "<group>";
+		};
+		A05E17871EE26218005C4566 /* Article View */ = {
+			isa = PBXGroup;
+			children = (
+				A05E17881EE26218005C4566 /* Article.xib */,
+				A05E17891EE26218005C4566 /* ArticleView.swift */,
+			);
+			path = "Article View";
+			sourceTree = "<group>";
+		};
+		A05E178A1EE26218005C4566 /* Note List View */ = {
+			isa = PBXGroup;
+			children = (
+				A05E178B1EE26218005C4566 /* NoteList.xib */,
+				A05E178C1EE26218005C4566 /* NoteListCustomCell.swift */,
+				A05E178D1EE26218005C4566 /* NoteListCustomCell.xib */,
+				A05E178E1EE26218005C4566 /* NoteListView.swift */,
+				A05E178F1EE26218005C4566 /* TagMenu.xib */,
+				A05E17901EE26218005C4566 /* TagMenuView.swift */,
+			);
+			path = "Note List View";
+			sourceTree = "<group>";
+		};
+		A05E17911EE26218005C4566 /* Note View */ = {
+			isa = PBXGroup;
+			children = (
+				A05E17921EE26218005C4566 /* Note.xib */,
+				A05E17931EE26218005C4566 /* NoteView.swift */,
+			);
+			path = "Note View";
+			sourceTree = "<group>";
+		};
+		A05E17941EE26218005C4566 /* Tag List View */ = {
+			isa = PBXGroup;
+			children = (
+				A05E17951EE26218005C4566 /* TagList.xib */,
+				A05E17961EE26218005C4566 /* TagListCustomCell.swift */,
+				A05E17971EE26218005C4566 /* TagListCustomCell.xib */,
+				A05E17981EE26218005C4566 /* TagListView.swift */,
+			);
+			path = "Tag List View";
+			sourceTree = "<group>";
+		};
+		A05E17CC1EE2622D005C4566 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				A05E172E1EE261DD005C4566 /* Assets.xcassets */,
+				A05E17331EE261DD005C4566 /* Info.plist */,
+			);
+			name = resources;
+			sourceTree = "<group>";
+		};
+		FB80585D9F87D53A3E70A53C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CF1A0B2F829D1BB6115EB532 /* Pods-LinkedNote.debug.xcconfig */,
+				38A9834388FD3C9159855939 /* Pods-LinkedNote.release.xcconfig */,
+				F8A1C9F0556CD68F77B82363 /* Pods-LinkedNoteTests.debug.xcconfig */,
+				01314C2A546B2F55B04D3A70 /* Pods-LinkedNoteTests.release.xcconfig */,
+				D57B489A138FB881C0D63DE4 /* Pods-LinkedNoteUITests.debug.xcconfig */,
+				A625C72BD3134EC14E545E07 /* Pods-LinkedNoteUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A05E17231EE261DD005C4566 /* LinkedNote */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A05E174C1EE261DD005C4566 /* Build configuration list for PBXNativeTarget "LinkedNote" */;
+			buildPhases = (
+				8B31339B3D819D88782BC4CE /* [CP] Check Pods Manifest.lock */,
+				A05E17201EE261DD005C4566 /* Sources */,
+				A05E17211EE261DD005C4566 /* Frameworks */,
+				A05E17221EE261DD005C4566 /* Resources */,
+				D9FB09B9ECD080EAC68948E4 /* [CP] Embed Pods Frameworks */,
+				4C5C9D379594CC8116249480 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LinkedNote;
+			productName = LinkedNote;
+			productReference = A05E17241EE261DD005C4566 /* LinkedNote.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A05E17371EE261DD005C4566 /* LinkedNoteTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A05E174F1EE261DD005C4566 /* Build configuration list for PBXNativeTarget "LinkedNoteTests" */;
+			buildPhases = (
+				46782FCC4CD661C7D97A85ED /* [CP] Check Pods Manifest.lock */,
+				A05E17341EE261DD005C4566 /* Sources */,
+				A05E17351EE261DD005C4566 /* Frameworks */,
+				A05E17361EE261DD005C4566 /* Resources */,
+				E25544165CB49BFA4A372B68 /* [CP] Embed Pods Frameworks */,
+				0CE7C10E07328272767053A7 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A05E173A1EE261DD005C4566 /* PBXTargetDependency */,
+			);
+			name = LinkedNoteTests;
+			productName = LinkedNoteTests;
+			productReference = A05E17381EE261DD005C4566 /* LinkedNoteTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A05E17421EE261DD005C4566 /* LinkedNoteUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A05E17521EE261DD005C4566 /* Build configuration list for PBXNativeTarget "LinkedNoteUITests" */;
+			buildPhases = (
+				1E45C272FBC03563C71B34A6 /* [CP] Check Pods Manifest.lock */,
+				A05E173F1EE261DD005C4566 /* Sources */,
+				A05E17401EE261DD005C4566 /* Frameworks */,
+				A05E17411EE261DD005C4566 /* Resources */,
+				F197CA7571CC38EFAFD8EF62 /* [CP] Embed Pods Frameworks */,
+				6311D2C5925889ABF775F82F /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A05E17451EE261DD005C4566 /* PBXTargetDependency */,
+			);
+			name = LinkedNoteUITests;
+			productName = LinkedNoteUITests;
+			productReference = A05E17431EE261DD005C4566 /* LinkedNoteUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A05E171C1EE261DD005C4566 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "tasuku tozawa";
+				TargetAttributes = {
+					A05E17231EE261DD005C4566 = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+					};
+					A05E17371EE261DD005C4566 = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = A05E17231EE261DD005C4566;
+					};
+					A05E17421EE261DD005C4566 = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = A05E17231EE261DD005C4566;
+					};
+				};
+			};
+			buildConfigurationList = A05E171F1EE261DD005C4566 /* Build configuration list for PBXProject "LinkedNote" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A05E171B1EE261DD005C4566;
+			productRefGroup = A05E17251EE261DD005C4566 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A05E17231EE261DD005C4566 /* LinkedNote */,
+				A05E17371EE261DD005C4566 /* LinkedNoteTests */,
+				A05E17421EE261DD005C4566 /* LinkedNoteUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A05E17221EE261DD005C4566 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A05E17C21EE26218005C4566 /* NoteListCustomCell.xib in Resources */,
+				A05E17C01EE26218005C4566 /* NoteList.xib in Resources */,
+				A05E17C81EE26218005C4566 /* TagList.xib in Resources */,
+				A05E17BE1EE26218005C4566 /* Article.xib in Resources */,
+				A05E17B91EE26218005C4566 /* ArticleList.xib in Resources */,
+				A05E17321EE261DD005C4566 /* LaunchScreen.storyboard in Resources */,
+				A05E17B51EE26218005C4566 /* Account.xib in Resources */,
+				A05E17C41EE26218005C4566 /* TagMenu.xib in Resources */,
+				A05E17CA1EE26218005C4566 /* TagListCustomCell.xib in Resources */,
+				A05E17B71EE26218005C4566 /* SignIn.xib in Resources */,
+				A05E17BB1EE26218005C4566 /* ArticleListCustomCell.xib in Resources */,
+				A05E17B41EE26218005C4566 /* TagCollectionViewCell.xib in Resources */,
+				A05E172F1EE261DD005C4566 /* Assets.xcassets in Resources */,
+				A05E17C61EE26218005C4566 /* Note.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A05E17361EE261DD005C4566 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A05E17411EE261DD005C4566 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0CE7C10E07328272767053A7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinkedNoteTests/Pods-LinkedNoteTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1E45C272FBC03563C71B34A6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		46782FCC4CD661C7D97A85ED /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		4C5C9D379594CC8116249480 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinkedNote/Pods-LinkedNote-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6311D2C5925889ABF775F82F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinkedNoteUITests/Pods-LinkedNoteUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8B31339B3D819D88782BC4CE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D9FB09B9ECD080EAC68948E4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinkedNote/Pods-LinkedNote-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E25544165CB49BFA4A372B68 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinkedNoteTests/Pods-LinkedNoteTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F197CA7571CC38EFAFD8EF62 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinkedNoteUITests/Pods-LinkedNoteUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A05E17201EE261DD005C4566 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A05E179E1EE26218005C4566 /* NoteListViewController.swift in Sources */,
+				A05E17BD1EE26218005C4566 /* ArticleListView.swift in Sources */,
+				A05E17C31EE26218005C4566 /* NoteListView.swift in Sources */,
+				A05E179A1EE26218005C4566 /* AccontViewController.swift in Sources */,
+				A05E17BA1EE26218005C4566 /* ArticleListCustomCell.swift in Sources */,
+				A05E17A61EE26218005C4566 /* ApiAccount.swift in Sources */,
+				A05E17BF1EE26218005C4566 /* ArticleView.swift in Sources */,
+				A05E179C1EE26218005C4566 /* ArticleViewController.swift in Sources */,
+				A05E17AF1EE26218005C4566 /* UIImageView+downloadedFrom.swift in Sources */,
+				A05E17A51EE26218005C4566 /* Api.swift in Sources */,
+				A05E17B61EE26218005C4566 /* AccountView.swift in Sources */,
+				A05E17AB1EE26218005C4566 /* NoteListPresenter.swift in Sources */,
+				A05E17C71EE26218005C4566 /* NoteView.swift in Sources */,
+				A05E17A81EE26218005C4566 /* Note.swift in Sources */,
+				A05E17AD1EE26218005C4566 /* TagListPresenter.swift in Sources */,
+				A05E17CB1EE26218005C4566 /* TagListView.swift in Sources */,
+				A05E17A31EE26218005C4566 /* APIWrapper.swift in Sources */,
+				A05E17991EE26218005C4566 /* AppDelegate.swift in Sources */,
+				A05E17C91EE26218005C4566 /* TagListCustomCell.swift in Sources */,
+				A05E17B21EE26218005C4566 /* ProgressHUD.swift in Sources */,
+				A05E17AC1EE26218005C4566 /* TagCollectionPresenter.swift in Sources */,
+				A05E179F1EE26218005C4566 /* NoteViewController.swift in Sources */,
+				A05E179D1EE26218005C4566 /* MainTabBarController.swift in Sources */,
+				A05E17A11EE26218005C4566 /* TagListViewController.swift in Sources */,
+				A05E17C11EE26218005C4566 /* NoteListCustomCell.swift in Sources */,
+				A05E17A91EE26218005C4566 /* Tag.swift in Sources */,
+				A05E17B31EE26218005C4566 /* TagCollectionViewCell.swift in Sources */,
+				A05E179B1EE26218005C4566 /* ArticleListViewController.swift in Sources */,
+				A05E17AA1EE26218005C4566 /* ArticleListPresenter.swift in Sources */,
+				A05E17A41EE26218005C4566 /* PocketAPIWrapper.swift in Sources */,
+				A05E17BC1EE26218005C4566 /* ArticleListTableView.swift in Sources */,
+				A05E17B81EE26218005C4566 /* SignInView.swift in Sources */,
+				A05E17A71EE26218005C4566 /* Article.swift in Sources */,
+				A05E17AE1EE26218005C4566 /* TagPickerPresenter.swift in Sources */,
+				A05E17C51EE26218005C4566 /* TagMenuView.swift in Sources */,
+				A05E17B01EE26218005C4566 /* UIColor+.swift in Sources */,
+				A05E17A01EE26218005C4566 /* TagEditableViewController.swift in Sources */,
+				A05E17A21EE26218005C4566 /* AlertCreater.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A05E17341EE261DD005C4566 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A05E173D1EE261DD005C4566 /* LinkedNoteTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A05E173F1EE261DD005C4566 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A05E17481EE261DD005C4566 /* LinkedNoteUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A05E173A1EE261DD005C4566 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A05E17231EE261DD005C4566 /* LinkedNote */;
+			targetProxy = A05E17391EE261DD005C4566 /* PBXContainerItemProxy */;
+		};
+		A05E17451EE261DD005C4566 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A05E17231EE261DD005C4566 /* LinkedNote */;
+			targetProxy = A05E17441EE261DD005C4566 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A05E17301EE261DD005C4566 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A05E17311EE261DD005C4566 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A05E174A1EE261DD005C4566 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A05E174B1EE261DD005C4566 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A05E174D1EE261DD005C4566 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CF1A0B2F829D1BB6115EB532 /* Pods-LinkedNote.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LinkedNote/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.LinkedNote;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		A05E174E1EE261DD005C4566 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 38A9834388FD3C9159855939 /* Pods-LinkedNote.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LinkedNote/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.LinkedNote;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		A05E17501EE261DD005C4566 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F8A1C9F0556CD68F77B82363 /* Pods-LinkedNoteTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LinkedNoteTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.LinkedNoteTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LinkedNote.app/LinkedNote";
+			};
+			name = Debug;
+		};
+		A05E17511EE261DD005C4566 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01314C2A546B2F55B04D3A70 /* Pods-LinkedNoteTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LinkedNoteTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.LinkedNoteTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LinkedNote.app/LinkedNote";
+			};
+			name = Release;
+		};
+		A05E17531EE261DD005C4566 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D57B489A138FB881C0D63DE4 /* Pods-LinkedNoteUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = LinkedNoteUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.LinkedNoteUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = LinkedNote;
+			};
+			name = Debug;
+		};
+		A05E17541EE261DD005C4566 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A625C72BD3134EC14E545E07 /* Pods-LinkedNoteUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = LinkedNoteUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.LinkedNoteUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = LinkedNote;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A05E171F1EE261DD005C4566 /* Build configuration list for PBXProject "LinkedNote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A05E174A1EE261DD005C4566 /* Debug */,
+				A05E174B1EE261DD005C4566 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A05E174C1EE261DD005C4566 /* Build configuration list for PBXNativeTarget "LinkedNote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A05E174D1EE261DD005C4566 /* Debug */,
+				A05E174E1EE261DD005C4566 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		A05E174F1EE261DD005C4566 /* Build configuration list for PBXNativeTarget "LinkedNoteTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A05E17501EE261DD005C4566 /* Debug */,
+				A05E17511EE261DD005C4566 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		A05E17521EE261DD005C4566 /* Build configuration list for PBXNativeTarget "LinkedNoteUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A05E17531EE261DD005C4566 /* Debug */,
+				A05E17541EE261DD005C4566 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A05E171C1EE261DD005C4566 /* Project object */;
+}

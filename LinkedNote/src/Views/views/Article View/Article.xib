@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ArticleView" customModule="pocket_client" customModuleProvider="target">
+            <connections>
+                <outlet property="noteView" destination="W6B-Ms-bCL" id="NRj-L4-b2p"/>
+                <outlet property="splitBar" destination="Lh2-X2-ldR" id="1uq-eX-wfF"/>
+                <outlet property="splitBarBottomConstraint" destination="QEn-LR-MC0" id="AGk-yp-yLM"/>
+                <outlet property="view_" destination="QAq-Qo-oY2" id="0fa-AA-EnT"/>
+                <outlet property="webView" destination="9Zj-3f-xnR" id="Vva-sC-xdq"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="QAq-Qo-oY2">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Zj-3f-xnR">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="418"/>
+                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </webView>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="W6B-Ms-bCL">
+                    <rect key="frame" x="0.0" y="432" width="375" height="235"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lh2-X2-ldR">
+                    <rect key="frame" x="-0.5" y="418" width="375" height="14"/>
+                    <color key="backgroundColor" red="0.50123461787564771" green="0.50123461787564771" blue="0.50123461787564771" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="7bF-lr-Oxk"/>
+                    </constraints>
+                    <connections>
+                        <action selector="touchDragInsideSplitBar:event:" destination="-1" eventType="touchDragInside" id="57P-Cq-Gte"/>
+                        <action selector="touchDragOutsideSplitBar:event:" destination="-1" eventType="touchDragOutside" id="94K-DY-D2D"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="9Zj-3f-xnR" firstAttribute="centerX" secondItem="QAq-Qo-oY2" secondAttribute="centerX" id="3jR-e8-0wW"/>
+                <constraint firstItem="W6B-Ms-bCL" firstAttribute="top" secondItem="Lh2-X2-ldR" secondAttribute="bottom" id="4Nd-Md-wxe"/>
+                <constraint firstAttribute="bottom" secondItem="Lh2-X2-ldR" secondAttribute="bottom" constant="235" id="QEn-LR-MC0"/>
+                <constraint firstItem="Lh2-X2-ldR" firstAttribute="width" secondItem="QAq-Qo-oY2" secondAttribute="width" id="R73-mS-fho"/>
+                <constraint firstItem="9Zj-3f-xnR" firstAttribute="top" secondItem="QAq-Qo-oY2" secondAttribute="top" id="etf-i2-QD8"/>
+                <constraint firstAttribute="bottom" secondItem="W6B-Ms-bCL" secondAttribute="bottom" id="gr9-c9-1GO"/>
+                <constraint firstItem="9Zj-3f-xnR" firstAttribute="width" secondItem="QAq-Qo-oY2" secondAttribute="width" id="haX-xE-ObI"/>
+                <constraint firstItem="Lh2-X2-ldR" firstAttribute="top" secondItem="9Zj-3f-xnR" secondAttribute="bottom" id="kR5-Dn-nzQ"/>
+                <constraint firstItem="Lh2-X2-ldR" firstAttribute="centerX" secondItem="QAq-Qo-oY2" secondAttribute="centerX" id="mWK-PI-kjb"/>
+                <constraint firstItem="W6B-Ms-bCL" firstAttribute="centerX" secondItem="QAq-Qo-oY2" secondAttribute="centerX" id="tK6-Dn-1oN"/>
+                <constraint firstItem="W6B-Ms-bCL" firstAttribute="width" secondItem="QAq-Qo-oY2" secondAttribute="width" id="uRB-AT-qZ2"/>
+            </constraints>
+            <point key="canvasLocation" x="-65.5" y="12.5"/>
+        </view>
+    </objects>
+</document>
