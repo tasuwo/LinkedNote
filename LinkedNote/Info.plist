@@ -46,7 +46,7 @@
 			<string>com.readitlater</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>pocketapp67410</string>
+				<string>pocketapp</string>
 			</array>
 		</dict>
 	</array>

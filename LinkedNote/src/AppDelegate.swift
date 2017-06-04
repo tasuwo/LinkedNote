@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Set comsumer key for pocket api
-        PocketAPI.shared().consumerKey = "67410-a76766b6e082507f464f109b"
+        PocketAPI.shared().consumerKey = ""
         
         // window 生成
         window = UIWindow(frame: UIScreen.main.bounds)
