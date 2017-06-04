@@ -81,4 +81,28 @@ class PocketAPIWrapper: NSObject, APIWrapper {
             completion(result)
         }
     }
+    
+    func archive(id: String, completion: @escaping ((Bool) -> Void)) {
+        if PocketAPI.shared().isLoggedIn {
+            let time = Int(NSDate().timeIntervalSince1970)
+            let httpMethod = PocketAPIHTTPMethodPOST
+            let arguments: NSDictionary = [ "actions": [ [ "action": "archive", "item_id": "\(id)", "time": "\(time.description)" ] ] ]
+            
+            PocketAPI.shared().callMethod("send", with: httpMethod, arguments: arguments as! [AnyHashable : Any], handler: {
+                (api, apiMethod, response, error) in
+                Swift.print(error?.localizedDescription ?? "")
+                let responseJson: JSON
+                if let r = response {
+                    responseJson = JSON(r)
+                } else {
+                    completion(false)
+                    return
+                }
+                
+                Swift.print(responseJson["action_results"].array![0])
+                Swift.print(responseJson["status"])
+                completion(true)
+            })
+        }
+    }
 }

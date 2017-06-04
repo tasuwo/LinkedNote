@@ -101,6 +101,17 @@ extension ArticleListViewController: UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        return [
+            UITableViewRowAction(style: .default, title: "Archive", handler: { (action, indexPath) in
+                let cell = self.view_!.myList!.cellForRow(at: indexPath) as! ArticleListCustomCell
+
+                self.articleListPresenter.archiveRow(at: indexPath, id: cell.info!.id)
+                self.view_!.myList!.deleteRows(at: [indexPath], with: .automatic)
+            })
+        ]
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset
         let bounds = scrollView.bounds

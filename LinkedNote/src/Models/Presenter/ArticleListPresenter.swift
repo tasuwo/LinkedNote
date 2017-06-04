@@ -49,6 +49,11 @@ class ArticleListPresenter: NSObject {
         })
     }
     
+    func archiveRow(at indexPath: IndexPath, id: String) {
+        self.api.archive(id: id, completion: { (isSucceeded) in })
+        self.posts.remove(at: indexPath.row)
+    }
+    
     func startThumbnailDownload(articleInfo info: ArticleInfo, forIndexPath indexPath: IndexPath, tableView: UITableView) {
         if nil == self.thumbnailDownloadersInProgress[indexPath] {
             let downloader = ThumbnailDownloader()
@@ -129,5 +134,7 @@ extension ArticleListPresenter: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.posts.count
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {}
 }
 
