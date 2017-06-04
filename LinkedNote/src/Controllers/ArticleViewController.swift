@@ -14,6 +14,10 @@ class ArticleViewController: UIViewController {
     var view_: ArticleView!
     var singleTapRecognizer: UITapGestureRecognizer?
     var defaultFrameSize: CGRect?
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
