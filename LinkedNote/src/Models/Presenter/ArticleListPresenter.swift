@@ -14,17 +14,20 @@ protocol ArticleListPresenterObserver {
     func loaded()
 }
 
-struct ArticleInfo {
+class ArticleInfo: NSObject {
     var id: String = ""
     var title: String = "No Title"
     var excerpt: String = ""
     var url: String = ""
     var thumbnailUrl: String = ""
     var thumbnail: UIImage?
+    
+    override init() {}
 }
 
 class ArticleListPresenter: NSObject {
     var posts: Array<ArticleInfo> = []
+    var thumbnailDownloadersInProgress: Dictionary<IndexPath, ThumbnailDownloader> = [:]
     var recognizer: ArticleListViewController?
     var observer: ArticleListPresenterObserver?
     var api: APIWrapper!
@@ -45,6 +48,36 @@ class ArticleListPresenter: NSObject {
             self.observer?.loaded()
         })
     }
+    
+    func startThumbnailDownload(articleInfo info: ArticleInfo, forIndexPath indexPath: IndexPath, tableView: UITableView) {
+        if nil == self.thumbnailDownloadersInProgress[indexPath] {
+            let downloader = ThumbnailDownloader()
+            downloader.articleInfo = info
+            downloader.completionHandler = { () in
+                let cell = tableView.cellForRow(at: indexPath)
+
+                cell?.imageView?.image = info.thumbnail
+                cell?.setNeedsLayout()
+
+                self.thumbnailDownloadersInProgress.removeValue(forKey: indexPath)
+            }
+            self.thumbnailDownloadersInProgress[indexPath] = downloader
+            downloader.startDownload()
+        }
+    }
+    
+    func loadImagesForOnscreenRows(tableView: UITableView) {
+        if self.posts.count > 0 {
+            if let visiblePaths = tableView.indexPathsForVisibleRows {
+                for indexPath in visiblePaths {
+                    let info = self.posts[indexPath.row]
+                    if info.thumbnail == nil {
+                        self.startThumbnailDownload(articleInfo: info, forIndexPath: indexPath, tableView: tableView)
+                    }
+                }
+            }
+        }
+    }
 }
 
 extension ArticleListPresenter: UITableViewDataSource {
@@ -55,22 +88,16 @@ extension ArticleListPresenter: UITableViewDataSource {
         let info = self.posts[indexPath.row]
         newCell.label?.text = info.title
         newCell.expr?.text = info.excerpt
-        
-        // 画像の取得
         newCell.info = info
-        if info.thumbnail == nil {
-            newCell.thumbnail.image = nil
-            if let url = NSURL(string: info.thumbnailUrl) as URL? {
-                let downloader = AsyncImageDownloader()
-                downloader.loadImage(url: url, completion: { (image) in
-                    self.posts[indexPath.row].thumbnail = image
-                    newCell.thumbnail.image = image
-                })
-            }
+        
+        if let thumbanail = info.thumbnail {
+            newCell.imageView!.image = thumbanail
         } else {
-            newCell.thumbnail.image = info.thumbnail
+            if tableView.isDragging == false && tableView.isDecelerating == false {
+                self.startThumbnailDownload(articleInfo: info, forIndexPath: indexPath, tableView: tableView)
+            }
+            newCell.imageView!.image = UIImage(named: "")
         }
-
         let v = tableView as! ArticleListTableView
         newCell.delegate = v
         
@@ -101,29 +128,6 @@ extension ArticleListPresenter: UITableViewDataSource {
     // Tells the data source to return the number of rows in a given section of a table view.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.posts.count
-    }
-}
-
-class AsyncImageDownloader: NSObject {
-    let CACHE_SEC : TimeInterval = 5 * 60; //5分キャッシュ
-    
-    //画像を非同期で読み込む
-    func loadImage(url: URL, completion: @escaping (_ image: UIImage?) -> Void){
-        let req = URLRequest(url: url,
-                             cachePolicy: .returnCacheDataElseLoad,
-                             timeoutInterval: CACHE_SEC)
-        let conf =  URLSessionConfiguration.default
-        let session = URLSession(configuration: conf, delegate: nil, delegateQueue: OperationQueue.main)
-        
-        session.dataTask(with: req, completionHandler:
-            { (data, resp, err) in
-                if((err) == nil){ //Success
-                    let image = UIImage(data:data!)
-                    completion(image)
-                }else{ //Error
-                    print("AsyncImageView:Error \(String(describing: err?.localizedDescription))")
-                }
-        }).resume();
     }
 }
 

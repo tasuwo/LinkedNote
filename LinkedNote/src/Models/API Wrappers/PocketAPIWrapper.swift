@@ -58,7 +58,7 @@ class PocketAPIWrapper: NSObject, APIWrapper {
                 }
                 
                 for (id, json) in posts {
-                    var info = ArticleInfo()
+                    let info = ArticleInfo()
                     info.id = id
                     for (key, value) in json {
                         switch key {

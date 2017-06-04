@@ -35,7 +35,6 @@
 		A05E17AC1EE26218005C4566 /* TagCollectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E176E1EE26218005C4566 /* TagCollectionPresenter.swift */; };
 		A05E17AD1EE26218005C4566 /* TagListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E176F1EE26218005C4566 /* TagListPresenter.swift */; };
 		A05E17AE1EE26218005C4566 /* TagPickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17701EE26218005C4566 /* TagPickerPresenter.swift */; };
-		A05E17AF1EE26218005C4566 /* UIImageView+downloadedFrom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17711EE26218005C4566 /* UIImageView+downloadedFrom.swift */; };
 		A05E17B01EE26218005C4566 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17731EE26218005C4566 /* UIColor+.swift */; };
 		A05E17B21EE26218005C4566 /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17781EE26218005C4566 /* ProgressHUD.swift */; };
 		A05E17B31EE26218005C4566 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17791EE26218005C4566 /* TagCollectionViewCell.swift */; };
@@ -63,6 +62,7 @@
 		A05E17C91EE26218005C4566 /* TagListCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17961EE26218005C4566 /* TagListCustomCell.swift */; };
 		A05E17CA1EE26218005C4566 /* TagListCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E17971EE26218005C4566 /* TagListCustomCell.xib */; };
 		A05E17CB1EE26218005C4566 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17981EE26218005C4566 /* TagListView.swift */; };
+		A0DE75551EE3FCB900EFAA3F /* ThumbnailDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE75541EE3FCB900EFAA3F /* ThumbnailDownloader.swift */; };
 		EE62733917C6FB9171176B13 /* Pods_LinkedNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50EA9EFCC3AF4212863C844D /* Pods_LinkedNote.framework */; };
 /* End PBXBuildFile section */
 
@@ -120,7 +120,6 @@
 		A05E176E1EE26218005C4566 /* TagCollectionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCollectionPresenter.swift; sourceTree = "<group>"; };
 		A05E176F1EE26218005C4566 /* TagListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListPresenter.swift; sourceTree = "<group>"; };
 		A05E17701EE26218005C4566 /* TagPickerPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagPickerPresenter.swift; sourceTree = "<group>"; };
-		A05E17711EE26218005C4566 /* UIImageView+downloadedFrom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+downloadedFrom.swift"; sourceTree = "<group>"; };
 		A05E17731EE26218005C4566 /* UIColor+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		A05E17781EE26218005C4566 /* ProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
 		A05E17791EE26218005C4566 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -148,6 +147,7 @@
 		A05E17961EE26218005C4566 /* TagListCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListCustomCell.swift; sourceTree = "<group>"; };
 		A05E17971EE26218005C4566 /* TagListCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagListCustomCell.xib; sourceTree = "<group>"; };
 		A05E17981EE26218005C4566 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
+		A0DE75541EE3FCB900EFAA3F /* ThumbnailDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailDownloader.swift; sourceTree = "<group>"; };
 		A625C72BD3134EC14E545E07 /* Pods-LinkedNoteUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNoteUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNoteUITests/Pods-LinkedNoteUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C923E310951FC7F9255FFD39 /* Pods_LinkedNoteTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkedNoteTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF1A0B2F829D1BB6115EB532 /* Pods-LinkedNote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNote.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNote/Pods-LinkedNote.debug.xcconfig"; sourceTree = "<group>"; };
@@ -276,7 +276,7 @@
 				A05E17621EE26218005C4566 /* API Wrappers */,
 				A05E17651EE26218005C4566 /* Data Models */,
 				A05E176B1EE26218005C4566 /* Presenter */,
-				A05E17711EE26218005C4566 /* UIImageView+downloadedFrom.swift */,
+				A0DE75541EE3FCB900EFAA3F /* ThumbnailDownloader.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -519,6 +519,7 @@
 				TargetAttributes = {
 					A05E17231EE261DD005C4566 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = RY2377PP7S;
 						ProvisioningStyle = Automatic;
 					};
 					A05E17371EE261DD005C4566 = {
@@ -742,12 +743,12 @@
 				A05E17A61EE26218005C4566 /* ApiAccount.swift in Sources */,
 				A05E17BF1EE26218005C4566 /* ArticleView.swift in Sources */,
 				A05E179C1EE26218005C4566 /* ArticleViewController.swift in Sources */,
-				A05E17AF1EE26218005C4566 /* UIImageView+downloadedFrom.swift in Sources */,
 				A05E17A51EE26218005C4566 /* Api.swift in Sources */,
 				A05E17B61EE26218005C4566 /* AccountView.swift in Sources */,
 				A05E17AB1EE26218005C4566 /* NoteListPresenter.swift in Sources */,
 				A05E17C71EE26218005C4566 /* NoteView.swift in Sources */,
 				A05E17A81EE26218005C4566 /* Note.swift in Sources */,
+				A0DE75551EE3FCB900EFAA3F /* ThumbnailDownloader.swift in Sources */,
 				A05E17AD1EE26218005C4566 /* TagListPresenter.swift in Sources */,
 				A05E17CB1EE26218005C4566 /* TagListView.swift in Sources */,
 				A05E17A31EE26218005C4566 /* APIWrapper.swift in Sources */,
@@ -919,6 +920,7 @@
 			baseConfigurationReference = CF1A0B2F829D1BB6115EB532 /* Pods-LinkedNote.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = RY2377PP7S;
 				INFOPLIST_FILE = LinkedNote/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.LinkedNote;
@@ -932,6 +934,7 @@
 			baseConfigurationReference = 38A9834388FD3C9159855939 /* Pods-LinkedNote.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = RY2377PP7S;
 				INFOPLIST_FILE = LinkedNote/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.LinkedNote;
@@ -1017,6 +1020,7 @@
 				A05E174E1EE261DD005C4566 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A05E174F1EE261DD005C4566 /* Build configuration list for PBXNativeTarget "LinkedNoteTests" */ = {
 			isa = XCConfigurationList;
@@ -1025,6 +1029,7 @@
 				A05E17511EE261DD005C4566 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A05E17521EE261DD005C4566 /* Build configuration list for PBXNativeTarget "LinkedNoteUITests" */ = {
 			isa = XCConfigurationList;
@@ -1033,6 +1038,7 @@
 				A05E17541EE261DD005C4566 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

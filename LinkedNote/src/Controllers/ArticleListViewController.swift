@@ -143,3 +143,15 @@ extension ArticleListViewController: UIGestureRecognizerDelegate, RecognizableLo
     }
 }
 
+extension ArticleListViewController {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            self.articleListPresenter.loadImagesForOnscreenRows(tableView: self.view_!.myList!)
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.articleListPresenter.loadImagesForOnscreenRows(tableView: self.view_!.myList!)
+    }
+}
+
