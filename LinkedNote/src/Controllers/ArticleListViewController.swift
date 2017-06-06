@@ -7,22 +7,18 @@
 //
 
 import UIKit
-import PocketAPI
 
 class ArticleListViewController: TagEditableViewController {
     var articleListPresenter: ArticleListPresenter!
-    // API informations
-    // Api のシグネチャ/usernameはとりあえず直書き
-    var apiSignature = "pocket"
-    var username = ""
     var view_: ArticleListView?
+    var api: APIWrapper?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Pocket API をきめうち
-        let api = PocketAPIWrapper()
-        articleListPresenter = ArticleListPresenter(api: api, loadUnitNum: 5)
+        self.api = PocketAPIWrapper()
+        articleListPresenter = ArticleListPresenter(api: api!, loadUnitNum: 5)
         articleListPresenter.recognizer = self
         let offset = self.navigationController!.tabBarController!.tabBar.frame.height
             + self.navigationController!.navigationBar.frame.height
@@ -64,7 +60,9 @@ extension ArticleListViewController: UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath)! as! ArticleListCustomCell
         
         if let article = cell.article {
-            let account = ApiAccount.get(apiSignature: self.apiSignature, username: self.username)!
+            let signature = type(of: self.api!).signature
+            let username = type(of: self.api!).getUsername()!
+            let account = ApiAccount.get(apiSignature: signature, username: username)!
             
             if cell.article?.note == nil {
                 if cell.article?.id == -1 {

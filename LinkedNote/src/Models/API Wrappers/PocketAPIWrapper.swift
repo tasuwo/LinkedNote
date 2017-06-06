@@ -26,8 +26,30 @@ class PocketAPIWrapper: NSObject, APIWrapper {
     var retrieveUnitNum = 1
     var currentOffset = 0
     var isRetrieving = false
-    let signature = "pocket"
+    static let signature = "pocket"
     private var username: String?
+    
+    static func getUsername() -> String? {
+        if PocketAPI.shared().isLoggedIn {
+            return PocketAPI.shared().username
+        } else {
+            return nil
+        }
+    }
+    
+    static func isLoggedIn() -> Bool {
+        return PocketAPI.shared().isLoggedIn
+    }
+    
+    static func logout() {
+        PocketAPI.shared().logout()
+    }
+
+    static func login(completion: @escaping (Error?) -> Void) {
+        PocketAPI.shared().login(handler: {(api, error) in
+            completion(error)
+        })
+    }
     
     func setUnitNum(_ num: Int) {
         self.retrieveUnitNum = num
@@ -56,7 +78,7 @@ class PocketAPIWrapper: NSObject, APIWrapper {
         }
         
         if let username = PocketAPI.shared().username,
-           let account = ApiAccount.get(apiSignature: self.signature, username: username) {
+           let account = ApiAccount.get(apiSignature: PocketAPIWrapper.signature, username: username) {
             
             let httpMethod = PocketAPIHTTPMethodGET
             let arguments: NSDictionary = ["detailType":"complete", "count":count.description, "offset":offset.description]

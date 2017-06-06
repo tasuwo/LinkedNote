@@ -449,8 +449,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A05E174C1EE261DD005C4566 /* Build configuration list for PBXNativeTarget "LinkedNote" */;
 			buildPhases = (
-				A01F6E631EE4DA9F009B659F /* ShellScript */,
 				8B31339B3D819D88782BC4CE /* [CP] Check Pods Manifest.lock */,
+				A01F6E631EE4DA9F009B659F /* ShellScript */,
 				A05E17201EE261DD005C4566 /* Sources */,
 				A05E17211EE261DD005C4566 /* Frameworks */,
 				A05E17221EE261DD005C4566 /* Resources */,

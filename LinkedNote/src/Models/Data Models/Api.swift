@@ -38,6 +38,11 @@ extension Api {
         return realm.objects(Api.self)
     }
     
+    static func get(signature: String) -> Api? {
+        let realm = try! Realm()
+        return realm.objects(Api.self).filter("signature == '\(signature)'").first
+    }
+    
     static func add(_ api: Api) {
         let realm = try! Realm()
         try! realm.write {

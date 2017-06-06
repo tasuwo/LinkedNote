@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import PocketAPI
 import RealmSwift
 import Keys
+import PocketAPI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -33,11 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if Api.all().count == 0 {
             let pocketApi = Api(signature: "pocket")
             Api.add(pocketApi)
-            // api, account の登録処理は後回しにして、とりあえずは以下に username を直書きする方針をとる
-            // ログインする Pocket の username を以下に直書きする
-            let pocketAccount = ApiAccount(username: "")
-            ApiAccount.add(pocketAccount)
-            ApiAccount.add(pocketAccount, to: pocketApi)
             let tag1 = Tag(name: "test tag 1")
             Tag.add(tag1)
             let tag2 = Tag(name: "test tag 2")
