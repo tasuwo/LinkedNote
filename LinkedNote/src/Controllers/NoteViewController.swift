@@ -87,6 +87,18 @@ extension NoteViewController: NoteViewDelegate {
     func didPressEditButton() {
         self.initializeTagEditView(note: self.note!)
     }
+    
+    func didPressViewArticleButton() {
+        
+        if let article = self.note?.article {
+            let articleVC = ArticleViewController()
+            articleVC.article = article
+            self.navigationController?.pushViewController(articleVC, animated: true)
+        } else {
+            AlertCreater.error("ノートに対応する記事の取得に失敗しました", viewController: self)
+        }
+        
+    }
 }
 
 extension NoteViewController: DetectableTagMenuViewEvent {

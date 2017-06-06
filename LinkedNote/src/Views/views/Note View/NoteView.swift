@@ -10,7 +10,7 @@ import UIKit
 
 protocol NoteViewDelegate {
     func didPressEditButton()
-    //func didPressViewArticleButton()
+    func didPressViewArticleButton()
 }
 
 class NoteView: UIView {
@@ -22,9 +22,8 @@ class NoteView: UIView {
         self.delegate?.didPressEditButton()
     }
     @IBAction func didPressViewArticleButton(_ sender: Any) {
-        // self.delegate?.didPressViewArticleButton()
+        self.delegate?.didPressViewArticleButton()
     }
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
