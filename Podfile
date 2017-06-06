@@ -5,7 +5,7 @@ target 'LinkedNote' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  pod 'PocketAPI'
+  pod 'PocketAPI', :git => 'https://github.com/tasuwo/Pocket-ObjC-SDK'
   pod 'SwiftyJSON'
   pod 'RealmSwift'
   pod 'DynamicColor'
