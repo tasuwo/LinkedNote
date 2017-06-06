@@ -9,6 +9,7 @@
 import UIKit
 import PocketAPI
 import RealmSwift
+import Keys
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,7 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Set comsumer key for pocket api
-        PocketAPI.shared().consumerKey = ""
+        let keys = LinkedNoteKeys()
+        PocketAPI.shared().consumerKey = keys.pocketAPIConsumerKey
         
         // window 生成
         window = UIWindow(frame: UIScreen.main.bounds)

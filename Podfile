@@ -4,10 +4,19 @@ platform :ios, '10.3'
 target 'LinkedNote' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
+
   pod 'PocketAPI'
   pod 'SwiftyJSON'
   pod 'RealmSwift'
   pod 'DynamicColor'
+
+  plugin 'cocoapods-keys', {
+    :project => "LinkedNote",
+    :keys => [
+      "PocketAPIConsumerKey",
+      "PocketAppID"
+    ]
+  }
 
   # Pods for LinkedNote
 
@@ -20,5 +29,4 @@ target 'LinkedNote' do
     inherit! :search_paths
     # Pods for testing
   end
-
 end
