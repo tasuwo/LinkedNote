@@ -57,7 +57,11 @@ class TagEditableViewController: UIViewController {
     }
     
     func tagEditKeyboardWillBeShown(notification: NSNotification) {
-        if !(self.tagMenuView?.newTagNameField.isFirstResponder)! { return }
+        if let tagMenuView = self.tagMenuView,
+            let tagNameField = tagMenuView.newTagNameField {
+            if tagNameField.isFirstResponder == false { return }
+        } else { return }
+
         if self.isNewTagNameEditing { return }
         if let userInfo = notification.userInfo {
             if let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue, let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue {
@@ -72,7 +76,11 @@ class TagEditableViewController: UIViewController {
     }
     
     func tagEditKeyboardWillBeHidden(notification: NSNotification) {
-        if !(self.tagMenuView?.newTagNameField.isFirstResponder)! { return }
+        if let tagMenuView = self.tagMenuView,
+           let tagNameField = tagMenuView.newTagNameField {
+            if tagNameField.isFirstResponder == false { return }
+        } else { return }
+
         if let userInfo = notification.userInfo {
             if let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue {
                 UIView.animate(withDuration: animationDuration, animations: {
