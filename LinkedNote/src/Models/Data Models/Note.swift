@@ -47,9 +47,9 @@ extension Note {
         return realm.objects(Note.self).filter("id == \(id)").first
     }
     
-    static func get(signature: String, username: String, articleInfo info: ArticleInfo) -> Note? {
+    static func get(signature: String, username: String, article: Article) -> Note? {
         if let account = ApiAccount.get(apiSignature: signature, username: username) {
-            if let note = Note.get(accountId: account.id, articleLocalId: info.id) {
+            if let note = Note.get(accountId: account.id, articleLocalId: article.localId) {
                 return note
             }
         }

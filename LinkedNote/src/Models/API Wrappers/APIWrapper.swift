@@ -7,8 +7,9 @@
 //
 
 protocol APIWrapper {
+    var signature: String { get }
     func setUnitNum(_ num: Int)
     func initOffset()
-    func retrieve(_ completion: @escaping (([ArticleInfo]) -> Void))
+    func retrieve(_ completion: @escaping (([Article]) -> Void))
     func archive(id: String, completion: @escaping ((Bool) -> Void))
 }

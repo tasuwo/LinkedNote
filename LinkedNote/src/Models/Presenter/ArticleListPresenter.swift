@@ -14,19 +14,8 @@ protocol ArticleListPresenterObserver {
     func loaded()
 }
 
-class ArticleInfo: NSObject {
-    var id: String = ""
-    var title: String = "No Title"
-    var excerpt: String = ""
-    var url: String = ""
-    var thumbnailUrl: String = ""
-    var thumbnail: UIImage?
-    
-    override init() {}
-}
-
 class ArticleListPresenter: NSObject {
-    var posts: Array<ArticleInfo> = []
+    var articles: Array<Article> = []
     var thumbnailDownloadersInProgress: Dictionary<IndexPath, ThumbnailDownloader> = [:]
     var recognizer: ArticleListViewController?
     var observer: ArticleListPresenterObserver?
@@ -38,30 +27,30 @@ class ArticleListPresenter: NSObject {
     }
     
     func initOffset() {
-        self.posts = []
+        self.articles = []
         self.api.initOffset()
     }
     
     func retrieve() {
         self.api.retrieve({ (infoArray) in
-            self.posts += infoArray
+            self.articles += infoArray
             self.observer?.loaded()
         })
     }
     
     func archiveRow(at indexPath: IndexPath, id: String) {
         self.api.archive(id: id, completion: { (isSucceeded) in })
-        self.posts.remove(at: indexPath.row)
+        self.articles.remove(at: indexPath.row)
     }
     
-    func startThumbnailDownload(articleInfo info: ArticleInfo, forIndexPath indexPath: IndexPath, tableView: UITableView) {
+    func startThumbnailDownload(article: Article, forIndexPath indexPath: IndexPath, tableView: UITableView) {
         if nil == self.thumbnailDownloadersInProgress[indexPath] {
             let downloader = ThumbnailDownloader()
-            downloader.articleInfo = info
+            downloader.article = article
             downloader.completionHandler = { () in
                 let cell = tableView.cellForRow(at: indexPath)
 
-                cell?.imageView?.image = info.thumbnail
+                cell?.imageView?.image = article.thumbnail
                 cell?.setNeedsLayout()
 
                 self.thumbnailDownloadersInProgress.removeValue(forKey: indexPath)
@@ -72,12 +61,12 @@ class ArticleListPresenter: NSObject {
     }
     
     func loadImagesForOnscreenRows(tableView: UITableView) {
-        if self.posts.count > 0 {
+        if self.articles.count > 0 {
             if let visiblePaths = tableView.indexPathsForVisibleRows {
                 for indexPath in visiblePaths {
-                    let info = self.posts[indexPath.row]
-                    if info.thumbnail == nil {
-                        self.startThumbnailDownload(articleInfo: info, forIndexPath: indexPath, tableView: tableView)
+                    let article = self.articles[indexPath.row]
+                    if article.thumbnail == nil {
+                        self.startThumbnailDownload(article: article, forIndexPath: indexPath, tableView: tableView)
                     }
                 }
             }
@@ -90,16 +79,16 @@ extension ArticleListPresenter: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let newCell = tableView.dequeueReusableCell(withIdentifier: "ArticleListCustomCell", for: indexPath) as! ArticleListCustomCell
         
-        let info = self.posts[indexPath.row]
-        newCell.label?.text = info.title
-        newCell.expr?.text = info.excerpt
-        newCell.info = info
+        let article = self.articles[indexPath.row]
+        newCell.article = article
+        newCell.label?.text = article.title
+        newCell.expr?.text = article.excerpt
         
-        if let thumbanail = info.thumbnail {
+        if let thumbanail = article.thumbnail {
             newCell.imageView!.image = thumbanail
         } else {
             if tableView.isDragging == false && tableView.isDecelerating == false {
-                self.startThumbnailDownload(articleInfo: info, forIndexPath: indexPath, tableView: tableView)
+                self.startThumbnailDownload(article: article, forIndexPath: indexPath, tableView: tableView)
             }
             newCell.imageView!.image = UIImage(named: "")
         }
@@ -111,11 +100,8 @@ extension ArticleListPresenter: UITableViewDataSource {
         newCell.noteButton.setImage(UIImage(named: "note_disable"), for: .disabled)
         
         // Check existence of note
-        if let account = ApiAccount.get(apiSignature: "pocket", username: ""),
-           let article = Article.get(localId: info.id, accountId: account.id),
-           let note = Note.get(accountId: account.id, articleLocalId: article.localId) {
+        if let _ = article.note {
             newCell.noteButton.isEnabled = true
-            newCell.note = note
         } else {
             newCell.noteButton.isEnabled = false
         }
@@ -132,7 +118,7 @@ extension ArticleListPresenter: UITableViewDataSource {
     
     // Tells the data source to return the number of rows in a given section of a table view.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.posts.count
+        return self.articles.count
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {}

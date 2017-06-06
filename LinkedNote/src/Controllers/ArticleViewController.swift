@@ -9,8 +9,7 @@
 import UIKit
 
 class ArticleViewController: UIViewController {
-    var info: ArticleInfo? = nil
-    var note: Note? = nil
+    var article: Article?
     var view_: ArticleView!
     var singleTapRecognizer: UITapGestureRecognizer?
     var defaultFrameSize: CGRect?
@@ -31,7 +30,7 @@ class ArticleViewController: UIViewController {
         view_ = ArticleView(frame: self.view.frame)
         view_.splitBarDelegate = self
         view_.webView?.delegate = self
-        if let n = self.note {
+        if let n = self.article?.note {
             view_.noteView?.text = n.body
         } else {
             view_.noteView?.text = ""
@@ -39,7 +38,7 @@ class ArticleViewController: UIViewController {
         }
         
         // Load web view
-        if let urlStr = self.info?.url,
+        if let urlStr = self.article?.url,
            let url = URL(string: urlStr) {
             view_.webView.loadRequest(URLRequest(url: url))
         }
@@ -57,7 +56,7 @@ class ArticleViewController: UIViewController {
         let progressHUD = ProgressHUD(text: "Loading")
         self.view.addSubview(progressHUD)
         
-        self.navigationItem.title = info?.title
+        self.navigationItem.title = self.article?.title
     }
     
     override func didReceiveMemoryWarning() {
@@ -74,7 +73,7 @@ class ArticleViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController!.tabBarController!.tabBar.isHidden = false
         // TODO: Save text dynamically
-        if let note = self.note,
+        if let note = self.article?.note,
            let text = self.view_.noteView.text {
             Note.update(note: note, body: text)
         } else {

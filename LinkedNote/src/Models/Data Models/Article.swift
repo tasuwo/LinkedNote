@@ -10,13 +10,15 @@ import Realm
 import RealmSwift
 
 class Article: Object {
-    dynamic var id = 0
+    dynamic var id = -1
     // アカウント内でローカルに記事を識別するための ID
     // 利用する API 側で使用している ID を再利用する
     dynamic var localId = ""
     dynamic var title = ""
     dynamic var url = ""
+    dynamic var excerpt = ""
     dynamic var thumbnailUrl = ""
+    var thumbnail: UIImage?
     let apiAccounts = LinkingObjects(fromType: ApiAccount.self, property: "articles")
     var apiAccount: ApiAccount? {
         return self.apiAccounts.first
@@ -30,6 +32,10 @@ class Article: Object {
         return "id"
     }
     
+    override static func ignoredProperties() -> [String] {
+        return ["thumbnail"]
+    }
+    
     static func lastId() -> Int {
         let realm = try! Realm()
         return realm.objects(Article.self).last?.id ?? -1
@@ -37,11 +43,14 @@ class Article: Object {
     
     convenience init (localId: String, title: String, url: String, thumbnailUrl: String) {
         self.init()
-        self.id = Article.lastId() + 1
         self.localId = localId
         self.title = title
         self.url = url
         self.thumbnailUrl = thumbnailUrl
+    }
+    
+    func addId() {
+        self.id = Article.lastId() + 1
     }
 }
 
@@ -54,6 +63,10 @@ extension Article {
     }
     
     static func add(_ article: Article) {
+        if article.id == -1 {
+            // TODO: throw Exception
+            return
+        }
         let realm = try! Realm()
         try! realm.write {
             if realm.object(ofType: Article.self, forPrimaryKey: article.id) != nil {

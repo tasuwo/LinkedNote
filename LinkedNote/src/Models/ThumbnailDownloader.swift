@@ -11,12 +11,12 @@ import UIKit
 let kAppIconSize: CGFloat = 100
 
 class ThumbnailDownloader: NSObject {
-    var articleInfo: ArticleInfo!
+    var article: Article!
     var completionHandler: (() -> Void)!
     private var sessionTask: URLSessionDataTask!
     
     func startDownload() {
-        if let url = URL(string: self.articleInfo.thumbnailUrl) {
+        if let url = URL(string: self.article.thumbnailUrl) {
             let request = URLRequest(url: url)
             self.sessionTask = URLSession.shared.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
                 if let e = error {
@@ -31,10 +31,10 @@ class ThumbnailDownloader: NSObject {
                             UIGraphicsBeginImageContextWithOptions(itemSize, false, 0.0)
                             let imageRect = CGRect(x: 0, y: 0, width: itemSize.width, height: itemSize.height)
                             image.draw(in: imageRect)
-                            self.articleInfo.thumbnail = UIGraphicsGetImageFromCurrentImageContext()
+                            self.article.thumbnail = UIGraphicsGetImageFromCurrentImageContext()
                             UIGraphicsEndImageContext()
                         } else {
-                            self.articleInfo.thumbnail = image
+                            self.article.thumbnail = image
                         }
                     }
                     
