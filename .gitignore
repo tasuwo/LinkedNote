@@ -27,3 +27,5 @@ Carthage/Build
 *.swp
 !.gitkeep
 .DS_Store
+
+.env
