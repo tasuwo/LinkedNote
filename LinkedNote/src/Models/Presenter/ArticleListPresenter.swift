@@ -13,6 +13,10 @@ protocol ArticleListPresenterObserver {
     func loaded()
 }
 
+protocol RecognizableLongPress {
+    func handleLogPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer)
+}
+
 class ArticleListPresenter: NSObject {
     var articles: Array<Article> = []
     var thumbnailDownloadersInProgress: Dictionary<IndexPath, ThumbnailDownloader> = [:]
@@ -111,6 +115,7 @@ extension ArticleListPresenter: UITableViewDataSource {
         longPressGesture.minimumPressDuration = 0.7
         longPressGesture.delegate = recognizer
         newCell.noteButton.addGestureRecognizer(longPressGesture)
+        newCell.noteButton.tag = indexPath.row
 
         return newCell
     }

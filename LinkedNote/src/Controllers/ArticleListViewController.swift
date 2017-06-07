@@ -8,14 +8,16 @@
 
 import UIKit
 
-class ArticleListViewController: TagEditableViewController {
+class ArticleListViewController: UIViewController {
     var articleListView: ArticleListView!
     let articleListPresenter: ArticleListPresenter
     let api: APIWrapper
+    let tagEditViewPresenter: TagEditViewPresenter
     
     init(api: APIWrapper) {
         self.api = api
         self.articleListPresenter = ArticleListPresenter(api: api, loadUnitNum: 5)
+        self.tagEditViewPresenter = TagEditViewPresenter()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -58,18 +60,11 @@ class ArticleListViewController: TagEditableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.articleListView.myList?.reloadData()
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.tagEditKeyboardWillBeShown(notification:)),
-                                               name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.tagEditKeyboardWillBeHidden(notification:)),
-                                               name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        self.tagEditViewPresenter.addObserver()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        self.tagEditViewPresenter.removeObserver()
     }
 }
 
@@ -155,19 +150,13 @@ extension ArticleListViewController: ArticleListTableViewDelegate {
     }
 }
 
-protocol RecognizableLongPress {
-    func handleLogPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer)
-}
-
 extension ArticleListViewController: UIGestureRecognizerDelegate, RecognizableLongPress {
     @objc func handleLogPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
         if longPressGestureRecognizer.state == UIGestureRecognizerState.began {
-            let touchPoint = longPressGestureRecognizer.location(in: self.view)
-            if let indexPath = self.articleListView.myList?.indexPathForRow(at: touchPoint) {
-                
-                let cell = self.articleListView.myList?.cellForRow(at: indexPath) as! ArticleListCustomCell
-                self.initializeTagEditView(note: cell.article!.note!)
-            }
+            let tag = longPressGestureRecognizer.view!.tag
+            let cell = self.articleListView.myList?.cellForRow(at: IndexPath(row: tag, section: 0)) as? ArticleListCustomCell
+            self.tagEditViewPresenter.initwith(note: cell!.article!.note!, frame: self.tabBarController!.view.frame)
+            self.tagEditViewPresenter.add(to: self.tabBarController!.view, viewController: self)
         }
     }
 }

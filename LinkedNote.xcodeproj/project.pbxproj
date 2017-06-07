@@ -20,7 +20,7 @@
 		A05E179D1EE26218005C4566 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E175B1EE26218005C4566 /* MainTabBarController.swift */; };
 		A05E179E1EE26218005C4566 /* NoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E175C1EE26218005C4566 /* NoteListViewController.swift */; };
 		A05E179F1EE26218005C4566 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E175D1EE26218005C4566 /* NoteViewController.swift */; };
-		A05E17A01EE26218005C4566 /* TagEditableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E175E1EE26218005C4566 /* TagEditableViewController.swift */; };
+		A05E17A01EE26218005C4566 /* TagEditViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E175E1EE26218005C4566 /* TagEditViewPresenter.swift */; };
 		A05E17A11EE26218005C4566 /* TagListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E175F1EE26218005C4566 /* TagListViewController.swift */; };
 		A05E17A21EE26218005C4566 /* AlertCreater.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17611EE26218005C4566 /* AlertCreater.swift */; };
 		A05E17A31EE26218005C4566 /* APIWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17631EE26218005C4566 /* APIWrapper.swift */; };
@@ -105,7 +105,7 @@
 		A05E175B1EE26218005C4566 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		A05E175C1EE26218005C4566 /* NoteListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteListViewController.swift; sourceTree = "<group>"; };
 		A05E175D1EE26218005C4566 /* NoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
-		A05E175E1EE26218005C4566 /* TagEditableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagEditableViewController.swift; sourceTree = "<group>"; };
+		A05E175E1EE26218005C4566 /* TagEditViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagEditViewPresenter.swift; sourceTree = "<group>"; };
 		A05E175F1EE26218005C4566 /* TagListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListViewController.swift; sourceTree = "<group>"; };
 		A05E17611EE26218005C4566 /* AlertCreater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertCreater.swift; sourceTree = "<group>"; };
 		A05E17631EE26218005C4566 /* APIWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIWrapper.swift; sourceTree = "<group>"; };
@@ -257,13 +257,13 @@
 		A05E17571EE26218005C4566 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A068F83D1EE8B5FA00767149 /* Util */,
 				A05E17581EE26218005C4566 /* AccontViewController.swift */,
 				A05E17591EE26218005C4566 /* ArticleListViewController.swift */,
 				A05E175A1EE26218005C4566 /* ArticleViewController.swift */,
 				A05E175B1EE26218005C4566 /* MainTabBarController.swift */,
 				A05E175C1EE26218005C4566 /* NoteListViewController.swift */,
 				A05E175D1EE26218005C4566 /* NoteViewController.swift */,
-				A05E175E1EE26218005C4566 /* TagEditableViewController.swift */,
 				A05E175F1EE26218005C4566 /* TagListViewController.swift */,
 			);
 			path = Controllers;
@@ -427,6 +427,14 @@
 				A05E17331EE261DD005C4566 /* Info.plist */,
 			);
 			name = resources;
+			sourceTree = "<group>";
+		};
+		A068F83D1EE8B5FA00767149 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				A05E175E1EE26218005C4566 /* TagEditViewPresenter.swift */,
+			);
+			name = Util;
 			sourceTree = "<group>";
 		};
 		FB80585D9F87D53A3E70A53C /* Pods */ = {
@@ -785,7 +793,7 @@
 				A05E17AE1EE26218005C4566 /* TagPickerPresenter.swift in Sources */,
 				A05E17C51EE26218005C4566 /* TagMenuView.swift in Sources */,
 				A05E17B01EE26218005C4566 /* UIColor+.swift in Sources */,
-				A05E17A01EE26218005C4566 /* TagEditableViewController.swift in Sources */,
+				A05E17A01EE26218005C4566 /* TagEditViewPresenter.swift in Sources */,
 				A05E17A21EE26218005C4566 /* AlertCreater.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

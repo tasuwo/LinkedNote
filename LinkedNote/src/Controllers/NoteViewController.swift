@@ -8,15 +8,17 @@
 
 import UIKit
 
-class NoteViewController: TagEditableViewController {
+class NoteViewController: UIViewController {
     var noteView: NoteView!
     var isAdjusted = false
     let note: Note
-    let tagPresenter_: TagCollectionPresenter
+    let tagPresenter: TagCollectionPresenter
+    let tagEditViewPresenter: TagEditViewPresenter
     
     init(note: Note) {
         self.note = note
-        self.tagPresenter_ = TagCollectionPresenter()
+        self.tagPresenter = TagCollectionPresenter()
+        self.tagEditViewPresenter = TagEditViewPresenter()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -34,10 +36,12 @@ class NoteViewController: TagEditableViewController {
         self.noteView.delegate = self
         self.view.addSubview(self.noteView)
         
-        tagPresenter_.load(noteId: note.id)
+        tagPresenter.load(noteId: note.id)
         self.noteView.tagCollectionView.reloadData()
         noteView.tagCollectionView.delegate = self
-        noteView.tagCollectionView.dataSource = tagPresenter_
+        noteView.tagCollectionView.dataSource = tagPresenter
+        
+        self.tagEditViewPresenter.delegate = self
         
         self.navigationItem.title = "ノート"
     }
@@ -48,20 +52,12 @@ class NoteViewController: TagEditableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = true
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.tagEditKeyboardWillBeShown(notification:)),
-                                               name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.tagEditKeyboardWillBeHidden(notification:)),
-                                               name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        self.tagEditViewPresenter.addObserver()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
-        
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        self.tagEditViewPresenter.removeObserver()
     }
 }
 
@@ -98,7 +94,8 @@ extension NoteViewController: UICollectionViewDelegateFlowLayout {
 
 extension NoteViewController: NoteViewDelegate {
     func didPressEditButton() {
-        self.initializeTagEditView(note: self.note)
+        self.tagEditViewPresenter.initwith(note: self.note, frame: self.tabBarController!.view.frame)
+        self.tagEditViewPresenter.add(to: self.tabBarController!.view, viewController: self)
     }
     
     func didPressViewArticleButton() {
@@ -111,9 +108,9 @@ extension NoteViewController: NoteViewDelegate {
     }
 }
 
-extension NoteViewController: DetectableTagMenuViewEvent {
-    func didClose() {
-        self.tagPresenter_.load(noteId: self.note.id)
+extension NoteViewController: TagEditViewPresenterDelegate {
+    func didPressCloseButton() {
+        self.tagPresenter.load(noteId: self.note.id)
         self.noteView.tagCollectionView.reloadData()
     }
 }
