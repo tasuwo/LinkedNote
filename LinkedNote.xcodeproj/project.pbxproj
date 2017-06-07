@@ -196,12 +196,12 @@
 		A05E171B1EE261DD005C4566 = {
 			isa = PBXGroup;
 			children = (
+				7C1099DC066F6A4EE38A4052 /* Frameworks */,
 				A05E17261EE261DD005C4566 /* LinkedNote */,
 				A05E173B1EE261DD005C4566 /* LinkedNoteTests */,
 				A05E17461EE261DD005C4566 /* LinkedNoteUITests */,
-				A05E17251EE261DD005C4566 /* Products */,
 				FB80585D9F87D53A3E70A53C /* Pods */,
-				7C1099DC066F6A4EE38A4052 /* Frameworks */,
+				A05E17251EE261DD005C4566 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -227,8 +227,8 @@
 		A05E173B1EE261DD005C4566 /* LinkedNoteTests */ = {
 			isa = PBXGroup;
 			children = (
-				A05E173C1EE261DD005C4566 /* LinkedNoteTests.swift */,
 				A05E173E1EE261DD005C4566 /* Info.plist */,
+				A05E173C1EE261DD005C4566 /* LinkedNoteTests.swift */,
 			);
 			path = LinkedNoteTests;
 			sourceTree = "<group>";
@@ -236,8 +236,8 @@
 		A05E17461EE261DD005C4566 /* LinkedNoteUITests */ = {
 			isa = PBXGroup;
 			children = (
-				A05E17471EE261DD005C4566 /* LinkedNoteUITests.swift */,
 				A05E17491EE261DD005C4566 /* Info.plist */,
+				A05E17471EE261DD005C4566 /* LinkedNoteUITests.swift */,
 			);
 			path = LinkedNoteUITests;
 			sourceTree = "<group>";
@@ -245,11 +245,11 @@
 		A05E17551EE26218005C4566 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				A05E17561EE26218005C4566 /* AppDelegate.swift */,
 				A05E17571EE26218005C4566 /* Controllers */,
 				A05E17601EE26218005C4566 /* Models */,
 				A05E17721EE26218005C4566 /* Utils */,
 				A05E17741EE26218005C4566 /* Views */,
+				A05E17561EE26218005C4566 /* AppDelegate.swift */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -272,10 +272,10 @@
 		A05E17601EE26218005C4566 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A05E17611EE26218005C4566 /* AlertCreater.swift */,
 				A05E17621EE26218005C4566 /* API Wrappers */,
 				A05E17651EE26218005C4566 /* Data Models */,
 				A05E176B1EE26218005C4566 /* Presenter */,
+				A05E17611EE26218005C4566 /* AlertCreater.swift */,
 				A0DE75541EE3FCB900EFAA3F /* ThumbnailDownloader.swift */,
 			);
 			path = Models;
@@ -325,9 +325,9 @@
 		A05E17741EE26218005C4566 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A05E17301EE261DD005C4566 /* LaunchScreen.storyboard */,
 				A05E17771EE26218005C4566 /* Components */,
 				A05E177B1EE26218005C4566 /* views */,
+				A05E17301EE261DD005C4566 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -427,6 +427,7 @@
 				A05E17331EE261DD005C4566 /* Info.plist */,
 			);
 			name = resources;
+			path = resources;
 			sourceTree = "<group>";
 		};
 		A068F83D1EE8B5FA00767149 /* Util */ = {
@@ -435,6 +436,7 @@
 				A05E175E1EE26218005C4566 /* TagEditViewPresenter.swift */,
 			);
 			name = Util;
+			path = Util;
 			sourceTree = "<group>";
 		};
 		FB80585D9F87D53A3E70A53C /* Pods */ = {
@@ -836,7 +838,7 @@
 				A05E17311EE261DD005C4566 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			path = ../..;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -943,7 +945,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = RY2377PP7S;
-				INFOPLIST_FILE = LinkedNote/Info.plist;
+				INFOPLIST_FILE = LinkedNote/resources/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.LinkedNote;
@@ -958,7 +960,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = RY2377PP7S;
-				INFOPLIST_FILE = LinkedNote/Info.plist;
+				INFOPLIST_FILE = LinkedNote/resources/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.LinkedNote;
