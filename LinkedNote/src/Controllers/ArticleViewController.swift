@@ -9,10 +9,19 @@
 import UIKit
 
 class ArticleViewController: UIViewController {
-    var article: Article?
-    var view_: ArticleView!
-    var singleTapRecognizer: UITapGestureRecognizer?
-    var defaultFrameSize: CGRect?
+    var articleView: ArticleView!
+    var singleTapRecognizer: UITapGestureRecognizer!
+    var defaultFrameSize: CGRect!
+    let article: Article
+    
+    init(article: Article) {
+        self.article = article
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -21,33 +30,31 @@ class ArticleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.articleView.splitBarDelegate = self
+        self.articleView.webView?.delegate = self
+        if let n = self.article.note {
+            self.articleView.noteView?.text = n.body
+        } else {
+            self.articleView.noteView?.text = ""
+            AlertCreater.error("ノートの作成に失敗しました。記事に対応する Api, ApiAccount が正常に保存されていない可能性があります。", viewController: self)
+        }
+        
         // Fix frame size
         let viewBounds = self.view.bounds;
         let topBarOffSet = self.navigationController!.navigationBar.frame.height + UIApplication.shared.statusBarFrame.size.height
         self.defaultFrameSize = CGRect(x: 0, y: 0, width: viewBounds.width, height: viewBounds.height - topBarOffSet)
-        self.view.frame = self.defaultFrameSize!
-
-        view_ = ArticleView(frame: self.view.frame)
-        view_.splitBarDelegate = self
-        view_.webView?.delegate = self
-        if let n = self.article?.note {
-            view_.noteView?.text = n.body
-        } else {
-            view_.noteView?.text = ""
-            AlertCreater.error("ノートの作成に失敗しました。記事に対応する Api, ApiAccount が正常に保存されていない可能性があります。", viewController: self)
-        }
-        
-        // Load web view
-        if let urlStr = self.article?.url,
-           let url = URL(string: urlStr) {
-            view_.webView.loadRequest(URLRequest(url: url))
-        }
+        self.articleView = ArticleView(frame: self.defaultFrameSize)
         
         // Recognize the touch to out of text field
         self.singleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onSingleTap))
-        self.singleTapRecognizer?.delegate = self
-        self.view_.addGestureRecognizer(self.singleTapRecognizer!)
-        self.view_.splitBar.addGestureRecognizer(self.singleTapRecognizer!)
+        self.singleTapRecognizer.delegate = self
+        self.articleView.addGestureRecognizer(self.singleTapRecognizer)
+        self.articleView.splitBar.addGestureRecognizer(self.singleTapRecognizer)
+        
+        // Load web view
+        if let url = URL(string: self.article.url) {
+            self.articleView.webView.loadRequest(URLRequest(url: url))
+        }
 
         // Run animation while loading web view
         let backgroundView = UIView(frame: self.view.frame)
@@ -56,7 +63,7 @@ class ArticleViewController: UIViewController {
         let progressHUD = ProgressHUD(text: "Loading")
         self.view.addSubview(progressHUD)
         
-        self.navigationItem.title = self.article?.title
+        self.navigationItem.title = self.article.title
     }
     
     override func didReceiveMemoryWarning() {
@@ -73,8 +80,8 @@ class ArticleViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController!.tabBarController!.tabBar.isHidden = false
         // TODO: Save text dynamically
-        if let note = self.article?.note,
-           let text = self.view_.noteView.text {
+        if let note = self.article.note,
+           let text = self.articleView.noteView.text {
             Note.update(note: note, body: text)
         } else {
             AlertCreater.error("ノートの保存に失敗しました。ノートが存在していません。", viewController: self)
@@ -83,8 +90,8 @@ class ArticleViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-        if self.view_.webView.isLoading {
-            self.view_.webView.stopLoading()
+        if self.articleView.webView.isLoading {
+            self.articleView.webView.stopLoading()
         }
     }
 }
@@ -93,7 +100,7 @@ extension ArticleViewController {
     func keyboardWillBeShown(notification: NSNotification) {
         if let userInfo = notification.userInfo {
             if let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue, let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue {
-                let convertedKeyboardFrame = self.view_.convert(keyboardFrame, from: nil)
+                let convertedKeyboardFrame = self.articleView.convert(keyboardFrame, from: nil)
                 
                 // TODO: webView の上側が少し隠れてしまう
                 //       auto layout を使用していると動的に view の frame を削除できないらしい。
@@ -104,10 +111,10 @@ extension ArticleViewController {
                     y: self.defaultFrameSize!.origin.y - convertedKeyboardFrame.height,
                     width: self.defaultFrameSize!.size.width,
                     height: self.defaultFrameSize!.size.height)
-                self.view_.frame = newFrame
-                self.view_.splitBarBottomConstraint.constant = 100
+                self.articleView.frame = newFrame
+                self.articleView.splitBarBottomConstraint.constant = 100
                 UIView.animate(withDuration: animationDuration, animations: {
-                    self.view_.layoutIfNeeded()
+                    self.articleView.layoutIfNeeded()
                 }, completion: { finished in })
                 
                 // 編集中は navigation bar を隠す
@@ -123,9 +130,9 @@ extension ArticleViewController {
         if let userInfo = notification.userInfo {
             if let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue {
 
-                self.view_.frame = self.defaultFrameSize!
+                self.articleView.frame = self.defaultFrameSize!
                 UIView.animate(withDuration: animationDuration, animations: {
-                    self.view_.layoutIfNeeded()
+                    self.articleView.layoutIfNeeded()
                 }, completion: { finished in })
                 
                 self.navigationController!.navigationBar.isHidden = false
@@ -140,38 +147,38 @@ extension ArticleViewController {
 extension ArticleViewController: UIWebViewDelegate {
     func webViewDidFinishLoad(_ webView: UIWebView) {
         if !webView.isLoading {
-            self.view.addSubview(self.view_)
+            self.view.addSubview(self.articleView)
         }
     }
 }
 
 extension ArticleViewController: SplitBarDelegate {
     func dragging(sender: Any, touch: UITouch) {
-        let splitBarPosY: CGFloat = self.view_!.splitBar.frame.minY
-        let touchedPosY: CGFloat = touch.location(in: self.view_).y
+        let splitBarPosY: CGFloat = self.articleView.splitBar.frame.minY
+        let touchedPosY: CGFloat = touch.location(in: self.articleView).y
         
-        let nextYPos = self.view_.splitBarBottomConstraint.constant + splitBarPosY - touchedPosY
+        let nextYPos = self.articleView.splitBarBottomConstraint.constant + splitBarPosY - touchedPosY
 
         if nextYPos > 80 {
-            if nextYPos > self.view_.frame.maxY - 80 {
-                self.view_.splitBarBottomConstraint.constant = self.view_.frame.maxY - 90
+            if nextYPos > self.articleView.frame.maxY - 80 {
+                self.articleView.splitBarBottomConstraint.constant = self.articleView.frame.maxY - 90
             } else {
-                self.view_.splitBarBottomConstraint.constant = nextYPos
+                self.articleView.splitBarBottomConstraint.constant = nextYPos
             }
         } else {
-            self.view_.splitBarBottomConstraint.constant = 90
+            self.articleView.splitBarBottomConstraint.constant = 90
         }
     }
 }
 
 extension ArticleViewController: UIGestureRecognizerDelegate {
     func onSingleTap(recognizer: UIGestureRecognizer) {
-        self.view_.noteView.resignFirstResponder()
+        self.articleView.noteView.resignFirstResponder()
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if gestureRecognizer == self.singleTapRecognizer {
-            if self.view_.noteView.isFirstResponder {
+            if self.articleView.noteView.isFirstResponder {
                 return true
             } else {
                 return false

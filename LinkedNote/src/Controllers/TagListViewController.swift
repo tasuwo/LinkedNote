@@ -9,21 +9,30 @@
 import UIKit
 
 class TagListViewController: UIViewController {
-    var tagListPresenter: TagListPresenter!
-    var view_: TagListView!
+    var tagListView: TagListView!
+    let tagListPresenter: TagListPresenter
+    
+    init() {
+        self.tagListPresenter = TagListPresenter()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tagListPresenter = TagListPresenter()
         let offset = self.navigationController!.tabBarController!.tabBar.frame.height
             + self.navigationController!.navigationBar.frame.height
             + UIApplication.shared.statusBarFrame.height
         let frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.width, height: self.view.frame.height - offset)
-        view_ = TagListView(frame: frame)
-        view_.tagList.dataSource = tagListPresenter
-        view_.tagList.delegate = self
-        self.view.addSubview(view_)
+
+        self.tagListView = TagListView(frame: frame)
+        self.tagListView.tagList.dataSource = tagListPresenter
+        self.tagListView.tagList.delegate = self
+        self.view.addSubview(tagListView)
         
         self.navigationItem.title = "全ての保存済みのタグ"
     }
@@ -34,7 +43,7 @@ class TagListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.tagListPresenter.load()
-        self.view_.tagList.reloadData()
+        self.tagListView.tagList.reloadData()
     }
 }
 
@@ -43,8 +52,8 @@ extension TagListViewController: UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath)! as! TagListCustomCell
         
         if let id = cell.tagId {
-            let noteListVC = NoteListViewController()
-            noteListVC.settings = NodeListViewControllerSettings(title: "タグ: \(cell.tagName.text!)", tagId: id)
+            let settings = NodeListViewControllerSettings(title: "タグ: \(cell.tagName.text!)", tagId: id)
+            let noteListVC = NoteListViewController(settings: settings)
             self.navigationController?.pushViewController(noteListVC, animated: true)
         } else {
             AlertCreater.error("タグの読み込みに必要な情報の取得に失敗しました", viewController: self)
@@ -54,11 +63,11 @@ extension TagListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         return [
             UITableViewRowAction(style: .destructive, title: "削除", handler: { (action, indexPath) in
-                let cell = self.view_.tagList.cellForRow(at: indexPath) as! TagListCustomCell
+                let cell = self.tagListView.tagList.cellForRow(at: indexPath) as! TagListCustomCell
                 if let tag = Tag.get(cell.tagId!) {
                     Tag.delete(tag)
                     self.tagListPresenter.load()
-                    self.view_.tagList.deleteRows(at: [indexPath], with: .automatic)
+                    self.tagListView.tagList.deleteRows(at: [indexPath], with: .automatic)
                 }
             })
         ]

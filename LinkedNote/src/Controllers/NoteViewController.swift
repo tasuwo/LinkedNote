@@ -9,26 +9,35 @@
 import UIKit
 
 class NoteViewController: TagEditableViewController {
+    var noteView: NoteView!
     var isAdjusted = false
-    var note: Note?
-    var view_: NoteView!
-    var tagPresenter_: TagCollectionPresenter!
+    let note: Note
+    let tagPresenter_: TagCollectionPresenter
+
+    init(note: Note) {
+        self.note = note
+        self.tagPresenter_ = TagCollectionPresenter()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let topOffset = self.navigationController!.navigationBar.frame.height + UIApplication.shared.statusBarFrame.height
         let frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - topOffset)
-        view_ = NoteView(frame: frame)
-        view_.noteView.text = note!.body
-        view_.delegate = self
-        self.view.addSubview(view_)
+        self.noteView = NoteView(frame: frame)
+        self.noteView.noteView.text = note.body
+        self.noteView.delegate = self
+        self.view.addSubview(self.noteView)
         
-        tagPresenter_ = TagCollectionPresenter()
-        tagPresenter_.load(noteId: note!.id)
-        self.view_.tagCollectionView.reloadData()
-        view_.tagCollectionView.delegate = self
-        view_.tagCollectionView.dataSource = tagPresenter_
+        tagPresenter_.load(noteId: note.id)
+        self.noteView.tagCollectionView.reloadData()
+        noteView.tagCollectionView.delegate = self
+        noteView.tagCollectionView.dataSource = tagPresenter_
 
         self.navigationItem.title = "ノート"
     }
@@ -54,10 +63,10 @@ class NoteViewController: TagEditableViewController {
 
 extension NoteViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = self.view_.tagCollectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
+        let cell = self.noteView.tagCollectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
         if let tagId = cell.id {
-            let noteListVC = NoteListViewController()
-            noteListVC.settings = NodeListViewControllerSettings(title: "タグ: \(cell.name.text!)", tagId: tagId)
+            let settings = NodeListViewControllerSettings(title: "タグ: \(cell.name.text!)", tagId: tagId)
+            let noteListVC = NoteListViewController(settings: settings)
             self.navigationController?.pushViewController(noteListVC, animated: true)
         }
     }
@@ -85,14 +94,13 @@ extension NoteViewController: UICollectionViewDelegateFlowLayout {
 
 extension NoteViewController: NoteViewDelegate {
     func didPressEditButton() {
-        self.initializeTagEditView(note: self.note!)
+        self.initializeTagEditView(note: self.note)
     }
     
     func didPressViewArticleButton() {
         
-        if let article = self.note?.article {
-            let articleVC = ArticleViewController()
-            articleVC.article = article
+        if let article = self.note.article {
+            let articleVC = ArticleViewController(article: article)
             self.navigationController?.pushViewController(articleVC, animated: true)
         } else {
             AlertCreater.error("ノートに対応する記事の取得に失敗しました", viewController: self)
@@ -103,7 +111,7 @@ extension NoteViewController: NoteViewDelegate {
 
 extension NoteViewController: DetectableTagMenuViewEvent {
     func didClose() {
-        self.tagPresenter_.load(noteId: self.note!.id)
-        self.view_.tagCollectionView.reloadData()
+        self.tagPresenter_.load(noteId: self.note.id)
+        self.noteView.tagCollectionView.reloadData()
     }
 }

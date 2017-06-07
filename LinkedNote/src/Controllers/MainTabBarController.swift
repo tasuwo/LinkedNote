@@ -24,9 +24,14 @@ class MainTabBarController: UITabBarController {
         // tabbar の hide 時に黒背景がうくので、リストビューと同様の白背景にする
         self.view.backgroundColor = .white
         
-        self.articleListVC = ArticleListViewController()
-        self.accountVC = AccountViewController()
-        self.noteListVC = NoteListViewController()
+        // WARNING: for debug ================================================
+        let api = PocketAPIWrapper()
+        let settings = NodeListViewControllerSettings(title: "", tagId: nil)
+        //====================================================================
+        
+        self.articleListVC = ArticleListViewController(api: api)
+        self.accountVC = AccountViewController(api: api)
+        self.noteListVC = NoteListViewController(settings: settings)
         self.tagListVC = TagListViewController()
         self.articleListNVC = UINavigationController(rootViewController: articleListVC)
         self.accountNVC = UINavigationController(rootViewController: accountVC)

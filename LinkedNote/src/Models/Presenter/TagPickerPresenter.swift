@@ -11,7 +11,7 @@ import UIKit
 class TagPickerPresenter: NSObject {
     private(set) var tags: Array<Tag> = []
     
-    func load() {
+    func reload() {
         self.tags = []
         for tag in Tag.getAll() {
             self.tags.append(tag)

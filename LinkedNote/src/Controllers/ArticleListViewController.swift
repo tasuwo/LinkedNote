@@ -9,28 +9,36 @@
 import UIKit
 
 class ArticleListViewController: TagEditableViewController {
-    var articleListPresenter: ArticleListPresenter!
-    var view_: ArticleListView?
-    var api: APIWrapper?
+    var articleListView: ArticleListView!
+    let articleListPresenter: ArticleListPresenter
+    let api: APIWrapper
+    
+    init(api: APIWrapper) {
+        self.api = api
+        self.articleListPresenter = ArticleListPresenter(api: api, loadUnitNum: 5)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Pocket API をきめうち
-        self.api = PocketAPIWrapper()
-        articleListPresenter = ArticleListPresenter(api: api!, loadUnitNum: 5)
-        articleListPresenter.recognizer = self
         let offset = self.navigationController!.tabBarController!.tabBar.frame.height
             + self.navigationController!.navigationBar.frame.height
             + UIApplication.shared.statusBarFrame.height
         let frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.width, height: self.view.frame.height - offset)
-        view_ = ArticleListView(frame: frame)
-        articleListPresenter.observer = view_!
-        view_!.myList!.dataSource = articleListPresenter
-        view_!.myList!.delegate = self
-        view_!.myList!.delegate_ = self
+        self.articleListView = ArticleListView(frame: frame)
+    
+        self.view.addSubview(articleListView)
         
-        self.view.addSubview(view_!)
+        self.articleListPresenter.observer = articleListView
+        self.articleListPresenter.recognizer = self
+        self.articleListView.myList!.dataSource = articleListPresenter
+        self.articleListView.myList!.delegate = self
+        self.articleListView.myList!.delegate_ = self
         
         self.articleListPresenter.initOffset()
         self.articleListPresenter.retrieve()
@@ -43,7 +51,7 @@ class ArticleListViewController: TagEditableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.view_?.myList?.reloadData()
+        self.articleListView.myList?.reloadData()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.tagEditKeyboardWillBeShown(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.tagEditKeyboardWillBeHidden(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -60,8 +68,8 @@ extension ArticleListViewController: UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath)! as! ArticleListCustomCell
         
         if let article = cell.article {
-            let signature = type(of: self.api!).signature
-            let username = type(of: self.api!).getUsername()!
+            let signature = type(of: self.api).signature
+            let username = type(of: self.api).getUsername()!
             let account = ApiAccount.get(apiSignature: signature, username: username)!
             
             if cell.article?.note == nil {
@@ -75,13 +83,16 @@ extension ArticleListViewController: UITableViewDelegate {
                 }
             }
             
-            let articleVC = ArticleViewController()
-            articleVC.article = Article.get(localId: article.localId, accountId: account.id)
-            self.navigationController?.pushViewController(articleVC, animated: true)
-            
-            // cell のボタンを有効化しておく
-            cell.noteButton.isEnabled = true
-            cell.article = article
+            if let article = Article.get(localId: article.localId, accountId: account.id) {
+                let articleVC = ArticleViewController(article: article)
+                self.navigationController?.pushViewController(articleVC, animated: true)
+                
+                // cell のボタンを有効化しておく
+                cell.noteButton.isEnabled = true
+                cell.article = article
+            } else {
+                AlertCreater.error("記事の取得に失敗しました", viewController: self)
+            }
         } else {
             AlertCreater.error("記事の読み込みに必要な情報の取得に失敗しました", viewController: self)
         }
@@ -90,10 +101,10 @@ extension ArticleListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         return [
             UITableViewRowAction(style: .default, title: "Archive", handler: { (action, indexPath) in
-                let cell = self.view_!.myList!.cellForRow(at: indexPath) as! ArticleListCustomCell
+                let cell = self.articleListView.myList!.cellForRow(at: indexPath) as! ArticleListCustomCell
 
                 self.articleListPresenter.archiveRow(at: indexPath, id: cell.article!.localId)
-                self.view_!.myList!.deleteRows(at: [indexPath], with: .automatic)
+                self.articleListView.myList!.deleteRows(at: [indexPath], with: .automatic)
             })
         ]
     }
@@ -116,8 +127,7 @@ extension ArticleListViewController: UITableViewDelegate {
 extension ArticleListViewController: ArticleListTableViewDelegate {
     func didPressNoteButtonOnCell(_ note: Note?) {
         if let note = note {
-            let noteVC = NoteViewController()
-            noteVC.note = note
+            let noteVC = NoteViewController(note: note)
             self.navigationController?.pushViewController(noteVC, animated: true)
         }
     }
@@ -131,9 +141,9 @@ extension ArticleListViewController: UIGestureRecognizerDelegate, RecognizableLo
     @objc func handleLogPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
         if longPressGestureRecognizer.state == UIGestureRecognizerState.began {
             let touchPoint = longPressGestureRecognizer.location(in: self.view)
-            if let indexPath = self.view_?.myList?.indexPathForRow(at: touchPoint) {
+            if let indexPath = self.articleListView.myList?.indexPathForRow(at: touchPoint) {
                 
-                let cell = self.view_!.myList?.cellForRow(at: indexPath) as! ArticleListCustomCell
+                let cell = self.articleListView.myList?.cellForRow(at: indexPath) as! ArticleListCustomCell
                 self.initializeTagEditView(note: cell.article!.note!)
             }
         }
@@ -143,12 +153,12 @@ extension ArticleListViewController: UIGestureRecognizerDelegate, RecognizableLo
 extension ArticleListViewController {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
-            self.articleListPresenter.loadImagesForOnscreenRows(tableView: self.view_!.myList!)
+            self.articleListPresenter.loadImagesForOnscreenRows(tableView: self.articleListView.myList!)
         }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.articleListPresenter.loadImagesForOnscreenRows(tableView: self.view_!.myList!)
+        self.articleListPresenter.loadImagesForOnscreenRows(tableView: self.articleListView.myList!)
     }
 }
 

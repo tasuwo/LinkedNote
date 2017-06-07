@@ -27,7 +27,7 @@ class TagEditableViewController: UIViewController {
         tagMenuView!.note = note
         
         tagMenuPickerPresenter = TagPickerPresenter()
-        tagMenuPickerPresenter!.load()
+        tagMenuPickerPresenter!.reload()
         tagMenuView!.tagPicker.dataSource = tagMenuPickerPresenter!
         
         tagMenuCollectionPresenter = TagCollectionPresenter()
