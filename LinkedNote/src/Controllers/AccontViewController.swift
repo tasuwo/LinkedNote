@@ -24,11 +24,13 @@ class AccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Calcurate a frame size
         let offset = self.navigationController!.tabBarController!.tabBar.frame.height
             + self.navigationController!.navigationBar.frame.height
             + UIApplication.shared.statusBarFrame.height
         let frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.width, height: self.view.frame.height - offset)
         
+        // Initialize and add a view
         let view: UIView
         if type(of: self.api).isLoggedIn() {
             view = AccountView(frame: frame)
@@ -38,7 +40,6 @@ class AccountViewController: UIViewController {
             (view as! SignInView).delegate = self
         }
         self.currentActiveView = view
-
         self.view.addSubview(self.currentActiveView)
 
         self.navigationItem.title = "アカウント"

@@ -26,21 +26,27 @@ class ArticleListViewController: TagEditableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Calculate a frame size
         let offset = self.navigationController!.tabBarController!.tabBar.frame.height
             + self.navigationController!.navigationBar.frame.height
             + UIApplication.shared.statusBarFrame.height
         let frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.width, height: self.view.frame.height - offset)
+        
+        // Initialize and add a view
         self.articleListView = ArticleListView(frame: frame)
-    
         self.view.addSubview(articleListView)
         
+        // Prepare a presenter
         self.articleListPresenter.observer = articleListView
         self.articleListPresenter.recognizer = self
+        self.articleListPresenter.initOffset()
+        
+        // Prepare the table view
         self.articleListView.myList!.dataSource = articleListPresenter
         self.articleListView.myList!.delegate = self
         self.articleListView.myList!.delegate_ = self
         
-        self.articleListPresenter.initOffset()
+        // Update model and display them on the table view
         self.articleListPresenter.retrieve()
         
         self.navigationItem.title = "マイリスト"
@@ -53,8 +59,12 @@ class ArticleListViewController: TagEditableViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.articleListView.myList?.reloadData()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.tagEditKeyboardWillBeShown(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.tagEditKeyboardWillBeHidden(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.tagEditKeyboardWillBeShown(notification:)),
+                                               name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.tagEditKeyboardWillBeHidden(notification:)),
+                                               name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -66,47 +76,49 @@ class ArticleListViewController: TagEditableViewController {
 extension ArticleListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)! as! ArticleListCustomCell
+        let signature = type(of: self.api).signature
+        let username = type(of: self.api).getUsername()!
+        let account = ApiAccount.get(apiSignature: signature, username: username)!
         
-        if let article = cell.article {
-            let signature = type(of: self.api).signature
-            let username = type(of: self.api).getUsername()!
-            let account = ApiAccount.get(apiSignature: signature, username: username)!
-            
-            if cell.article?.note == nil {
-                if cell.article?.id == -1 {
-                    article.addId()
-                    Article.add(article)
-                    Article.add(article, to: account)
-                    let n = Note(body: "")
-                    Note.add(n)
-                    Note.add(n, to: article)
-                }
-            }
-            
-            if let article = Article.get(localId: article.localId, accountId: account.id) {
-                let articleVC = ArticleViewController(article: article)
-                self.navigationController?.pushViewController(articleVC, animated: true)
-                
-                // cell のボタンを有効化しておく
-                cell.noteButton.isEnabled = true
-                cell.article = article
-            } else {
-                AlertCreater.error("記事の取得に失敗しました", viewController: self)
-            }
-        } else {
+        if cell.article == nil {
             AlertCreater.error("記事の読み込みに必要な情報の取得に失敗しました", viewController: self)
+            return
         }
+        
+        // Update article
+        if cell.article?.note == nil {
+            if cell.article?.id == -1 {
+                cell.article!.addId()
+                Article.add(cell.article!)
+                Article.add(cell.article!, to: account)
+                let n = Note(body: "")
+                Note.add(n)
+                Note.add(n, to: cell.article!)
+            }
+        }
+        
+        // Get updated article from database because this contains notes
+        let article = Article.get(localId: cell.article!.localId, accountId: account.id)
+        if article == nil {
+            AlertCreater.error("記事の取得に失敗しました", viewController: self)
+            return
+        }
+        
+        let articleVC = ArticleViewController(article: article!)
+        self.navigationController?.pushViewController(articleVC, animated: true)
+        
+        // Update cell informations
+        cell.noteButton.isEnabled = true
+        cell.article = article
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        return [
-            UITableViewRowAction(style: .default, title: "Archive", handler: { (action, indexPath) in
-                let cell = self.articleListView.myList!.cellForRow(at: indexPath) as! ArticleListCustomCell
-
-                self.articleListPresenter.archiveRow(at: indexPath, id: cell.article!.localId)
-                self.articleListView.myList!.deleteRows(at: [indexPath], with: .automatic)
-            })
-        ]
+        return [ UITableViewRowAction(style: .default, title: "Archive", handler: { (action, indexPath) in
+            let cell = self.articleListView.myList!.cellForRow(at: indexPath) as! ArticleListCustomCell
+                
+            self.articleListPresenter.archiveRow(at: indexPath, id: cell.article!.localId)
+            self.articleListView.myList!.deleteRows(at: [indexPath], with: .automatic)
+        }) ]
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -121,6 +133,16 @@ extension ArticleListViewController: UITableViewDelegate {
         if y > h + reloadDistance {
             self.articleListPresenter.retrieve()
         }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            self.articleListPresenter.loadImagesForOnscreenRows(tableView: self.articleListView.myList!)
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.articleListPresenter.loadImagesForOnscreenRows(tableView: self.articleListView.myList!)
     }
 }
 
@@ -149,16 +171,3 @@ extension ArticleListViewController: UIGestureRecognizerDelegate, RecognizableLo
         }
     }
 }
-
-extension ArticleListViewController {
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
-            self.articleListPresenter.loadImagesForOnscreenRows(tableView: self.articleListView.myList!)
-        }
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.articleListPresenter.loadImagesForOnscreenRows(tableView: self.articleListView.myList!)
-    }
-}
-

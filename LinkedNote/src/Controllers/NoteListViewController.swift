@@ -34,11 +34,13 @@ class NoteListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Calculate a frame size
         let offset = self.navigationController!.tabBarController!.tabBar.frame.height
             + self.navigationController!.navigationBar.frame.height
             + UIApplication.shared.statusBarFrame.height
         let frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.width, height: self.view.frame.height - offset)
 
+        // Initialize and add a view
         self.noteListView = NoteListView(frame: frame)
         self.noteListView.noteList.dataSource = noteListPresenter
         self.noteListView.noteList.delegate = self

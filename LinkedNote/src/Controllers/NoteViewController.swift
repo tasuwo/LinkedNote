@@ -13,7 +13,7 @@ class NoteViewController: TagEditableViewController {
     var isAdjusted = false
     let note: Note
     let tagPresenter_: TagCollectionPresenter
-
+    
     init(note: Note) {
         self.note = note
         self.tagPresenter_ = TagCollectionPresenter()
@@ -26,7 +26,7 @@ class NoteViewController: TagEditableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let topOffset = self.navigationController!.navigationBar.frame.height + UIApplication.shared.statusBarFrame.height
         let frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - topOffset)
         self.noteView = NoteView(frame: frame)
@@ -38,7 +38,7 @@ class NoteViewController: TagEditableViewController {
         self.noteView.tagCollectionView.reloadData()
         noteView.tagCollectionView.delegate = self
         noteView.tagCollectionView.dataSource = tagPresenter_
-
+        
         self.navigationItem.title = "ノート"
     }
     
@@ -49,10 +49,14 @@ class NoteViewController: TagEditableViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = true
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.tagEditKeyboardWillBeShown(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.tagEditKeyboardWillBeHidden(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.tagEditKeyboardWillBeShown(notification:)),
+                                               name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.tagEditKeyboardWillBeHidden(notification:)),
+                                               name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
         
@@ -98,14 +102,12 @@ extension NoteViewController: NoteViewDelegate {
     }
     
     func didPressViewArticleButton() {
-        
-        if let article = self.note.article {
-            let articleVC = ArticleViewController(article: article)
-            self.navigationController?.pushViewController(articleVC, animated: true)
-        } else {
+        if self.note.article == nil {
             AlertCreater.error("ノートに対応する記事の取得に失敗しました", viewController: self)
+            return
         }
-        
+        let articleVC = ArticleViewController(article: self.note.article!)
+        self.navigationController?.pushViewController(articleVC, animated: true)
     }
 }
 
