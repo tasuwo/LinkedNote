@@ -50,7 +50,7 @@ extension AccountViewController: SignInViewDelegate {
     func didTouchLoginButton() {
         type(of: self.api).login(completion: { (error) in
             if let e = error {
-                AlertCreater.error(e.localizedDescription, viewController: self)
+                AlertPresenterImplement.error(e.localizedDescription, viewController: self)
                 return
             }
             

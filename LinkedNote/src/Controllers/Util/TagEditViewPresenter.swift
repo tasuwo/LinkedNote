@@ -180,7 +180,7 @@ extension TagEditViewPresenter: UIPickerViewDelegate {
 extension TagEditViewPresenter: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = self.tagMenuView.tagCollectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
-        AlertCreater.yn(title: "タグの削除", message: "このタグを削除しますか？", viewController: self.targetViewController, y: { (_ a: UIAlertAction?) in
+        AlertPresenterImplement.yn(title: "タグの削除", message: "このタグを削除しますか？", viewController: self.targetViewController, y: { (_ a: UIAlertAction?) in
             Tag.delete(cell.id!, from: self.tagMenuView.note!.id)
             self.tagCollectionPresenter.load(noteId: self.tagMenuView.note!.id)
             self.tagMenuView.tagCollectionView.reloadData()

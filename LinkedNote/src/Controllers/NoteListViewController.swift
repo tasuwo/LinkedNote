@@ -69,7 +69,7 @@ extension NoteListViewController: UITableViewDelegate {
             let noteVC = NoteViewController(note: note, calculator: self.calculator)
             self.navigationController?.pushViewController(noteVC, animated: true)
         } else {
-            AlertCreater.error("ノートの読み込みに必要な情報の取得に失敗しました", viewController: self)
+            AlertPresenterImplement.error("ノートの読み込みに必要な情報の取得に失敗しました", viewController: self)
         }
     }
     

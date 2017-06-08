@@ -72,7 +72,7 @@ extension ArticleListViewController: UITableViewDelegate {
         let account = ApiAccount.get(apiSignature: signature, username: username)!
         
         if cell.article == nil {
-            AlertCreater.error("記事の読み込みに必要な情報の取得に失敗しました", viewController: self)
+            AlertPresenterImplement.error("記事の読み込みに必要な情報の取得に失敗しました", viewController: self)
             return
         }
         
@@ -91,7 +91,7 @@ extension ArticleListViewController: UITableViewDelegate {
         // Get updated article from database because this contains notes
         let article = Article.get(localId: cell.article!.localId, accountId: account.id)
         if article == nil {
-            AlertCreater.error("記事の取得に失敗しました", viewController: self)
+            AlertPresenterImplement.error("記事の取得に失敗しました", viewController: self)
             return
         }
         

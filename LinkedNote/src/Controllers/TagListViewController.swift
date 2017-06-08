@@ -53,7 +53,7 @@ extension TagListViewController: UITableViewDelegate {
             let noteListVC = NoteListViewController(settings: settings, calculator: self.calculator)
             self.navigationController?.pushViewController(noteListVC, animated: true)
         } else {
-            AlertCreater.error("タグの読み込みに必要な情報の取得に失敗しました", viewController: self)
+            AlertPresenterImplement.error("タグの読み込みに必要な情報の取得に失敗しました", viewController: self)
         }
     }
     

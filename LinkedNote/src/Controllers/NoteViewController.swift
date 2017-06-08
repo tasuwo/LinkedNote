@@ -100,7 +100,7 @@ extension NoteViewController: NoteViewDelegate {
     
     func didPressViewArticleButton() {
         if self.note.article == nil {
-            AlertCreater.error("ノートに対応する記事の取得に失敗しました", viewController: self)
+            AlertPresenterImplement.error("ノートに対応する記事の取得に失敗しました", viewController: self)
             return
         }
         let articleVC = ArticleViewController(article: self.note.article!, calculator: self.calculator)

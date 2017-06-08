@@ -21,7 +21,7 @@
 		A05E179F1EE26218005C4566 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E175D1EE26218005C4566 /* NoteViewController.swift */; };
 		A05E17A01EE26218005C4566 /* TagEditViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E175E1EE26218005C4566 /* TagEditViewPresenter.swift */; };
 		A05E17A11EE26218005C4566 /* TagListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E175F1EE26218005C4566 /* TagListViewController.swift */; };
-		A05E17A21EE26218005C4566 /* AlertCreater.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17611EE26218005C4566 /* AlertCreater.swift */; };
+		A05E17A21EE26218005C4566 /* AlertPresenterImplement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17611EE26218005C4566 /* AlertPresenterImplement.swift */; };
 		A05E17A31EE26218005C4566 /* APIWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17631EE26218005C4566 /* APIWrapper.swift */; };
 		A05E17A41EE26218005C4566 /* PocketAPIWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17641EE26218005C4566 /* PocketAPIWrapper.swift */; };
 		A05E17A51EE26218005C4566 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17661EE26218005C4566 /* Api.swift */; };
@@ -109,7 +109,7 @@
 		A05E175D1EE26218005C4566 /* NoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		A05E175E1EE26218005C4566 /* TagEditViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagEditViewPresenter.swift; sourceTree = "<group>"; };
 		A05E175F1EE26218005C4566 /* TagListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListViewController.swift; sourceTree = "<group>"; };
-		A05E17611EE26218005C4566 /* AlertCreater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertCreater.swift; sourceTree = "<group>"; };
+		A05E17611EE26218005C4566 /* AlertPresenterImplement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPresenterImplement.swift; sourceTree = "<group>"; };
 		A05E17631EE26218005C4566 /* APIWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIWrapper.swift; sourceTree = "<group>"; };
 		A05E17641EE26218005C4566 /* PocketAPIWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PocketAPIWrapper.swift; sourceTree = "<group>"; };
 		A05E17661EE26218005C4566 /* Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
@@ -281,7 +281,7 @@
 				A05E17621EE26218005C4566 /* API Wrappers */,
 				A05E17651EE26218005C4566 /* Data Models */,
 				A05E176B1EE26218005C4566 /* Presenter */,
-				A05E17611EE26218005C4566 /* AlertCreater.swift */,
+				A05E17611EE26218005C4566 /* AlertPresenterImplement.swift */,
 				A0DE75541EE3FCB900EFAA3F /* ThumbnailDownloader.swift */,
 			);
 			path = Models;
@@ -450,7 +450,6 @@
 				A0D6F4AA1EE8DB5800430171 /* Fake Dependencies */,
 				A068F83F1EE8C94900767149 /* AccountViewControllerTest.swift */,
 			);
-			name = Controllers;
 			path = Controllers;
 			sourceTree = "<group>";
 		};
@@ -460,7 +459,6 @@
 				A0D6F4AB1EE8DB6E00430171 /* FakeAPIWrappers.swift */,
 				A0D6F4AD1EE8DB8700430171 /* FakeFrameCalculators.swift */,
 			);
-			name = "Fake Dependencies";
 			path = "Fake Dependencies";
 			sourceTree = "<group>";
 		};
@@ -822,7 +820,7 @@
 				A05E17C51EE26218005C4566 /* TagMenuView.swift in Sources */,
 				A05E17B01EE26218005C4566 /* UIColor+.swift in Sources */,
 				A05E17A01EE26218005C4566 /* TagEditViewPresenter.swift in Sources */,
-				A05E17A21EE26218005C4566 /* AlertCreater.swift in Sources */,
+				A05E17A21EE26218005C4566 /* AlertPresenterImplement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

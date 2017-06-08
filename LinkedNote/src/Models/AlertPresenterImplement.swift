@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AlertCreater {
+class AlertPresenterImplement {
     static func error(_ message: String, viewController vc: UIViewController) {
         let alert: UIAlertController = UIAlertController(title: "Error", message: message, preferredStyle:  UIAlertControllerStyle.alert)
         

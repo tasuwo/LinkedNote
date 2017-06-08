@@ -42,7 +42,7 @@ class ArticleViewController: UIViewController {
             self.articleView.noteView.text = note.body
         } else {
             self.articleView.noteView.text = ""
-            AlertCreater.error("ノートの作成に失敗しました。記事に対応する Api, ApiAccount が正常に保存されていない可能性があります。", viewController: self)
+            AlertPresenterImplement.error("ノートの作成に失敗しました。記事に対応する Api, ApiAccount が正常に保存されていない可能性があります。", viewController: self)
         }
         
         // Recognize the touch to out of text field
@@ -88,7 +88,7 @@ class ArticleViewController: UIViewController {
             let text = self.articleView.noteView.text {
             Note.update(note: note, body: text)
         } else {
-            AlertCreater.error("ノートの保存に失敗しました。ノートが存在していません。", viewController: self)
+            AlertPresenterImplement.error("ノートの保存に失敗しました。ノートが存在していません。", viewController: self)
         }
         
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
