@@ -9,39 +9,6 @@
 import XCTest
 @testable import LinkedNote
 
-class LoggedInFakeAPIWrapper: APIWrapper {
-    static var signature: String = "fake"
-    static func getUsername() -> String? { return nil }
-    static func isLoggedIn() -> Bool { return true }
-    static func login(completion: @escaping (Error?) -> Void) {}
-    static func logout() {}
-    func setUnitNum(_ num: Int) {}
-    func initOffset() {}
-    func retrieve(_ completion: @escaping (([Article]) -> Void)) {}
-    func archive(id: String, completion: @escaping ((Bool) -> Void)) {}
-}
-
-class LoggedOutFakeAPIWrapper: APIWrapper {
-    static var signature: String = "fake"
-    static func getUsername() -> String? { return nil }
-    static func isLoggedIn() -> Bool { return false }
-    static func login(completion: @escaping (Error?) -> Void) {}
-    static func logout() {}
-    func setUnitNum(_ num: Int) {}
-    func initOffset() {}
-    func retrieve(_ completion: @escaping (([Article]) -> Void)) {}
-    func archive(id: String, completion: @escaping ((Bool) -> Void)) {}
-}
-
-class FakeViewCalculator: FrameCalculator {
-    func calcFrameOnTabAndNavBar(by: UIViewController) -> CGRect {
-        return by.view.frame
-    }
-    func calcFrameOnNavVar(by: UIViewController) -> CGRect {
-        return by.view.frame
-    }
-}
-
 class AccountViewControllerTest: XCTestCase {
     var viewController: AccountViewController!
     
