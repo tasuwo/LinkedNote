@@ -10,9 +10,11 @@ import UIKit
 
 class TagListViewController: UIViewController {
     var tagListView: TagListView!
+    let calculator: FrameCalculator
     let tagListPresenter: TagListPresenter
     
-    init() {
+    init(calculator: FrameCalculator) {
+        self.calculator = calculator
         self.tagListPresenter = TagListPresenter()
         super.init(nibName: nil, bundle: nil)
     }
@@ -23,13 +25,8 @@ class TagListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let offset = self.navigationController!.tabBarController!.tabBar.frame.height
-            + self.navigationController!.navigationBar.frame.height
-            + UIApplication.shared.statusBarFrame.height
-        let frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.width, height: self.view.frame.height - offset)
 
-        self.tagListView = TagListView(frame: frame)
+        self.tagListView = TagListView(frame: self.calculator.calcFrameOnTabAndNavBar(by: self))
         self.tagListView.tagList.dataSource = tagListPresenter
         self.tagListView.tagList.delegate = self
         self.view.addSubview(tagListView)
@@ -53,7 +50,7 @@ extension TagListViewController: UITableViewDelegate {
         
         if let id = cell.tagId {
             let settings = NodeListViewControllerSettings(title: "タグ: \(cell.tagName.text!)", tagId: id)
-            let noteListVC = NoteListViewController(settings: settings)
+            let noteListVC = NoteListViewController(settings: settings, calculator: self.calculator)
             self.navigationController?.pushViewController(noteListVC, animated: true)
         } else {
             AlertCreater.error("タグの読み込みに必要な情報の取得に失敗しました", viewController: self)

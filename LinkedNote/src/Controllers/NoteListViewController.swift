@@ -16,12 +16,14 @@ struct NodeListViewControllerSettings {
 class NoteListViewController: UIViewController {
     var noteListView: NoteListView!
     var tagMenuView: TagMenuView?
+    let calculator: FrameCalculator
     let noteListPresenter: NoteListPresenter
     let tagPickerPresenter: TagPickerPresenter
     let settings: NodeListViewControllerSettings
     
-    init(settings: NodeListViewControllerSettings) {
+    init(settings: NodeListViewControllerSettings, calculator: FrameCalculator) {
         self.settings = settings
+        self.calculator = calculator
         self.noteListPresenter = NoteListPresenter()
         self.tagPickerPresenter = TagPickerPresenter()
         super.init(nibName: nil, bundle: nil)
@@ -33,15 +35,9 @@ class NoteListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Calculate a frame size
-        let offset = self.navigationController!.tabBarController!.tabBar.frame.height
-            + self.navigationController!.navigationBar.frame.height
-            + UIApplication.shared.statusBarFrame.height
-        let frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.width, height: self.view.frame.height - offset)
 
         // Initialize and add a view
-        self.noteListView = NoteListView(frame: frame)
+        self.noteListView = NoteListView(frame: self.calculator.calcFrameOnTabAndNavBar(by: self))
         self.noteListView.noteList.dataSource = noteListPresenter
         self.noteListView.noteList.delegate = self
         self.view.addSubview(self.noteListView)
@@ -70,7 +66,7 @@ extension NoteListViewController: UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath)! as! NoteListCustomCell
         
         if let note = cell.note {
-            let noteVC = NoteViewController(note: note)
+            let noteVC = NoteViewController(note: note, calculator: self.calculator)
             self.navigationController?.pushViewController(noteVC, animated: true)
         } else {
             AlertCreater.error("ノートの読み込みに必要な情報の取得に失敗しました", viewController: self)

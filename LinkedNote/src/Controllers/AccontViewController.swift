@@ -11,9 +11,11 @@ import UIKit
 class AccountViewController: UIViewController {
     var currentActiveView: UIView!
     let api: APIWrapper
+    let calculator: FrameCalculator
     
-    init(api: APIWrapper) {
+    init(api: APIWrapper, calculator: FrameCalculator) {
         self.api = api
+        self.calculator = calculator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -24,19 +26,13 @@ class AccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Calcurate a frame size
-        let offset = self.navigationController!.tabBarController!.tabBar.frame.height
-            + self.navigationController!.navigationBar.frame.height
-            + UIApplication.shared.statusBarFrame.height
-        let frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.width, height: self.view.frame.height - offset)
-        
         // Initialize and add a view
         let view: UIView
         if type(of: self.api).isLoggedIn() {
-            view = AccountView(frame: frame)
+            view = AccountView(frame: self.calculator.calcFrameOnTabAndNavBar(by: self))
             (view as! AccountView).delegate = self
         } else {
-            view = SignInView(frame: frame)
+            view = SignInView(frame: self.calculator.calcFrameOnTabAndNavBar(by: self))
             (view as! SignInView).delegate = self
         }
         self.currentActiveView = view

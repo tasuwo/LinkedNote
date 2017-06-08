@@ -13,9 +13,11 @@ class ArticleViewController: UIViewController {
     var singleTapRecognizer: UITapGestureRecognizer!
     var defaultFrameSize: CGRect!
     let article: Article
+    let calculator: FrameCalculator
     
-    init(article: Article) {
+    init(article: Article, calculator: FrameCalculator) {
         self.article = article
+        self.calculator = calculator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -30,10 +32,7 @@ class ArticleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Fix frame size
-        let viewBounds = self.view.bounds;
-        let topBarOffSet = self.navigationController!.navigationBar.frame.height + UIApplication.shared.statusBarFrame.size.height
-        self.defaultFrameSize = CGRect(x: 0, y: 0, width: viewBounds.width, height: viewBounds.height - topBarOffSet)
+        self.defaultFrameSize = self.calculator.calcFrameOnNavVar(by: self)
         
         // Initialize a view
         self.articleView = ArticleView(frame: self.defaultFrameSize)

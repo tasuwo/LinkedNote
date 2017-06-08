@@ -62,6 +62,7 @@
 		A05E17C91EE26218005C4566 /* TagListCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17961EE26218005C4566 /* TagListCustomCell.swift */; };
 		A05E17CA1EE26218005C4566 /* TagListCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E17971EE26218005C4566 /* TagListCustomCell.xib */; };
 		A05E17CB1EE26218005C4566 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17981EE26218005C4566 /* TagListView.swift */; };
+		A0D6F4A91EE8D58600430171 /* FrameCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6F4A81EE8D58600430171 /* FrameCalculator.swift */; };
 		A0DE75551EE3FCB900EFAA3F /* ThumbnailDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE75541EE3FCB900EFAA3F /* ThumbnailDownloader.swift */; };
 		EE62733917C6FB9171176B13 /* Pods_LinkedNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50EA9EFCC3AF4212863C844D /* Pods_LinkedNote.framework */; };
 /* End PBXBuildFile section */
@@ -147,6 +148,7 @@
 		A05E17961EE26218005C4566 /* TagListCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListCustomCell.swift; sourceTree = "<group>"; };
 		A05E17971EE26218005C4566 /* TagListCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagListCustomCell.xib; sourceTree = "<group>"; };
 		A05E17981EE26218005C4566 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
+		A0D6F4A81EE8D58600430171 /* FrameCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameCalculator.swift; sourceTree = "<group>"; };
 		A0DE75541EE3FCB900EFAA3F /* ThumbnailDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailDownloader.swift; sourceTree = "<group>"; };
 		A625C72BD3134EC14E545E07 /* Pods-LinkedNoteUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNoteUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNoteUITests/Pods-LinkedNoteUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C923E310951FC7F9255FFD39 /* Pods_LinkedNoteTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkedNoteTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -434,6 +436,7 @@
 			isa = PBXGroup;
 			children = (
 				A05E175E1EE26218005C4566 /* TagEditViewPresenter.swift */,
+				A0D6F4A81EE8D58600430171 /* FrameCalculator.swift */,
 			);
 			name = Util;
 			path = Util;
@@ -786,6 +789,7 @@
 				A05E17C11EE26218005C4566 /* NoteListCustomCell.swift in Sources */,
 				A05E17A91EE26218005C4566 /* Tag.swift in Sources */,
 				A05E17B31EE26218005C4566 /* TagCollectionViewCell.swift in Sources */,
+				A0D6F4A91EE8D58600430171 /* FrameCalculator.swift in Sources */,
 				A05E179B1EE26218005C4566 /* ArticleListViewController.swift in Sources */,
 				A05E17AA1EE26218005C4566 /* ArticleListPresenter.swift in Sources */,
 				A05E17A41EE26218005C4566 /* PocketAPIWrapper.swift in Sources */,

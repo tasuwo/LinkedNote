@@ -10,13 +10,15 @@ import UIKit
 
 class NoteViewController: UIViewController {
     var noteView: NoteView!
+    let calculator: FrameCalculator
     var isAdjusted = false
     let note: Note
     let tagPresenter: TagCollectionPresenter
     let tagEditViewPresenter: TagEditViewPresenter
     
-    init(note: Note) {
+    init(note: Note, calculator: FrameCalculator) {
         self.note = note
+        self.calculator = calculator
         self.tagPresenter = TagCollectionPresenter()
         self.tagEditViewPresenter = TagEditViewPresenter()
         super.init(nibName: nil, bundle: nil)
@@ -29,9 +31,7 @@ class NoteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let topOffset = self.navigationController!.navigationBar.frame.height + UIApplication.shared.statusBarFrame.height
-        let frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - topOffset)
-        self.noteView = NoteView(frame: frame)
+        self.noteView = NoteView(frame: self.calculator.calcFrameOnNavVar(by: self))
         self.noteView.noteView.text = note.body
         self.noteView.delegate = self
         self.view.addSubview(self.noteView)
@@ -66,7 +66,7 @@ extension NoteViewController: UICollectionViewDelegate {
         let cell = self.noteView.tagCollectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
         if let tagId = cell.id {
             let settings = NodeListViewControllerSettings(title: "タグ: \(cell.name.text!)", tagId: tagId)
-            let noteListVC = NoteListViewController(settings: settings)
+            let noteListVC = NoteListViewController(settings: settings, calculator: self.calculator)
             self.navigationController?.pushViewController(noteListVC, animated: true)
         }
     }
@@ -103,7 +103,7 @@ extension NoteViewController: NoteViewDelegate {
             AlertCreater.error("ノートに対応する記事の取得に失敗しました", viewController: self)
             return
         }
-        let articleVC = ArticleViewController(article: self.note.article!)
+        let articleVC = ArticleViewController(article: self.note.article!, calculator: self.calculator)
         self.navigationController?.pushViewController(articleVC, animated: true)
     }
 }

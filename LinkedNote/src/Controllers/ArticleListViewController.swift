@@ -12,10 +12,12 @@ class ArticleListViewController: UIViewController {
     var articleListView: ArticleListView!
     let articleListPresenter: ArticleListPresenter
     let api: APIWrapper
+    let calculator: FrameCalculator
     let tagEditViewPresenter: TagEditViewPresenter
     
-    init(api: APIWrapper) {
+    init(api: APIWrapper, calculator: FrameCalculator) {
         self.api = api
+        self.calculator = calculator
         self.articleListPresenter = ArticleListPresenter(api: api, loadUnitNum: 5)
         self.tagEditViewPresenter = TagEditViewPresenter()
         super.init(nibName: nil, bundle: nil)
@@ -27,15 +29,9 @@ class ArticleListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Calculate a frame size
-        let offset = self.navigationController!.tabBarController!.tabBar.frame.height
-            + self.navigationController!.navigationBar.frame.height
-            + UIApplication.shared.statusBarFrame.height
-        let frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.width, height: self.view.frame.height - offset)
-        
+
         // Initialize and add a view
-        self.articleListView = ArticleListView(frame: frame)
+        self.articleListView = ArticleListView(frame: self.calculator.calcFrameOnTabAndNavBar(by: self))
         self.view.addSubview(articleListView)
         
         // Prepare a presenter
@@ -99,7 +95,7 @@ extension ArticleListViewController: UITableViewDelegate {
             return
         }
         
-        let articleVC = ArticleViewController(article: article!)
+        let articleVC = ArticleViewController(article: article!, calculator: self.calculator)
         self.navigationController?.pushViewController(articleVC, animated: true)
         
         // Update cell informations
@@ -144,7 +140,7 @@ extension ArticleListViewController: UITableViewDelegate {
 extension ArticleListViewController: ArticleListTableViewDelegate {
     func didPressNoteButtonOnCell(_ note: Note?) {
         if let note = note {
-            let noteVC = NoteViewController(note: note)
+            let noteVC = NoteViewController(note: note, calculator: self.calculator)
             self.navigationController?.pushViewController(noteVC, animated: true)
         }
     }
