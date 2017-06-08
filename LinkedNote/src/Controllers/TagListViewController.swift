@@ -12,10 +12,12 @@ class TagListViewController: UIViewController {
     var tagListView: TagListView!
     let calculator: FrameCalculator
     let tagListPresenter: TagListPresenter
+    let alertPresenter: AlertPresenter
     
-    init(calculator: FrameCalculator) {
+    init(calculator: FrameCalculator, alertPresenter: AlertPresenter) {
         self.calculator = calculator
         self.tagListPresenter = TagListPresenter()
+        self.alertPresenter = alertPresenter
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -50,10 +52,10 @@ extension TagListViewController: UITableViewDelegate {
         
         if let id = cell.tagId {
             let settings = NodeListViewControllerSettings(title: "タグ: \(cell.tagName.text!)", tagId: id)
-            let noteListVC = NoteListViewController(settings: settings, calculator: self.calculator)
+            let noteListVC = NoteListViewController(settings: settings, calculator: self.calculator, alertPresenter: self.alertPresenter)
             self.navigationController?.pushViewController(noteListVC, animated: true)
         } else {
-            AlertPresenterImplement.error("タグの読み込みに必要な情報の取得に失敗しました", viewController: self)
+            self.alertPresenter.error("タグの読み込みに必要な情報の取得に失敗しました", on: self)
         }
     }
     

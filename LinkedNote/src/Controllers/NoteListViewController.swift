@@ -20,10 +20,12 @@ class NoteListViewController: UIViewController {
     let noteListPresenter: NoteListPresenter
     let tagPickerPresenter: TagPickerPresenter
     let settings: NodeListViewControllerSettings
+    let alertPresenter: AlertPresenter
     
-    init(settings: NodeListViewControllerSettings, calculator: FrameCalculator) {
+    init(settings: NodeListViewControllerSettings, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
         self.settings = settings
         self.calculator = calculator
+        self.alertPresenter = alertPresenter
         self.noteListPresenter = NoteListPresenter()
         self.tagPickerPresenter = TagPickerPresenter()
         super.init(nibName: nil, bundle: nil)
@@ -66,10 +68,10 @@ extension NoteListViewController: UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath)! as! NoteListCustomCell
         
         if let note = cell.note {
-            let noteVC = NoteViewController(note: note, calculator: self.calculator)
+            let noteVC = NoteViewController(note: note, calculator: self.calculator, alertPresenter: self.alertPresenter)
             self.navigationController?.pushViewController(noteVC, animated: true)
         } else {
-            AlertPresenterImplement.error("ノートの読み込みに必要な情報の取得に失敗しました", viewController: self)
+            self.alertPresenter.error("ノートの読み込みに必要な情報の取得に失敗しました", on: self)
         }
     }
     

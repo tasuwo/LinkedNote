@@ -28,12 +28,13 @@ class MainTabBarController: UITabBarController {
         let api = PocketAPIWrapper()
         let settings = NodeListViewControllerSettings(title: "", tagId: nil)
         let calculator = FrameCalculatorImplement()
+        let alertPresenter = AlertPresenterImplement()
         //====================================================================
         
-        self.articleListVC = ArticleListViewController(api: api, calculator: calculator)
-        self.accountVC = AccountViewController(api: api, calculator: calculator)
-        self.noteListVC = NoteListViewController(settings: settings, calculator: calculator)
-        self.tagListVC = TagListViewController(calculator: calculator)
+        self.articleListVC = ArticleListViewController(api: api, calculator: calculator, alertPresenter: alertPresenter)
+        self.accountVC = AccountViewController(api: api, calculator: calculator, alertPresenter: alertPresenter)
+        self.noteListVC = NoteListViewController(settings: settings, calculator: calculator, alertPresenter: alertPresenter)
+        self.tagListVC = TagListViewController(calculator: calculator, alertPresenter: alertPresenter)
         self.articleListNVC = UINavigationController(rootViewController: articleListVC)
         self.accountNVC = UINavigationController(rootViewController: accountVC)
         self.noteListNVC = UINavigationController(rootViewController: noteListVC)

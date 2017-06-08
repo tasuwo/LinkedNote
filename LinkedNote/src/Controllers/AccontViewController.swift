@@ -12,10 +12,12 @@ class AccountViewController: UIViewController {
     var currentActiveView: UIView!
     let api: APIWrapper
     let calculator: FrameCalculator
+    let alertPresenter: AlertPresenter
     
-    init(api: APIWrapper, calculator: FrameCalculator) {
+    init(api: APIWrapper, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
         self.api = api
         self.calculator = calculator
+        self.alertPresenter = alertPresenter
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -50,7 +52,7 @@ extension AccountViewController: SignInViewDelegate {
     func didTouchLoginButton() {
         type(of: self.api).login(completion: { (error) in
             if let e = error {
-                AlertPresenterImplement.error(e.localizedDescription, viewController: self)
+                self.alertPresenter.error(e.localizedDescription, on: self)
                 return
             }
             

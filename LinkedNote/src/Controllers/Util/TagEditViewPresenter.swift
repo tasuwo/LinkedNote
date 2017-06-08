@@ -23,7 +23,10 @@ class TagEditViewPresenter: NSObject {
     var fullScrnFrame: CGRect?
     var isNewTagNameEditing: Bool = false
     
-    override init() {
+    let alertPresenter: AlertPresenter
+    
+    init(alertPresenter: AlertPresenter) {
+        self.alertPresenter = alertPresenter
         self.tagPickerPresenter = TagPickerPresenter()
         self.tagPickerPresenter.reload()
         
@@ -180,7 +183,7 @@ extension TagEditViewPresenter: UIPickerViewDelegate {
 extension TagEditViewPresenter: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = self.tagMenuView.tagCollectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
-        AlertPresenterImplement.yn(title: "タグの削除", message: "このタグを削除しますか？", viewController: self.targetViewController, y: { (_ a: UIAlertAction?) in
+        self.alertPresenter.yn(title: "タグの削除", message: "このタグを削除しますか？", on: self.targetViewController, y: { (_ a: UIAlertAction?) in
             Tag.delete(cell.id!, from: self.tagMenuView.note!.id)
             self.tagCollectionPresenter.load(noteId: self.tagMenuView.note!.id)
             self.tagMenuView.tagCollectionView.reloadData()

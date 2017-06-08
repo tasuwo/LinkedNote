@@ -15,12 +15,14 @@ class NoteViewController: UIViewController {
     let note: Note
     let tagPresenter: TagCollectionPresenter
     let tagEditViewPresenter: TagEditViewPresenter
+    let alertPresenter: AlertPresenter
     
-    init(note: Note, calculator: FrameCalculator) {
+    init(note: Note, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
         self.note = note
         self.calculator = calculator
+        self.alertPresenter = alertPresenter
         self.tagPresenter = TagCollectionPresenter()
-        self.tagEditViewPresenter = TagEditViewPresenter()
+        self.tagEditViewPresenter = TagEditViewPresenter(alertPresenter: alertPresenter)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -66,7 +68,7 @@ extension NoteViewController: UICollectionViewDelegate {
         let cell = self.noteView.tagCollectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
         if let tagId = cell.id {
             let settings = NodeListViewControllerSettings(title: "タグ: \(cell.name.text!)", tagId: tagId)
-            let noteListVC = NoteListViewController(settings: settings, calculator: self.calculator)
+            let noteListVC = NoteListViewController(settings: settings, calculator: self.calculator, alertPresenter: self.alertPresenter)
             self.navigationController?.pushViewController(noteListVC, animated: true)
         }
     }
@@ -100,10 +102,10 @@ extension NoteViewController: NoteViewDelegate {
     
     func didPressViewArticleButton() {
         if self.note.article == nil {
-            AlertPresenterImplement.error("ノートに対応する記事の取得に失敗しました", viewController: self)
+            self.alertPresenter.error("ノートに対応する記事の取得に失敗しました", on: self)
             return
         }
-        let articleVC = ArticleViewController(article: self.note.article!, calculator: self.calculator)
+        let articleVC = ArticleViewController(article: self.note.article!, calculator: self.calculator, alertPresenter: self.alertPresenter)
         self.navigationController?.pushViewController(articleVC, animated: true)
     }
 }

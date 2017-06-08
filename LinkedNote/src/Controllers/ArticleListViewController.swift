@@ -13,13 +13,15 @@ class ArticleListViewController: UIViewController {
     let articleListPresenter: ArticleListPresenter
     let api: APIWrapper
     let calculator: FrameCalculator
+    let alertPresenter: AlertPresenter
     let tagEditViewPresenter: TagEditViewPresenter
     
-    init(api: APIWrapper, calculator: FrameCalculator) {
+    init(api: APIWrapper, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
         self.api = api
         self.calculator = calculator
+        self.alertPresenter = alertPresenter
         self.articleListPresenter = ArticleListPresenter(api: api, loadUnitNum: 5)
-        self.tagEditViewPresenter = TagEditViewPresenter()
+        self.tagEditViewPresenter = TagEditViewPresenter(alertPresenter: alertPresenter)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -72,7 +74,7 @@ extension ArticleListViewController: UITableViewDelegate {
         let account = ApiAccount.get(apiSignature: signature, username: username)!
         
         if cell.article == nil {
-            AlertPresenterImplement.error("記事の読み込みに必要な情報の取得に失敗しました", viewController: self)
+            self.alertPresenter.error("記事の読み込みに必要な情報の取得に失敗しました", on: self)
             return
         }
         
@@ -91,11 +93,11 @@ extension ArticleListViewController: UITableViewDelegate {
         // Get updated article from database because this contains notes
         let article = Article.get(localId: cell.article!.localId, accountId: account.id)
         if article == nil {
-            AlertPresenterImplement.error("記事の取得に失敗しました", viewController: self)
+            self.alertPresenter.error("記事の取得に失敗しました", on: self)
             return
         }
         
-        let articleVC = ArticleViewController(article: article!, calculator: self.calculator)
+        let articleVC = ArticleViewController(article: article!, calculator: self.calculator, alertPresenter: alertPresenter)
         self.navigationController?.pushViewController(articleVC, animated: true)
         
         // Update cell informations
@@ -140,7 +142,7 @@ extension ArticleListViewController: UITableViewDelegate {
 extension ArticleListViewController: ArticleListTableViewDelegate {
     func didPressNoteButtonOnCell(_ note: Note?) {
         if let note = note {
-            let noteVC = NoteViewController(note: note, calculator: self.calculator)
+            let noteVC = NoteViewController(note: note, calculator: self.calculator, alertPresenter: self.alertPresenter)
             self.navigationController?.pushViewController(noteVC, animated: true)
         }
     }

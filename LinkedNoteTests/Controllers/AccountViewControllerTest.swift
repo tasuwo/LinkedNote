@@ -23,14 +23,14 @@ class AccountViewControllerTest: XCTestCase {
     }
     
     func testDisplayLogoutViewWhenUserLoggedIn() {
-        let vc = AccountViewController(api: LoggedInFakeAPIWrapper(), calculator: FakeViewCalculator())
+        let vc = AccountViewController(api: LoggedInFakeAPIWrapper(), calculator: FakeViewCalculator(), alertPresenter: FakeAlertPresenter())
         // Call view to execute viewDidLoad
         _ = vc.view
         XCTAssert(vc.currentActiveView as? AccountView != nil, "ログアウトしている場合は、アカウント画面を表示する")
     }
     
     func testDisplayLoginViewWhenUserLoggedOut() {
-        let vc = AccountViewController(api: LoggedOutFakeAPIWrapper(), calculator: FakeViewCalculator())
+        let vc = AccountViewController(api: LoggedOutFakeAPIWrapper(), calculator: FakeViewCalculator(), alertPresenter: FakeAlertPresenter())
         // Call view to execute viewDidLoad
         _ = vc.view
         XCTAssert(vc.currentActiveView as? SignInView != nil, "ログインしている場合は、ログアウト用画面を表示する")
