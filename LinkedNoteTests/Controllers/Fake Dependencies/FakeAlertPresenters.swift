@@ -10,6 +10,13 @@ import UIKit
 @testable import LinkedNote
 
 class FakeAlertPresenter: AlertPresenter {
-    func error(_ message: String, on: UIViewController) {}
-    func yn(title: String, message: String, on vc: UIViewController, y: @escaping (UIAlertAction?) -> Void, n: @escaping (UIAlertAction?) -> Void) {}
+    var lastErrorMessage: String?
+    var lastYNMessage: String?
+    
+    func error(_ message: String, on: UIViewController) {
+        self.lastErrorMessage = message
+    }
+    func yn(title: String, message: String, on vc: UIViewController, y: @escaping (UIAlertAction?) -> Void, n: @escaping (UIAlertAction?) -> Void) {
+        var lastYNMessage = message
+    }
 }

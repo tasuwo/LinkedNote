@@ -35,4 +35,8 @@ class AccountViewControllerTest: XCTestCase {
         _ = vc.view
         XCTAssert(vc.currentActiveView as? SignInView != nil, "ログインしている場合は、ログアウト用画面を表示する")
     }
+    
+    func testAlerLoginError() {
+        let vc = AccountViewController(api: <#T##APIWrapper#>, calculator: <#T##FrameCalculator#>, alertPresenter: <#T##AlertPresenter#>)
+    }
 }
