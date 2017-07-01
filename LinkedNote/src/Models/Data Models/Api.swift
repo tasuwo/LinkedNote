@@ -53,4 +53,13 @@ extension Api {
             }
         }
     }
+    
+    static func delete(signature: String) {
+        let realm = try! Realm()
+        if let api = Api.get(signature: signature) {
+            try! realm.write {
+                realm.delete(api)
+            }
+        }
+    }
 }

@@ -17,6 +17,6 @@ class FakeAlertPresenter: AlertPresenter {
         self.lastErrorMessage = message
     }
     func yn(title: String, message: String, on vc: UIViewController, y: @escaping (UIAlertAction?) -> Void, n: @escaping (UIAlertAction?) -> Void) {
-        var lastYNMessage = message
+        self.lastYNMessage = message
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import RealmSwift
 @testable import LinkedNote
 
 class AccountViewControllerTest: XCTestCase {
@@ -14,29 +15,132 @@ class AccountViewControllerTest: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        Realm.Configuration.defaultConfiguration.inMemoryIdentifier = self.name
+        let fakeApi = Api(signature: FakeAPIWrapper.signature)
+        Api.add(fakeApi)
+        
+        FakeAPIWrapper.initialize()
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
+    // positive testing
+    
     func testDisplayLogoutViewWhenUserLoggedIn() {
-        let vc = AccountViewController(api: LoggedInFakeAPIWrapper(), calculator: FakeViewCalculator(), alertPresenter: FakeAlertPresenter())
+        FakeAPIWrapper.loggedIn = true
+        
+        let vc = AccountViewController(api: FakeAPIWrapper(), calculator: FakeViewCalculator(), alertPresenter: FakeAlertPresenter())
         // Call view to execute viewDidLoad
         _ = vc.view
-        XCTAssert(vc.currentActiveView as? AccountView != nil, "ログアウトしている場合は、アカウント画面を表示する")
+        XCTAssertNotNil(vc.currentActiveView as? AccountView)
     }
     
     func testDisplayLoginViewWhenUserLoggedOut() {
-        let vc = AccountViewController(api: LoggedOutFakeAPIWrapper(), calculator: FakeViewCalculator(), alertPresenter: FakeAlertPresenter())
+        FakeAPIWrapper.loggedIn = false
+        
+        let vc = AccountViewController(api: FakeAPIWrapper(), calculator: FakeViewCalculator(), alertPresenter: FakeAlertPresenter())
         // Call view to execute viewDidLoad
         _ = vc.view
-        XCTAssert(vc.currentActiveView as? SignInView != nil, "ログインしている場合は、ログアウト用画面を表示する")
+        XCTAssertNotNil(vc.currentActiveView as? SignInView)
     }
     
-    func testAlerLoginError() {
-        let vc = AccountViewController(api: <#T##APIWrapper#>, calculator: <#T##FrameCalculator#>, alertPresenter: <#T##AlertPresenter#>)
+    func testAlertLoginError() {
+        FakeAPIWrapper.loggedIn = false
+        FakeAPIWrapper.willOccurLoginError = true
+        
+        let ap = FakeAlertPresenter()
+        let vc = AccountViewController(api: FakeAPIWrapper(), calculator: FakeViewCalculator(), alertPresenter: ap)
+        // Call view to execute viewDidLoad
+        _ = vc.view
+        
+        vc.didTouchLoginButton()
+        
+        XCTAssertTrue(ap.lastErrorMessage == "test")
+    }
+    
+    func testLoginWithoutAccountDataModel() {
+        FakeAPIWrapper.loggedIn = false
+        
+        let vc = AccountViewController(api: FakeAPIWrapper(), calculator: FakeViewCalculator(), alertPresenter: FakeAlertPresenter())
+        // Call view to execute viewDidLoad
+        _ = vc.view
+        
+        vc.didTouchLoginButton()
+        
+        XCTAssertTrue(FakeAPIWrapper.loggedIn)
+        XCTAssertNotNil(ApiAccount.get(apiSignature: FakeAPIWrapper.signature, username: FakeAPIWrapper.getUsername()!))
+        XCTAssertNotNil(vc.currentActiveView as? AccountView)
+    }
+    
+    func testLoginWithAccountDataModel() {
+        FakeAPIWrapper.loggedIn = false
+        //
+        let account = ApiAccount(username: "test_username")
+        ApiAccount.add(account)
+        ApiAccount.add(account, to: Api.get(signature: FakeAPIWrapper.signature)!)
+        
+        let vc = AccountViewController(api: FakeAPIWrapper(), calculator: FakeViewCalculator(), alertPresenter: FakeAlertPresenter())
+        // Call view to execute viewDidLoad
+        _ = vc.view
+        
+        vc.didTouchLoginButton()
+        
+        XCTAssertTrue(FakeAPIWrapper.loggedIn)
+        XCTAssertNotNil(ApiAccount.get(apiSignature: FakeAPIWrapper.signature, username: FakeAPIWrapper.getUsername()!))
+        XCTAssertNotNil(vc.currentActiveView as? AccountView)
+    }
+    
+    func testLogout() {
+        FakeAPIWrapper.loggedIn = true
+        
+        let vc = AccountViewController(api: FakeAPIWrapper(), calculator: FakeViewCalculator(), alertPresenter: FakeAlertPresenter())
+        // Call view to execute viewDidLoad
+        _ = vc.view
+        
+        vc.didTouchLogOutButton()
+        
+        XCTAssertFalse(FakeAPIWrapper.loggedIn)
+        XCTAssertNotNil(vc.currentActiveView as? SignInView)
+    }
+    
+    // negative testing
+    
+    func testLoginWithoutUsernameSetting() {
+        FakeAPIWrapper.loggedIn = false
+        
+        // This is Api wrapper's error.
+        FakeAPIWrapper.willLoginWithoutUsername = true
+        let ap = FakeAlertPresenter()
+        
+        let vc = AccountViewController(api: FakeAPIWrapper(), calculator: FakeViewCalculator(), alertPresenter: ap)
+        // Call view to execute viewDidLoad
+        _ = vc.view
+        
+        vc.didTouchLoginButton()
+        
+        XCTAssertTrue(ap.lastErrorMessage == "ユーザ名の取得に失敗しました")
+        XCTAssertNil(FakeAPIWrapper.getUsername())
+        XCTAssertNil(vc.currentActiveView as? AccountView)
+    }
+    
+    func testLoginWithoutApiDataModel() {
+        FakeAPIWrapper.loggedIn = false
+        let ap = FakeAlertPresenter()
+
+        // Delete Api data model
+        Api.delete(signature: FakeAPIWrapper.signature)
+        
+        let vc = AccountViewController(api: FakeAPIWrapper(), calculator: FakeViewCalculator(), alertPresenter: ap)
+        // Call view to execute viewDidLoad
+        _ = vc.view
+        
+        vc.didTouchLoginButton()
+        
+        XCTAssertTrue(ap.lastErrorMessage == "登録されていない API です")
+        XCTAssertNil(ApiAccount.get(apiSignature: FakeAPIWrapper.signature, username: FakeAPIWrapper.getUsername()!))
+        XCTAssertNil(vc.currentActiveView as? AccountView)
     }
 }
