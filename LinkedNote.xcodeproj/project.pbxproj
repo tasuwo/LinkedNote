@@ -151,7 +151,7 @@
 		A05E17971EE26218005C4566 /* TagListCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagListCustomCell.xib; sourceTree = "<group>"; };
 		A05E17981EE26218005C4566 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
 		A068F83F1EE8C94900767149 /* AccountViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewControllerTest.swift; sourceTree = "<group>"; };
-		A0C8C7F11F07377900E1F0A1 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		A0C8C7F11F07377900E1F0A1 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A0D6F4A81EE8D58600430171 /* FrameCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameCalculator.swift; sourceTree = "<group>"; };
 		A0D6F4AB1EE8DB6E00430171 /* FakeAPIWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeAPIWrapper.swift; sourceTree = "<group>"; };
 		A0D6F4AD1EE8DB8700430171 /* FakeFrameCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeFrameCalculator.swift; sourceTree = "<group>"; };
@@ -460,8 +460,8 @@
 			isa = PBXGroup;
 			children = (
 				A0D6F4AB1EE8DB6E00430171 /* FakeAPIWrapper.swift */,
-				A0D6F4AD1EE8DB8700430171 /* FakeFrameCalculator.swift */,
 				A0E6C8A11EE8E50F007A6737 /* FakeAlertPresenter.swift */,
+				A0D6F4AD1EE8DB8700430171 /* FakeFrameCalculator.swift */,
 			);
 			path = "Fake Dependencies";
 			sourceTree = "<group>";
