@@ -60,17 +60,19 @@ extension AccountViewController: SignInViewDelegate {
             let optionalUsername = type(of: self.api).getUsername()
             guard let username = optionalUsername else {
                 self.alertPresenter.error("ユーザ名の取得に失敗しました", on: self)
+                type(of: self.api).logout()
                 return
             }
             guard let api = Api.get(signature: signature) else {
                 self.alertPresenter.error("登録されていない API です", on: self)
+                type(of: self.api).logout()
                 return
             }
             
             if ApiAccount.get(apiSignature: signature, username: username) == nil {
                 let account = ApiAccount(username: username)
-                ApiAccount.add(account)
-                ApiAccount.add(account, to: api)
+                try! ApiAccount.add(account)
+                try! ApiAccount.add(account, to: api)
             }
             
             let view = AccountView(frame: self.currentActiveView.frame)

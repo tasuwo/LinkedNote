@@ -18,7 +18,7 @@ class AccountViewControllerTest: XCTestCase {
         
         Realm.Configuration.defaultConfiguration.inMemoryIdentifier = self.name
         let fakeApi = Api(signature: FakeAPIWrapper.signature)
-        Api.add(fakeApi)
+        try! Api.add(fakeApi)
         
         FakeAPIWrapper.initialize()
     }
@@ -79,8 +79,8 @@ class AccountViewControllerTest: XCTestCase {
         FakeAPIWrapper.loggedIn = false
         //
         let account = ApiAccount(username: "test_username")
-        ApiAccount.add(account)
-        ApiAccount.add(account, to: Api.get(signature: FakeAPIWrapper.signature)!)
+        try! ApiAccount.add(account)
+        try! ApiAccount.add(account, to: Api.get(signature: FakeAPIWrapper.signature)!)
         
         let vc = AccountViewController(api: FakeAPIWrapper(), calculator: FakeViewCalculator(), alertPresenter: FakeAlertPresenter())
         // Call view to execute viewDidLoad
@@ -122,6 +122,7 @@ class AccountViewControllerTest: XCTestCase {
         vc.didTouchLoginButton()
         
         XCTAssertTrue(ap.lastErrorMessage == "ユーザ名の取得に失敗しました")
+        XCTAssertFalse(FakeAPIWrapper.loggedIn)
         XCTAssertNil(FakeAPIWrapper.getUsername())
         XCTAssertNil(vc.currentActiveView as? AccountView)
     }
@@ -140,6 +141,7 @@ class AccountViewControllerTest: XCTestCase {
         vc.didTouchLoginButton()
         
         XCTAssertTrue(ap.lastErrorMessage == "登録されていない API です")
+        XCTAssertFalse(FakeAPIWrapper.loggedIn)
         XCTAssertNil(ApiAccount.get(apiSignature: FakeAPIWrapper.signature, username: FakeAPIWrapper.getUsername()!))
         XCTAssertNil(vc.currentActiveView as? AccountView)
     }

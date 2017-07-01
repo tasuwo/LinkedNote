@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // WARNING: PLEASE DELETE THIS CODE BEFORE RELEASE =========================================
         if Api.all().count == 0 {
             let pocketApi = Api(signature: "pocket")
-            Api.add(pocketApi)
+            try! Api.add(pocketApi)
             let tag1 = Tag(name: "test tag 1")
             Tag.add(tag1)
             let tag2 = Tag(name: "test tag 2")

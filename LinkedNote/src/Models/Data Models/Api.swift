@@ -43,14 +43,16 @@ extension Api {
         return realm.objects(Api.self).filter("signature == '\(signature)'").first
     }
     
-    static func add(_ api: Api) {
+    static func add(_ api: Api) throws {
         let realm = try! Realm()
-        try! realm.write {
-            if realm.object(ofType: Api.self, forPrimaryKey: api.id) != nil {
-                realm.create(Api.self, value: api, update: true)
-            } else {
-                realm.add(api)
+        try realm.write {
+            if realm.objects(Api.self).filter("signature == '\(api.signature)'").count > 0 {
+                throw DataModelError.IntegrityConstraintViolation
             }
+            if let _ = realm.object(ofType: Api.self, forPrimaryKey: api.id) {
+                throw DataModelError.PrimaryKeyViolation
+            }
+            realm.add(api)
         }
     }
     

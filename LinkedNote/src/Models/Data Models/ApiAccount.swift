@@ -37,7 +37,7 @@ class ApiAccount: Object {
 extension ApiAccount {
     static func get(_ id: Int) -> ApiAccount? {
         let realm = try! Realm()
-        return realm.objects(ApiAccount.self).filter("id == \(id)").first
+        return realm.object(ofType: ApiAccount.self, forPrimaryKey: id)
     }
 
     static func get(apiSignature: String, username: String) -> ApiAccount? {
@@ -45,20 +45,32 @@ extension ApiAccount {
         return realm.objects(ApiAccount.self).filter("ANY api.signature == '\(apiSignature)' AND username == '\(username)'").first
     }
 
-    static func add(_ account: ApiAccount) {
+    static func add(_ account: ApiAccount) throws {
         let realm = try! Realm()
-        try! realm.write {
-            if realm.object(ofType: ApiAccount.self, forPrimaryKey: account.id) != nil {
-                realm.create(ApiAccount.self, value: account, update: true)
-            } else {
-                realm.add(account)
+        try realm.write {
+            if let _ = realm.object(ofType: ApiAccount.self, forPrimaryKey: account.id) {
+                throw DataModelError.PrimaryKeyViolation
             }
+            realm.add(account)
         }
     }
 
-    static func add(_ account: ApiAccount, to api: Api) {
+    static func add(_ account: ApiAccount, to api: Api) throws {
         let realm = try! Realm()
-        try! realm.write {
+        try realm.write {
+            if let a = realm.object(ofType: ApiAccount.self, forPrimaryKey: account.id) {
+                if !a.isEqual(account) {
+                    throw DataModelError.InvalidParameter("保存されていない更新が含まれたアカウントオブジェクトです。更新を保存後に本操作を行ってください。")
+                }
+            } else {
+                throw DataModelError.NecessaryDataDoesNotExist("アカウントが存在しません")
+            }
+            if realm.object(ofType: Api.self, forPrimaryKey: api.id) == nil {
+                throw DataModelError.NecessaryDataDoesNotExist("APIが存在しません")
+            }
+            if let _ = realm.objects(ApiAccount.self).filter("ANY api.signature == '\(api.signature)' AND username == '\(account.username)'").first {
+                throw DataModelError.IntegrityConstraintViolation
+            }
             api.accounts.append(account)
             realm.add(api, update: true)
         }

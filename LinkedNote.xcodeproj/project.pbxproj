@@ -62,6 +62,10 @@
 		A05E17CA1EE26218005C4566 /* TagListCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E17971EE26218005C4566 /* TagListCustomCell.xib */; };
 		A05E17CB1EE26218005C4566 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17981EE26218005C4566 /* TagListView.swift */; };
 		A068F8401EE8C94900767149 /* AccountViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068F83F1EE8C94900767149 /* AccountViewControllerTest.swift */; };
+		A0C8C7F51F0753B800E1F0A1 /* ArticleListViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8C7F41F0753B800E1F0A1 /* ArticleListViewControllerTest.swift */; };
+		A0C8C7FB1F07A62100E1F0A1 /* ApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8C7FA1F07A62100E1F0A1 /* ApiTest.swift */; };
+		A0C8C7FD1F07A76900E1F0A1 /* ApiAccountTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8C7FC1F07A76900E1F0A1 /* ApiAccountTest.swift */; };
+		A0C8C7FF1F07D72C00E1F0A1 /* DataModelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8C7FE1F07D72C00E1F0A1 /* DataModelError.swift */; };
 		A0D6F4A91EE8D58600430171 /* FrameCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6F4A81EE8D58600430171 /* FrameCalculator.swift */; };
 		A0D6F4AC1EE8DB6E00430171 /* FakeAPIWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6F4AB1EE8DB6E00430171 /* FakeAPIWrapper.swift */; };
 		A0D6F4AE1EE8DB8700430171 /* FakeFrameCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6F4AD1EE8DB8700430171 /* FakeFrameCalculator.swift */; };
@@ -152,6 +156,10 @@
 		A05E17981EE26218005C4566 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
 		A068F83F1EE8C94900767149 /* AccountViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewControllerTest.swift; sourceTree = "<group>"; };
 		A0C8C7F11F07377900E1F0A1 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A0C8C7F41F0753B800E1F0A1 /* ArticleListViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleListViewControllerTest.swift; path = ../ArticleListViewControllerTest.swift; sourceTree = "<group>"; };
+		A0C8C7FA1F07A62100E1F0A1 /* ApiTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiTest.swift; sourceTree = "<group>"; };
+		A0C8C7FC1F07A76900E1F0A1 /* ApiAccountTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiAccountTest.swift; sourceTree = "<group>"; };
+		A0C8C7FE1F07D72C00E1F0A1 /* DataModelError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModelError.swift; sourceTree = "<group>"; };
 		A0D6F4A81EE8D58600430171 /* FrameCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameCalculator.swift; sourceTree = "<group>"; };
 		A0D6F4AB1EE8DB6E00430171 /* FakeAPIWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeAPIWrapper.swift; sourceTree = "<group>"; };
 		A0D6F4AD1EE8DB8700430171 /* FakeFrameCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeFrameCalculator.swift; sourceTree = "<group>"; };
@@ -236,6 +244,7 @@
 		A05E173B1EE261DD005C4566 /* LinkedNoteTests */ = {
 			isa = PBXGroup;
 			children = (
+				A0C8C7F61F07638F00E1F0A1 /* Models */,
 				A068F83E1EE8C92E00767149 /* Controllers */,
 				A05E173E1EE261DD005C4566 /* Info.plist */,
 			);
@@ -307,6 +316,7 @@
 				A05E17681EE26218005C4566 /* Article.swift */,
 				A05E17691EE26218005C4566 /* Note.swift */,
 				A05E176A1EE26218005C4566 /* Tag.swift */,
+				A0C8C7FE1F07D72C00E1F0A1 /* DataModelError.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -452,8 +462,26 @@
 			children = (
 				A0D6F4AA1EE8DB5800430171 /* Fake Dependencies */,
 				A068F83F1EE8C94900767149 /* AccountViewControllerTest.swift */,
+				A0C8C7F41F0753B800E1F0A1 /* ArticleListViewControllerTest.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		A0C8C7F61F07638F00E1F0A1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A0C8C7F91F07A60F00E1F0A1 /* Data Models */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		A0C8C7F91F07A60F00E1F0A1 /* Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				A0C8C7FA1F07A62100E1F0A1 /* ApiTest.swift */,
+				A0C8C7FC1F07A76900E1F0A1 /* ApiAccountTest.swift */,
+			);
+			name = "Data Models";
 			sourceTree = "<group>";
 		};
 		A0D6F4AA1EE8DB5800430171 /* Fake Dependencies */ = {
@@ -798,6 +826,7 @@
 				A05E17B61EE26218005C4566 /* AccountView.swift in Sources */,
 				A05E17AB1EE26218005C4566 /* NoteListPresenter.swift in Sources */,
 				A05E17C71EE26218005C4566 /* NoteView.swift in Sources */,
+				A0C8C7FF1F07D72C00E1F0A1 /* DataModelError.swift in Sources */,
 				A05E17A81EE26218005C4566 /* Note.swift in Sources */,
 				A0DE75551EE3FCB900EFAA3F /* ThumbnailDownloader.swift in Sources */,
 				A05E17AD1EE26218005C4566 /* TagListPresenter.swift in Sources */,
@@ -832,9 +861,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0C8C7FB1F07A62100E1F0A1 /* ApiTest.swift in Sources */,
 				A0D6F4AE1EE8DB8700430171 /* FakeFrameCalculator.swift in Sources */,
 				A068F8401EE8C94900767149 /* AccountViewControllerTest.swift in Sources */,
+				A0C8C7F51F0753B800E1F0A1 /* ArticleListViewControllerTest.swift in Sources */,
 				A0E6C8A21EE8E50F007A6737 /* FakeAlertPresenter.swift in Sources */,
+				A0C8C7FD1F07A76900E1F0A1 /* ApiAccountTest.swift in Sources */,
 				A0D6F4AC1EE8DB6E00430171 /* FakeAPIWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

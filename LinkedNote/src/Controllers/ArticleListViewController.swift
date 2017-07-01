@@ -114,6 +114,7 @@ extension ArticleListViewController: UITableViewDelegate {
         }) ]
     }
     
+    // Scrolled
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset
         let bounds = scrollView.bounds
@@ -128,12 +129,14 @@ extension ArticleListViewController: UITableViewDelegate {
         }
     }
     
+    // The user's finger was released after dragging. Decelarate is True during inertial scrolling.
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
             self.articleListPresenter.loadImagesForOnscreenRows(tableView: self.articleListView.myList!)
         }
     }
     
+    // Immediately stop scrolling
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.articleListPresenter.loadImagesForOnscreenRows(tableView: self.articleListView.myList!)
     }
@@ -144,6 +147,8 @@ extension ArticleListViewController: ArticleListTableViewDelegate {
         if let note = note {
             let noteVC = NoteViewController(note: note, calculator: self.calculator, alertPresenter: self.alertPresenter)
             self.navigationController?.pushViewController(noteVC, animated: true)
+        } else {
+            alertPresenter.error("ノートが存在しません", on: self)
         }
     }
 }
@@ -153,6 +158,7 @@ extension ArticleListViewController: UIGestureRecognizerDelegate, RecognizableLo
         if longPressGestureRecognizer.state == UIGestureRecognizerState.began {
             let tag = longPressGestureRecognizer.view!.tag
             let cell = self.articleListView.myList?.cellForRow(at: IndexPath(row: tag, section: 0)) as? ArticleListCustomCell
+
             self.tagEditViewPresenter.initwith(note: cell!.article!.note!, frame: self.tabBarController!.view.frame)
             self.tagEditViewPresenter.add(to: self.tabBarController!.view, viewController: self)
         }
