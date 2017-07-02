@@ -11,12 +11,12 @@ import PocketAPI
 import SwiftyJSON
 
 fileprivate struct ArticleInfo {
-    var localId: String? = nil
-    var title: String? = nil
-    var url: String? = nil
-    var excerpt: String? = nil
-    var thumbnailUrl: String? = nil
-    
+    var localId: String?
+    var title: String?
+    var url: String?
+    var excerpt: String?
+    var thumbnailUrl: String?
+
     func isInvalid() -> Bool {
         return localId != nil && title != nil && url != nil && excerpt != nil && thumbnailUrl != nil
     }
@@ -28,7 +28,7 @@ class PocketAPIWrapper: NSObject, APIWrapper {
     var isRetrieving = false
     static let signature = "pocket"
     private var username: String?
-    
+
     static func getUsername() -> String? {
         if PocketAPI.shared().isLoggedIn {
             return PocketAPI.shared().username
@@ -36,54 +36,54 @@ class PocketAPIWrapper: NSObject, APIWrapper {
             return nil
         }
     }
-    
+
     static func isLoggedIn() -> Bool {
         return PocketAPI.shared().isLoggedIn
     }
-    
+
     static func logout() {
         PocketAPI.shared().logout()
     }
 
     static func login(completion: @escaping (Error?) -> Void) {
-        PocketAPI.shared().login(handler: {(api, error) in
+        PocketAPI.shared().login(handler: { _, error in
             completion(error)
         })
     }
-    
+
     func setUnitNum(_ num: Int) {
         self.retrieveUnitNum = num
     }
-    
+
     func initOffset() {
         self.currentOffset = 0
     }
-    
+
     func retrieve(_ completion: @escaping (([Article]) -> Void)) {
         if self.isRetrieving { return }
         self.isRetrieving = true
-        self.retrieve(offset: self.currentOffset, count: self.retrieveUnitNum, completion: {(infoArray) in
+        self.retrieve(offset: self.currentOffset, count: self.retrieveUnitNum, completion: { infoArray in
             completion(infoArray)
             self.currentOffset += self.retrieveUnitNum
             self.isRetrieving = false
         })
     }
-    
-    fileprivate func retrieve(offset: Int, count: Int, completion: @escaping (_ result: [Article])->Void) {
+
+    fileprivate func retrieve(offset: Int, count: Int, completion: @escaping (_ result: [Article]) -> Void) {
         var result: [Article] = []
-        
+
         if !PocketAPI.shared().isLoggedIn {
             completion(result)
             return
         }
-        
+
         if let username = PocketAPI.shared().username,
-           let account = ApiAccount.get(apiSignature: PocketAPIWrapper.signature, username: username) {
-            
+            let account = ApiAccount.get(apiSignature: PocketAPIWrapper.signature, username: username) {
+
             let httpMethod = PocketAPIHTTPMethodGET
-            let arguments: NSDictionary = ["detailType":"complete", "count":count.description, "offset":offset.description]
-            
-            PocketAPI.shared().callMethod("get", with: httpMethod, arguments: arguments as! [AnyHashable : Any], handler: { (api, apiMethod, response, error) in
+            let arguments: NSDictionary = ["detailType": "complete", "count": count.description, "offset": offset.description]
+
+            PocketAPI.shared().callMethod("get", with: httpMethod, arguments: arguments as! [AnyHashable: Any], handler: { _, _, response, _ in
                 let responseJson: JSON
                 if let r = response {
                     responseJson = JSON(r)
@@ -91,7 +91,7 @@ class PocketAPIWrapper: NSObject, APIWrapper {
                     completion(result)
                     return
                 }
-                
+
                 let articles: Dictionary<String, JSON>
                 if let p = responseJson["list"].dictionary {
                     articles = p
@@ -99,7 +99,7 @@ class PocketAPIWrapper: NSObject, APIWrapper {
                     completion(result)
                     return
                 }
-                
+
                 for (id, json) in articles {
                     var info = ArticleInfo()
                     info.localId = id
@@ -116,11 +116,11 @@ class PocketAPIWrapper: NSObject, APIWrapper {
                         default: break
                         }
                     }
-                    
+
                     if info.isInvalid() == false {
                         continue
                     }
-                    
+
                     if let storedArticle = Article.get(localId: info.localId!, accountId: account.id) {
                         result.append(storedArticle)
                     } else {
@@ -133,15 +133,15 @@ class PocketAPIWrapper: NSObject, APIWrapper {
             completion(result)
         }
     }
-    
+
     func archive(id: String, completion: @escaping ((Bool) -> Void)) {
         if PocketAPI.shared().isLoggedIn {
             let time = Int(NSDate().timeIntervalSince1970)
             let httpMethod = PocketAPIHTTPMethodPOST
-            let arguments: NSDictionary = [ "actions": [ [ "action": "archive", "item_id": "\(id)", "time": "\(time.description)" ] ] ]
-            
-            PocketAPI.shared().callMethod("send", with: httpMethod, arguments: arguments as! [AnyHashable : Any], handler: {
-                (api, apiMethod, response, error) in
+            let arguments: NSDictionary = ["actions": [["action": "archive", "item_id": "\(id)", "time": "\(time.description)"]]]
+
+            PocketAPI.shared().callMethod("send", with: httpMethod, arguments: arguments as! [AnyHashable: Any], handler: {
+                _, _, response, error in
                 Swift.print(error?.localizedDescription ?? "")
                 let responseJson: JSON
                 if let r = response {
@@ -150,7 +150,7 @@ class PocketAPIWrapper: NSObject, APIWrapper {
                     completion(false)
                     return
                 }
-                
+
                 Swift.print(responseJson["action_results"].array![0])
                 Swift.print(responseJson["status"])
                 completion(true)

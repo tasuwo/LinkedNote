@@ -23,32 +23,33 @@ class Article: Object {
     var apiAccount: ApiAccount? {
         return self.apiAccounts.first
     }
+
     var notes = List<Note>()
     var note: Note? {
         return self.notes.first
     }
-    
+
     override static func primaryKey() -> String? {
         return "id"
     }
-    
+
     override static func ignoredProperties() -> [String] {
         return ["thumbnail"]
     }
-    
+
     static func lastId() -> Int {
         let realm = try! Realm()
         return realm.objects(Article.self).last?.id ?? -1
     }
-    
-    convenience init (localId: String, title: String, url: String, thumbnailUrl: String) {
+
+    convenience init(localId: String, title: String, url: String, thumbnailUrl: String) {
         self.init()
         self.localId = localId
         self.title = title
         self.url = url
         self.thumbnailUrl = thumbnailUrl
     }
-    
+
     func addId() {
         self.id = Article.lastId() + 1
     }
@@ -61,7 +62,7 @@ extension Article {
         let realm = try! Realm()
         return realm.objects(Article.self).filter("ANY apiAccounts.id == \(accountId) AND localId == '\(localId)'").first
     }
-    
+
     static func add(_ article: Article) throws {
         let realm = try! Realm()
         try realm.write {
@@ -74,7 +75,7 @@ extension Article {
             realm.add(article)
         }
     }
-    
+
     static func add(_ article: Article, to account: ApiAccount) throws {
         let realm = try! Realm()
         try realm.write {
@@ -87,7 +88,6 @@ extension Article {
             }
             if let _ = realm.objects(Article.self).filter("ANY apiAccounts.id == \(account.id) AND localId == '\(article.localId)'").first {
                 throw DataModelError.IntegrityConstraintViolation
-                
             }
             if realm.object(ofType: ApiAccount.self, forPrimaryKey: account.id) == nil {
                 throw DataModelError.NecessaryDataDoesNotExist("アカウントが存在しません")

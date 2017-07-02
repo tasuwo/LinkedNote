@@ -14,18 +14,18 @@ class ThumbnailDownloader: NSObject {
     var article: Article!
     var completionHandler: (() -> Void)!
     private var sessionTask: URLSessionDataTask!
-    
+
     func startDownload() {
         if let url = URL(string: self.article.thumbnailUrl) {
             let request = URLRequest(url: url)
-            self.sessionTask = URLSession.shared.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
+            self.sessionTask = URLSession.shared.dataTask(with: request, completionHandler: { (data: Data?, _: URLResponse?, error: Error?) in
                 if let e = error {
                     if (e as NSError).code == NSURLErrorAppTransportSecurityRequiresSecureConnection { abort() }
                 }
-                
+
                 OperationQueue.main.addOperation {
                     if let data = data,
-                       let image = UIImage(data: data) {
+                        let image = UIImage(data: data) {
                         if image.size.width != kAppIconSize || image.size.height != kAppIconSize {
                             let itemSize = CGSize(width: kAppIconSize, height: kAppIconSize)
                             UIGraphicsBeginImageContextWithOptions(itemSize, false, 0.0)
@@ -37,7 +37,7 @@ class ThumbnailDownloader: NSObject {
                             self.article.thumbnail = image
                         }
                     }
-                    
+
                     if let handler = self.completionHandler {
                         handler()
                     }
@@ -46,7 +46,7 @@ class ThumbnailDownloader: NSObject {
             self.sessionTask.resume()
         }
     }
-    
+
     func cancelDownload() {
         self.sessionTask?.cancel()
         self.sessionTask = nil

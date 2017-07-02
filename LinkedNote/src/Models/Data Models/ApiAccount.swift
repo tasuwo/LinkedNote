@@ -15,17 +15,17 @@ class ApiAccount: Object {
     dynamic var username = ""
     let api = LinkingObjects(fromType: Api.self, property: "accounts")
     let articles = List<Article>()
-    
+
     override static func primaryKey() -> String? {
         return "id"
     }
-    
+
     static func lastId() -> Int {
         let realm = try! Realm()
         return realm.objects(ApiAccount.self).last?.id ?? -1
     }
-    
-    convenience init (username: String) {
+
+    convenience init(username: String) {
         self.init()
         self.id = ApiAccount.lastId() + 1
         self.username = username

@@ -23,29 +23,29 @@ class ArticleListPresenter: NSObject {
     var recognizer: ArticleListViewController?
     var observer: ArticleListPresenterObserver?
     var api: APIWrapper!
-    
+
     init(api: APIWrapper, loadUnitNum: Int) {
         self.api = api
         self.api.setUnitNum(loadUnitNum)
     }
-    
+
     func initOffset() {
         self.articles = []
         self.api.initOffset()
     }
-    
+
     func retrieve() {
-        self.api.retrieve({ (infoArray) in
+        self.api.retrieve({ infoArray in
             self.articles += infoArray
             self.observer?.loaded()
         })
     }
-    
+
     func archiveRow(at indexPath: IndexPath, id: String) {
-        self.api.archive(id: id, completion: { (isSucceeded) in })
+        self.api.archive(id: id, completion: { _ in })
         self.articles.remove(at: indexPath.row)
     }
-    
+
     func startThumbnailDownload(article: Article, forIndexPath indexPath: IndexPath, tableView: UITableView) {
         if nil == self.thumbnailDownloadersInProgress[indexPath] {
             let downloader = ThumbnailDownloader()
@@ -62,7 +62,7 @@ class ArticleListPresenter: NSObject {
             downloader.startDownload()
         }
     }
-    
+
     func loadImagesForOnscreenRows(tableView: UITableView) {
         if self.articles.count > 0 {
             if let visiblePaths = tableView.indexPathsForVisibleRows {
@@ -81,12 +81,12 @@ extension ArticleListPresenter: UITableViewDataSource {
     // Asks the data source for a cell to insert in a particular location of the table view.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let newCell = tableView.dequeueReusableCell(withIdentifier: "ArticleListCustomCell", for: indexPath) as! ArticleListCustomCell
-        
+
         let article = self.articles[indexPath.row]
         newCell.article = article
         newCell.label?.text = article.title
         newCell.expr?.text = article.excerpt
-        
+
         if let thumbanail = article.thumbnail {
             newCell.imageView!.image = thumbanail
         } else {
@@ -97,18 +97,18 @@ extension ArticleListPresenter: UITableViewDataSource {
         }
         let v = tableView as! ArticleListTableView
         newCell.delegate = v
-        
+
         // Set image
         newCell.noteButton.setImage(UIImage(named: "note_enable"), for: .normal)
         newCell.noteButton.setImage(UIImage(named: "note_disable"), for: .disabled)
-        
+
         // Check existence of note
         if let _ = article.note {
             newCell.noteButton.isEnabled = true
         } else {
             newCell.noteButton.isEnabled = false
         }
-        
+
         // Add recognizer
         // For recognize long press to table cell
         let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: recognizer, action: #selector(recognizer!.handleLogPress))
@@ -119,12 +119,11 @@ extension ArticleListPresenter: UITableViewDataSource {
 
         return newCell
     }
-    
+
     // Tells the data source to return the number of rows in a given section of a table view.
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return self.articles.count
     }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {}
-}
 
+    func tableView(_: UITableView, commit _: UITableViewCellEditingStyle, forRowAt _: IndexPath) {}
+}

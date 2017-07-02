@@ -16,18 +16,19 @@ class Note: Object {
     var article: Article? {
         return self.articles.first
     }
+
     let tags = List<Tag>()
-    
+
     override static func primaryKey() -> String? {
         return "id"
     }
-    
+
     static func lastId() -> Int {
         let realm = try! Realm()
         return realm.objects(Note.self).last?.id ?? -1
     }
-    
-    convenience init (body: String) {
+
+    convenience init(body: String) {
         self.init()
         self.id = Note.lastId() + 1
         self.body = body
@@ -41,12 +42,12 @@ extension Note {
         let realm = try! Realm()
         return realm.objects(Note.self)
     }
-    
+
     static func get(_ id: Int) -> Note? {
         let realm = try! Realm()
         return realm.objects(Note.self).filter("id == \(id)").first
     }
-    
+
     static func get(signature: String, username: String, article: Article) -> Note? {
         if let account = ApiAccount.get(apiSignature: signature, username: username) {
             if let note = Note.get(accountId: account.id, articleLocalId: article.localId) {
@@ -61,12 +62,12 @@ extension Note {
         let article = account?.articles.filter("localId == '\(articleLocalId)'").first
         return article?.note
     }
-    
+
     static func get(tagId: Int) -> Results<Note> {
         let realm = try! Realm()
         return realm.objects(Note.self).filter("ANY tags.id == \(tagId)")
     }
-    
+
     static func add(_ note: Note) {
         let realm = try! Realm()
         try! realm.write {
@@ -77,7 +78,7 @@ extension Note {
             }
         }
     }
-    
+
     static func add(_ note: Note, to article: Article) {
         let realm = try! Realm()
         try! realm.write {
@@ -85,7 +86,7 @@ extension Note {
             realm.add(article, update: true)
         }
     }
-    
+
     static func update(note: Note, body: String) {
         let realm = try! Realm()
         try! realm.write {
@@ -93,7 +94,7 @@ extension Note {
             realm.add(note, update: true)
         }
     }
-    
+
     static func delete(note: Note) {
         let realm = try! Realm()
         try! realm.write {

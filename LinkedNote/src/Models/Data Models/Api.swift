@@ -13,17 +13,17 @@ class Api: Object {
     private(set) dynamic var id = 0
     private(set) dynamic var signature = ""
     let accounts = List<ApiAccount>()
-    
+
     override static func primaryKey() -> String? {
         return "id"
     }
-    
+
     static func lastId() -> Int {
         let realm = try! Realm()
         return realm.objects(Api.self).last?.id ?? -1
     }
-    
-    convenience init (signature: String) {
+
+    convenience init(signature: String) {
         self.init()
         self.id = Api.lastId() + 1
         self.signature = signature
@@ -37,12 +37,12 @@ extension Api {
         let realm = try! Realm()
         return realm.objects(Api.self)
     }
-    
+
     static func get(signature: String) -> Api? {
         let realm = try! Realm()
         return realm.objects(Api.self).filter("signature == '\(signature)'").first
     }
-    
+
     static func add(_ api: Api) throws {
         let realm = try! Realm()
         try realm.write {
@@ -55,7 +55,7 @@ extension Api {
             realm.add(api)
         }
     }
-    
+
     static func delete(signature: String) {
         let realm = try! Realm()
         if let api = Api.get(signature: signature) {

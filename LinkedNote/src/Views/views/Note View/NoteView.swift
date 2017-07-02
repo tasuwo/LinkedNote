@@ -18,26 +18,27 @@ class NoteView: UIView {
     @IBOutlet var view_: UIView!
     @IBOutlet weak var noteView: UITextView!
     @IBOutlet weak var tagCollectionView: UICollectionView!
-    @IBAction func didPressEditButton(_ sender: Any) {
+    @IBAction func didPressEditButton(_: Any) {
         self.delegate?.didPressEditButton()
     }
-    @IBAction func didPressViewArticleButton(_ sender: Any) {
+
+    @IBAction func didPressViewArticleButton(_: Any) {
         self.delegate?.didPressViewArticleButton()
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         Bundle.main.loadNibNamed("Note", owner: self, options: nil)
         view_.frame = frame
         addSubview(view_)
-        
+
         tagCollectionView.register(UINib(nibName: "TagCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TagCollectionViewCell")
         tagCollectionView.backgroundColor = .white
         tagCollectionView.isScrollEnabled = true
     }
-    
-    required init?(coder aDecoder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

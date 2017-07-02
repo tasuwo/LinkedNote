@@ -518,7 +518,8 @@
 			buildConfigurationList = A05E174C1EE261DD005C4566 /* Build configuration list for PBXNativeTarget "LinkedNote" */;
 			buildPhases = (
 				8B31339B3D819D88782BC4CE /* [CP] Check Pods Manifest.lock */,
-				A01F6E631EE4DA9F009B659F /* ShellScript */,
+				A01F6E631EE4DA9F009B659F /* Run Script */,
+				2C4D409C1F091F1E008DC554 /* Swift Format */,
 				A05E17201EE261DD005C4566 /* Sources */,
 				A05E17211EE261DD005C4566 /* Frameworks */,
 				A05E17221EE261DD005C4566 /* Resources */,
@@ -692,6 +693,20 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		2C4D409C1F091F1E008DC554 /* Swift Format */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Format";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/SwiftFormat/CommandLineTool/swiftformat\" \"--disable\" \"redundantSelf\" \"${SRCROOT}/LinkedNote/src\"\n\"${SRCROOT}/Pods/SwiftFormat/CommandLineTool/swiftformat\" \"--disable\" \"redundantSelf\" \"${SRCROOT}/LinkedNoteTests\"\n\"${SRCROOT}/Pods/SwiftFormat/CommandLineTool/swiftformat\" \"--disable\" \"redundantSelf\" \"${SRCROOT}/LinkedNoteUITests\"";
+		};
 		46782FCC4CD661C7D97A85ED /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -752,13 +767,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		A01F6E631EE4DA9F009B659F /* ShellScript */ = {
+		A01F6E631EE4DA9F009B659F /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

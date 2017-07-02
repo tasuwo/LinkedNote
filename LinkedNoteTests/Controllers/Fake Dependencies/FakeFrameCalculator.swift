@@ -13,6 +13,7 @@ class FakeViewCalculator: FrameCalculator {
     func calcFrameOnTabAndNavBar(by: UIViewController) -> CGRect {
         return by.view.frame
     }
+
     func calcFrameOnNavVar(by: UIViewController) -> CGRect {
         return by.view.frame
     }

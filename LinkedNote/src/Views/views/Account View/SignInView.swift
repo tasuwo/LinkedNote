@@ -15,7 +15,7 @@ protocol SignInViewDelegate {
 class SignInView: UIView {
     var delegate: SignInViewDelegate?
     @IBOutlet var view_: UIView!
-    @IBAction func didTouchLoginButton(_ sender: Any) {
+    @IBAction func didTouchLoginButton(_: Any) {
         self.delegate?.didTouchLoginButton()
     }
 
@@ -25,8 +25,8 @@ class SignInView: UIView {
         view_.frame = frame
         addSubview(view_)
     }
-    
-    required init?(coder aDecoder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

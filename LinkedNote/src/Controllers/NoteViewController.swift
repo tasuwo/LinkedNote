@@ -16,7 +16,7 @@ class NoteViewController: UIViewController {
     let tagPresenter: TagCollectionPresenter
     let tagEditViewPresenter: TagEditViewPresenter
     let alertPresenter: AlertPresenter
-    
+
     init(note: Note, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
         self.note = note
         self.calculator = calculator
@@ -25,46 +25,46 @@ class NoteViewController: UIViewController {
         self.tagEditViewPresenter = TagEditViewPresenter(alertPresenter: alertPresenter)
         super.init(nibName: nil, bundle: nil)
     }
-    
-    required init?(coder aDecoder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.noteView = NoteView(frame: self.calculator.calcFrameOnNavVar(by: self))
         self.noteView.noteView.text = note.body
         self.noteView.delegate = self
         self.view.addSubview(self.noteView)
-        
+
         tagPresenter.load(noteId: note.id)
         self.noteView.tagCollectionView.reloadData()
         noteView.tagCollectionView.delegate = self
         noteView.tagCollectionView.dataSource = tagPresenter
-        
+
         self.tagEditViewPresenter.delegate = self
-        
+
         self.navigationItem.title = "ノート"
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
+
+    override func viewWillAppear(_: Bool) {
         self.tabBarController?.tabBar.isHidden = true
         self.tagEditViewPresenter.addObserver()
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
+
+    override func viewWillDisappear(_: Bool) {
         self.tabBarController?.tabBar.isHidden = false
         self.tagEditViewPresenter.removeObserver()
     }
 }
 
 extension NoteViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = self.noteView.tagCollectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
         if let tagId = cell.id {
             let settings = NodeListViewControllerSettings(title: "タグ: \(cell.name.text!)", tagId: tagId)
@@ -75,21 +75,21 @@ extension NoteViewController: UICollectionViewDelegate {
 }
 
 extension NoteViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_: UICollectionView,
+                        layout _: UICollectionViewLayout,
+                        sizeForItemAt _: IndexPath) -> CGSize {
         return CGSize(width: 80, height: 30)
     }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+
+    func collectionView(_: UICollectionView,
+                        layout _: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt _: Int) -> CGFloat {
         return 1.0
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout
-        collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+
+    func collectionView(_: UICollectionView, layout
+        _: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt _: Int) -> CGFloat {
         return 1.0
     }
 }
@@ -99,7 +99,7 @@ extension NoteViewController: NoteViewDelegate {
         self.tagEditViewPresenter.initwith(note: self.note, frame: self.tabBarController!.view.frame)
         self.tagEditViewPresenter.add(to: self.tabBarController!.view, viewController: self)
     }
-    
+
     func didPressViewArticleButton() {
         if self.note.article == nil {
             self.alertPresenter.error("ノートに対応する記事の取得に失敗しました", on: self)

@@ -10,7 +10,7 @@ import UIKit
 
 class TagPickerPresenter: NSObject {
     private(set) var tags: Array<Tag> = []
-    
+
     func reload() {
         self.tags = []
         for tag in Tag.getAll() {
@@ -20,11 +20,11 @@ class TagPickerPresenter: NSObject {
 }
 
 extension TagPickerPresenter: UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in _: UIPickerView) -> Int {
         return 1
     }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+
+    func pickerView(_: UIPickerView, numberOfRowsInComponent _: Int) -> Int {
         return tags.count
     }
 }

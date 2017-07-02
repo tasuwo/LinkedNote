@@ -16,12 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Set comsumer key for pocket api
         let keys = LinkedNoteKeys()
         PocketAPI.shared().consumerKey = keys.pocketAPIConsumerKey
-        
+
         // window 生成
         window = UIWindow(frame: UIScreen.main.bounds)
         if let window = window {
@@ -39,13 +38,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Tag.add(tag2)
         }
         // =========================================================================================
-        
+
         configureStyling()
-        
+
         return true
     }
-    
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+
+    func application(_: UIApplication, open url: URL, options _: [UIApplicationOpenURLOptionsKey: Any] = [:]) -> Bool {
         if PocketAPI.shared().handleOpen(url) {
             return true
         } else {
@@ -58,12 +57,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 private extension AppDelegate {
     func configureStyling() {
         window?.tintColor = UIColor.myNavigationBarColor()
-        
+
         UINavigationBar.appearance().titleTextAttributes = [
             NSForegroundColorAttributeName: UIColor.white,
-            NSFontAttributeName: UIFont.systemFont(ofSize: 18)
+            NSFontAttributeName: UIFont.systemFont(ofSize: 18),
         ]
-        
+
         UINavigationBar.appearance().backgroundColor = UIColor.myNavigationBarColor()
         UINavigationBar.appearance().barTintColor = UIColor.myNavigationBarColor()
         UINavigationBar.appearance().tintColor = .white
@@ -71,4 +70,3 @@ private extension AppDelegate {
         UINavigationBar.appearance().barStyle = .blackTranslucent
     }
 }
-

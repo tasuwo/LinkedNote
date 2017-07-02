@@ -18,15 +18,15 @@ class ArticleListView: UIView {
         Bundle.main.loadNibNamed("ArticleList", owner: self, options: nil)
         view_.frame = frame
         addSubview(view_)
-        
+
         myList = ArticleListTableView(frame: frame)
         myList!.rowHeight = 150
         myList!.register(UINib(nibName: "ArticleListCustomCell", bundle: nil), forCellReuseIdentifier: "ArticleListCustomCell")
 
         view_.addSubview(myList!)
     }
-    
-    required init?(coder aDecoder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

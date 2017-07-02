@@ -11,6 +11,6 @@ import DynamicColor
 
 extension UIColor {
     static func myNavigationBarColor() -> UIColor {
-        return  UIColor(hexString: "#6782ad")
+        return UIColor(hexString: "#6782ad")
     }
 }

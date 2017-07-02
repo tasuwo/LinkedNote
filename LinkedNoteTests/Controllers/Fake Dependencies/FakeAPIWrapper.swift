@@ -14,8 +14,8 @@ class FakeAPIWrapper: APIWrapper {
     static var loggedIn = false
     static var willOccurLoginError = false
     static var willLoginWithoutUsername = false
-    static var username: String? = nil
-    
+    static var username: String?
+
     static func initialize() {
         signature = "fake"
         loggedIn = false
@@ -27,9 +27,11 @@ class FakeAPIWrapper: APIWrapper {
     static func getUsername() -> String? {
         return username
     }
+
     static func isLoggedIn() -> Bool {
         return loggedIn
     }
+
     static func login(completion: @escaping (Error?) -> Void) {
         if willOccurLoginError {
             let error = NSError(domain: NSCocoaErrorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey: "test"])
@@ -41,11 +43,13 @@ class FakeAPIWrapper: APIWrapper {
         loggedIn = true
         completion(nil)
     }
+
     static func logout() {
         loggedIn = false
     }
-    func setUnitNum(_ num: Int) {}
+
+    func setUnitNum(_: Int) {}
     func initOffset() {}
-    func retrieve(_ completion: @escaping (([Article]) -> Void)) {}
-    func archive(id: String, completion: @escaping ((Bool) -> Void)) {}
+    func retrieve(_: @escaping (([Article]) -> Void)) {}
+    func archive(id _: String, completion _: @escaping ((Bool) -> Void)) {}
 }

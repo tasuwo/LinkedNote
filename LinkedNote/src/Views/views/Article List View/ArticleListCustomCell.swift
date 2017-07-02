@@ -14,9 +14,10 @@ protocol ArticleListCustomCellDelegate {
 
 class ArticleListCustomCell: UITableViewCell {
     var delegate: ArticleListCustomCellDelegate?
-    @IBAction func didPressNoteButton(_ sender: Any) {
+    @IBAction func didPressNoteButton(_: Any) {
         self.delegate?.didPressNoteButton(self.article?.note)
     }
+
     @IBOutlet weak var noteButton: UIButton!
     @IBOutlet weak var expr: UILabel!
     @IBOutlet weak var label: UILabel!

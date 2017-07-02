@@ -13,21 +13,21 @@ class AccountViewController: UIViewController {
     let api: APIWrapper
     let calculator: FrameCalculator
     let alertPresenter: AlertPresenter
-    
+
     init(api: APIWrapper, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
         self.api = api
         self.calculator = calculator
         self.alertPresenter = alertPresenter
         super.init(nibName: nil, bundle: nil)
     }
-    
-    required init?(coder aDecoder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Initialize and add a view
         let view: UIView
         if type(of: self.api).isLoggedIn() {
@@ -42,7 +42,7 @@ class AccountViewController: UIViewController {
 
         self.navigationItem.title = "アカウント"
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -50,12 +50,12 @@ class AccountViewController: UIViewController {
 
 extension AccountViewController: SignInViewDelegate {
     func didTouchLoginButton() {
-        type(of: self.api).login(completion: { (error) in
+        type(of: self.api).login(completion: { error in
             if let e = error {
                 self.alertPresenter.error(e.localizedDescription, on: self)
                 return
             }
-            
+
             let signature = type(of: self.api).signature
             let optionalUsername = type(of: self.api).getUsername()
             guard let username = optionalUsername else {
@@ -68,13 +68,13 @@ extension AccountViewController: SignInViewDelegate {
                 type(of: self.api).logout()
                 return
             }
-            
+
             if ApiAccount.get(apiSignature: signature, username: username) == nil {
                 let account = ApiAccount(username: username)
                 try! ApiAccount.add(account)
                 try! ApiAccount.add(account, to: api)
             }
-            
+
             let view = AccountView(frame: self.currentActiveView.frame)
             view.delegate = self
             self.currentActiveView.removeFromSuperview()

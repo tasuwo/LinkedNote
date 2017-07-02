@@ -20,51 +20,53 @@ class TagMenuView: UIView {
     @IBOutlet weak var newTagNameField: UITextField!
     @IBOutlet var view_: UIView!
     @IBOutlet weak var tagPicker: UIPickerView!
-    var note: Note? = nil
+    var note: Note?
     @IBOutlet weak var tagCollectionView: UICollectionView!
     @IBOutlet weak var newTagButton: UIButton!
-    
-    @IBAction func didPressCloseButton(_ sender: Any) {
+
+    @IBAction func didPressCloseButton(_: Any) {
         self.delegate?.didPressCloseButton()
     }
-    @IBAction func didPressSelectTagButton(_ sender: Any) {
+
+    @IBAction func didPressSelectTagButton(_: Any) {
         let i = self.tagPicker.selectedRow(inComponent: 0)
         self.delegate?.didPressSelectExistTagButton(i)
     }
-    @IBAction func didPressCreateNewTagButton(_ sender: Any) {
+
+    @IBAction func didPressCreateNewTagButton(_: Any) {
         let newTagName = self.newTagNameField.text ?? ""
         self.delegate?.didPressCreateNewTagButton(newTagName)
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        //only apply the blur if the user hasn't disabled transparency effects
+
+        // only apply the blur if the user hasn't disabled transparency effects
         if !UIAccessibilityIsReduceTransparencyEnabled() {
             self.backgroundColor = UIColor.clear
-            
+
             let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
             let blurEffectView = UIVisualEffectView(effect: blurEffect)
-            //always fill the view
+            // always fill the view
             blurEffectView.frame = frame
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            
+
             self.addSubview(blurEffectView)
         } else {
             self.backgroundColor = UIColor.black
         }
-        
+
         Bundle.main.loadNibNamed("TagMenu", owner: self, options: nil)
         view_.frame = frame
-        
+
         tagCollectionView.register(UINib(nibName: "TagCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TagCollectionViewCell")
         tagCollectionView.backgroundColor = UIColor.clear
         tagCollectionView.isScrollEnabled = true
- 
+
         self.insertSubview(view_, at: 1)
     }
-    
-    required init?(coder aDecoder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

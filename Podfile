@@ -9,6 +9,7 @@ target 'LinkedNote' do
   pod 'SwiftyJSON'
   pod 'RealmSwift'
   pod 'DynamicColor'
+  pod 'SwiftFormat/CLI'
 
   plugin 'cocoapods-keys', {
     :project => "LinkedNote",

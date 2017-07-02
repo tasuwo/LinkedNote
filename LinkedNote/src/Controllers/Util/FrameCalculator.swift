@@ -20,9 +20,9 @@ class FrameCalculatorImplement: FrameCalculator {
             + UIApplication.shared.statusBarFrame.height
         return CGRect(x: vc.view.frame.origin.x, y: vc.view.frame.origin.y, width: vc.view.frame.width, height: vc.view.frame.height - offset)
     }
-    
+
     func calcFrameOnNavVar(by vc: UIViewController) -> CGRect {
-        let viewBounds = vc.view.bounds;
+        let viewBounds = vc.view.bounds
         let topBarOffSet = vc.navigationController!.navigationBar.frame.height + UIApplication.shared.statusBarFrame.size.height
         return CGRect(x: 0, y: 0, width: viewBounds.width, height: viewBounds.height - topBarOffSet)
     }

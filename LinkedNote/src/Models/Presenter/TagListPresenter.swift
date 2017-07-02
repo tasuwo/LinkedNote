@@ -10,7 +10,7 @@ import UIKit
 
 class TagListPresenter: NSObject {
     private(set) var tags: Array<Tag> = []
-    
+
     func load() {
         tags = []
         for tag in Tag.getAll() {
@@ -22,17 +22,17 @@ class TagListPresenter: NSObject {
 extension TagListPresenter: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let newCell = tableView.dequeueReusableCell(withIdentifier: "TagListCustomCell", for: indexPath) as! TagListCustomCell
-        
+
         let tag = self.tags[indexPath.row]
         newCell.tagName.text = tag.name
         newCell.tagId = tag.id
-        
+
         return newCell
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return self.tags.count
     }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {}
+
+    func tableView(_: UITableView, commit _: UITableViewCellEditingStyle, forRowAt _: IndexPath) {}
 }

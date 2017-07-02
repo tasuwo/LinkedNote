@@ -31,16 +31,16 @@ class ArticleView: UIView {
             self.splitBarDelegate?.dragging(sender: sender, touch: touch)
         }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         Bundle.main.loadNibNamed("Article", owner: self, options: nil)
         view_.frame = frame
         addSubview(view_)
     }
-    
-    required init?(coder aDecoder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

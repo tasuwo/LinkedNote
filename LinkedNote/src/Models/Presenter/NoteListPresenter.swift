@@ -10,7 +10,7 @@ import UIKit
 
 class NoteListPresenter: NSObject {
     private(set) var notes: Array<Note> = []
-    
+
     func load(_ tagId: Int?) {
         notes = []
         if let id = tagId {
@@ -28,20 +28,20 @@ class NoteListPresenter: NSObject {
 extension NoteListPresenter: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let newCell = tableView.dequeueReusableCell(withIdentifier: "NoteListCustomCell", for: indexPath) as! NoteListCustomCell
-        
+
         let note = self.notes[indexPath.row]
         newCell.title.text = note.article?.title
         newCell.note = note
         newCell.api.text = note.article!.apiAccount!.api.first!.signature
         newCell.account.text = note.article!.apiAccount!.username
         newCell.body.text = note.body
-        
+
         return newCell
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return self.notes.count
     }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {}
+
+    func tableView(_: UITableView, commit _: UITableViewCellEditingStyle, forRowAt _: IndexPath) {}
 }
