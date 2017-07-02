@@ -82,8 +82,8 @@ extension ArticleListViewController: UITableViewDelegate {
         if cell.article?.note == nil {
             if cell.article?.id == -1 {
                 cell.article!.addId()
-                Article.add(cell.article!)
-                Article.add(cell.article!, to: account)
+                try! Article.add(cell.article!)
+                try! Article.add(cell.article!, to: account)
                 let n = Note(body: "")
                 Note.add(n)
                 Note.add(n, to: cell.article!)

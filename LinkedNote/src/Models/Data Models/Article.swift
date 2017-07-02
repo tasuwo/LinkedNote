@@ -62,24 +62,36 @@ extension Article {
         return realm.objects(Article.self).filter("ANY apiAccounts.id == \(accountId) AND localId == '\(localId)'").first
     }
     
-    static func add(_ article: Article) {
-        if article.id == -1 {
-            // TODO: throw Exception
-            return
-        }
+    static func add(_ article: Article) throws {
         let realm = try! Realm()
-        try! realm.write {
-            if realm.object(ofType: Article.self, forPrimaryKey: article.id) != nil {
-                realm.create(Article.self, value: article, update: true)
-            } else {
-                realm.add(article)
+        try realm.write {
+            if article.id == -1 {
+                throw DataModelError.InvalidParameter("ID が追加されていません")
             }
+            if let _ = realm.object(ofType: Article.self, forPrimaryKey: article.id) {
+                throw DataModelError.PrimaryKeyViolation
+            }
+            realm.add(article)
         }
     }
     
-    static func add(_ article: Article, to account: ApiAccount) {
+    static func add(_ article: Article, to account: ApiAccount) throws {
         let realm = try! Realm()
-        try! realm.write {
+        try realm.write {
+            if let article_ = realm.object(ofType: Article.self, forPrimaryKey: article.id) {
+                if !article_.isEqual(article) {
+                    throw DataModelError.InvalidParameter("保存されていない更新が含まれた記事オブジェクトです。更新を保存後に本操作を行ってください。")
+                }
+            } else {
+                throw DataModelError.NecessaryDataDoesNotExist("記事が存在しません")
+            }
+            if let _ = realm.objects(Article.self).filter("ANY apiAccounts.id == \(account.id) AND localId == '\(article.localId)'").first {
+                throw DataModelError.IntegrityConstraintViolation
+                
+            }
+            if realm.object(ofType: ApiAccount.self, forPrimaryKey: account.id) == nil {
+                throw DataModelError.NecessaryDataDoesNotExist("アカウントが存在しません")
+            }
             account.articles.append(article)
             realm.add(account, update: true)
         }
