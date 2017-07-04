@@ -127,16 +127,16 @@ extension NoteListViewController: TagMenuViewDelegate {
     func didPressSelectExistTagButton(_ index: Int) {
         let selectedTag = tagPickerPresenter.tags[index]
         let selectedNote = self.tagMenuView!.note!
-        Tag.add(selectedTag, to: selectedNote)
+        try! Tag.add(selectedTag, to: selectedNote)
         self.didPressCloseButton()
     }
 
     func didPressCreateNewTagButton(_ newTagName: String) {
         let newTag = Tag(name: newTagName)
-        Tag.add(newTag)
+        try! Tag.add(newTag)
 
         let selectedNote = self.tagMenuView!.note!
-        Tag.add(newTag, to: selectedNote)
+        try! Tag.add(newTag, to: selectedNote)
         self.didPressCloseButton()
     }
 }

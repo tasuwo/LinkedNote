@@ -33,9 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let pocketApi = Api(signature: "pocket")
             try! Api.add(pocketApi)
             let tag1 = Tag(name: "test tag 1")
-            Tag.add(tag1)
+            try! Tag.add(tag1)
             let tag2 = Tag(name: "test tag 2")
-            Tag.add(tag2)
+            try! Tag.add(tag2)
         }
         // =========================================================================================
 

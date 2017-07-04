@@ -153,7 +153,7 @@ extension TagEditViewPresenter: TagMenuViewDelegate {
     func didPressSelectExistTagButton(_ index: Int) {
         let selectedTag = tagPickerPresenter.tags[index]
         let selectedNote = self.tagMenuView.note!
-        Tag.add(selectedTag, to: selectedNote)
+        try! Tag.add(selectedTag, to: selectedNote)
 
         tagCollectionPresenter.load(noteId: tagMenuView.note!.id)
         tagMenuView.tagCollectionView.reloadData()
@@ -161,10 +161,10 @@ extension TagEditViewPresenter: TagMenuViewDelegate {
 
     func didPressCreateNewTagButton(_ newTagName: String) {
         let newTag = Tag(name: newTagName)
-        Tag.add(newTag)
+        try! Tag.add(newTag)
 
         let selectedNote = self.tagMenuView.note!
-        Tag.add(newTag, to: selectedNote)
+        try! Tag.add(newTag, to: selectedNote)
 
         tagCollectionPresenter.load(noteId: tagMenuView.note!.id)
         tagMenuView.tagCollectionView.reloadData()
@@ -184,7 +184,7 @@ extension TagEditViewPresenter: UICollectionViewDelegate {
     func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = self.tagMenuView.tagCollectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
         self.alertPresenter.yn(title: "タグの削除", message: "このタグを削除しますか？", on: self.targetViewController, y: { (_: UIAlertAction?) in
-            Tag.delete(cell.id!, from: self.tagMenuView.note!.id)
+            try! Tag.delete(cell.id!, from: self.tagMenuView.note!.id)
             self.tagCollectionPresenter.load(noteId: self.tagMenuView.note!.id)
             self.tagMenuView.tagCollectionView.reloadData()
         }, n: { (_: UIAlertAction?) in
