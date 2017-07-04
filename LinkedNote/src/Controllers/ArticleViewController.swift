@@ -88,7 +88,7 @@ class ArticleViewController: UIViewController {
         // TODO: Save text dynamically
         if let note = self.article.note,
             let text = self.articleView.noteView.text {
-            Note.update(note: note, body: text)
+            try! Note.update(note: note, body: text)
         } else {
             self.alertPresenter.error("ノートの保存に失敗しました。ノートが存在していません。", on: self)
         }

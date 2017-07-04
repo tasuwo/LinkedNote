@@ -85,8 +85,8 @@ extension ArticleListViewController: UITableViewDelegate {
                 try! Article.add(cell.article!)
                 try! Article.add(cell.article!, to: account)
                 let n = Note(body: "")
-                Note.add(n)
-                Note.add(n, to: cell.article!)
+                try! Note.add(n)
+                try! Note.add(n, to: cell.article!)
             }
         }
 

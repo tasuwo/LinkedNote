@@ -45,7 +45,7 @@ extension Note {
 
     static func get(_ id: Int) -> Note? {
         let realm = try! Realm()
-        return realm.objects(Note.self).filter("id == \(id)").first
+        return realm.object(ofType: Note.self, forPrimaryKey: id)
     }
 
     static func get(signature: String, username: String, article: Article) -> Note? {
@@ -68,28 +68,44 @@ extension Note {
         return realm.objects(Note.self).filter("ANY tags.id == \(tagId)")
     }
 
-    static func add(_ note: Note) {
+    static func add(_ note: Note) throws {
         let realm = try! Realm()
-        try! realm.write {
-            if realm.object(ofType: Note.self, forPrimaryKey: note.id) != nil {
-                realm.create(Note.self, value: note, update: true)
-            } else {
-                realm.add(note)
+        try realm.write {
+            if let _ = realm.object(ofType: Note.self, forPrimaryKey: note.id) {
+                throw DataModelError.PrimaryKeyViolation
             }
+            realm.add(note)
         }
     }
 
-    static func add(_ note: Note, to article: Article) {
+    static func add(_ note: Note, to article: Article) throws {
         let realm = try! Realm()
-        try! realm.write {
+        try realm.write {
+            if let note_ = realm.object(ofType: Note.self, forPrimaryKey: note.id) {
+                if note_.article != nil {
+                    throw DataModelError.IntegrityConstraintViolation
+                }
+            } else {
+                throw DataModelError.NecessaryDataDoesNotExist("ノートが存在しません")
+            }
+            if let article_ = realm.object(ofType: Article.self, forPrimaryKey: article.id) {
+                if article_.note != nil {
+                    throw DataModelError.IntegrityConstraintViolation
+                }
+            } else {
+                throw DataModelError.NecessaryDataDoesNotExist("記事が存在しません")
+            }
             article.notes.append(note)
             realm.add(article, update: true)
         }
     }
 
-    static func update(note: Note, body: String) {
+    static func update(note: Note, body: String) throws {
         let realm = try! Realm()
-        try! realm.write {
+        try realm.write {
+            if realm.object(ofType: Note.self, forPrimaryKey: note.id) == nil {
+                throw DataModelError.NecessaryDataDoesNotExist("ノートが存在しません")
+            }
             note.body = body
             realm.add(note, update: true)
         }
@@ -98,6 +114,9 @@ extension Note {
     static func delete(note: Note) {
         let realm = try! Realm()
         try! realm.write {
+            if realm.object(ofType: Note.self, forPrimaryKey: note.id) == nil {
+                return
+            }
             realm.delete(note)
         }
     }
