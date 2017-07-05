@@ -65,6 +65,7 @@
 		A05E17CB1EE26218005C4566 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17981EE26218005C4566 /* TagListView.swift */; };
 		A068F8401EE8C94900767149 /* AccountViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068F83F1EE8C94900767149 /* AccountViewControllerTest.swift */; };
 		A0B3B5C51F0C537700D410FF /* TagTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B3B5C41F0C537700D410FF /* TagTest.swift */; };
+		A0B3B5CA1F0C672C00D410FF /* ArticleListPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B3B5C91F0C672C00D410FF /* ArticleListPresenterTest.swift */; };
 		A0C8C7F51F0753B800E1F0A1 /* ArticleListViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8C7F41F0753B800E1F0A1 /* ArticleListViewControllerTest.swift */; };
 		A0C8C7FB1F07A62100E1F0A1 /* ApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8C7FA1F07A62100E1F0A1 /* ApiTest.swift */; };
 		A0C8C7FD1F07A76900E1F0A1 /* ApiAccountTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8C7FC1F07A76900E1F0A1 /* ApiAccountTest.swift */; };
@@ -161,6 +162,7 @@
 		A05E17981EE26218005C4566 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
 		A068F83F1EE8C94900767149 /* AccountViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewControllerTest.swift; sourceTree = "<group>"; };
 		A0B3B5C41F0C537700D410FF /* TagTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagTest.swift; sourceTree = "<group>"; };
+		A0B3B5C91F0C672C00D410FF /* ArticleListPresenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListPresenterTest.swift; sourceTree = "<group>"; };
 		A0C8C7F11F07377900E1F0A1 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A0C8C7F41F0753B800E1F0A1 /* ArticleListViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleListViewControllerTest.swift; path = ../ArticleListViewControllerTest.swift; sourceTree = "<group>"; };
 		A0C8C7FA1F07A62100E1F0A1 /* ApiTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiTest.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 		A05E173B1EE261DD005C4566 /* LinkedNoteTests */ = {
 			isa = PBXGroup;
 			children = (
+				A0D6F4AA1EE8DB5800430171 /* Fake Dependencies */,
 				A0C8C7F61F07638F00E1F0A1 /* Models */,
 				A068F83E1EE8C92E00767149 /* Controllers */,
 				A05E173E1EE261DD005C4566 /* Info.plist */,
@@ -466,16 +469,24 @@
 		A068F83E1EE8C92E00767149 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				A0D6F4AA1EE8DB5800430171 /* Fake Dependencies */,
 				A068F83F1EE8C94900767149 /* AccountViewControllerTest.swift */,
 				A0C8C7F41F0753B800E1F0A1 /* ArticleListViewControllerTest.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		A0B3B5C61F0C640200D410FF /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				A0B3B5C91F0C672C00D410FF /* ArticleListPresenterTest.swift */,
+			);
+			name = Presenter;
+			sourceTree = "<group>";
+		};
 		A0C8C7F61F07638F00E1F0A1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A0B3B5C61F0C640200D410FF /* Presenter */,
 				A0C8C7F91F07A60F00E1F0A1 /* Data Models */,
 			);
 			name = Models;
@@ -500,7 +511,8 @@
 				A0E6C8A11EE8E50F007A6737 /* FakeAlertPresenter.swift */,
 				A0D6F4AD1EE8DB8700430171 /* FakeFrameCalculator.swift */,
 			);
-			path = "Fake Dependencies";
+			name = "Fake Dependencies";
+			path = "Controllers/Fake Dependencies";
 			sourceTree = "<group>";
 		};
 		FB80585D9F87D53A3E70A53C /* Pods */ = {
@@ -890,6 +902,7 @@
 				A0C8C7FB1F07A62100E1F0A1 /* ApiTest.swift in Sources */,
 				A0B3B5C51F0C537700D410FF /* TagTest.swift in Sources */,
 				A0D6F4AE1EE8DB8700430171 /* FakeFrameCalculator.swift in Sources */,
+				A0B3B5CA1F0C672C00D410FF /* ArticleListPresenterTest.swift in Sources */,
 				A068F8401EE8C94900767149 /* AccountViewControllerTest.swift in Sources */,
 				A0C8C7F51F0753B800E1F0A1 /* ArticleListViewControllerTest.swift in Sources */,
 				A0E6C8A21EE8E50F007A6737 /* FakeAlertPresenter.swift in Sources */,
