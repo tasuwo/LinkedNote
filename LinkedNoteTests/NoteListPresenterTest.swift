@@ -11,7 +11,6 @@ import RealmSwift
 @testable import LinkedNote
 
 class NoteListPresenterTest: XCTestCase {
-    var apiWrapper: FakeAPIWrapper!
     var presenter: NoteListPresenter!
     var tag1: Tag!
     var tag2: Tag!
