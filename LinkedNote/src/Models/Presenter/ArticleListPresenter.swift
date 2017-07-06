@@ -17,7 +17,7 @@ protocol RecognizableLongPress {
     func handleLogPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer)
 }
 
-class ArticleListPresenter: NSObject {
+class ArticleListPresenter<T: ThumbnailDownloader>: NSObject, UITableViewDataSource {
     var articles: Array<Article> = []
     var thumbnailDownloadersInProgress: Dictionary<IndexPath, ThumbnailDownloader> = [:]
     var recognizer: ArticleListViewController?
@@ -46,38 +46,38 @@ class ArticleListPresenter: NSObject {
         self.articles.remove(at: indexPath.row)
     }
 
-    func startThumbnailDownload(article: Article, forIndexPath indexPath: IndexPath, tableView: UITableView) {
-        if nil == self.thumbnailDownloadersInProgress[indexPath] {
-            let downloader = ThumbnailDownloader()
-            downloader.article = article
-            downloader.completionHandler = { () in
-                let cell = tableView.cellForRow(at: indexPath)
-
-                cell?.imageView?.image = article.thumbnail
-                cell?.setNeedsLayout()
-
-                self.thumbnailDownloadersInProgress.removeValue(forKey: indexPath)
-            }
-            self.thumbnailDownloadersInProgress[indexPath] = downloader
-            downloader.startDownload()
-        }
-    }
-
     func loadImagesForOnscreenRows(tableView: UITableView) {
-        if self.articles.count > 0 {
-            if let visiblePaths = tableView.indexPathsForVisibleRows {
-                for indexPath in visiblePaths {
-                    let article = self.articles[indexPath.row]
-                    if article.thumbnail == nil {
-                        self.startThumbnailDownload(article: article, forIndexPath: indexPath, tableView: tableView)
-                    }
-                }
+        if self.articles.isEmpty {
+            return
+        }
+        guard let visiblePaths = tableView.indexPathsForVisibleRows else {
+            return
+        }
+        for indexPath in visiblePaths {
+            let article = self.articles[indexPath.row]
+            if article.thumbnail == nil {
+                self.startThumbnailDownload(article: article, forIndexPath: indexPath, tableView: tableView)
             }
         }
     }
-}
 
-extension ArticleListPresenter: UITableViewDataSource {
+    func startThumbnailDownload(article: Article, forIndexPath indexPath: IndexPath, tableView: UITableView) {
+        guard self.thumbnailDownloadersInProgress[indexPath] == nil else {
+            return
+        }
+        let downloader = T.init(article: article, handler: { () in
+            let cell = tableView.cellForRow(at: indexPath)
+            cell?.imageView?.image = article.thumbnail
+            cell?.setNeedsLayout()
+
+            self.thumbnailDownloadersInProgress.removeValue(forKey: indexPath)
+        })
+        self.thumbnailDownloadersInProgress[indexPath] = downloader
+        downloader.startDownload()
+    }
+
+    // MARK: UITableViewDataSource
+
     // Asks the data source for a cell to insert in a particular location of the table view.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let newCell = tableView.dequeueReusableCell(withIdentifier: "ArticleListCustomCell", for: indexPath) as! ArticleListCustomCell
@@ -111,7 +111,10 @@ extension ArticleListPresenter: UITableViewDataSource {
 
         // Add recognizer
         // For recognize long press to table cell
-        let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: recognizer, action: #selector(recognizer!.handleLogPress))
+        let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(
+            target: recognizer,
+            action: #selector(recognizer!.handleLogPress)
+        )
         longPressGesture.minimumPressDuration = 0.7
         longPressGesture.delegate = recognizer
         newCell.noteButton.addGestureRecognizer(longPressGesture)
@@ -120,7 +123,6 @@ extension ArticleListPresenter: UITableViewDataSource {
         return newCell
     }
 
-    // Tells the data source to return the number of rows in a given section of a table view.
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return self.articles.count
     }

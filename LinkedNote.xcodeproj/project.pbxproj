@@ -11,6 +11,8 @@
 		2C4D409B1F091DAA008DC554 /* NoteTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D409A1F091DAA008DC554 /* NoteTest.swift */; };
 		2C62D69C1F086FE900DC4041 /* ArticleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C62D69B1F086FE900DC4041 /* ArticleTest.swift */; };
 		9BB12095DEC38C7AA06AEC5E /* Pods_LinkedNoteUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DABC6D3DE1353450DA80AAF /* Pods_LinkedNoteUITests.framework */; };
+		A00053B51F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00053B41F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift */; };
+		A00053B71F0DAF7B001DE6CC /* FakeThumbnailDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00053B61F0DAF7B001DE6CC /* FakeThumbnailDownloader.swift */; };
 		A05E172F1EE261DD005C4566 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A05E172E1EE261DD005C4566 /* Assets.xcassets */; };
 		A05E17321EE261DD005C4566 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E17301EE261DD005C4566 /* LaunchScreen.storyboard */; };
 		A05E17481EE261DD005C4566 /* LinkedNoteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17471EE261DD005C4566 /* LinkedNoteUITests.swift */; };
@@ -102,6 +104,8 @@
 		38A9834388FD3C9159855939 /* Pods-LinkedNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNote.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNote/Pods-LinkedNote.release.xcconfig"; sourceTree = "<group>"; };
 		50EA9EFCC3AF4212863C844D /* Pods_LinkedNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkedNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DABC6D3DE1353450DA80AAF /* Pods_LinkedNoteUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkedNoteUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A00053B41F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeArticleListPresenterObserver.swift; sourceTree = "<group>"; };
+		A00053B61F0DAF7B001DE6CC /* FakeThumbnailDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeThumbnailDownloader.swift; sourceTree = "<group>"; };
 		A05E17241EE261DD005C4566 /* LinkedNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinkedNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A05E172E1EE261DD005C4566 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A05E17311EE261DD005C4566 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -510,6 +514,8 @@
 				A0D6F4AB1EE8DB6E00430171 /* FakeAPIWrapper.swift */,
 				A0E6C8A11EE8E50F007A6737 /* FakeAlertPresenter.swift */,
 				A0D6F4AD1EE8DB8700430171 /* FakeFrameCalculator.swift */,
+				A00053B41F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift */,
+				A00053B61F0DAF7B001DE6CC /* FakeThumbnailDownloader.swift */,
 			);
 			name = "Fake Dependencies";
 			path = "Controllers/Fake Dependencies";
@@ -899,6 +905,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C62D69C1F086FE900DC4041 /* ArticleTest.swift in Sources */,
+				A00053B71F0DAF7B001DE6CC /* FakeThumbnailDownloader.swift in Sources */,
 				A0C8C7FB1F07A62100E1F0A1 /* ApiTest.swift in Sources */,
 				A0B3B5C51F0C537700D410FF /* TagTest.swift in Sources */,
 				A0D6F4AE1EE8DB8700430171 /* FakeFrameCalculator.swift in Sources */,
@@ -906,6 +913,7 @@
 				A068F8401EE8C94900767149 /* AccountViewControllerTest.swift in Sources */,
 				A0C8C7F51F0753B800E1F0A1 /* ArticleListViewControllerTest.swift in Sources */,
 				A0E6C8A21EE8E50F007A6737 /* FakeAlertPresenter.swift in Sources */,
+				A00053B51F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift in Sources */,
 				A0C8C7FD1F07A76900E1F0A1 /* ApiAccountTest.swift in Sources */,
 				A0D6F4AC1EE8DB6E00430171 /* FakeAPIWrapper.swift in Sources */,
 				2C4D409B1F091DAA008DC554 /* NoteTest.swift in Sources */,

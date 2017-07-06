@@ -10,41 +10,50 @@ import UIKit
 
 let kAppIconSize: CGFloat = 100
 
-class ThumbnailDownloader: NSObject {
-    var article: Article!
-    var completionHandler: (() -> Void)!
+protocol ThumbnailDownloader {
+    init(article: Article, handler: @escaping (() -> Void))
+    func startDownload()
+    func cancelDownload()
+}
+
+class ThumbnailDownloaderImpl: NSObject, ThumbnailDownloader {
+    private let article: Article
+    private let completionHandler: (() -> Void)
     private var sessionTask: URLSessionDataTask!
 
+    required init(article: Article, handler: @escaping (() -> Void)) {
+        self.article = article
+        self.completionHandler = handler
+    }
+
     func startDownload() {
-        if let url = URL(string: self.article.thumbnailUrl) {
-            let request = URLRequest(url: url)
-            self.sessionTask = URLSession.shared.dataTask(with: request, completionHandler: { (data: Data?, _: URLResponse?, error: Error?) in
-                if let e = error {
-                    if (e as NSError).code == NSURLErrorAppTransportSecurityRequiresSecureConnection { abort() }
-                }
-
-                OperationQueue.main.addOperation {
-                    if let data = data,
-                        let image = UIImage(data: data) {
-                        if image.size.width != kAppIconSize || image.size.height != kAppIconSize {
-                            let itemSize = CGSize(width: kAppIconSize, height: kAppIconSize)
-                            UIGraphicsBeginImageContextWithOptions(itemSize, false, 0.0)
-                            let imageRect = CGRect(x: 0, y: 0, width: itemSize.width, height: itemSize.height)
-                            image.draw(in: imageRect)
-                            self.article.thumbnail = UIGraphicsGetImageFromCurrentImageContext()
-                            UIGraphicsEndImageContext()
-                        } else {
-                            self.article.thumbnail = image
-                        }
-                    }
-
-                    if let handler = self.completionHandler {
-                        handler()
-                    }
-                }
-            })
-            self.sessionTask.resume()
+        guard let url = URL(string: self.article.thumbnailUrl) else {
+            return
         }
+
+        self.sessionTask = URLSession.shared.dataTask(with: URLRequest(url: url), completionHandler: {
+            (data: Data?, _: URLResponse?, error: Error?) in
+
+            if let e = error {
+                if (e as NSError).code == NSURLErrorAppTransportSecurityRequiresSecureConnection { abort() }
+            }
+
+            OperationQueue.main.addOperation {
+                if let data = data, let image = UIImage(data: data) {
+                    // Adjust size
+                    if image.size.width != kAppIconSize || image.size.height != kAppIconSize {
+                        UIGraphicsBeginImageContextWithOptions(CGSize(width: kAppIconSize, height: kAppIconSize), false, 0.0)
+                        image.draw(in: CGRect(x: 0, y: 0, width: kAppIconSize, height: kAppIconSize))
+                        self.article.thumbnail = UIGraphicsGetImageFromCurrentImageContext()
+                        UIGraphicsEndImageContext()
+                    } else {
+                        self.article.thumbnail = image
+                    }
+                }
+                self.completionHandler()
+            }
+        })
+        self.sessionTask.resume()
     }
 
     func cancelDownload() {

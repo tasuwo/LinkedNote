@@ -10,7 +10,7 @@ import UIKit
 
 class ArticleListViewController: UIViewController {
     var articleListView: ArticleListView!
-    let articleListPresenter: ArticleListPresenter
+    let articleListPresenter: ArticleListPresenter<ThumbnailDownloaderImpl>
     let api: APIWrapper
     let calculator: FrameCalculator
     let alertPresenter: AlertPresenter
