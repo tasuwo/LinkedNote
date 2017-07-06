@@ -41,7 +41,7 @@ class TagListViewController: UIViewController {
     }
 
     override func viewWillAppear(_: Bool) {
-        self.tagListPresenter.load()
+        // self.tagListPresenter.load()
         self.tagListView.tagList.reloadData()
     }
 }
@@ -65,7 +65,7 @@ extension TagListViewController: UITableViewDelegate {
                 let cell = self.tagListView.tagList.cellForRow(at: indexPath) as! TagListCustomCell
                 if let tag = Tag.get(cell.tagId!) {
                     Tag.delete(tag)
-                    self.tagListPresenter.load()
+                    // self.tagListPresenter.load()
                     self.tagListView.tagList.deleteRows(at: [indexPath], with: .automatic)
                 }
             }),

@@ -7,15 +7,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 class TagCollectionPresenter: NSObject {
-    private(set) var tags: Array<Tag> = []
+    private(set) var tags: Results<Tag> = Tag.getAll()
 
     func load(noteId: Int) {
-        self.tags = []
-        for tag in Tag.get(noteId: noteId) {
-            self.tags.append(tag)
-        }
+        self.tags = Tag.get(noteId: noteId)
     }
 }
 

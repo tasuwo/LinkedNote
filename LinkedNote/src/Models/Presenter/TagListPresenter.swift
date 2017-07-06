@@ -7,16 +7,10 @@
 //
 
 import UIKit
+import RealmSwift
 
 class TagListPresenter: NSObject {
-    private(set) var tags: Array<Tag> = []
-
-    func load() {
-        tags = []
-        for tag in Tag.getAll() {
-            self.tags.append(tag)
-        }
-    }
+    private(set) var tags: Results<Tag> = Tag.getAll()
 }
 
 extension TagListPresenter: UITableViewDataSource {

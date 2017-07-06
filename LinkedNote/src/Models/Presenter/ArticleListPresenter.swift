@@ -18,6 +18,7 @@ protocol RecognizableLongPress {
 }
 
 class ArticleListPresenter<T: ThumbnailDownloader>: NSObject, UITableViewDataSource {
+    // TODO: 削除された Article オブジェクトにアクセスしようとすると例外が走るのでどうにかする
     var articles: Array<Article> = []
     var thumbnailDownloadersInProgress: Dictionary<IndexPath, ThumbnailDownloader> = [:]
     var recognizer: ArticleListViewController?

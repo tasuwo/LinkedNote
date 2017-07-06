@@ -11,7 +11,6 @@ import RealmSwift
 @testable import LinkedNote
 
 class NoteListPresenterTest: XCTestCase {
-    var presenter: NoteListPresenter!
     var tag1: Tag!
     var tag2: Tag!
 
@@ -56,26 +55,123 @@ class NoteListPresenterTest: XCTestCase {
     }
 
     func testLoad() {
-        self.presenter = NoteListPresenter()
-
-        XCTAssertTrue(presenter.notes.isEmpty)
-
-        self.presenter.load(nil)
+        let presenter = NoteListPresenter()
 
         XCTAssertTrue(presenter.notes.count == 5)
 
-        self.presenter.load(tag1.id)
+        presenter.load(nil)
+
+        XCTAssertTrue(presenter.notes.count == 5)
+
+        presenter.load(tag1.id)
 
         XCTAssertTrue(presenter.notes.count == 3)
         XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test1" }))
         XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test2" }))
         XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test3" }))
 
-        self.presenter.load(tag2.id)
+        presenter.load(tag2.id)
 
         XCTAssertTrue(presenter.notes.count == 3)
         XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test2" }))
         XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test3" }))
         XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test4" }))
+    }
+
+    func testDeleteAfterLoad() {
+        let presenter = NoteListPresenter()
+
+        presenter.load(tag1.id)
+
+        XCTAssertTrue(presenter.notes.count == 3)
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test1" }))
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test2" }))
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test3" }))
+
+        let realm = try! Realm()
+
+        try! realm.write {
+            // note2's id == 1
+            let note = realm.object(ofType: Note.self, forPrimaryKey: 1)!
+            realm.delete(note)
+        }
+
+        XCTAssertTrue(presenter.notes.count == 2)
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test1" }))
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test3" }))
+
+        try! realm.write {
+            // note1's id == 0
+            let note = realm.object(ofType: Note.self, forPrimaryKey: 0)!
+            note.tags.removeAll()
+            realm.add(note, update: true)
+        }
+
+        XCTAssertTrue(presenter.notes.count == 1)
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test3" }))
+    }
+
+    func testAddAfterLoad() {
+        let presenter = NoteListPresenter()
+
+        presenter.load(tag1.id)
+
+        XCTAssertTrue(presenter.notes.count == 3)
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test1" }))
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test2" }))
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test3" }))
+
+        let realm = try! Realm()
+
+        try! realm.write {
+            // note4's id == 3
+            let note = realm.object(ofType: Note.self, forPrimaryKey: 3)!
+            note.tags.append(tag1)
+            realm.add(note, update: true)
+        }
+
+        XCTAssertTrue(presenter.notes.count == 4)
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test1" }))
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test2" }))
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test3" }))
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test4" }))
+
+        try! realm.write {
+            let note = Note(body: "newNote")
+            note.tags.append(tag1)
+            realm.add(note)
+        }
+
+        XCTAssertTrue(presenter.notes.count == 5)
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test1" }))
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test2" }))
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test3" }))
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test4" }))
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "newNote" }))
+    }
+
+    func testUpdateAfterLoad() {
+        let presenter = NoteListPresenter()
+
+        presenter.load(tag1.id)
+
+        XCTAssertTrue(presenter.notes.count == 3)
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test1" }))
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test2" }))
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test3" }))
+
+        let realm = try! Realm()
+
+        try! realm.write {
+            // note2's id == 1
+            let note = realm.object(ofType: Note.self, forPrimaryKey: 1)!
+            note.body = "modifiedTest"
+            realm.add(note, update: true)
+        }
+
+        XCTAssertTrue(presenter.notes.count == 3)
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test1" }))
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "modifiedTest" }))
+        XCTAssertTrue(presenter.notes.contains(where: { n in n.body == "test3" }))
     }
 }

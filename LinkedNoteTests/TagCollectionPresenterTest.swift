@@ -60,7 +60,9 @@ class TagCollectionPresenterTest: XCTestCase {
     func testLoad() {
         let presenter = TagCollectionPresenter()
 
-        XCTAssertTrue(presenter.tags.isEmpty)
+        XCTAssertTrue(presenter.tags.count == 2)
+        XCTAssertTrue(presenter.tags.contains(where: { t in t.name == "tag1" }))
+        XCTAssertTrue(presenter.tags.contains(where: { t in t.name == "tag2" }))
 
         presenter.load(noteId: note1.id)
 
@@ -87,5 +89,61 @@ class TagCollectionPresenterTest: XCTestCase {
         presenter.load(noteId: note5.id)
 
         XCTAssertTrue(presenter.tags.count == 0)
+    }
+
+    func testDeleteAfterLoad() {
+        let presenter = TagCollectionPresenter()
+
+        XCTAssertTrue(presenter.tags.count == 2)
+        XCTAssertTrue(presenter.tags.contains(where: { t in t.name == "tag1" }))
+        XCTAssertTrue(presenter.tags.contains(where: { t in t.name == "tag2" }))
+
+        let realm = try! Realm()
+        try! realm.write {
+            let tag2 = realm.object(ofType: Tag.self, forPrimaryKey: 1)!
+            realm.delete(tag2)
+        }
+
+        XCTAssertTrue(presenter.tags.count == 1)
+        XCTAssertTrue(presenter.tags.contains(where: { t in t.name == "tag1" }))
+    }
+
+    func testAddAfterLoad() {
+        let presenter = TagCollectionPresenter()
+
+        presenter.load(noteId: note5.id)
+
+        XCTAssertTrue(presenter.tags.count == 0)
+
+        let realm = try! Realm()
+        try! realm.write {
+            let newTag = Tag(name: "newTag")
+            note5.tags.append(newTag)
+            realm.add(newTag)
+            realm.add(note5, update: true)
+        }
+
+        XCTAssertTrue(presenter.tags.count == 1)
+        XCTAssertTrue(presenter.tags.contains(where: { t in t.name == "newTag" }))
+    }
+
+    func testUpdateAfterLoad() {
+        let presenter = TagCollectionPresenter()
+
+        presenter.load(noteId: note4.id)
+
+        XCTAssertTrue(presenter.tags.count == 1)
+        XCTAssertTrue(presenter.tags.contains(where: { t in t.name == "tag2" }))
+
+        let realm = try! Realm()
+        try! realm.write {
+            // tag2's id == 1
+            let tag = realm.object(ofType: Tag.self, forPrimaryKey: 1)!
+            tag.name = "newName"
+            realm.add(tag, update: true)
+        }
+
+        XCTAssertTrue(presenter.tags.count == 1)
+        XCTAssertTrue(presenter.tags.contains(where: { t in t.name == "newName" }))
     }
 }

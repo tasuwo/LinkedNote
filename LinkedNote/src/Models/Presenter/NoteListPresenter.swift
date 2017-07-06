@@ -7,20 +7,16 @@
 //
 
 import UIKit
+import RealmSwift
 
 class NoteListPresenter: NSObject {
-    private(set) var notes: Array<Note> = []
+    private(set) var notes: Results<Note> = Note.getAll()
 
     func load(_ tagId: Int?) {
-        notes = []
         if let id = tagId {
-            for note in Note.get(tagId: id) {
-                self.notes.append(note)
-            }
+            notes = Note.get(tagId: id)
         } else {
-            for note in Note.getAll() {
-                self.notes.append(note)
-            }
+            notes = Note.getAll()
         }
     }
 }

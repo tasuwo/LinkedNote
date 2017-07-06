@@ -7,15 +7,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 class TagPickerPresenter: NSObject {
-    private(set) var tags: Array<Tag> = []
+    private(set) var tags: Results<Tag> = Tag.getAll()
 
     func reload() {
-        self.tags = []
-        for tag in Tag.getAll() {
-            self.tags.append(tag)
-        }
+        self.tags = Tag.getAll()
     }
 }
 
