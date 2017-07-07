@@ -5,8 +5,9 @@ matrix:
         - osx_image: xcode8.3
 
 before_install:
-    - bundle exec pod keys set PocketAPIConsumerKey "-" LinkedNote
-    - bundle exec pod keys set PocketAppID "-"
+    - gem install cocoapods-keys
+    - pod keys set PocketAPIConsumerKey "-"
+    - exec pod keys set PocketAppID "-"
     - echo "POCKET_APP_ID=pocketapp" > .env
 
 script:
