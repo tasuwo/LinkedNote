@@ -20,7 +20,6 @@ class ArticleViewControllerTest: XCTestCase {
 
     override func setUp() {
         super.setUp()
-
         Realm.Configuration.defaultConfiguration.inMemoryIdentifier = self.name
     }
 

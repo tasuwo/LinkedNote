@@ -18,16 +18,16 @@ class NoteListViewController: UIViewController {
     var tagMenuView: TagMenuView?
     let calculator: FrameCalculator
     let noteListPresenter: NoteListPresenter
-    let tagPickerPresenter: TagPickerPresenter
     let settings: NodeListViewControllerSettings
     let alertPresenter: AlertPresenter
+    let tagEditViewPresenter: TagEditViewPresenter
 
     init(settings: NodeListViewControllerSettings, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
         self.settings = settings
         self.calculator = calculator
         self.alertPresenter = alertPresenter
         self.noteListPresenter = NoteListPresenter()
-        self.tagPickerPresenter = TagPickerPresenter()
+        self.tagEditViewPresenter = TagEditViewPresenter(alertPresenter: alertPresenter)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -45,7 +45,7 @@ class NoteListViewController: UIViewController {
         self.view.addSubview(self.noteListView)
 
         // For recognize long press to table cell
-        let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLogPress))
+        let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress))
         longPressGesture.minimumPressDuration = 0.7
         longPressGesture.delegate = self
         self.noteListView.noteList.addGestureRecognizer(longPressGesture)
@@ -88,61 +88,22 @@ extension NoteListViewController: UITableViewDelegate {
 }
 
 extension NoteListViewController: UIGestureRecognizerDelegate {
-    func handleLogPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
-        if longPressGestureRecognizer.state == UIGestureRecognizerState.began {
-            let touchPoint = longPressGestureRecognizer.location(in: self.view)
-            if let indexPath = self.noteListView.noteList.indexPathForRow(at: touchPoint) {
-
-                let cell = self.noteListView.noteList.cellForRow(at: indexPath) as! NoteListCustomCell
-
-                self.tagMenuView = TagMenuView(frame: self.tabBarController!.view.frame)
-                self.tagMenuView!.note = cell.note
-
-                tagPickerPresenter.reload()
-                self.tagMenuView!.tagPicker.dataSource = tagPickerPresenter
-                self.tagMenuView!.tagPicker.delegate = self
-
-                let transition = CATransition()
-                transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-                transition.duration = 0.15
-                transition.type = kCATransitionFade
-                self.tabBarController?.view.layer.add(transition, forKey: kCATransition)
-
-                self.tabBarController?.view.addSubview(self.tagMenuView!)
-            }
+    func handleLongPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        guard longPressGestureRecognizer.state == UIGestureRecognizerState.began else {
+            return
         }
-    }
-}
 
-extension NoteListViewController: TagMenuViewDelegate {
-    func didPressCloseButton() {
-        UIView.animate(withDuration: 0.2 as TimeInterval, animations: {
-            self.tagMenuView!.alpha = 0
-        }, completion: { _ in
-            self.tagMenuView!.removeFromSuperview()
-            self.tagMenuView = nil
-        })
-    }
+        let touchPoint = longPressGestureRecognizer.location(in: self.view)
+        guard let indexPath = self.noteListView.noteList.indexPathForRow(at: touchPoint) else {
+            return
+        }
 
-    func didPressSelectExistTagButton(_ index: Int) {
-        let selectedTag = tagPickerPresenter.tags[index]
-        let selectedNote = self.tagMenuView!.note!
-        try! Tag.add(selectedTag, to: selectedNote)
-        self.didPressCloseButton()
-    }
+        let cell = self.noteListView.noteList.cellForRow(at: indexPath) as! NoteListCustomCell
+        guard let note = cell.note else {
+            return
+        }
 
-    func didPressCreateNewTagButton(_ newTagName: String) {
-        let newTag = Tag(name: newTagName)
-        try! Tag.add(newTag)
-
-        let selectedNote = self.tagMenuView!.note!
-        try! Tag.add(newTag, to: selectedNote)
-        self.didPressCloseButton()
-    }
-}
-
-extension NoteListViewController: UIPickerViewDelegate {
-    func pickerView(_: UIPickerView, titleForRow row: Int, forComponent _: Int) -> String? {
-        return tagPickerPresenter.tags[row].name
+        self.tagEditViewPresenter.initwith(note: note, frame: self.tabBarController!.view.frame)
+        self.tagEditViewPresenter.add(to: self.tabBarController!.view, viewController: self)
     }
 }

@@ -55,8 +55,8 @@ class ArticleListViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
+
+    override func viewWillAppear(_: Bool) {
         self.articleListView.myList?.reloadData()
     }
 
