@@ -9,7 +9,7 @@
 import UIKit
 @testable import LinkedNote
 
-class FakeViewCalculator: FrameCalculator {
+class FakeFrameCalculator: FrameCalculator {
     func calcFrameOnTabAndNavBar(by: UIViewController) -> CGRect {
         return by.view.frame
     }

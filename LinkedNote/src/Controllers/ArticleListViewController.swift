@@ -55,9 +55,14 @@ class ArticleListViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
-    override func viewWillAppear(_: Bool) {
+    
+    override func viewWillAppear(_ animated: Bool) {
         self.articleListView.myList?.reloadData()
+    }
+
+    // viewWillAppear で追加を行うと、画面遷移内にメソッドがトリガーされておかしな挙動になるので、
+    // 読み込んでから追加する
+    override func viewDidAppear(_: Bool) {
         self.tagEditViewPresenter.addObserver()
     }
 
@@ -154,7 +159,7 @@ extension ArticleListViewController: ArticleListTableViewDelegate {
 }
 
 extension ArticleListViewController: UIGestureRecognizerDelegate, RecognizableLongPress {
-    @objc func handleLogPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
+    @objc func handleLongPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
         if longPressGestureRecognizer.state == UIGestureRecognizerState.began {
             let tag = longPressGestureRecognizer.view!.tag
             let cell = self.articleListView.myList?.cellForRow(at: IndexPath(row: tag, section: 0)) as? ArticleListCustomCell

@@ -26,7 +26,7 @@ class ArticleListViewControllerTest: XCTestCase {
         FakeAPIWrapper.initialize()
 
         ap = FakeAlertPresenter()
-        vc = ArticleListViewController(api: FakeAPIWrapper(), calculator: FakeViewCalculator(), alertPresenter: ap)
+        vc = ArticleListViewController(api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: ap)
         navVc = UINavigationController(rootViewController: vc)
         tabVc = UITabBarController()
         vc.tabBarItem = UITabBarItem(title: "アカウント", image: UIImage(named: "tabbar_icon_account"), tag: 0)
@@ -57,17 +57,13 @@ class ArticleListViewControllerTest: XCTestCase {
         self.wait(for: [exp], timeout: 1)
     }
 
-    func testHandleLongPressOnTheCell() {
-        /* let r = UILongPressGestureRecognizer()
+    //    func testHandleLongPressOnTheCell() {}
 
-         vc.handleLogPress(r) */
-    }
+    //    func testLoadImageTimings() {}
 
-    func testLoadImageTimings() {}
+    //    func testRetrieveNewArticles() {}
 
-    func testRetrieveNewArticles() {}
-
-    func testEditActionForTableViewCell() {}
+    //    func testEditActionForTableViewCell() {}
 
     // func testCreateTableViewCell() {}
 

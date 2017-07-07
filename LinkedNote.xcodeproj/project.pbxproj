@@ -70,6 +70,7 @@
 		A05E17CA1EE26218005C4566 /* TagListCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E17971EE26218005C4566 /* TagListCustomCell.xib */; };
 		A05E17CB1EE26218005C4566 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17981EE26218005C4566 /* TagListView.swift */; };
 		A068F8401EE8C94900767149 /* AccountViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068F83F1EE8C94900767149 /* AccountViewControllerTest.swift */; };
+		A08635F11F0EF866004CDE8F /* ArticleViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08635F01F0EF866004CDE8F /* ArticleViewControllerTest.swift */; };
 		A0B3B5C51F0C537700D410FF /* TagTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B3B5C41F0C537700D410FF /* TagTest.swift */; };
 		A0B3B5CA1F0C672C00D410FF /* ArticleListPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B3B5C91F0C672C00D410FF /* ArticleListPresenterTest.swift */; };
 		A0C8C7F51F0753B800E1F0A1 /* ArticleListViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8C7F41F0753B800E1F0A1 /* ArticleListViewControllerTest.swift */; };
@@ -173,6 +174,7 @@
 		A05E17971EE26218005C4566 /* TagListCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagListCustomCell.xib; sourceTree = "<group>"; };
 		A05E17981EE26218005C4566 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
 		A068F83F1EE8C94900767149 /* AccountViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewControllerTest.swift; sourceTree = "<group>"; };
+		A08635F01F0EF866004CDE8F /* ArticleViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTest.swift; sourceTree = "<group>"; };
 		A0B3B5C41F0C537700D410FF /* TagTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagTest.swift; sourceTree = "<group>"; };
 		A0B3B5C91F0C672C00D410FF /* ArticleListPresenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListPresenterTest.swift; sourceTree = "<group>"; };
 		A0C8C7F11F07377900E1F0A1 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -483,6 +485,7 @@
 			children = (
 				A068F83F1EE8C94900767149 /* AccountViewControllerTest.swift */,
 				A0C8C7F41F0753B800E1F0A1 /* ArticleListViewControllerTest.swift */,
+				A08635F01F0EF866004CDE8F /* ArticleViewControllerTest.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -726,7 +729,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		2C4D409C1F091F1E008DC554 /* Swift Format */ = {
@@ -755,7 +758,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		4C5C9D379594CC8116249480 /* [CP] Copy Pods Resources */ = {
@@ -800,7 +803,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		A01F6E631EE4DA9F009B659F /* Run Script */ = {
@@ -929,6 +932,7 @@
 				A0C8C7F51F0753B800E1F0A1 /* ArticleListViewControllerTest.swift in Sources */,
 				A0E6C8A21EE8E50F007A6737 /* FakeAlertPresenter.swift in Sources */,
 				A00053B51F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift in Sources */,
+				A08635F11F0EF866004CDE8F /* ArticleViewControllerTest.swift in Sources */,
 				A0C8C7FD1F07A76900E1F0A1 /* ApiAccountTest.swift in Sources */,
 				A0D6F4AC1EE8DB6E00430171 /* FakeAPIWrapper.swift in Sources */,
 				2C1DBF171F0E6D5E007A8DB1 /* TagCollectionPresenterTest.swift in Sources */,

@@ -14,7 +14,7 @@ protocol ArticleListPresenterObserver {
 }
 
 protocol RecognizableLongPress {
-    func handleLogPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer)
+    func handleLongPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer)
 }
 
 class ArticleListPresenter<T: ThumbnailDownloader>: NSObject, UITableViewDataSource {
@@ -114,7 +114,7 @@ class ArticleListPresenter<T: ThumbnailDownloader>: NSObject, UITableViewDataSou
         // For recognize long press to table cell
         let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(
             target: recognizer,
-            action: #selector(recognizer!.handleLogPress)
+            action: #selector(recognizer!.handleLongPress)
         )
         longPressGesture.minimumPressDuration = 0.7
         longPressGesture.delegate = recognizer
