@@ -7,7 +7,7 @@ matrix:
 before_install:
     - gem install cocoapods-keys
     - pod keys set PocketAPIConsumerKey "-"
-    - exec pod keys set PocketAppID "-"
+    - pod keys set PocketAppID "-"
     - echo "POCKET_APP_ID=pocketapp" > .env
 
 script:
