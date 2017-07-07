@@ -3,5 +3,11 @@ language: objective-c
 matrix:
     include:
         - osx_image: xcode8.3
+
+before_install:
+    - bundle exec pod keys set PocketAPIConsumerKey "-" LinkedNote
+    - bundle exec pod keys set PocketAppID "-"
+    - echo "POCKET_APP_ID=pocketapp" > .env
+
 script:
     - xcodebuild -scheme ios-travis -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=10.1,name=iPhone 7' -configuration Debug test | xcpretty -c
