@@ -21,21 +21,40 @@ class ApiAccountTest: XCTestCase {
         super.tearDown()
     }
 
-    func testGetById() {
-        XCTAssertNil(ApiAccount.get(0))
+    // MARK: - .get(_)
 
+    func testThatItReturnNilWhenTryToGetObjectByIdIfThereAreNoSavedTargetObject() {
+        // given
+        // No objects added to database
+
+        // then      when
+        XCTAssertNil(ApiAccount.get(0))
+    }
+
+    func testThatItGetObjectById() {
+        // given
         let realm = try! Realm()
         try! realm.write {
             realm.add(ApiAccount(username: "test_username"))
         }
 
+        // when
         let account = ApiAccount.get(0)
+
+        // then
         XCTAssertTrue(account?.username == "test_username")
     }
 
-    func testGetBySignatureAndUsername() {
-        XCTAssertNil(ApiAccount.get(apiSignature: "test", username: "test_username"))
+    func testThatItReturnNilWhenTryToGetObjectBySignatureAndUsername() {
+        // given
+        // No objects added to database
 
+        // then
+        XCTAssertNil(ApiAccount.get(apiSignature: "test", username: "test_username"))
+    }
+
+    func testThatItGetObjectBySignatureAndUsername() {
+        // given
         let realm = try! Realm()
         try! realm.write {
             let account = ApiAccount(username: "test_username")
@@ -47,21 +66,31 @@ class ApiAccountTest: XCTestCase {
             realm.add(api)
         }
 
+        // when
         let account = ApiAccount.get(apiSignature: "test", username: "test_username")
+
+        // then
         XCTAssertTrue(account?.username == "test_username")
     }
 
-    func testAdd() {
+    // MARK: - .add(_)
+
+    func testThatItAddObject() {
+        // given
         let account = ApiAccount(username: "test_username")
+
+        // when
         try! ApiAccount.add(account)
 
+        // then
         let realm = try! Realm()
         let results = realm.objects(ApiAccount.self).filter("username == 'test_username'")
         XCTAssertTrue(results.count == 1)
         XCTAssertTrue(results.first?.username == "test_username")
     }
 
-    func testAddWithDupricatedId() {
+    func testThatItThrowErrorIfTryToAddObjectWithDupricatedId() {
+        // given
         let account1 = ApiAccount(username: "test1_username")
         let account2 = ApiAccount(username: "test2_username")
         let realm = try! Realm()
@@ -69,81 +98,105 @@ class ApiAccountTest: XCTestCase {
             realm.add(account1)
         }
 
+        // when
         XCTAssertThrowsError(try ApiAccount.add(account2)) { error in
+            // then
             XCTAssertTrue(error as! DataModelError == DataModelError.PrimaryKeyViolation)
         }
     }
 
-    func testAddToApiAfterSaveAccount() {
+    // MARK: - .add(_, to:_)
+
+    func testThatItRelateObjectToApi() throws {
+        // given
         let account = ApiAccount(username: "test_username")
         let realm = try! Realm()
         try! realm.write {
             realm.add(Api(signature: "test"))
             realm.add(account)
         }
+
+        // when
         try! ApiAccount.add(account, to: Api.get(signature: "test")!)
 
-        let registeredApi = realm.object(ofType: Api.self, forPrimaryKey: 0)
-        let registeredAccount = realm.object(ofType: ApiAccount.self, forPrimaryKey: 0)
-        XCTAssertNotNil(registeredAccount)
-        XCTAssertNotNil(registeredApi)
-        XCTAssertTrue(registeredAccount!.username == "test_username")
-        XCTAssertTrue(registeredApi!.signature == "test")
-        XCTAssertTrue(registeredAccount!.api.first!.id == registeredApi!.id)
-        XCTAssertTrue(registeredAccount!.api.first!.signature == registeredApi!.signature)
-        XCTAssertTrue(registeredApi!.accounts.first!.id == registeredAccount!.id)
-        XCTAssertTrue(registeredApi!.accounts.first!.username == registeredAccount!.username)
+        // then
+        let registeredApi = try AssertNotNilAndUnwrap(realm.object(ofType: Api.self, forPrimaryKey: 0))
+        let registeredAccount = try AssertNotNilAndUnwrap(realm.object(ofType: ApiAccount.self, forPrimaryKey: 0))
+        let apiRelatedToRegisteredAccount = try AssertNotNilAndUnwrap(registeredAccount.api.first)
+        let accountRelatedToRegisteredApi = try AssertNotNilAndUnwrap(registeredApi.accounts.first)
+        XCTAssertTrue(registeredAccount.username == "test_username")
+        XCTAssertTrue(registeredApi.signature == "test")
+        XCTAssertTrue(apiRelatedToRegisteredAccount.id == registeredApi.id)
+        XCTAssertTrue(apiRelatedToRegisteredAccount.signature == registeredApi.signature)
+        XCTAssertTrue(accountRelatedToRegisteredApi.id == registeredAccount.id)
+        XCTAssertTrue(accountRelatedToRegisteredApi.username == registeredAccount.username)
     }
 
-    func testAddToApiBeforeSaveAccount() {
+    func testThatItThrowErrorWhenTryToAddNotSavedObjectToApi() {
+        // given
         let api = Api(signature: "test")
         let account = ApiAccount(username: "test_username")
-        try! Api.add(api)
+        let realm = try! Realm()
+        try! realm.write {
+            realm.add(api)
+        }
 
+        // when
         XCTAssertThrowsError(try ApiAccount.add(account, to: api)) { error in
+            // then
             XCTAssertTrue(error as! DataModelError == DataModelError.NecessaryDataDoesNotExist(""))
         }
     }
 
-    func testAddToNotSavedApi() {
+    func testThatItThrowErrorWhenTryToAddObjectToNotSavedApi() {
+        // given
         let api = Api(signature: "test")
         let account = ApiAccount(username: "test_username")
+        let realm = try! Realm()
+        try! realm.write {
+            realm.add(account)
+        }
 
+        // when
         XCTAssertThrowsError(try ApiAccount.add(account, to: api)) { error in
+            // then
             XCTAssertTrue(error as! DataModelError == DataModelError.NecessaryDataDoesNotExist(""))
         }
     }
 
-    func testAddToApiWithIntegrityConstraintViolation() {
+    func testThatItThrowErrorWhenTryToRelateObjectsWhichHasSameUsernameToSameApi() {
+        // given
         let api = Api(signature: "test")
-
         let realm = try! Realm()
         try! realm.write {
             let account = ApiAccount(username: "test_username")
             api.accounts.append(account)
             realm.add(account)
             realm.add(api)
-            let account2 = ApiAccount(username: "test_username")
-            realm.add(account2)
+        }
+        let dupricatedAccount = ApiAccount(username: "test_username")
+        try! realm.write {
+            realm.add(dupricatedAccount)
         }
 
-        let account2 = realm.object(ofType: ApiAccount.self, forPrimaryKey: 1)!
-        XCTAssertThrowsError(try ApiAccount.add(account2, to: api)) { error in
+        // when
+        XCTAssertThrowsError(try ApiAccount.add(dupricatedAccount, to: api)) { error in
+            // then
             XCTAssertTrue(error as! DataModelError == DataModelError.IntegrityConstraintViolation)
         }
     }
 
-    func testAddToApiWithoutUpdateAccount() {
-        let account1 = ApiAccount(username: "test_username1")
-        let account2 = ApiAccount(username: "test_username2")
+    func testThatItThrowErrorWhenTryToRelateObjects_WhichHasSameIdButDifferentParamsFromSavedOne_toApi() throws {
+        let account = ApiAccount(username: "test_username")
+        let dupAccount = ApiAccount(username: "duplicated_account_username")
         let api = Api(signature: "test")
         let realm = try! Realm()
         try! realm.write {
             realm.add(api)
-            realm.add(account1)
+            realm.add(account)
         }
 
-        XCTAssertThrowsError(try ApiAccount.add(account2, to: api)) { error in
+        XCTAssertThrowsError(try ApiAccount.add(dupAccount, to: api)) { error in
             XCTAssertTrue(error as! DataModelError == DataModelError.InvalidParameter(""))
         }
     }

@@ -81,6 +81,7 @@
 		A0D6F4AC1EE8DB6E00430171 /* FakeAPIWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6F4AB1EE8DB6E00430171 /* FakeAPIWrapper.swift */; };
 		A0D6F4AE1EE8DB8700430171 /* FakeFrameCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D6F4AD1EE8DB8700430171 /* FakeFrameCalculator.swift */; };
 		A0DA99211F0F0B7F007D1E7B /* NoteListViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DA99201F0F0B7F007D1E7B /* NoteListViewControllerTest.swift */; };
+		A0DAAEE91F15A379007B7192 /* AssertNotNilAndUnwrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DAAEE81F15A379007B7192 /* AssertNotNilAndUnwrap.swift */; };
 		A0DE75551EE3FCB900EFAA3F /* ThumbnailDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DE75541EE3FCB900EFAA3F /* ThumbnailDownloader.swift */; };
 		A0E6C8A21EE8E50F007A6737 /* FakeAlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E6C8A11EE8E50F007A6737 /* FakeAlertPresenter.swift */; };
 		EE62733917C6FB9171176B13 /* Pods_LinkedNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50EA9EFCC3AF4212863C844D /* Pods_LinkedNote.framework */; };
@@ -187,6 +188,7 @@
 		A0D6F4AB1EE8DB6E00430171 /* FakeAPIWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeAPIWrapper.swift; sourceTree = "<group>"; };
 		A0D6F4AD1EE8DB8700430171 /* FakeFrameCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeFrameCalculator.swift; sourceTree = "<group>"; };
 		A0DA99201F0F0B7F007D1E7B /* NoteListViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteListViewControllerTest.swift; sourceTree = "<group>"; };
+		A0DAAEE81F15A379007B7192 /* AssertNotNilAndUnwrap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssertNotNilAndUnwrap.swift; sourceTree = "<group>"; };
 		A0DE75541EE3FCB900EFAA3F /* ThumbnailDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailDownloader.swift; sourceTree = "<group>"; };
 		A0E6C8A11EE8E50F007A6737 /* FakeAlertPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeAlertPresenter.swift; sourceTree = "<group>"; };
 		A625C72BD3134EC14E545E07 /* Pods-LinkedNoteUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNoteUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNoteUITests/Pods-LinkedNoteUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				A0C8C7F61F07638F00E1F0A1 /* Models */,
 				A068F83E1EE8C92E00767149 /* Controllers */,
 				A05E173E1EE261DD005C4566 /* Info.plist */,
+				A0DAAEE81F15A379007B7192 /* AssertNotNilAndUnwrap.swift */,
 			);
 			path = LinkedNoteTests;
 			sourceTree = "<group>";
@@ -938,6 +941,7 @@
 				A00053B51F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift in Sources */,
 				A08635F11F0EF866004CDE8F /* ArticleViewControllerTest.swift in Sources */,
 				A0C8C7FD1F07A76900E1F0A1 /* ApiAccountTest.swift in Sources */,
+				A0DAAEE91F15A379007B7192 /* AssertNotNilAndUnwrap.swift in Sources */,
 				A0D6F4AC1EE8DB6E00430171 /* FakeAPIWrapper.swift in Sources */,
 				2C1DBF171F0E6D5E007A8DB1 /* TagCollectionPresenterTest.swift in Sources */,
 				2C4D409B1F091DAA008DC554 /* NoteTest.swift in Sources */,

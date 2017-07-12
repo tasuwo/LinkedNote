@@ -21,43 +21,83 @@ class NoteTest: XCTestCase {
         super.tearDown()
     }
 
-    func testGetAll() {
-        XCTAssertTrue(Note.getAll().count == 0)
+    // MARK: - .getAll()
 
+    func testThatItReturn0WhenTryToGetAllObjectsIfThereAreNoSavedObjects() {
+        // given
+        // No ojects saved
+
+        // then       when
+        XCTAssertTrue(Note.getAll().count == 0)
+    }
+
+    func testThatItGetAllObjects() {
+        // given
         let realm = try! Realm()
         try! realm.write {
             realm.add(Note(body: "test_note1"))
             realm.add(Note(body: "test_note2"))
         }
 
+        // when
         let notes = Note.getAll()
+
+        // then
         XCTAssertTrue(notes.count == 2)
         XCTAssertTrue(notes.contains(where: { n in n.body == "test_note1" }))
         XCTAssertTrue(notes.contains(where: { n in n.body == "test_note2" }))
     }
 
-    func testGet() {
-        XCTAssertNil(Note.get(0))
+    // MARK: - .get(_)
 
+    func testThatReturnNullWhenTryToGetObjectByIdIfThereAreNoTargetObject() {
+        // given
+        // No objects saved
+
+        // then      when
+        XCTAssertNil(Note.get(0))
+    }
+
+    func testThatItGetObjectById() throws {
+        // given
         let realm = try! Realm()
         try! realm.write {
             realm.add(Note(body: "test_note1"))
         }
 
-        let note = Note.get(0)
-        XCTAssertNotNil(note)
-        XCTAssertTrue(note?.body == "test_note1")
+        // when
+        let note = try AssertNotNilAndUnwrap(Note.get(0))
+
+        // then
+        XCTAssertTrue(note.body == "test_note1")
     }
 
-    func testGetByMetaInfo() {
+    // MARK: - .get(signature:_, username:_, article:_)
+
+    func testThatItReturnNilWhenGetObjectByMetaInformationsIfThereAreNoTargetObject() {
+        // given
+        let article = Article(
+            localId: "test_local_id",
+            title: "test_title",
+            url: "test_url",
+            thumbnailUrl: "test_thumbnail_url")
+
+        // then      when
+        XCTAssertNil(Note.get(
+            signature: "test_signature",
+            username: "test_username",
+            article: article))
+    }
+
+    func testThatItGetObjectByMetaInformations() throws {
         let api = Api(signature: "test_signature")
         let account = ApiAccount(username: "test_usename")
-        let article = Article(localId: "test_local_id", title: "test_title", url: "test_url", thumbnailUrl: "test_thumbnail_url")
+        let article = Article(
+            localId: "test_local_id",
+            title: "test_title",
+            url: "test_url",
+            thumbnailUrl: "test_thumbnail_url")
         article.addId()
-        XCTAssertNil(Note.get(
-            signature: api.signature,
-            username: account.username,
-            article: article))
 
         let note = Note(body: "test_note")
 
@@ -72,20 +112,31 @@ class NoteTest: XCTestCase {
             realm.add(note)
         }
 
-        let result = Note.get(
+        let result = try AssertNotNilAndUnwrap(Note.get(
             signature: api.signature,
             username: account.username,
-            article: article)
-        XCTAssertNotNil(result)
-        XCTAssertTrue(result?.body == "test_note")
+            article: article))
+        XCTAssertTrue(result.body == "test_note")
     }
 
-    func testGetbyAccountInfo() {
-        let account = ApiAccount(username: "test_usename")
-        let article = Article(localId: "test_local_id", title: "test_title", url: "test_url", thumbnailUrl: "test_thumbnail_url")
-        article.addId()
-        XCTAssertNil(Note.get(accountId: account.id, articleLocalId: article.localId))
+    // MARK: - .get(accountId:_, articleLocalId:_)
 
+    func testThatItReturnNilWhenTryToGetObjectByAccountIdAndLocalIdIfThereAreNoTargetObject() {
+        // given
+        // No objects saved
+
+        // then      when
+        XCTAssertNil(Note.get(accountId: 0, articleLocalId: "test_local_id"))
+    }
+
+    func testThatItGetObjectByAccountIdAndLocalId() throws {
+        let account = ApiAccount(username: "test_usename")
+        let article = Article(
+            localId: "test_local_id",
+            title: "test_title",
+            url: "test_url",
+            thumbnailUrl: "test_thumbnail_url")
+        article.addId()
         let note = Note(body: "test_note")
 
         let realm = try! Realm()
@@ -97,19 +148,29 @@ class NoteTest: XCTestCase {
             realm.add(note)
         }
 
-        let result = Note.get(
+        let result = try AssertNotNilAndUnwrap(Note.get(
             accountId: account.id,
-            articleLocalId: article.localId)
-        XCTAssertNotNil(result)
-        XCTAssertTrue(result?.body == "test_note")
+            articleLocalId: article.localId))
+        XCTAssertTrue(result.body == "test_note")
     }
 
-    func testGetByTagId() {
+    // MARK: - .get(tagId:_)
+
+    func testThatItOccurNoErrorAndGetemptyResultWhenTryToGetObjectByTagIdIfThereAreNoTargetObject() {
+        // given
+        // No objects saved
+
+        // when
+        let result = Note.get(tagId: 0)
+
+        // then
+        XCTAssertTrue(result.count == 0)
+    }
+
+    func testThatItGetObjectByTagId() throws {
+        // given
         let tag = Tag(name: "test_tag")
-        XCTAssertTrue(Note.get(tagId: tag.id).count == 0)
-
         let note = Note(body: "test_note")
-
         let realm = try! Realm()
         try! realm.write {
             note.tags.append(tag)
@@ -117,21 +178,33 @@ class NoteTest: XCTestCase {
             realm.add(note)
         }
 
-        let result = Note.get(tagId: tag.id)
+        // when
+        let result = try AssertNotNilAndUnwrap(Note.get(tagId: tag.id))
+
+        // then
         XCTAssertTrue(result.count == 1)
-        XCTAssertTrue(result.first?.body == "test_note")
+        let savedNote = try AssertNotNilAndUnwrap(result.first)
+        XCTAssertTrue(savedNote.body == "test_note")
     }
 
-    func testAdd() {
+    // MARK: - .add(_)
+
+    func testThatItAddObject() throws {
+        // given
         let article = Article(localId: "test_local_id", title: "test_title", url: "test_url", thumbnailUrl: "test_thumbnail_url")
         article.addId()
         let note = Note(body: "test_note")
+
+        // when
         try! Note.add(note)
 
+        // then
         let realm = try! Realm()
-        let result = realm.object(ofType: Note.self, forPrimaryKey: 0)
-        XCTAssertTrue(result!.body == "test_note")
+        let result = try AssertNotNilAndUnwrap(realm.object(ofType: Note.self, forPrimaryKey: 0))
+        XCTAssertTrue(result.body == "test_note")
     }
+
+    // TODO: REFACTOR UNDER HERE !!
 
     func testAddWithDupricatedId() {
         let note1 = Note(body: "test_note1")

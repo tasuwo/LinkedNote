@@ -21,9 +21,18 @@ class ApiTest: XCTestCase {
         super.tearDown()
     }
 
-    func testAll() {
-        XCTAssertTrue(Api.all().count == 0)
+    // MARK: - .all()
 
+    func testThatItReturn0WhenTryToGetAllObjectsIfThereAreNoObjects() {
+        // given
+        // No objects added to database
+
+        // then       when
+        XCTAssertTrue(Api.all().count == 0)
+    }
+
+    func testThatItGetAllObjects() {
+        // given
         let realm = try! Realm()
         try! realm.write {
             realm.add(Api(signature: "test1"))
@@ -31,49 +40,74 @@ class ApiTest: XCTestCase {
             realm.add(Api(signature: "test3"))
         }
 
+        // when
         let all = Api.all()
+
+        // then
         XCTAssertTrue(all.count == 3)
         XCTAssertTrue(all.contains(where: { api in api.signature == "test1" }))
         XCTAssertTrue(all.contains(where: { api in api.signature == "test2" }))
         XCTAssertTrue(all.contains(where: { api in api.signature == "test3" }))
     }
 
-    func testGet() {
-        XCTAssertNil(Api.get(signature: "test"))
+    // MARK: - .get(_)
 
+    func testThatItReturnNilWhenTryToGetObjectBySignatureIfThereAreNoTargetObject() {
+        // given
+        // No objects added to database
+
+        // then      when
+        XCTAssertNil(Api.get(signature: "test"))
+    }
+
+    func testThatItGetAnObjectBySignature() {
+        // given
         let realm = try! Realm()
         try! realm.write {
             realm.add(Api(signature: "test"))
             realm.add(Api(signature: "testFake"))
         }
 
+        // when
         let api = Api.get(signature: "test")
+
+        // then
         XCTAssertTrue(api?.signature == "test")
     }
 
-    func testAdd() {
+    // MARK: - .add(_)
+
+    func testThatItAddObject() {
+        // given
         let api = Api(signature: "test")
+
+        // when
         try! Api.add(api)
 
+        // then
         let realm = try! Realm()
         let results = realm.objects(Api.self).filter("signature == 'test'")
         XCTAssertTrue(results.count == 1)
         XCTAssertTrue(results.first?.signature == "test")
     }
 
-    func testAddWithDupricatedSignature() {
+    func testThatItThrowErrorIfTryToAddObjectWithDupricatedSignature() {
+        // given
         let realm = try! Realm()
         try! realm.write {
             realm.add(Api(signature: "test"))
         }
-
         let api = Api(signature: "test")
+
+        // when
         XCTAssertThrowsError(try Api.add(api)) { error in
+            // then
             XCTAssertTrue(error as! DataModelError == DataModelError.IntegrityConstraintViolation)
         }
     }
 
-    func testAddWithDupricatedId() {
+    func testThatItThrowErrorIfTryToAddObjectWithDupricatedId() {
+        // given
         let api1 = Api(signature: "test1")
         let api2 = Api(signature: "test2")
         let realm = try! Realm()
@@ -81,26 +115,35 @@ class ApiTest: XCTestCase {
             realm.add(api1)
         }
 
+        // when
         XCTAssertThrowsError(try Api.add(api2)) { error in
+            // then
             XCTAssertTrue(error as! DataModelError == DataModelError.PrimaryKeyViolation)
         }
     }
 
-    func testDelete() {
+    // MARK: - .delete(_)
+
+    func testThatItDeleteObject() {
+        // given
         let realm = try! Realm()
         try! realm.write {
             realm.add(Api(signature: "test"))
         }
 
+        // when
         Api.delete(signature: "test")
 
-        let realm2 = try! Realm()
-        let results = realm2.objects(Api.self).filter("signature == 'test'")
-
+        // then
+        let results = realm.objects(Api.self).filter("signature == 'test'")
         XCTAssertTrue(results.count == 0)
     }
 
-    func testDeleteFakeApi() {
+    func testThatItThrowNoExceptionIfTryToDeleteNotExistObject() {
+        // given
+        // No object added to database
+
+        // then          when
         XCTAssertNoThrow(Api.delete(signature: "test"))
     }
 }
