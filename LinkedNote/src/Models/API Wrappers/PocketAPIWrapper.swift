@@ -17,7 +17,7 @@ fileprivate struct ArticleInfo {
     var excerpt: String?
     var thumbnailUrl: String?
 
-    func isInvalid() -> Bool {
+    func isAbleToCastToArticleDataModel() -> Bool {
         return localId != nil && title != nil && url != nil && excerpt != nil && thumbnailUrl != nil
     }
 }
@@ -117,7 +117,12 @@ class PocketAPIWrapper: NSObject, APIWrapper {
                         }
                     }
 
-                    if info.isInvalid() == false {
+                    if info.thumbnailUrl == nil {
+                        info.thumbnailUrl = ""
+                    }
+
+                    if info.isAbleToCastToArticleDataModel() == false {
+                        Swift.print("Couldn't convert to Artcile \(info)")
                         continue
                     }
 

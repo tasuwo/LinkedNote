@@ -67,6 +67,9 @@ class ArticleListPresenter<T: ThumbnailDownloader>: NSObject, UITableViewDataSou
         guard self.thumbnailDownloadersInProgress[indexPath] == nil else {
             return
         }
+        if article.thumbnailUrl == "" {
+            return
+        }
         let downloader = T.init(article: article, handler: { () in
             let cell = tableView.cellForRow(at: indexPath)
             cell?.imageView?.image = article.thumbnail
