@@ -81,7 +81,7 @@ class PocketAPIWrapper: NSObject, APIWrapper {
             let account = ApiAccount.get(apiSignature: PocketAPIWrapper.signature, username: username) {
 
             let httpMethod = PocketAPIHTTPMethodGET
-            let arguments: NSDictionary = ["detailType": "complete", "count": count.description, "offset": offset.description]
+            let arguments: NSDictionary = ["detailType": "complete", "count": count.description, "offset": offset.description, "sort": "newest"]
 
             PocketAPI.shared().callMethod("get", with: httpMethod, arguments: arguments as! [AnyHashable: Any], handler: { _, _, response, _ in
                 let responseJson: JSON
