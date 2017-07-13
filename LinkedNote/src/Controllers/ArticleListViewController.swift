@@ -10,6 +10,7 @@ import UIKit
 
 class ArticleListViewController: UIViewController {
     var articleListView: ArticleListView!
+    let refreshControl: UIRefreshControl
     let articleListPresenter: ArticleListPresenter<ThumbnailDownloaderImpl>
     let api: APIWrapper
     let calculator: FrameCalculator
@@ -22,6 +23,7 @@ class ArticleListViewController: UIViewController {
         self.alertPresenter = alertPresenter
         self.articleListPresenter = ArticleListPresenter(api: api, loadUnitNum: 5)
         self.tagEditViewPresenter = TagEditViewPresenter(alertPresenter: alertPresenter)
+        self.refreshControl = UIRefreshControl()
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -47,7 +49,12 @@ class ArticleListViewController: UIViewController {
         self.articleListView.myList!.delegate_ = self
 
         // Update model and display them on the table view
-        self.articleListPresenter.retrieve()
+        if type(of: api).isLoggedIn() {
+            self.articleListPresenter.retrieve()
+        }
+
+        self.refreshControl.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
+        self.articleListView.myList?.addSubview(self.refreshControl)
 
         self.navigationItem.title = "マイリスト"
     }
@@ -57,7 +64,14 @@ class ArticleListViewController: UIViewController {
     }
 
     override func viewWillAppear(_: Bool) {
-        self.articleListView.myList?.reloadData()
+        if !type(of: api).isLoggedIn() {
+            self.articleListPresenter.initOffset()
+        }
+
+        if type(of: api).isLoggedIn() && self.articleListView.myList?.numberOfRows(inSection: 0) == 0 {
+            self.articleListPresenter.initOffset()
+            self.articleListPresenter.retrieve()
+        }
     }
 
     // viewWillAppear で追加を行うと、画面遷移内にメソッドがトリガーされておかしな挙動になるので、
@@ -68,6 +82,14 @@ class ArticleListViewController: UIViewController {
 
     override func viewWillDisappear(_: Bool) {
         self.tagEditViewPresenter.removeObserver()
+    }
+}
+
+extension ArticleListViewController {
+    func refresh() {
+        self.articleListPresenter.initOffset()
+        self.articleListPresenter.retrieve()
+        self.refreshControl.endRefreshing()
     }
 }
 
@@ -121,6 +143,10 @@ extension ArticleListViewController: UITableViewDelegate {
 
     // Scrolled
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if self.refreshControl.isRefreshing {
+            return
+        }
+
         let offset = scrollView.contentOffset
         let bounds = scrollView.bounds
         let size = scrollView.contentSize

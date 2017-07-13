@@ -33,6 +33,7 @@ class ArticleListPresenter<T: ThumbnailDownloader>: NSObject, UITableViewDataSou
     func initOffset() {
         self.articles = []
         self.api.initOffset()
+        self.observer?.loaded()
     }
 
     func retrieve() {

@@ -74,4 +74,12 @@ class ArticleListViewControllerTest: XCTestCase {
 
         XCTAssertTrue(ap.lastErrorMessage == "ノートが存在しません")
     }
+
+    /*
+     TODO: Mock presenter and write test
+     func testThatItGetNewArticlesWhenPullArticleList() {
+     // given
+     // check current state
+     }
+     */
 }
