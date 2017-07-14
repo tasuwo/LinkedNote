@@ -43,7 +43,7 @@ class ArticleListViewControllerTest: XCTestCase {
 
     // Positive testing
 
-    func testDidPressNoteButton() {
+    func testThatItTransitionToNoteViewWhenTouchTheNoteButton() {
         let exp = XCTestExpectation(description: "Pushed new view controller")
 
         CATransaction.begin()
@@ -55,6 +55,9 @@ class ArticleListViewControllerTest: XCTestCase {
         CATransaction.commit()
 
         self.wait(for: [exp], timeout: 1)
+    }
+
+    func testThatItTransitionToArticleViewWhenTouchTheTableCell() {
     }
 
     //    func testHandleLongPressOnTheCell() {}

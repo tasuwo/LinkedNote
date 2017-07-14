@@ -105,11 +105,12 @@ class ArticleListPresenterTest: XCTestCase {
         XCTAssertTrue(self.presenter.articles == articles)
     }
 
-    func testStartThumbnailDownload() {
+    func testThatItDownloadThumbnailOfArticle() {
         self.presenter = ArticleListPresenter(api: apiWrapper, loadUnitNum: 5)
-        let targetArticle = Article(localId: "1", title: "", url: "", thumbnailUrl: "")
+        let targetArticle = Article(localId: "1", title: "", url: "", thumbnailUrl: "fake url")
         let targetIndexPath = IndexPath(row: 0, section: 0)
         self.presenter.articles = [targetArticle]
+        FakeThumbnailDownloader.willExecuteHandler = true
 
         XCTAssertNil(targetArticle.thumbnail)
 
@@ -120,22 +121,65 @@ class ArticleListPresenterTest: XCTestCase {
         XCTAssertNil(self.presenter.thumbnailDownloadersInProgress[targetIndexPath])
     }
 
-    func testThumbnailDownloadBlocking() {
+    func testThatItDoesNotDownloadThumbnailIfTheThumbnailUrlIsEmpty() {
+        // given
         self.presenter = ArticleListPresenter(api: apiWrapper, loadUnitNum: 5)
         let targetArticle = Article(localId: "1", title: "", url: "", thumbnailUrl: "")
         let targetIndexPath = IndexPath(row: 0, section: 0)
         self.presenter.articles = [targetArticle]
 
-        // Download won't complete
-        FakeThumbnailDownloader.willExecuteHandler = false
-
         XCTAssertNil(targetArticle.thumbnail)
 
         let tableView = UITableView(frame: CGRect.zero)
+
+        // when
         self.presenter.startThumbnailDownload(article: targetArticle, forIndexPath: targetIndexPath, tableView: tableView)
 
+        // when
+        XCTAssertNil(targetArticle.thumbnail)
+        XCTAssertNil(self.presenter.thumbnailDownloadersInProgress[targetIndexPath])
+    }
+
+    func testThatItBlockDownloadIfTheDownloadForTheImageIsAlreadyInProgress() {
+        // given
+        self.presenter = ArticleListPresenter(api: apiWrapper, loadUnitNum: 5)
+        let targetArticle = Article(localId: "1", title: "", url: "", thumbnailUrl: "fake url")
+        let targetIndexPath = IndexPath(row: 0, section: 0)
+        self.presenter.articles = [targetArticle]
+        // Download won't complete
+        FakeThumbnailDownloader.willExecuteHandler = false
+        // check post condition
+        XCTAssertNil(targetArticle.thumbnail)
+        let tableView = UITableView(frame: CGRect.zero)
+
+        // when
+        self.presenter.startThumbnailDownload(article: targetArticle, forIndexPath: targetIndexPath, tableView: tableView)
+
+        // then
         XCTAssertNil(targetArticle.thumbnail)
         XCTAssertNotNil(self.presenter.thumbnailDownloadersInProgress[targetIndexPath])
+
+        // TODO: test with async download start/finish
+    }
+
+    func testThetItDoesNotBlockDownloadIfTheThumbnailUrlIsEmpty() {
+        // given
+        self.presenter = ArticleListPresenter(api: apiWrapper, loadUnitNum: 5)
+        let targetArticle = Article(localId: "1", title: "", url: "", thumbnailUrl: "")
+        let targetIndexPath = IndexPath(row: 0, section: 0)
+        self.presenter.articles = [targetArticle]
+        // Download won't complete
+        FakeThumbnailDownloader.willExecuteHandler = false
+        // check post condition
+        XCTAssertNil(targetArticle.thumbnail)
+        let tableView = UITableView(frame: CGRect.zero)
+
+        // when
+        self.presenter.startThumbnailDownload(article: targetArticle, forIndexPath: targetIndexPath, tableView: tableView)
+
+        // then
+        XCTAssertNil(targetArticle.thumbnail)
+        XCTAssertNil(self.presenter.thumbnailDownloadersInProgress[targetIndexPath])
 
         // TODO: test with async download start/finish
     }
