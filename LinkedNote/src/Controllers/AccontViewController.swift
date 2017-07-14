@@ -38,11 +38,9 @@ class AccountViewController: UIViewController {
         // Initialize and add a view
         let view: UIView
         if type(of: self.api).isLoggedIn() {
-            //            view = AccountView(frame: self.calculator.calcFrameOnTabAndNavBar(by: self))
             view = self.accountViewProvider.accountView
             self.accountViewProvider.setAccountViewDelegate(delegate: self)
         } else {
-            //            view = SignInView(frame: self.calculator.calcFrameOnTabAndNavBar(by: self))
             view = self.accountViewProvider.signInView
             self.accountViewProvider.setSignInViewDelegate(delegate: self)
         }
