@@ -96,17 +96,26 @@ extension ArticleListViewController {
 extension ArticleListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)! as! ArticleListCustomCell
-        let signature = type(of: self.api).signature
-        let username = type(of: self.api).getUsername()!
-        let account = ApiAccount.get(apiSignature: signature, username: username)!
 
-        if cell.article == nil {
+        let signature = type(of: self.api).signature
+
+        guard let username = type(of: self.api).getUsername() else {
+            self.alertPresenter.error("ユーザ情報の取得に失敗しました", on: self)
+            return
+        }
+
+        guard let account = ApiAccount.get(apiSignature: signature, username: username) else {
+            self.alertPresenter.error("アカウント情報の取得に失敗しました", on: self)
+            return
+        }
+
+        guard let article = cell.article else {
             self.alertPresenter.error("記事の読み込みに必要な情報の取得に失敗しました", on: self)
             return
         }
 
         // Update article
-        if cell.article?.note == nil {
+        if article.note == nil {
             if cell.article?.id == -1 {
                 cell.article!.addId()
                 try! Article.add(cell.article!)
@@ -117,14 +126,7 @@ extension ArticleListViewController: UITableViewDelegate {
             }
         }
 
-        // Get updated article from database because this contains notes
-        let article = Article.get(localId: cell.article!.localId, accountId: account.id)
-        if article == nil {
-            self.alertPresenter.error("記事の取得に失敗しました", on: self)
-            return
-        }
-
-        let articleVC = ArticleViewController(article: article!, calculator: self.calculator, alertPresenter: alertPresenter)
+        let articleVC = ArticleViewController(article: article, calculator: self.calculator, alertPresenter: alertPresenter)
         self.navigationController?.pushViewController(articleVC, animated: true)
 
         // Update cell informations

@@ -49,7 +49,6 @@
 		A05E17B51EE26218005C4566 /* Account.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E177D1EE26218005C4566 /* Account.xib */; };
 		A05E17B61EE26218005C4566 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E177E1EE26218005C4566 /* AccountView.swift */; };
 		A05E17B71EE26218005C4566 /* SignIn.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E177F1EE26218005C4566 /* SignIn.xib */; };
-		A05E17B81EE26218005C4566 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17801EE26218005C4566 /* SignInView.swift */; };
 		A05E17B91EE26218005C4566 /* ArticleList.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E17821EE26218005C4566 /* ArticleList.xib */; };
 		A05E17BA1EE26218005C4566 /* ArticleListCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17831EE26218005C4566 /* ArticleListCustomCell.swift */; };
 		A05E17BB1EE26218005C4566 /* ArticleListCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E17841EE26218005C4566 /* ArticleListCustomCell.xib */; };
@@ -155,7 +154,6 @@
 		A05E177D1EE26218005C4566 /* Account.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Account.xib; sourceTree = "<group>"; };
 		A05E177E1EE26218005C4566 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		A05E177F1EE26218005C4566 /* SignIn.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignIn.xib; sourceTree = "<group>"; };
-		A05E17801EE26218005C4566 /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		A05E17821EE26218005C4566 /* ArticleList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticleList.xib; sourceTree = "<group>"; };
 		A05E17831EE26218005C4566 /* ArticleListCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListCustomCell.swift; sourceTree = "<group>"; };
 		A05E17841EE26218005C4566 /* ArticleListCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticleListCustomCell.xib; sourceTree = "<group>"; };
@@ -408,7 +406,6 @@
 				A05E177D1EE26218005C4566 /* Account.xib */,
 				A05E177E1EE26218005C4566 /* AccountView.swift */,
 				A05E177F1EE26218005C4566 /* SignIn.xib */,
-				A05E17801EE26218005C4566 /* SignInView.swift */,
 			);
 			path = "Account View";
 			sourceTree = "<group>";
@@ -735,7 +732,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		2C4D409C1F091F1E008DC554 /* Swift Format */ = {
@@ -764,7 +761,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		4C5C9D379594CC8116249480 /* [CP] Copy Pods Resources */ = {
@@ -809,7 +806,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		A01F6E631EE4DA9F009B659F /* Run Script */ = {
@@ -911,7 +908,6 @@
 				A05E17AA1EE26218005C4566 /* ArticleListPresenter.swift in Sources */,
 				A05E17A41EE26218005C4566 /* PocketAPIWrapper.swift in Sources */,
 				A05E17BC1EE26218005C4566 /* ArticleListTableView.swift in Sources */,
-				A05E17B81EE26218005C4566 /* SignInView.swift in Sources */,
 				A05E17A71EE26218005C4566 /* Article.swift in Sources */,
 				A05E17AE1EE26218005C4566 /* TagPickerPresenter.swift in Sources */,
 				A05E17C51EE26218005C4566 /* TagMenuView.swift in Sources */,

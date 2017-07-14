@@ -32,7 +32,7 @@ class AccountViewControllerTest: XCTestCase {
     func testDisplayLogoutViewWhenUserLoggedIn() {
         FakeAPIWrapper.loggedIn = true
 
-        let vc = AccountViewController(api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: FakeAlertPresenter())
+        let vc = AccountViewController(provider: AccountViewProviderImpl(), api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: FakeAlertPresenter())
         // Call view to execute viewDidLoad
         _ = vc.view
         XCTAssertNotNil(vc.currentActiveView as? AccountView)
@@ -41,7 +41,7 @@ class AccountViewControllerTest: XCTestCase {
     func testDisplayLoginViewWhenUserLoggedOut() {
         FakeAPIWrapper.loggedIn = false
 
-        let vc = AccountViewController(api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: FakeAlertPresenter())
+        let vc = AccountViewController(provider: AccountViewProviderImpl(), api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: FakeAlertPresenter())
         // Call view to execute viewDidLoad
         _ = vc.view
         XCTAssertNotNil(vc.currentActiveView as? SignInView)
@@ -52,7 +52,7 @@ class AccountViewControllerTest: XCTestCase {
         FakeAPIWrapper.willOccurLoginError = true
 
         let ap = FakeAlertPresenter()
-        let vc = AccountViewController(api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: ap)
+        let vc = AccountViewController(provider: AccountViewProviderImpl(), api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: ap)
         // Call view to execute viewDidLoad
         _ = vc.view
 
@@ -64,7 +64,7 @@ class AccountViewControllerTest: XCTestCase {
     func testLoginWithoutAccountDataModel() {
         FakeAPIWrapper.loggedIn = false
 
-        let vc = AccountViewController(api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: FakeAlertPresenter())
+        let vc = AccountViewController(provider: AccountViewProviderImpl(), api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: FakeAlertPresenter())
         // Call view to execute viewDidLoad
         _ = vc.view
 
@@ -82,7 +82,7 @@ class AccountViewControllerTest: XCTestCase {
         try! ApiAccount.add(account)
         try! ApiAccount.add(account, to: Api.get(signature: FakeAPIWrapper.signature)!)
 
-        let vc = AccountViewController(api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: FakeAlertPresenter())
+        let vc = AccountViewController(provider: AccountViewProviderImpl(), api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: FakeAlertPresenter())
         // Call view to execute viewDidLoad
         _ = vc.view
 
@@ -96,7 +96,7 @@ class AccountViewControllerTest: XCTestCase {
     func testLogout() {
         FakeAPIWrapper.loggedIn = true
 
-        let vc = AccountViewController(api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: FakeAlertPresenter())
+        let vc = AccountViewController(provider: AccountViewProviderImpl(), api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: FakeAlertPresenter())
         // Call view to execute viewDidLoad
         _ = vc.view
 
@@ -115,7 +115,7 @@ class AccountViewControllerTest: XCTestCase {
         FakeAPIWrapper.willLoginWithoutUsername = true
         let ap = FakeAlertPresenter()
 
-        let vc = AccountViewController(api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: ap)
+        let vc = AccountViewController(provider: AccountViewProviderImpl(), api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: ap)
         // Call view to execute viewDidLoad
         _ = vc.view
 
@@ -134,7 +134,7 @@ class AccountViewControllerTest: XCTestCase {
         // Delete Api data model
         Api.delete(signature: FakeAPIWrapper.signature)
 
-        let vc = AccountViewController(api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: ap)
+        let vc = AccountViewController(provider: AccountViewProviderImpl(), api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: ap)
         // Call view to execute viewDidLoad
         _ = vc.view
 

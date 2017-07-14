@@ -9,12 +9,19 @@
 import UIKit
 
 class AccountViewController: UIViewController {
-    var currentActiveView: UIView!
+    let accountViewProvider: AccountViewProvider
     let api: APIWrapper
     let calculator: FrameCalculator
     let alertPresenter: AlertPresenter
+    var currentActiveView: UIView!
 
-    init(api: APIWrapper, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
+    init(
+        provider: AccountViewProvider,
+        api: APIWrapper,
+        calculator: FrameCalculator,
+        alertPresenter: AlertPresenter
+    ) {
+        self.accountViewProvider = provider
         self.api = api
         self.calculator = calculator
         self.alertPresenter = alertPresenter
@@ -31,12 +38,15 @@ class AccountViewController: UIViewController {
         // Initialize and add a view
         let view: UIView
         if type(of: self.api).isLoggedIn() {
-            view = AccountView(frame: self.calculator.calcFrameOnTabAndNavBar(by: self))
-            (view as! AccountView).delegate = self
+            //            view = AccountView(frame: self.calculator.calcFrameOnTabAndNavBar(by: self))
+            view = self.accountViewProvider.accountView
+            self.accountViewProvider.setAccountViewDelegate(delegate: self)
         } else {
-            view = SignInView(frame: self.calculator.calcFrameOnTabAndNavBar(by: self))
-            (view as! SignInView).delegate = self
+            //            view = SignInView(frame: self.calculator.calcFrameOnTabAndNavBar(by: self))
+            view = self.accountViewProvider.signInView
+            self.accountViewProvider.setSignInViewDelegate(delegate: self)
         }
+        view.frame = self.calculator.calcFrameOnNavVar(by: self)
         self.currentActiveView = view
         self.view.addSubview(self.currentActiveView)
 
