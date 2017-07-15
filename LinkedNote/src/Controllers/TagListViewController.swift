@@ -52,7 +52,7 @@ extension TagListViewController: UITableViewDelegate {
 
         if let id = cell.tagId {
             let settings = NodeListViewControllerSettings(title: "タグ: \(cell.tagName.text!)", tagId: id)
-            let noteListVC = NoteListViewController(settings: settings, calculator: self.calculator, alertPresenter: self.alertPresenter)
+            let noteListVC = NoteListViewController(provider: NoteListView(), settings: settings, calculator: self.calculator, alertPresenter: self.alertPresenter)
             self.navigationController?.pushViewController(noteListVC, animated: true)
         } else {
             self.alertPresenter.error("タグの読み込みに必要な情報の取得に失敗しました", on: self)

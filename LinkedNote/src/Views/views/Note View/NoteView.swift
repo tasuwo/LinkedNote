@@ -8,6 +8,13 @@
 
 import UIKit
 
+protocol NoteViewProvider {
+    var view: UIView { get }
+    var noteView: UITextView { get }
+    var tagCollectionView: UICollectionView { get }
+    func setNoteViewDelegate(_: NoteViewDelegate)
+}
+
 protocol NoteViewDelegate {
     func didPressEditButton()
     func didPressViewArticleButton()
@@ -16,8 +23,8 @@ protocol NoteViewDelegate {
 class NoteView: UIView {
     var delegate: NoteViewDelegate?
     @IBOutlet var view_: UIView!
-    @IBOutlet weak var noteView: UITextView!
-    @IBOutlet weak var tagCollectionView: UICollectionView!
+    @IBOutlet weak var noteView_: UITextView!
+    @IBOutlet weak var tagCollectionView_: UICollectionView!
     @IBAction func didPressEditButton(_: Any) {
         self.delegate?.didPressEditButton()
     }
@@ -26,8 +33,8 @@ class NoteView: UIView {
         self.delegate?.didPressViewArticleButton()
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(frame: CGRect.zero)
 
         Bundle.main.loadNibNamed("Note", owner: self, options: nil)
         view_.frame = frame
@@ -40,5 +47,23 @@ class NoteView: UIView {
 
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension NoteView: NoteViewProvider {
+    var view: UIView {
+        return self.view_
+    }
+
+    var noteView: UITextView {
+        return self.noteView_
+    }
+
+    var tagCollectionView: UICollectionView {
+        return self.tagCollectionView_
+    }
+
+    func setNoteViewDelegate(_ delegate: NoteViewDelegate) {
+        self.delegate = delegate
     }
 }

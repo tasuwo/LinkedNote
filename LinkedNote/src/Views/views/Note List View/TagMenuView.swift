@@ -8,6 +8,19 @@
 
 import UIKit
 
+protocol TagMenuViewProvider {
+    var view: UIView { get }
+    var baseView: UIView { get }
+    var newTagNameField: UITextField { get }
+    var tagPicker: UIPickerView { get }
+    var tagCollectionView: UICollectionView { get }
+    var blurEffectView: UIVisualEffectView { get }
+    var note: Note? { get }
+
+    func setDelegate(_: TagMenuViewDelegate)
+    func setNote(_: Note)
+}
+
 protocol TagMenuViewDelegate {
     func didPressCloseButton()
     func didPressSelectExistTagButton(_ index: Int)
@@ -16,57 +29,96 @@ protocol TagMenuViewDelegate {
 
 class TagMenuView: UIView {
     var delegate: TagMenuViewDelegate?
-    @IBOutlet weak var picker: UIPickerView!
-    @IBOutlet weak var newTagNameField: UITextField!
+    @IBOutlet weak var newTagNameField_: UITextField!
     @IBOutlet var view_: UIView!
-    @IBOutlet weak var tagPicker: UIPickerView!
-    var note: Note?
-    @IBOutlet weak var tagCollectionView: UICollectionView!
-    @IBOutlet weak var newTagButton: UIButton!
+    @IBOutlet weak var tagPicker_: UIPickerView!
+    var note_: Note?
+    @IBOutlet weak var tagCollectionView_: UICollectionView!
+    @IBOutlet weak var newTagButton_: UIButton!
 
     @IBAction func didPressCloseButton(_: Any) {
         self.delegate?.didPressCloseButton()
     }
 
     @IBAction func didPressSelectTagButton(_: Any) {
-        let i = self.tagPicker.selectedRow(inComponent: 0)
+        let i = self.tagPicker_.selectedRow(inComponent: 0)
         self.delegate?.didPressSelectExistTagButton(i)
     }
 
     @IBAction func didPressCreateNewTagButton(_: Any) {
-        let newTagName = self.newTagNameField.text ?? ""
+        let newTagName = self.newTagNameField_.text ?? ""
         self.delegate?.didPressCreateNewTagButton(newTagName)
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    private(set) var blurEffectView_: UIVisualEffectView!
+
+    init() {
+        super.init(frame: CGRect.zero)
 
         // only apply the blur if the user hasn't disabled transparency effects
         if !UIAccessibilityIsReduceTransparencyEnabled() {
             self.backgroundColor = UIColor.clear
 
             let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+            self.blurEffectView_ = UIVisualEffectView(effect: blurEffect)
             // always fill the view
-            blurEffectView.frame = frame
-            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            self.blurEffectView_.frame = CGRect.zero
+            self.blurEffectView_.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
-            self.addSubview(blurEffectView)
+            self.addSubview(self.blurEffectView_)
         } else {
             self.backgroundColor = UIColor.black
         }
 
         Bundle.main.loadNibNamed("TagMenu", owner: self, options: nil)
-        view_.frame = frame
+        view_.frame = CGRect.zero
 
-        tagCollectionView.register(UINib(nibName: "TagCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TagCollectionViewCell")
-        tagCollectionView.backgroundColor = UIColor.clear
-        tagCollectionView.isScrollEnabled = true
+        tagCollectionView_.register(UINib(nibName: "TagCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TagCollectionViewCell")
+        tagCollectionView_.backgroundColor = UIColor.clear
+        tagCollectionView_.isScrollEnabled = true
 
         self.insertSubview(view_, at: 1)
     }
 
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension TagMenuView: TagMenuViewProvider {
+    var view: UIView {
+        return self
+    }
+
+    var baseView: UIView {
+        return self.view_
+    }
+
+    var newTagNameField: UITextField {
+        return self.newTagNameField_
+    }
+
+    var tagPicker: UIPickerView {
+        return self.tagPicker_
+    }
+
+    var tagCollectionView: UICollectionView {
+        return self.tagCollectionView_
+    }
+
+    var blurEffectView: UIVisualEffectView {
+        return self.blurEffectView_
+    }
+
+    var note: Note? {
+        return self.note_
+    }
+
+    func setDelegate(_ delegate: TagMenuViewDelegate) {
+        self.delegate = delegate
+    }
+
+    func setNote(_ note: Note) {
+        self.note_ = note
     }
 }

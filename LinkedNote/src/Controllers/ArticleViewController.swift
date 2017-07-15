@@ -9,14 +9,15 @@
 import UIKit
 
 class ArticleViewController: UIViewController {
-    var articleView: ArticleView!
+    var provider: ArticleViewProvider
     var singleTapRecognizer: UITapGestureRecognizer!
     var defaultFrameSize: CGRect!
     let article: Article
     let calculator: FrameCalculator
     let alertPresenter: AlertPresenter
 
-    init(article: Article, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
+    init(provider: ArticleViewProvider, article: Article, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
+        self.provider = provider
         self.article = article
         self.calculator = calculator
         self.alertPresenter = alertPresenter
@@ -37,27 +38,27 @@ class ArticleViewController: UIViewController {
         self.defaultFrameSize = self.calculator.calcFrameOnNavVar(by: self)
 
         // Initialize a view
-        self.articleView = ArticleView(frame: self.defaultFrameSize)
-        self.articleView.splitBarDelegate = self
-        self.articleView.noteView.delegate = self
+        self.provider.view.frame = self.defaultFrameSize
+        self.provider.setSplitBarDelegate(delegate: self)
+        self.provider.noteView.delegate = self
         if let note = self.article.note {
-            self.articleView.noteView.text = note.body
+            self.provider.noteView.text = note.body
         } else {
-            self.articleView.noteView.text = "ノートがまだ作成されていません"
+            self.provider.noteView.text = "ノートがまだ作成されていません"
         }
 
         // Recognize the touch to out of text field
         self.singleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onSingleTap))
         self.singleTapRecognizer.delegate = self
-        self.articleView.addGestureRecognizer(self.singleTapRecognizer)
-        self.articleView.splitBar.addGestureRecognizer(self.singleTapRecognizer)
+        self.provider.view.addGestureRecognizer(self.singleTapRecognizer)
+        self.provider.splitBar.addGestureRecognizer(self.singleTapRecognizer)
 
         // Load web view
         // TODO: 進捗バーをつけたい
         if let url = URL(string: self.article.url) {
-            self.articleView.webView.loadRequest(URLRequest(url: url))
+            self.provider.webView.loadRequest(URLRequest(url: url))
         }
-        self.view.addSubview(self.articleView)
+        self.view.addSubview(self.provider.view)
 
         self.navigationItem.title = self.article.title
     }
@@ -87,8 +88,8 @@ class ArticleViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
 
-        if self.articleView.webView.isLoading {
-            self.articleView.webView.stopLoading()
+        if self.provider.webView.isLoading {
+            self.provider.webView.stopLoading()
         }
     }
 }
@@ -101,7 +102,7 @@ extension ArticleViewController {
             let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue else {
             return
         }
-        let convertedKeyboardFrame = self.articleView.convert(keyboardFrame, from: nil)
+        let convertedKeyboardFrame = self.provider.view.convert(keyboardFrame, from: nil)
 
         // TODO: webView の上側が少し隠れてしまう
         //       auto layout を使用していると動的に view の frame を削除できないらしい。
@@ -112,11 +113,11 @@ extension ArticleViewController {
             y: self.defaultFrameSize!.origin.y - convertedKeyboardFrame.height,
             width: self.defaultFrameSize!.size.width,
             height: self.defaultFrameSize!.size.height)
-        self.articleView.frame = newFrame
-        self.articleView.splitBarBottomConstraint.constant = 100
+        self.provider.view.frame = newFrame
+        self.provider.splitBarBottomConstraint.constant = 100
 
         UIView.animate(withDuration: animationDuration, animations: {
-            self.articleView.layoutIfNeeded()
+            self.provider.view.layoutIfNeeded()
         }, completion: { _ in })
 
         self.navigationController?.navigationBar.isHidden = true
@@ -131,9 +132,9 @@ extension ArticleViewController {
             return
         }
 
-        self.articleView.frame = self.defaultFrameSize!
+        self.provider.view.frame = self.defaultFrameSize!
         UIView.animate(withDuration: animationDuration, animations: {
-            self.articleView.layoutIfNeeded()
+            self.provider.view.layoutIfNeeded()
         }, completion: { _ in })
 
         self.navigationController?.navigationBar.isHidden = false
@@ -146,19 +147,19 @@ extension ArticleViewController {
 // split view のレイアウトを調整する
 extension ArticleViewController: SplitBarDelegate {
     func dragging(sender _: Any, touch: UITouch) {
-        let splitBarPosY: CGFloat = self.articleView.splitBar.frame.minY
-        let touchedPosY: CGFloat = touch.location(in: self.articleView).y
+        let splitBarPosY: CGFloat = self.provider.splitBar.frame.minY
+        let touchedPosY: CGFloat = touch.location(in: self.provider.view).y
 
-        let nextYPos = self.articleView.splitBarBottomConstraint.constant + splitBarPosY - touchedPosY
+        let nextYPos = self.provider.splitBarBottomConstraint.constant + splitBarPosY - touchedPosY
 
         if nextYPos > 80 {
-            if nextYPos > self.articleView.frame.maxY - 80 {
-                self.articleView.splitBarBottomConstraint.constant = self.articleView.frame.maxY - 90
+            if nextYPos > self.provider.view.frame.maxY - 80 {
+                self.provider.splitBarBottomConstraint.constant = self.provider.view.frame.maxY - 90
             } else {
-                self.articleView.splitBarBottomConstraint.constant = nextYPos
+                self.provider.splitBarBottomConstraint.constant = nextYPos
             }
         } else {
-            self.articleView.splitBarBottomConstraint.constant = 90
+            self.provider.splitBarBottomConstraint.constant = 90
         }
     }
 }
@@ -167,12 +168,12 @@ extension ArticleViewController: SplitBarDelegate {
 // キーボード表示を解除するために responder を resign する
 extension ArticleViewController: UIGestureRecognizerDelegate {
     func onSingleTap(recognizer _: UIGestureRecognizer) {
-        self.articleView.noteView.resignFirstResponder()
+        self.provider.noteView.resignFirstResponder()
     }
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive _: UITouch) -> Bool {
         if gestureRecognizer == self.singleTapRecognizer {
-            return self.articleView.noteView.isFirstResponder
+            return self.provider.noteView.isFirstResponder
         }
         return true
     }
@@ -191,7 +192,7 @@ extension ArticleViewController: UITextViewDelegate {
         if let note = self.article.note {
             try! Note.update(note: note, body: body)
         } else {
-            self.articleView.noteView.text = ""
+            self.provider.noteView.text = ""
             self.alertPresenter.error("ノートの保存に失敗しました。ノートの作成に失敗している可能性があります", on: self)
         }
     }

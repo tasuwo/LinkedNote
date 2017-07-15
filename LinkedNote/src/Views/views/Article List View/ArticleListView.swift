@@ -8,13 +8,20 @@
 
 import UIKit
 
+protocol ArticleListViewProvider {
+    var view: UIView { get }
+    var articleTableView: UITableView { get }
+    var observer: ArticleListPresenterObserver { get }
+
+    func setArticleTableViewDelegate(delegate: ArticleListTableViewDelegate)
+}
+
 class ArticleListView: UIView {
     @IBOutlet var view_: UIView!
     var myList: ArticleListTableView?
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
+    init() {
+        super.init(frame: CGRect.zero)
         Bundle.main.loadNibNamed("ArticleList", owner: self, options: nil)
         view_.frame = frame
         addSubview(view_)
@@ -34,5 +41,23 @@ class ArticleListView: UIView {
 extension ArticleListView: ArticleListPresenterObserver {
     func loaded() {
         self.myList!.reloadData()
+    }
+}
+
+extension ArticleListView: ArticleListViewProvider {
+    var view: UIView {
+        return self
+    }
+
+    var articleTableView: UITableView {
+        return self.myList!
+    }
+
+    var observer: ArticleListPresenterObserver {
+        return self
+    }
+
+    func setArticleTableViewDelegate(delegate: ArticleListTableViewDelegate) {
+        self.myList?.delegate_ = delegate
     }
 }

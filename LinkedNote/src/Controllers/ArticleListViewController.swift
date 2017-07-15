@@ -9,7 +9,7 @@
 import UIKit
 
 class ArticleListViewController: UIViewController {
-    var articleListView: ArticleListView!
+    let provider: ArticleListViewProvider
     let refreshControl: UIRefreshControl
     let articleListPresenter: ArticleListPresenter<ThumbnailDownloaderImpl>
     let api: APIWrapper
@@ -17,7 +17,8 @@ class ArticleListViewController: UIViewController {
     let alertPresenter: AlertPresenter
     let tagEditViewPresenter: TagEditViewPresenter
 
-    init(api: APIWrapper, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
+    init(provider: ArticleListViewProvider, api: APIWrapper, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
+        self.provider = provider
         self.api = api
         self.calculator = calculator
         self.alertPresenter = alertPresenter
@@ -35,18 +36,19 @@ class ArticleListViewController: UIViewController {
         super.viewDidLoad()
 
         // Initialize and add a view
-        self.articleListView = ArticleListView(frame: self.calculator.calcFrameOnTabAndNavBar(by: self))
-        self.view.addSubview(articleListView)
+        self.provider.view.frame = self.calculator.calcFrameOnTabAndNavBar(by: self)
+        self.provider.articleTableView.frame = self.calculator.calcFrameOnTabAndNavBar(by: self)
+        self.view.addSubview(self.provider.view)
 
         // Prepare a presenter
-        self.articleListPresenter.observer = articleListView
+        self.articleListPresenter.observer = self.provider.observer
         self.articleListPresenter.recognizer = self
         self.articleListPresenter.initOffset()
 
         // Prepare the table view
-        self.articleListView.myList!.dataSource = articleListPresenter
-        self.articleListView.myList!.delegate = self
-        self.articleListView.myList!.delegate_ = self
+        self.provider.articleTableView.dataSource = articleListPresenter
+        self.provider.articleTableView.delegate = self
+        self.provider.setArticleTableViewDelegate(delegate: self)
 
         // Update model and display them on the table view
         if type(of: api).isLoggedIn() {
@@ -54,7 +56,7 @@ class ArticleListViewController: UIViewController {
         }
 
         self.refreshControl.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
-        self.articleListView.myList?.addSubview(self.refreshControl)
+        self.provider.articleTableView.addSubview(self.refreshControl)
 
         self.navigationItem.title = "マイリスト"
     }
@@ -68,7 +70,7 @@ class ArticleListViewController: UIViewController {
             self.articleListPresenter.initOffset()
         }
 
-        if type(of: api).isLoggedIn() && self.articleListView.myList?.numberOfRows(inSection: 0) == 0 {
+        if type(of: api).isLoggedIn() && self.provider.articleTableView.numberOfRows(inSection: 0) == 0 {
             self.articleListPresenter.initOffset()
             self.articleListPresenter.retrieve()
         }
@@ -126,7 +128,7 @@ extension ArticleListViewController: UITableViewDelegate {
             }
         }
 
-        let articleVC = ArticleViewController(article: article, calculator: self.calculator, alertPresenter: alertPresenter)
+        let articleVC = ArticleViewController(provider: ArticleView(), article: article, calculator: self.calculator, alertPresenter: alertPresenter)
         self.navigationController?.pushViewController(articleVC, animated: true)
 
         // Update cell informations
@@ -136,10 +138,10 @@ extension ArticleListViewController: UITableViewDelegate {
 
     func tableView(_: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         return [UITableViewRowAction(style: .default, title: "Archive", handler: { _, indexPath in
-            let cell = self.articleListView.myList!.cellForRow(at: indexPath) as! ArticleListCustomCell
+            let cell = self.provider.articleTableView.cellForRow(at: indexPath) as! ArticleListCustomCell
 
             self.articleListPresenter.archiveRow(at: indexPath, id: cell.article!.localId)
-            self.articleListView.myList!.deleteRows(at: [indexPath], with: .automatic)
+            self.provider.articleTableView.deleteRows(at: [indexPath], with: .automatic)
         })]
     }
 
@@ -165,20 +167,20 @@ extension ArticleListViewController: UITableViewDelegate {
     // The user's finger was released after dragging. Decelarate is True during inertial scrolling.
     func scrollViewDidEndDragging(_: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
-            self.articleListPresenter.loadImagesForOnscreenRows(tableView: self.articleListView.myList!)
+            self.articleListPresenter.loadImagesForOnscreenRows(tableView: self.provider.articleTableView)
         }
     }
 
     // Immediately stop scrolling
     func scrollViewDidEndDecelerating(_: UIScrollView) {
-        self.articleListPresenter.loadImagesForOnscreenRows(tableView: self.articleListView.myList!)
+        self.articleListPresenter.loadImagesForOnscreenRows(tableView: self.provider.articleTableView)
     }
 }
 
 extension ArticleListViewController: ArticleListTableViewDelegate {
     func didPressNoteButtonOnCell(_ note: Note?) {
         if let note = note {
-            let noteVC = NoteViewController(note: note, calculator: self.calculator, alertPresenter: self.alertPresenter)
+            let noteVC = NoteViewController(provider: NoteView(), note: note, calculator: self.calculator, alertPresenter: self.alertPresenter)
             self.navigationController?.pushViewController(noteVC, animated: true)
         } else {
             alertPresenter.error("ノートが存在しません", on: self)
@@ -190,9 +192,9 @@ extension ArticleListViewController: UIGestureRecognizerDelegate, RecognizableLo
     @objc func handleLongPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
         if longPressGestureRecognizer.state == UIGestureRecognizerState.began {
             let tag = longPressGestureRecognizer.view!.tag
-            let cell = self.articleListView.myList?.cellForRow(at: IndexPath(row: tag, section: 0)) as? ArticleListCustomCell
+            let cell = self.provider.articleTableView.cellForRow(at: IndexPath(row: tag, section: 0)) as? ArticleListCustomCell
 
-            self.tagEditViewPresenter.initwith(note: cell!.article!.note!, frame: self.tabBarController!.view.frame)
+            self.tagEditViewPresenter.initwith(provider: TagMenuView(), note: cell!.article!.note!, frame: self.tabBarController!.view.frame)
             self.tagEditViewPresenter.add(to: self.tabBarController!.view, viewController: self)
         }
     }

@@ -26,7 +26,7 @@ class ArticleListViewControllerTest: XCTestCase {
         FakeAPIWrapper.initialize()
 
         ap = FakeAlertPresenter()
-        vc = ArticleListViewController(api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: ap)
+        vc = ArticleListViewController(provider: ArticleListView(), api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: ap)
         navVc = UINavigationController(rootViewController: vc)
         tabVc = UITabBarController()
         vc.tabBarItem = UITabBarItem(title: "アカウント", image: UIImage(named: "tabbar_icon_account"), tag: 0)

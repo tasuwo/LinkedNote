@@ -8,9 +8,14 @@
 
 import UIKit
 
+protocol NoteListViewProvider {
+    var view: UIView { get }
+    var noteList: UITableView { get }
+}
+
 class NoteListView: UIView {
     @IBOutlet var view_: UIView!
-    fileprivate(set) var noteList: UITableView!
+    fileprivate(set) var noteList_: UITableView!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,14 +24,24 @@ class NoteListView: UIView {
         view_.frame = frame
         addSubview(view_)
 
-        noteList = UITableView(frame: frame)
-        noteList.rowHeight = 100
-        noteList.register(UINib(nibName: "NoteListCustomCell", bundle: nil), forCellReuseIdentifier: "NoteListCustomCell")
+        noteList_ = UITableView(frame: frame)
+        noteList_.rowHeight = 100
+        noteList_.register(UINib(nibName: "NoteListCustomCell", bundle: nil), forCellReuseIdentifier: "NoteListCustomCell")
 
-        view_.addSubview(noteList)
+        view_.addSubview(noteList_)
     }
 
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension NoteListView: NoteListViewProvider {
+    var view: UIView {
+        return self.view_
+    }
+
+    var noteList: UITableView {
+        return self.noteList_
     }
 }

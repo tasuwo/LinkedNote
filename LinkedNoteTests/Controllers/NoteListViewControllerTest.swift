@@ -44,7 +44,7 @@ class NoteListViewControllerTest: XCTestCase {
         FakeAPIWrapper.initialize()
 
         ap = FakeAlertPresenter()
-        vc = NoteListViewController(settings: setting, calculator: FakeFrameCalculator(), alertPresenter: ap)
+        vc = NoteListViewController(provider: NoteListView(), settings: setting, calculator: FakeFrameCalculator(), alertPresenter: ap)
         navVc = UINavigationController(rootViewController: vc)
         tabVc = UITabBarController()
         vc.tabBarItem = UITabBarItem(title: "アカウント", image: UIImage(named: "tabbar_icon_account"), tag: 0)

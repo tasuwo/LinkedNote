@@ -44,7 +44,7 @@ class ArticleViewControllerTest: XCTestCase {
         FakeAPIWrapper.initialize()
 
         ap = FakeAlertPresenter()
-        vc = ArticleViewController(article: article, calculator: FakeFrameCalculator(), alertPresenter: ap)
+        vc = ArticleViewController(provider: ArticleView(), article: article, calculator: FakeFrameCalculator(), alertPresenter: ap)
         navVc = UINavigationController(rootViewController: vc)
         tabVc = UITabBarController()
         vc.tabBarItem = UITabBarItem(title: "アカウント", image: UIImage(named: "tabbar_icon_account"), tag: 0)
@@ -62,13 +62,13 @@ class ArticleViewControllerTest: XCTestCase {
     func testInitializeViewWithNoteView() {
         initViewController(withNote: true)
 
-        XCTAssertTrue(self.vc.articleView.noteView.text == note?.body)
+        XCTAssertTrue(self.vc.provider.noteView.text == note?.body)
     }
 
     func testInitializeViewWithoutNoteView() {
         initViewController(withNote: false)
 
-        XCTAssertTrue(self.vc.articleView.noteView.text == "ノートがまだ作成されていません")
+        XCTAssertTrue(self.vc.provider.noteView.text == "ノートがまだ作成されていません")
     }
 
     func testEditNoteWithNote() {
@@ -95,7 +95,7 @@ class ArticleViewControllerTest: XCTestCase {
         self.vc.textViewDidChange(textView)
 
         XCTAssertTrue(ap.lastErrorMessage == "ノートの保存に失敗しました。ノートの作成に失敗している可能性があります")
-        XCTAssertTrue(vc.articleView.noteView.text == "")
+        XCTAssertTrue(vc.provider.noteView.text == "")
     }
 
     // textView.text == nil となるような状況が再現できないので

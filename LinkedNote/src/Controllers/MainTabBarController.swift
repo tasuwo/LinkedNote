@@ -31,9 +31,9 @@ class MainTabBarController: UITabBarController {
         let alertPresenter = AlertPresenterImplement()
         //====================================================================
 
-        self.articleListVC = ArticleListViewController(api: api, calculator: calculator, alertPresenter: alertPresenter)
+        self.articleListVC = ArticleListViewController(provider: ArticleListView(), api: api, calculator: calculator, alertPresenter: alertPresenter)
         self.accountVC = AccountViewController(provider: AccountViewProviderImpl(), api: api, calculator: calculator, alertPresenter: alertPresenter)
-        self.noteListVC = NoteListViewController(settings: settings, calculator: calculator, alertPresenter: alertPresenter)
+        self.noteListVC = NoteListViewController(provider: NoteListView(), settings: settings, calculator: calculator, alertPresenter: alertPresenter)
         self.tagListVC = TagListViewController(calculator: calculator, alertPresenter: alertPresenter)
         self.articleListNVC = UINavigationController(rootViewController: articleListVC)
         self.accountNVC = UINavigationController(rootViewController: accountVC)

@@ -14,7 +14,7 @@ protocol TagEditViewPresenterDelegate {
 
 class TagEditViewPresenter: NSObject {
     var delegate: TagEditViewPresenterDelegate?
-    var tagMenuView: TagMenuView!
+    var provider: TagMenuViewProvider!
     var targetViewController: UIViewController!
     let tagCollectionPresenter: TagCollectionPresenter
     let tagPickerPresenter: TagPickerPresenter
@@ -35,21 +35,25 @@ class TagEditViewPresenter: NSObject {
         super.init()
     }
 
-    func initwith(note: Note, frame: CGRect) {
-        self.tagMenuView = TagMenuView(frame: frame)
-        self.tagMenuView.delegate = self
-        self.tagMenuView.note = note
+    func initwith(provider: TagMenuViewProvider, note: Note, frame: CGRect) {
+        self.provider = provider
+        self.provider.view.frame = frame
+        self.provider.baseView.frame = frame
+        self.provider.blurEffectView.frame = frame
 
-        self.tagMenuView.tagPicker.delegate = self
-        self.tagMenuView.tagPicker.dataSource = tagPickerPresenter
+        self.provider.setDelegate(self)
+        self.provider.setNote(note)
 
-        self.tagMenuView.tagCollectionView.dataSource = self.tagCollectionPresenter
-        self.tagMenuView.tagCollectionView.delegate = self
-        self.tagMenuView.tagCollectionView.reloadData()
+        self.provider.tagPicker.delegate = self
+        self.provider.tagPicker.dataSource = tagPickerPresenter
+
+        self.provider.tagCollectionView.dataSource = self.tagCollectionPresenter
+        self.provider.tagCollectionView.delegate = self
+        self.provider.tagCollectionView.reloadData()
 
         self.tagCollectionPresenter.load(noteId: note.id)
 
-        self.fullScrnFrame = self.tagMenuView.frame
+        self.fullScrnFrame = self.provider.view.frame
 
         // Recognize the touch to out of text field
         self.singleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onSingleTap(recognizer:)))
@@ -63,11 +67,11 @@ class TagEditViewPresenter: NSObject {
         transition.type = kCATransitionFade
 
         view.layer.add(transition, forKey: kCATransition)
-        view.addSubview(tagMenuView)
+        view.addSubview(self.provider.view)
 
         self.targetViewController = viewController
 
-        self.tagMenuView.view_.addGestureRecognizer(self.singleTapRecognizer)
+        self.provider.view.addGestureRecognizer(self.singleTapRecognizer)
     }
 }
 
@@ -89,18 +93,18 @@ extension TagEditViewPresenter {
 
 extension TagEditViewPresenter {
     func tagEditKeyboardWillBeShown(notification: NSNotification) {
-        if let tagNameField = self.tagMenuView.newTagNameField {
-            if tagNameField.isFirstResponder == false { return }
-        } else { return }
+        if self.provider.newTagNameField.isFirstResponder == false {
+            return
+        }
 
         if self.isNewTagNameEditing { return }
         if let userInfo = notification.userInfo {
             if let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue,
                 let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue {
 
-                let convertedKeyboardFrame = self.tagMenuView.convert(keyboardFrame, from: nil)
+                let convertedKeyboardFrame = self.provider.view.convert(keyboardFrame, from: nil)
                 UIView.animate(withDuration: animationDuration, animations: {
-                    self.tagMenuView.frame = self.tagMenuView.frame.insetBy(dx: 0, dy: -1 * (convertedKeyboardFrame.height))
+                    self.provider.view.frame = self.provider.view.frame.insetBy(dx: 0, dy: -1 * (convertedKeyboardFrame.height))
                 }, completion: { _ in })
             }
         }
@@ -108,14 +112,14 @@ extension TagEditViewPresenter {
     }
 
     func tagEditKeyboardWillBeHidden(notification: NSNotification) {
-        if let tagNameField = self.tagMenuView.newTagNameField {
-            if tagNameField.isFirstResponder == false { return }
-        } else { return }
+        if self.provider.newTagNameField.isFirstResponder == false {
+            return
+        }
 
         if let userInfo = notification.userInfo {
             if let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue {
                 UIView.animate(withDuration: animationDuration, animations: {
-                    self.tagMenuView.frame = self.fullScrnFrame!
+                    self.provider.view.frame = self.fullScrnFrame!
                 }, completion: { _ in })
             }
         }
@@ -125,12 +129,12 @@ extension TagEditViewPresenter {
 
 extension TagEditViewPresenter: UIGestureRecognizerDelegate {
     func onSingleTap(recognizer _: UIGestureRecognizer) {
-        self.tagMenuView.newTagNameField.resignFirstResponder()
+        self.provider.newTagNameField.resignFirstResponder()
     }
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive _: UITouch) -> Bool {
         if gestureRecognizer == self.singleTapRecognizer {
-            if self.tagMenuView.newTagNameField.isFirstResponder {
+            if self.provider.newTagNameField.isFirstResponder {
                 return true
             } else {
                 return false
@@ -143,34 +147,34 @@ extension TagEditViewPresenter: UIGestureRecognizerDelegate {
 extension TagEditViewPresenter: TagMenuViewDelegate {
     func didPressCloseButton() {
         UIView.animate(withDuration: 0.2 as TimeInterval, animations: {
-            self.tagMenuView.alpha = 0
+            self.provider.view.alpha = 0
         }, completion: { _ in
-            self.tagMenuView.removeFromSuperview()
+            self.provider.view.removeFromSuperview()
             self.delegate?.didPressCloseButton()
         })
     }
 
     func didPressSelectExistTagButton(_ index: Int) {
         let selectedTag = tagPickerPresenter.tags[index]
-        let selectedNote = self.tagMenuView.note!
+        let selectedNote = self.provider.note!
         try! Tag.add(selectedTag, to: selectedNote)
 
-        tagCollectionPresenter.load(noteId: tagMenuView.note!.id)
-        tagMenuView.tagCollectionView.reloadData()
+        tagCollectionPresenter.load(noteId: self.provider.note!.id)
+        self.provider.tagCollectionView.reloadData()
     }
 
     func didPressCreateNewTagButton(_ newTagName: String) {
         let newTag = Tag(name: newTagName)
         try! Tag.add(newTag)
 
-        let selectedNote = self.tagMenuView.note!
+        let selectedNote = self.provider.note!
         try! Tag.add(newTag, to: selectedNote)
 
-        tagCollectionPresenter.load(noteId: tagMenuView.note!.id)
-        tagMenuView.tagCollectionView.reloadData()
+        tagCollectionPresenter.load(noteId: self.provider.note!.id)
+        self.provider.tagCollectionView.reloadData()
 
         self.onSingleTap(recognizer: self.singleTapRecognizer)
-        self.tagMenuView.newTagNameField.text = ""
+        self.provider.newTagNameField.text = ""
     }
 }
 
@@ -182,11 +186,11 @@ extension TagEditViewPresenter: UIPickerViewDelegate {
 
 extension TagEditViewPresenter: UICollectionViewDelegate {
     func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = self.tagMenuView.tagCollectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
+        let cell = self.provider.tagCollectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
         self.alertPresenter.yn(title: "タグの削除", message: "このタグを削除しますか？", on: self.targetViewController, y: { (_: UIAlertAction?) in
-            try! Tag.delete(cell.id!, from: self.tagMenuView.note!.id)
-            self.tagCollectionPresenter.load(noteId: self.tagMenuView.note!.id)
-            self.tagMenuView.tagCollectionView.reloadData()
+            try! Tag.delete(cell.id!, from: self.provider.note!.id)
+            self.tagCollectionPresenter.load(noteId: self.provider.note!.id)
+            self.provider.tagCollectionView.reloadData()
         }, n: { (_: UIAlertAction?) in
             return
         })
