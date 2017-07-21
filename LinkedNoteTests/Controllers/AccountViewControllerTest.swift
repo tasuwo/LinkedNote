@@ -29,7 +29,7 @@ class AccountViewControllerTest: XCTestCase {
 
     // positive testing
 
-    func testDisplayLogoutViewWhenUserLoggedIn() {
+    func testThatItShowViewForLogoutIfUserLoggedInAlready() {
         FakeAPIWrapper.loggedIn = true
 
         let vc = AccountViewController(provider: AccountViewProviderImpl(), api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: FakeAlertPresenter())
@@ -38,7 +38,7 @@ class AccountViewControllerTest: XCTestCase {
         XCTAssertNotNil(vc.currentActiveView as? AccountView)
     }
 
-    func testDisplayLoginViewWhenUserLoggedOut() {
+    func testThatItShowViewForLogInIfUserLoggedOutAlready() {
         FakeAPIWrapper.loggedIn = false
 
         let vc = AccountViewController(provider: AccountViewProviderImpl(), api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: FakeAlertPresenter())
@@ -47,7 +47,7 @@ class AccountViewControllerTest: XCTestCase {
         XCTAssertNotNil(vc.currentActiveView as? SignInView)
     }
 
-    func testAlertLoginError() {
+    func testThatItShowAlertIfUnexpectedErrorOccuredDuringLoggingIn() {
         FakeAPIWrapper.loggedIn = false
         FakeAPIWrapper.willOccurLoginError = true
 
@@ -61,7 +61,7 @@ class AccountViewControllerTest: XCTestCase {
         XCTAssertTrue(ap.lastErrorMessage == "test")
     }
 
-    func testLoginWithoutAccountDataModel() {
+    func testThatItColudLogInAndSaveNewApiAccountIfTheUserLoggedInForTheFirstTime() {
         FakeAPIWrapper.loggedIn = false
 
         let vc = AccountViewController(provider: AccountViewProviderImpl(), api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: FakeAlertPresenter())
@@ -75,7 +75,7 @@ class AccountViewControllerTest: XCTestCase {
         XCTAssertNotNil(vc.currentActiveView as? AccountView)
     }
 
-    func testLoginWithAccountDataModel() {
+    func testThatItColudLogInIfTheUsersAccountWasSavedAlready() {
         FakeAPIWrapper.loggedIn = false
         //
         let account = ApiAccount(username: "test_username")
@@ -93,7 +93,7 @@ class AccountViewControllerTest: XCTestCase {
         XCTAssertNotNil(vc.currentActiveView as? AccountView)
     }
 
-    func testLogout() {
+    func testThatItCouldLogOut() {
         FakeAPIWrapper.loggedIn = true
 
         let vc = AccountViewController(provider: AccountViewProviderImpl(), api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: FakeAlertPresenter())
@@ -108,7 +108,7 @@ class AccountViewControllerTest: XCTestCase {
 
     // negative testing
 
-    func testLoginWithoutUsernameSetting() {
+    func testThatItShowAlertIfTheApiColudntGetTheUsername() {
         FakeAPIWrapper.loggedIn = false
 
         // This is Api wrapper's error.
@@ -127,7 +127,7 @@ class AccountViewControllerTest: XCTestCase {
         XCTAssertNil(vc.currentActiveView as? AccountView)
     }
 
-    func testLoginWithoutApiDataModel() {
+    func testThatItShowAlertIfTheApiDataModelDidnotSavedYet() {
         FakeAPIWrapper.loggedIn = false
         let ap = FakeAlertPresenter()
 
@@ -142,7 +142,10 @@ class AccountViewControllerTest: XCTestCase {
 
         XCTAssertTrue(ap.lastErrorMessage == "登録されていない API です")
         XCTAssertFalse(FakeAPIWrapper.loggedIn)
+        // TODO: ApiAccount に依存したテストになってしまっているので修正する
         XCTAssertNil(ApiAccount.get(apiSignature: FakeAPIWrapper.signature, username: FakeAPIWrapper.getUsername()!))
         XCTAssertNil(vc.currentActiveView as? AccountView)
     }
+
+    // TODO: アカウントの登録に失敗した場合のエラー。データモデルをモックする必要がある
 }

@@ -31,15 +31,19 @@ class AccountViewController: UIViewController {
         super.viewDidLoad()
 
         // Initialize and add a view
+        self.provider.setSignInViewDelegate(delegate: self)
+        self.provider.setAccountViewDelegate(delegate: self)
+
+        let frame = self.calculator.calcFrameOnNavVar(by: self)
+        self.provider.accountView.frame = frame
+        self.provider.signInView.frame = frame
+
         let view: UIView
         if type(of: self.api).isLoggedIn() {
             view = self.provider.accountView
-            self.provider.setAccountViewDelegate(delegate: self)
         } else {
             view = self.provider.signInView
-            self.provider.setSignInViewDelegate(delegate: self)
         }
-        view.frame = self.calculator.calcFrameOnNavVar(by: self)
         self.currentActiveView = view
         self.view.addSubview(self.currentActiveView)
 
@@ -48,6 +52,12 @@ class AccountViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+
+    fileprivate func transitionTo(_ view: UIView) {
+        self.currentActiveView.removeFromSuperview()
+        self.view.addSubview(view)
+        self.currentActiveView = view
     }
 }
 
@@ -74,15 +84,17 @@ extension AccountViewController: SignInViewDelegate {
 
             if ApiAccount.get(apiSignature: signature, username: username) == nil {
                 let account = ApiAccount(username: username)
-                try! ApiAccount.add(account)
-                try! ApiAccount.add(account, to: api)
+                do {
+                    try ApiAccount.add(account)
+                    try ApiAccount.add(account, to: api)
+                } catch {
+                    self.alertPresenter.error("アカウントの登録に失敗しました", on: self)
+                    type(of: self.api).logout()
+                    return
+                }
             }
 
-            let view = AccountView(frame: self.currentActiveView.frame)
-            view.delegate = self
-            self.currentActiveView.removeFromSuperview()
-            self.view.addSubview(view)
-            self.currentActiveView = view
+            self.transitionTo(self.provider.accountView)
         })
     }
 }
@@ -90,11 +102,6 @@ extension AccountViewController: SignInViewDelegate {
 extension AccountViewController: AccountViewDelegate {
     func didTouchLogOutButton() {
         type(of: self.api).logout()
-
-        let view = SignInView(frame: self.currentActiveView.frame)
-        view.delegate = self
-        self.currentActiveView.removeFromSuperview()
-        self.view.addSubview(view)
-        self.currentActiveView = view
+        self.transitionTo(self.provider.signInView)
     }
 }
