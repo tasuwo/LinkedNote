@@ -32,18 +32,25 @@ class Api: Object {
 
 // MARK: - Entity model methods
 
-extension Api {
-    static func all() -> Results<Api> {
+protocol ApiRepositoryProtocol {
+    func all() -> Results<Api>
+    func get(signature: String) -> Api?
+    func add(_: Api) throws
+    func delete(signature: String)
+}
+
+class ApiRepository: NSObject, ApiRepositoryProtocol {
+    func all() -> Results<Api> {
         let realm = try! Realm()
         return realm.objects(Api.self)
     }
 
-    static func get(signature: String) -> Api? {
+    func get(signature: String) -> Api? {
         let realm = try! Realm()
         return realm.objects(Api.self).filter("signature == '\(signature)'").first
     }
 
-    static func add(_ api: Api) throws {
+    func add(_ api: Api) throws {
         let realm = try! Realm()
         try realm.write {
             if realm.objects(Api.self).filter("signature == '\(api.signature)'").count > 0 {
@@ -56,9 +63,9 @@ extension Api {
         }
     }
 
-    static func delete(signature: String) {
+    func delete(signature: String) {
         let realm = try! Realm()
-        if let api = Api.get(signature: signature) {
+        if let api = self.get(signature: signature) {
             try! realm.write {
                 realm.delete(api)
             }

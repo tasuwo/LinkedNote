@@ -11,15 +11,17 @@ import UIKit
 class AccountViewController: UIViewController {
     let provider: AccountViewProvider
     let api: APIWrapper
+    let account: ApiAccountProtocol
     let calculator: FrameCalculator
     let alertPresenter: AlertPresenter
     var currentActiveView: UIView!
 
-    init(provider: AccountViewProvider, api: APIWrapper, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
+    init(provider: AccountViewProvider, api: APIWrapper, calculator: FrameCalculator, alertPresenter: AlertPresenter, account: ApiAccountProtocol) {
         self.provider = provider
         self.api = api
         self.calculator = calculator
         self.alertPresenter = alertPresenter
+        self.account = account
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -85,8 +87,8 @@ extension AccountViewController: SignInViewDelegate {
             if ApiAccount.get(apiSignature: signature, username: username) == nil {
                 let account = ApiAccount(username: username)
                 do {
-                    try ApiAccount.add(account)
-                    try ApiAccount.add(account, to: api)
+                    try self.account.add(account)
+                    try self.account.add(account, to: api)
                 } catch {
                     self.alertPresenter.error("アカウントの登録に失敗しました", on: self)
                     type(of: self.api).logout()

@@ -34,7 +34,14 @@ class ApiAccount: Object {
 
 // MARK: - Entity model methods
 
-extension ApiAccount {
+protocol ApiAccountProtocol {
+    static func get(_: Int) -> ApiAccount?
+    static func get(apiSignature: String, username: String) -> ApiAccount?
+    static func add(_:ApiAccount) throws
+    static func add(_:ApiAccount, to: Api)
+}
+
+extension ApiAccount: ApiAccountProtocol {
     static func get(_ id: Int) -> ApiAccount? {
         let realm = try! Realm()
         return realm.object(ofType: ApiAccount.self, forPrimaryKey: id)
