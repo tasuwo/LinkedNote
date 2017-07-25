@@ -16,11 +16,15 @@ class ArticleViewController: UIViewController {
     let calculator: FrameCalculator
     let alertPresenter: AlertPresenter
 
+    let noteRepository: Repository<Note>
+
     init(provider: ArticleViewProvider, article: Article, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
         self.provider = provider
         self.article = article
         self.calculator = calculator
         self.alertPresenter = alertPresenter
+        // TODO: Factory pattern
+        self.noteRepository = Repository<Note>()
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -190,7 +194,9 @@ extension ArticleViewController: UITextViewDelegate {
 
     func didEditNoteBody(_ body: String) {
         if let note = self.article.note {
-            try! Note.update(note: note, body: body)
+            //            try! Note.update(note: note, body: body)
+            note.body = body
+            try! noteRepository.add(note)
         } else {
             self.provider.noteView.text = ""
             self.alertPresenter.error("ノートの保存に失敗しました。ノートの作成に失敗している可能性があります", on: self)

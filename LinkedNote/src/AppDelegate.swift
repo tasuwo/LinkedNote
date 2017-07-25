@@ -29,13 +29,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         // WARNING: PLEASE DELETE THIS CODE BEFORE RELEASE =========================================
-        if Api.all().count == 0 {
+        let apiRepo = Repository<Api>()
+        let tagRepo = Repository<Tag>()
+        if apiRepo.findAll().count == 0 {
             let pocketApi = Api(signature: "pocket")
-            try! Api.add(pocketApi)
+            try! apiRepo.add(pocketApi)
             let tag1 = Tag(name: "test tag 1")
-            try! Tag.add(tag1)
+            try! tagRepo.add(tag1)
             let tag2 = Tag(name: "test tag 2")
-            try! Tag.add(tag2)
+            try! tagRepo.add(tag2)
         }
         // =========================================================================================
 

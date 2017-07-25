@@ -32,26 +32,12 @@ class Api: Object {
 
 // MARK: - Entity model methods
 
-protocol ApiRepositoryProtocol {
-    func all() -> Results<Api>
-    func get(signature: String) -> Api?
-    func add(_: Api) throws
-    func delete(signature: String)
-}
-
-class ApiRepository: NSObject, ApiRepositoryProtocol {
-    func all() -> Results<Api> {
-        let realm = try! Realm()
-        return realm.objects(Api.self)
-    }
-
-    func get(signature: String) -> Api? {
-        let realm = try! Realm()
-        return realm.objects(Api.self).filter("signature == '\(signature)'").first
+extension RepositoryProtocol where Self: Repository<Api> {
+    func findBy(signature: String) -> Api? {
+        return find(predicate: NSPredicate(format: "ANY Api.signature == '%@'", [signature])).first
     }
 
     func add(_ api: Api) throws {
-        let realm = try! Realm()
         try realm.write {
             if realm.objects(Api.self).filter("signature == '\(api.signature)'").count > 0 {
                 throw DataModelError.IntegrityConstraintViolation
@@ -60,15 +46,6 @@ class ApiRepository: NSObject, ApiRepositoryProtocol {
                 throw DataModelError.PrimaryKeyViolation
             }
             realm.add(api)
-        }
-    }
-
-    func delete(signature: String) {
-        let realm = try! Realm()
-        if let api = self.get(signature: signature) {
-            try! realm.write {
-                realm.delete(api)
-            }
         }
     }
 }

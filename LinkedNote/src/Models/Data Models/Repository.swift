@@ -9,49 +9,35 @@
 import RealmSwift
 
 protocol RepositoryProtocol {
-    associatedtype DomainType
+    associatedtype DomainType: Object
     func find(primaryKey: String) -> DomainType?
+    func findAll() -> Results<DomainType>
+    func find(predicate: NSPredicate) -> Results<DomainType>
+    func delete(_ domains: [DomainType])
 }
 
-class Repository<DomainType: Object> {
-    
+class Repository<DomainType: Object>: RepositoryProtocol {
     var realm: Realm
-    
+
     init() {
         self.realm = try! Realm()
     }
-    
+
     func find(primaryKey: String) -> DomainType? {
-        return realm.objects(DomainType.self).filter("id == %@", primaryKey).first
+        return realm.object(ofType: DomainType.self, forPrimaryKey: primaryKey)
     }
-    
-    func findAll() -> [DomainType] {
-        return realm.objects(DomainType.self).map({$0})
+
+    func findAll() -> Results<DomainType> {
+        return realm.objects(DomainType.self)
     }
-    
+
     func find(predicate: NSPredicate) -> Results<DomainType> {
         return realm.objects(DomainType.self).filter(predicate)
     }
-    
-    func add(domains: [DomainType]) {
-        try! realm.write {
-            realm.add(domains, update: true)
-        }
-    }
-    
-    func delete(domains: [DomainType]) {
+
+    func delete(_ domains: [DomainType]) {
         try! realm.write {
             realm.delete(domains)
         }
-    }
-    
-    func transaction(_ transactionBlock: () -> Void) {
-        try! realm.write {
-            transactionBlock()
-        }
-    }
-    
-    func resolve<Confined: ThreadConfined>(_ reference: ThreadSafeReference<Confined>) -> Confined? {
-        return self.realm.resolve(reference)
     }
 }

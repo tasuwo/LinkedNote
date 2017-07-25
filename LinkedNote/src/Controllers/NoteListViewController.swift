@@ -22,6 +22,8 @@ class NoteListViewController: UIViewController {
     let alertPresenter: AlertPresenter
     let tagEditViewPresenter: TagEditViewPresenter
 
+    let noteRepo: Repository<Note>
+
     init(provider: NoteListViewProvider, settings: NodeListViewControllerSettings, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
         self.provider = provider
         self.settings = settings
@@ -29,6 +31,8 @@ class NoteListViewController: UIViewController {
         self.alertPresenter = alertPresenter
         self.noteListPresenter = NoteListPresenter()
         self.tagEditViewPresenter = TagEditViewPresenter(alertPresenter: alertPresenter)
+        // TODO: factory pattern
+        self.noteRepo = Repository<Note>()
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -81,7 +85,7 @@ extension NoteListViewController: UITableViewDelegate {
         return [
             UITableViewRowAction(style: .destructive, title: "削除", handler: { _, indexPath in
                 let cell = self.provider.noteList.cellForRow(at: indexPath) as! NoteListCustomCell
-                Note.delete(note: cell.note!)
+                self.noteRepo.delete([cell.note!])
                 self.noteListPresenter.load(self.settings.tagId)
                 self.provider.noteList.deleteRows(at: [indexPath], with: .automatic)
             }),

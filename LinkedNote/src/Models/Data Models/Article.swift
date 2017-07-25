@@ -57,14 +57,12 @@ class Article: Object {
 
 // MARK: - Entity model methods
 
-extension Article {
-    static func get(localId: String, accountId: Int) -> Article? {
-        let realm = try! Realm()
-        return realm.objects(Article.self).filter("ANY apiAccounts.id == \(accountId) AND localId == '\(localId)'").first
+extension RepositoryProtocol where Self: Repository<Article> {
+    func find(localId: String, accountId: Int) -> Article? {
+        return find(predicate: NSPredicate(format: "ANY apiAccounts.id == '%@' AND localId == '%@'", [accountId, localId])).first
     }
 
-    static func add(_ article: Article) throws {
-        let realm = try! Realm()
+    func add(_ article: Article) throws {
         try realm.write {
             if article.id == -1 {
                 throw DataModelError.InvalidParameter("ID が追加されていません")
@@ -76,8 +74,7 @@ extension Article {
         }
     }
 
-    static func add(_ article: Article, to account: ApiAccount) throws {
-        let realm = try! Realm()
+    func add(_ article: Article, to account: ApiAccount) throws {
         try realm.write {
             if let article_ = realm.object(ofType: Article.self, forPrimaryKey: article.id) {
                 if !article_.isEqual(article) {

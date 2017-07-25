@@ -10,13 +10,20 @@ import UIKit
 import RealmSwift
 
 class NoteListPresenter: NSObject {
-    private(set) var notes: Results<Note> = Note.getAll()
+    private let noteRepository: Repository<Note>
+    private(set) var notes: Results<Note>
+
+    override init() {
+        // TODO: Factory pattern
+        noteRepository = Repository<Note>()
+        notes = noteRepository.findAll()
+    }
 
     func load(_ tagId: Int?) {
         if let id = tagId {
-            notes = Note.get(tagId: id)
+            notes = noteRepository.findBy(tagId: id)
         } else {
-            notes = Note.getAll()
+            notes = noteRepository.findAll()
         }
     }
 }

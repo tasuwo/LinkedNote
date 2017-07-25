@@ -35,7 +35,7 @@ class AccountViewControllerTest: XCTestCase {
         let vc = AccountViewController(provider: AccountViewProviderImpl(), api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: FakeAlertPresenter())
         // Call view to execute viewDidLoad
         _ = vc.view
-        
+
         XCTAssertNotNil(vc.view.subviews.last as? AccountView)
         XCTAssertNotNil(vc.currentActiveView as? AccountView)
     }
@@ -46,7 +46,7 @@ class AccountViewControllerTest: XCTestCase {
         let vc = AccountViewController(provider: AccountViewProviderImpl(), api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: FakeAlertPresenter())
         // Call view to execute viewDidLoad
         _ = vc.view
-        
+
         XCTAssertNotNil(vc.view.subviews.last as? SignInView)
         XCTAssertNotNil(vc.currentActiveView as? SignInView)
     }
@@ -152,5 +152,4 @@ class AccountViewControllerTest: XCTestCase {
     }
 
     // TODO: アカウントの登録に失敗した場合のエラー。データモデルをモックする必要がある
-    
 }

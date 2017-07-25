@@ -25,12 +25,17 @@ class TagEditViewPresenter: NSObject {
 
     let alertPresenter: AlertPresenter
 
+    let tagRepository: Repository<Tag>
+
     init(alertPresenter: AlertPresenter) {
         self.alertPresenter = alertPresenter
         self.tagPickerPresenter = TagPickerPresenter()
         self.tagPickerPresenter.reload()
 
         self.tagCollectionPresenter = TagCollectionPresenter()
+
+        // TODO: Factory pattern
+        self.tagRepository = Repository<Tag>()
 
         super.init()
     }
@@ -157,7 +162,7 @@ extension TagEditViewPresenter: TagMenuViewDelegate {
     func didPressSelectExistTagButton(_ index: Int) {
         let selectedTag = tagPickerPresenter.tags[index]
         let selectedNote = self.provider.note!
-        try! Tag.add(selectedTag, to: selectedNote)
+        try! tagRepository.add(selectedTag, to: selectedNote)
 
         tagCollectionPresenter.load(noteId: self.provider.note!.id)
         self.provider.tagCollectionView.reloadData()
@@ -165,10 +170,10 @@ extension TagEditViewPresenter: TagMenuViewDelegate {
 
     func didPressCreateNewTagButton(_ newTagName: String) {
         let newTag = Tag(name: newTagName)
-        try! Tag.add(newTag)
+        try! tagRepository.add(newTag)
 
         let selectedNote = self.provider.note!
-        try! Tag.add(newTag, to: selectedNote)
+        try! tagRepository.add(newTag, to: selectedNote)
 
         tagCollectionPresenter.load(noteId: self.provider.note!.id)
         self.provider.tagCollectionView.reloadData()
@@ -188,7 +193,7 @@ extension TagEditViewPresenter: UICollectionViewDelegate {
     func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = self.provider.tagCollectionView.cellForItem(at: indexPath) as! TagCollectionViewCell
         self.alertPresenter.yn(title: "タグの削除", message: "このタグを削除しますか？", on: self.targetViewController, y: { (_: UIAlertAction?) in
-            try! Tag.delete(cell.id!, from: self.provider.note!.id)
+            try! self.tagRepository.delete(cell.id!, from: self.provider.note!.id)
             self.tagCollectionPresenter.load(noteId: self.provider.note!.id)
             self.provider.tagCollectionView.reloadData()
         }, n: { (_: UIAlertAction?) in

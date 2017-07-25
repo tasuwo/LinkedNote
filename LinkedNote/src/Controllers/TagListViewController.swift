@@ -14,10 +14,14 @@ class TagListViewController: UIViewController {
     let tagListPresenter: TagListPresenter
     let alertPresenter: AlertPresenter
 
+    let tagRepository: Repository<Tag>
+
     init(calculator: FrameCalculator, alertPresenter: AlertPresenter) {
         self.calculator = calculator
         self.tagListPresenter = TagListPresenter()
         self.alertPresenter = alertPresenter
+        // TODO: Factory pattern
+        self.tagRepository = Repository<Tag>()
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -63,8 +67,8 @@ extension TagListViewController: UITableViewDelegate {
         return [
             UITableViewRowAction(style: .destructive, title: "削除", handler: { _, indexPath in
                 let cell = self.tagListView.tagList.cellForRow(at: indexPath) as! TagListCustomCell
-                if let tag = Tag.get(cell.tagId!) {
-                    Tag.delete(tag)
+                if let tag = self.tagRepository.find(primaryKey: cell.tagId!.description) {
+                    self.tagRepository.delete([tag])
                     // self.tagListPresenter.load()
                     self.tagListView.tagList.deleteRows(at: [indexPath], with: .automatic)
                 }

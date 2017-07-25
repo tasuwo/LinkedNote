@@ -17,6 +17,10 @@ class ArticleListViewController: UIViewController {
     let alertPresenter: AlertPresenter
     let tagEditViewPresenter: TagEditViewPresenter
 
+    let accountRepository: Repository<ApiAccount>
+    let articleRepository: Repository<Article>
+    let noteRepository: Repository<Note>
+
     init(provider: ArticleListViewProvider, api: APIWrapper, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
         self.provider = provider
         self.api = api
@@ -25,6 +29,10 @@ class ArticleListViewController: UIViewController {
         self.articleListPresenter = ArticleListPresenter(api: api, loadUnitNum: 5)
         self.tagEditViewPresenter = TagEditViewPresenter(alertPresenter: alertPresenter)
         self.refreshControl = UIRefreshControl()
+        // TODO: Factory pattern
+        self.accountRepository = Repository<ApiAccount>()
+        self.articleRepository = Repository<Article>()
+        self.noteRepository = Repository<Note>()
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -106,7 +114,7 @@ extension ArticleListViewController: UITableViewDelegate {
             return
         }
 
-        guard let account = ApiAccount.get(apiSignature: signature, username: username) else {
+        guard let _ = accountRepository.find(apiSignature: signature, username: username) else {
             self.alertPresenter.error("アカウント情報の取得に失敗しました", on: self)
             return
         }
@@ -120,11 +128,10 @@ extension ArticleListViewController: UITableViewDelegate {
         if article.note == nil {
             if cell.article?.id == -1 {
                 cell.article!.addId()
-                try! Article.add(cell.article!)
-                try! Article.add(cell.article!, to: account)
+                try! articleRepository.add(cell.article!)
                 let n = Note(body: "")
-                try! Note.add(n)
-                try! Note.add(n, to: cell.article!)
+                try! noteRepository.add(n)
+                try! noteRepository.add(n, to: cell.article!)
             }
         }
 

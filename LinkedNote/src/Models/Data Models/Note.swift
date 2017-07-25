@@ -37,39 +37,34 @@ class Note: Object {
 
 // MARK: - Entity model methods
 
-extension Note {
-    static func getAll() -> Results<Note> {
-        let realm = try! Realm()
-        return realm.objects(Note.self)
-    }
-
-    static func get(_ id: Int) -> Note? {
-        let realm = try! Realm()
-        return realm.object(ofType: Note.self, forPrimaryKey: id)
-    }
-
-    static func get(signature: String, username: String, article: Article) -> Note? {
-        if let account = ApiAccount.get(apiSignature: signature, username: username) {
-            if let note = Note.get(accountId: account.id, articleLocalId: article.localId) {
-                return note
-            }
-        }
-        return nil
-    }
-
-    static func get(accountId: Int, articleLocalId: String) -> Note? {
-        let account = ApiAccount.get(accountId)
-        let article = account?.articles.filter("localId == '\(articleLocalId)'").first
-        return article?.note
-    }
-
-    static func get(tagId: Int) -> Results<Note> {
-        let realm = try! Realm()
+extension RepositoryProtocol where Self: Repository<Note> {
+    func findBy(tagId: Int) -> Results<Note> {
         return realm.objects(Note.self).filter("ANY tags.id == \(tagId)")
     }
 
-    static func add(_ note: Note) throws {
-        let realm = try! Realm()
+    func findBy(accountId: Int, articleLocalId: String) -> Note? {
+        let accountRep: Repository<ApiAccount> = Repository<ApiAccount>()
+        guard let account = accountRep.find(primaryKey: accountId.description) else {
+            return nil
+        }
+        let article = account.articles.filter("localId == '\(articleLocalId)'").first
+        return article?.note
+    }
+
+    func findBy(signature: String, username: String, article _: Article) -> Note? {
+        let accountRep: Repository<ApiAccount> = Repository<ApiAccount>()
+        guard let account = accountRep.find(apiSignature: signature, username: username) else {
+            return nil
+        }
+
+        let noteRep: Repository<Note> = Repository<Note>()
+        guard let note = noteRep.findBy(accountId: account.id, articleLocalId: username) else {
+            return nil
+        }
+        return note
+    }
+
+    func add(_ note: Note) throws {
         try realm.write {
             if let _ = realm.object(ofType: Note.self, forPrimaryKey: note.id) {
                 throw DataModelError.PrimaryKeyViolation
@@ -78,8 +73,7 @@ extension Note {
         }
     }
 
-    static func add(_ note: Note, to article: Article) throws {
-        let realm = try! Realm()
+    func add(_ note: Note, to article: Article) throws {
         try realm.write {
             if let note_ = realm.object(ofType: Note.self, forPrimaryKey: note.id) {
                 if note_.article != nil {
@@ -97,27 +91,6 @@ extension Note {
             }
             article.notes.append(note)
             realm.add(article, update: true)
-        }
-    }
-
-    static func update(note: Note, body: String) throws {
-        let realm = try! Realm()
-        try realm.write {
-            if realm.object(ofType: Note.self, forPrimaryKey: note.id) == nil {
-                throw DataModelError.NecessaryDataDoesNotExist("ノートが存在しません")
-            }
-            note.body = body
-            realm.add(note, update: true)
-        }
-    }
-
-    static func delete(note: Note) {
-        let realm = try! Realm()
-        try! realm.write {
-            if realm.object(ofType: Note.self, forPrimaryKey: note.id) == nil {
-                return
-            }
-            realm.delete(note)
         }
     }
 }

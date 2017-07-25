@@ -10,7 +10,13 @@ import UIKit
 import RealmSwift
 
 class TagListPresenter: NSObject {
-    private(set) var tags: Results<Tag> = Tag.getAll()
+    private let tagRepository: Repository<Tag>
+    private(set) var tags: Results<Tag>
+
+    override init() {
+        self.tagRepository = Repository<Tag>()
+        self.tags = self.tagRepository.findAll()
+    }
 }
 
 extension TagListPresenter: UITableViewDataSource {

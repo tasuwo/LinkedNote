@@ -29,6 +29,14 @@ class PocketAPIWrapper: NSObject, APIWrapper {
     static let signature = "pocket"
     private var username: String?
 
+    private let accountRepo: Repository<ApiAccount>
+    private let articleRepo: Repository<Article>
+
+    override init() {
+        accountRepo = Repository<ApiAccount>()
+        articleRepo = Repository<Article>()
+    }
+
     static func getUsername() -> String? {
         if PocketAPI.shared().isLoggedIn {
             return PocketAPI.shared().username
@@ -78,7 +86,7 @@ class PocketAPIWrapper: NSObject, APIWrapper {
         }
 
         if let username = PocketAPI.shared().username,
-            let account = ApiAccount.get(apiSignature: PocketAPIWrapper.signature, username: username) {
+            let account = accountRepo.find(apiSignature: PocketAPIWrapper.signature, username: username) {
 
             let httpMethod = PocketAPIHTTPMethodGET
             let arguments: NSDictionary = ["detailType": "complete", "count": count.description, "offset": offset.description, "sort": "newest"]
@@ -126,7 +134,7 @@ class PocketAPIWrapper: NSObject, APIWrapper {
                         continue
                     }
 
-                    if let storedArticle = Article.get(localId: info.localId!, accountId: account.id) {
+                    if let storedArticle = self.articleRepo.find(localId: info.localId!, accountId: account.id) {
                         result.append(storedArticle)
                     } else {
                         result.append(Article(localId: info.localId!, title: info.title!, url: info.url!, thumbnailUrl: info.thumbnailUrl!))

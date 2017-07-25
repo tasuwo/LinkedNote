@@ -34,27 +34,13 @@ class ApiAccount: Object {
 
 // MARK: - Entity model methods
 
-protocol ApiAccountProtocol {
-    static func get(_: Int) -> ApiAccount?
-    static func get(apiSignature: String, username: String) -> ApiAccount?
-    static func add(_:ApiAccount) throws
-    static func add(_:ApiAccount, to: Api)
-}
-
-extension ApiAccount: ApiAccountProtocol {
-    static func get(_ id: Int) -> ApiAccount? {
-        let realm = try! Realm()
-        return realm.object(ofType: ApiAccount.self, forPrimaryKey: id)
+extension RepositoryProtocol where Self: Repository<ApiAccount> {
+    func find(apiSignature: String, username: String) -> ApiAccount? {
+        return find(predicate: NSPredicate(format: "ANY api.signature == '%@' AND username == '%@'", [apiSignature, username])).first
     }
 
-    static func get(apiSignature: String, username: String) -> ApiAccount? {
-        let realm = try! Realm()
-        return realm.objects(ApiAccount.self).filter("ANY api.signature == '\(apiSignature)' AND username == '\(username)'").first
-    }
-
-    static func add(_ account: ApiAccount) throws {
-        let realm = try! Realm()
-        try realm.write {
+    func add(_ account: ApiAccount) throws {
+        try! realm.write {
             if let _ = realm.object(ofType: ApiAccount.self, forPrimaryKey: account.id) {
                 throw DataModelError.PrimaryKeyViolation
             }
@@ -62,9 +48,8 @@ extension ApiAccount: ApiAccountProtocol {
         }
     }
 
-    static func add(_ account: ApiAccount, to api: Api) throws {
-        let realm = try! Realm()
-        try realm.write {
+    func add(_ account: ApiAccount, to api: Api) throws {
+        try! realm.write {
             if let a = realm.object(ofType: ApiAccount.self, forPrimaryKey: account.id) {
                 if !a.isEqual(account) {
                     throw DataModelError.InvalidParameter("保存されていない更新が含まれたアカウントオブジェクトです。更新を保存後に本操作を行ってください。")

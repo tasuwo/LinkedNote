@@ -32,24 +32,12 @@ class Tag: Object {
 
 // MARK: - Entity model methods
 
-extension Tag {
-    static func getAll() -> Results<Tag> {
-        let realm = try! Realm()
-        return realm.objects(Tag.self)
+extension RepositoryProtocol where Self: Repository<Tag> {
+    func findBy(noteId: Int) -> Results<Tag> {
+        return find(predicate: NSPredicate(format: "ANY notes.id == %@", [noteId]))
     }
 
-    static func get(_ id: Int) -> Tag? {
-        let realm = try! Realm()
-        return realm.objects(Tag.self).filter("id == \(id)").first
-    }
-
-    static func get(noteId: Int) -> Results<Tag> {
-        let realm = try! Realm()
-        return realm.objects(Tag.self).filter("ANY notes.id == \(noteId)")
-    }
-
-    static func add(_ tag: Tag) throws {
-        let realm = try! Realm()
+    func add(_ tag: Tag) throws {
         try realm.write {
             if let _ = realm.object(ofType: Tag.self, forPrimaryKey: tag.id) {
                 throw DataModelError.PrimaryKeyViolation
@@ -58,8 +46,7 @@ extension Tag {
         }
     }
 
-    static func add(_ tag: Tag, to note: Note) throws {
-        let realm = try! Realm()
+    func add(_ tag: Tag, to note: Note) throws {
         try realm.write {
             if realm.object(ofType: Tag.self, forPrimaryKey: tag.id) == nil {
                 throw DataModelError.NecessaryDataDoesNotExist("タグが存在しません")
@@ -73,8 +60,7 @@ extension Tag {
         }
     }
 
-    static func delete(_ tagId: Int, from noteId: Int) throws {
-        let realm = try! Realm()
+    func delete(_ tagId: Int, from noteId: Int) throws {
         try realm.write {
             if realm.object(ofType: Tag.self, forPrimaryKey: tagId) == nil {
                 throw DataModelError.NecessaryDataDoesNotExist("タグが存在しません")
@@ -96,16 +82,6 @@ extension Tag {
                 note.tags.remove(objectAtIndex: i)
                 realm.add(note, update: true)
             }
-        }
-    }
-
-    static func delete(_ tag: Tag) {
-        let realm = try! Realm()
-        try! realm.write {
-            if realm.object(ofType: Tag.self, forPrimaryKey: tag.id) == nil {
-                return
-            }
-            realm.delete(tag)
         }
     }
 }

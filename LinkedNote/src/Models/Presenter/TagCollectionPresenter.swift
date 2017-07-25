@@ -10,10 +10,16 @@ import UIKit
 import RealmSwift
 
 class TagCollectionPresenter: NSObject {
-    private(set) var tags: Results<Tag> = Tag.getAll()
+    private let tagRepository: Repository<Tag>
+    private(set) var tags: Results<Tag>
+
+    override init() {
+        self.tagRepository = Repository<Tag>()
+        self.tags = self.tagRepository.findAll()
+    }
 
     func load(noteId: Int) {
-        self.tags = Tag.get(noteId: noteId)
+        self.tags = tagRepository.findBy(noteId: noteId)
     }
 }
 
