@@ -39,12 +39,13 @@ class Note: Object {
 
 extension RepositoryProtocol where Self: Repository<Note> {
     func findBy(tagId: Int) -> Results<Note> {
+        let realm = try! Realm()
         return realm.objects(Note.self).filter("ANY tags.id == \(tagId)")
     }
 
     func findBy(accountId: Int, articleLocalId: String) -> Note? {
         let accountRep: Repository<ApiAccount> = Repository<ApiAccount>()
-        guard let account = accountRep.find(primaryKey: accountId.description) else {
+        guard let account = accountRep.find(primaryKey: accountId) else {
             return nil
         }
         let article = account.articles.filter("localId == '\(articleLocalId)'").first
@@ -65,6 +66,7 @@ extension RepositoryProtocol where Self: Repository<Note> {
     }
 
     func add(_ note: Note) throws {
+        let realm = try! Realm()
         try realm.write {
             if let _ = realm.object(ofType: Note.self, forPrimaryKey: note.id) {
                 throw DataModelError.PrimaryKeyViolation
@@ -74,6 +76,7 @@ extension RepositoryProtocol where Self: Repository<Note> {
     }
 
     func add(_ note: Note, to article: Article) throws {
+        let realm = try! Realm()
         try realm.write {
             if let note_ = realm.object(ofType: Note.self, forPrimaryKey: note.id) {
                 if note_.article != nil {

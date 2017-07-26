@@ -63,6 +63,7 @@ extension RepositoryProtocol where Self: Repository<Article> {
     }
 
     func add(_ article: Article) throws {
+        let realm = try! Realm()
         try realm.write {
             if article.id == -1 {
                 throw DataModelError.InvalidParameter("ID が追加されていません")
@@ -75,6 +76,7 @@ extension RepositoryProtocol where Self: Repository<Article> {
     }
 
     func add(_ article: Article, to account: ApiAccount) throws {
+        let realm = try! Realm()
         try realm.write {
             if let article_ = realm.object(ofType: Article.self, forPrimaryKey: article.id) {
                 if !article_.isEqual(article) {

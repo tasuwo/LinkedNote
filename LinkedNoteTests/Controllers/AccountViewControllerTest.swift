@@ -18,7 +18,8 @@ class AccountViewControllerTest: XCTestCase {
 
         Realm.Configuration.defaultConfiguration.inMemoryIdentifier = self.name
         let fakeApi = Api(signature: FakeAPIWrapper.signature)
-        try! Api.add(fakeApi)
+        // TODO: Repository に依存させない
+        try! Repository<Api>().add(fakeApi)
 
         FakeAPIWrapper.initialize()
     }
@@ -75,16 +76,17 @@ class AccountViewControllerTest: XCTestCase {
         vc.didTouchLoginButton()
 
         XCTAssertTrue(FakeAPIWrapper.loggedIn)
-        XCTAssertNotNil(ApiAccount.get(apiSignature: FakeAPIWrapper.signature, username: FakeAPIWrapper.getUsername()!))
+        // TODO: Repository に依存させない
+        XCTAssertNotNil(Repository<ApiAccount>().find(apiSignature: FakeAPIWrapper.signature, username: FakeAPIWrapper.getUsername()!))
         XCTAssertNotNil(vc.currentActiveView as? AccountView)
     }
 
     func testThatItColudLogInIfTheUsersAccountWasSavedAlready() {
         FakeAPIWrapper.loggedIn = false
-        //
         let account = ApiAccount(username: "test_username")
-        try! ApiAccount.add(account)
-        try! ApiAccount.add(account, to: Api.get(signature: FakeAPIWrapper.signature)!)
+        // TODO: Repository に依存させない
+        try! Repository<ApiAccount>().add(account)
+        try! Repository<ApiAccount>().add(account, to: Repository<Api>().findBy(signature: FakeAPIWrapper.signature)!)
 
         let vc = AccountViewController(provider: AccountViewProviderImpl(), api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: FakeAlertPresenter())
         // Call view to execute viewDidLoad
@@ -93,7 +95,8 @@ class AccountViewControllerTest: XCTestCase {
         vc.didTouchLoginButton()
 
         XCTAssertTrue(FakeAPIWrapper.loggedIn)
-        XCTAssertNotNil(ApiAccount.get(apiSignature: FakeAPIWrapper.signature, username: FakeAPIWrapper.getUsername()!))
+        // TODO: Repository に依存させない
+        XCTAssertNotNil(Repository<ApiAccount>().find(apiSignature: FakeAPIWrapper.signature, username: FakeAPIWrapper.getUsername()!))
         XCTAssertNotNil(vc.currentActiveView as? AccountView)
     }
 
@@ -136,7 +139,9 @@ class AccountViewControllerTest: XCTestCase {
         let ap = FakeAlertPresenter()
 
         // Delete Api data model
-        Api.delete(signature: FakeAPIWrapper.signature)
+        // TODO: Repository に依存させない
+        let api = Repository<Api>().findBy(signature: FakeAPIWrapper.signature)
+        Repository<Api>().delete([api!])
 
         let vc = AccountViewController(provider: AccountViewProviderImpl(), api: FakeAPIWrapper(), calculator: FakeFrameCalculator(), alertPresenter: ap)
         // Call view to execute viewDidLoad
@@ -147,7 +152,7 @@ class AccountViewControllerTest: XCTestCase {
         XCTAssertTrue(ap.lastErrorMessage == "登録されていない API です")
         XCTAssertFalse(FakeAPIWrapper.loggedIn)
         // TODO: ApiAccount に依存したテストになってしまっているので修正する
-        XCTAssertNil(ApiAccount.get(apiSignature: FakeAPIWrapper.signature, username: FakeAPIWrapper.getUsername()!))
+        XCTAssertNil(Repository<ApiAccount>().find(apiSignature: FakeAPIWrapper.signature, username: FakeAPIWrapper.getUsername()!))
         XCTAssertNil(vc.currentActiveView as? AccountView)
     }
 

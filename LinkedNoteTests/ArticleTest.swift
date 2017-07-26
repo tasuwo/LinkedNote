@@ -11,6 +11,7 @@ import RealmSwift
 @testable import LinkedNote
 
 class ArticleTest: XCTestCase {
+    private let repo: Repository<Article> = Repository<Article>()
 
     override func setUp() {
         super.setUp()
@@ -21,14 +22,14 @@ class ArticleTest: XCTestCase {
         super.tearDown()
     }
 
-    // MARK: - .get(localId:_, accountId:_)
+    // MARK: - .findBy(localId:_, accountId:_)
 
     func testThatItReturnNilWhenTryToGetObjectByLocalIdAndRelatedAccountIdIfThereAreNoSavedObject() {
         // given
         // No objects added to database
 
         // then      when
-        XCTAssertNil(Article.get(localId: "test_local_id", accountId: 0))
+        XCTAssertNil(repo.find(localId: "test_local_id", accountId: 0))
     }
 
     func testThatItGetObjectByLocalIdAndRelatedAccountId() throws {
@@ -43,7 +44,7 @@ class ArticleTest: XCTestCase {
         }
 
         // when
-        let article = try AssertNotNilAndUnwrap(Article.get(localId: "test_local_id", accountId: 0))
+        let article = try AssertNotNilAndUnwrap(repo.find(localId: "test_local_id", accountId: 0))
 
         // then
         XCTAssertTrue(article.localId == "test_local_id")
@@ -60,7 +61,7 @@ class ArticleTest: XCTestCase {
         article.addId()
 
         // when
-        try! Article.add(article)
+        try! repo.add(article)
 
         // then
         let realm = try! Realm()
@@ -76,7 +77,7 @@ class ArticleTest: XCTestCase {
         let article = Article(localId: "test_local_id", title: "test_title", url: "test_url", thumbnailUrl: "test_thumbnail_url")
 
         // when
-        XCTAssertThrowsError(try Article.add(article)) { error in
+        XCTAssertThrowsError(try repo.add(article)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.InvalidParameter(""))
         }
@@ -95,7 +96,7 @@ class ArticleTest: XCTestCase {
         }
 
         // when
-        XCTAssertThrowsError(try Article.add(article2)) { error in
+        XCTAssertThrowsError(try repo.add(article2)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.PrimaryKeyViolation)
         }
@@ -115,7 +116,7 @@ class ArticleTest: XCTestCase {
         }
 
         // when
-        try! Article.add(article, to: account)
+        try! repo.add(article, to: account)
 
         // then
         let registeredAccount = try AssertNotNilAndUnwrap(realm.object(ofType: ApiAccount.self, forPrimaryKey: 0))
@@ -144,7 +145,7 @@ class ArticleTest: XCTestCase {
         }
 
         // when
-        XCTAssertThrowsError(try Article.add(article, to: account)) { error in
+        XCTAssertThrowsError(try repo.add(article, to: account)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.NecessaryDataDoesNotExist(""))
         }
@@ -161,7 +162,7 @@ class ArticleTest: XCTestCase {
         }
 
         // when
-        XCTAssertThrowsError(try Article.add(article, to: account)) { error in
+        XCTAssertThrowsError(try repo.add(article, to: account)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.NecessaryDataDoesNotExist(""))
         }
@@ -188,7 +189,7 @@ class ArticleTest: XCTestCase {
         }
 
         // when
-        XCTAssertThrowsError(try Article.add(duplicatedArticle, to: account)) { error in
+        XCTAssertThrowsError(try repo.add(duplicatedArticle, to: account)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.IntegrityConstraintViolation)
         }
@@ -206,7 +207,7 @@ class ArticleTest: XCTestCase {
         }
 
         // when
-        XCTAssertThrowsError(try Article.add(article2, to: account)) { error in
+        XCTAssertThrowsError(try repo.add(article2, to: account)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.InvalidParameter(""))
         }

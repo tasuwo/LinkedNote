@@ -38,6 +38,7 @@ extension RepositoryProtocol where Self: Repository<Api> {
     }
 
     func add(_ api: Api) throws {
+        let realm = try! Realm()
         try realm.write {
             if realm.objects(Api.self).filter("signature == '\(api.signature)'").count > 0 {
                 throw DataModelError.IntegrityConstraintViolation

@@ -73,6 +73,7 @@
 		A08635F11F0EF866004CDE8F /* ArticleViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08635F01F0EF866004CDE8F /* ArticleViewControllerTest.swift */; };
 		A0B3B5C51F0C537700D410FF /* TagTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B3B5C41F0C537700D410FF /* TagTest.swift */; };
 		A0B3B5CA1F0C672C00D410FF /* ArticleListPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B3B5C91F0C672C00D410FF /* ArticleListPresenterTest.swift */; };
+		A0B69BD01F280262002A59F5 /* RepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B69BCF1F280262002A59F5 /* RepositoryTest.swift */; };
 		A0C8C7F51F0753B800E1F0A1 /* ArticleListViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8C7F41F0753B800E1F0A1 /* ArticleListViewControllerTest.swift */; };
 		A0C8C7FB1F07A62100E1F0A1 /* ApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8C7FA1F07A62100E1F0A1 /* ApiTest.swift */; };
 		A0C8C7FD1F07A76900E1F0A1 /* ApiAccountTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C8C7FC1F07A76900E1F0A1 /* ApiAccountTest.swift */; };
@@ -179,6 +180,7 @@
 		A08635F01F0EF866004CDE8F /* ArticleViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTest.swift; sourceTree = "<group>"; };
 		A0B3B5C41F0C537700D410FF /* TagTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagTest.swift; sourceTree = "<group>"; };
 		A0B3B5C91F0C672C00D410FF /* ArticleListPresenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListPresenterTest.swift; sourceTree = "<group>"; };
+		A0B69BCF1F280262002A59F5 /* RepositoryTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryTest.swift; sourceTree = "<group>"; };
 		A0C8C7F11F07377900E1F0A1 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A0C8C7F41F0753B800E1F0A1 /* ArticleListViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleListViewControllerTest.swift; path = ../ArticleListViewControllerTest.swift; sourceTree = "<group>"; };
 		A0C8C7FA1F07A62100E1F0A1 /* ApiTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiTest.swift; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 				2C62D69B1F086FE900DC4041 /* ArticleTest.swift */,
 				2C4D409A1F091DAA008DC554 /* NoteTest.swift */,
 				A0B3B5C41F0C537700D410FF /* TagTest.swift */,
+				A0B69BCF1F280262002A59F5 /* RepositoryTest.swift */,
 			);
 			name = "Data Models";
 			sourceTree = "<group>";
@@ -936,6 +939,7 @@
 				A0D6F4AE1EE8DB8700430171 /* FakeFrameCalculator.swift in Sources */,
 				A0B3B5CA1F0C672C00D410FF /* ArticleListPresenterTest.swift in Sources */,
 				A068F8401EE8C94900767149 /* AccountViewControllerTest.swift in Sources */,
+				A0B69BD01F280262002A59F5 /* RepositoryTest.swift in Sources */,
 				A0C8C7F51F0753B800E1F0A1 /* ArticleListViewControllerTest.swift in Sources */,
 				A0E6C8A21EE8E50F007A6737 /* FakeAlertPresenter.swift in Sources */,
 				A00053B51F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift in Sources */,

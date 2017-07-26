@@ -21,7 +21,8 @@ class ArticleListViewControllerTest: XCTestCase {
 
         Realm.Configuration.defaultConfiguration.inMemoryIdentifier = self.name
         let fakeApi = Api(signature: FakeAPIWrapper.signature)
-        try! Api.add(fakeApi)
+        // TODO: Repository に依存させない
+        try! Repository<Api>().add(fakeApi)
 
         FakeAPIWrapper.initialize()
 

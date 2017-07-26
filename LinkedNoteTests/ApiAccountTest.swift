@@ -11,6 +11,7 @@ import RealmSwift
 @testable import LinkedNote
 
 class ApiAccountTest: XCTestCase {
+    private let repo = Repository<ApiAccount>()
 
     override func setUp() {
         super.setUp()
@@ -21,36 +22,14 @@ class ApiAccountTest: XCTestCase {
         super.tearDown()
     }
 
-    // MARK: - .get(_)
-
-    func testThatItReturnNilWhenTryToGetObjectByIdIfThereAreNoSavedTargetObject() {
-        // given
-        // No objects added to database
-
-        // then      when
-        XCTAssertNil(ApiAccount.get(0))
-    }
-
-    func testThatItGetObjectById() {
-        // given
-        let realm = try! Realm()
-        try! realm.write {
-            realm.add(ApiAccount(username: "test_username"))
-        }
-
-        // when
-        let account = ApiAccount.get(0)
-
-        // then
-        XCTAssertTrue(account?.username == "test_username")
-    }
+    // MARK: - .findBy(apiSignature,username)
 
     func testThatItReturnNilWhenTryToGetObjectBySignatureAndUsername() {
         // given
         // No objects added to database
 
         // then
-        XCTAssertNil(ApiAccount.get(apiSignature: "test", username: "test_username"))
+        XCTAssertNil(repo.find(apiSignature: "test", username: "test_username"))
     }
 
     func testThatItGetObjectBySignatureAndUsername() {
@@ -67,7 +46,7 @@ class ApiAccountTest: XCTestCase {
         }
 
         // when
-        let account = ApiAccount.get(apiSignature: "test", username: "test_username")
+        let account = repo.find(apiSignature: "test", username: "test_username")
 
         // then
         XCTAssertTrue(account?.username == "test_username")
@@ -80,7 +59,7 @@ class ApiAccountTest: XCTestCase {
         let account = ApiAccount(username: "test_username")
 
         // when
-        try! ApiAccount.add(account)
+        try! repo.add(account)
 
         // then
         let realm = try! Realm()
@@ -99,7 +78,7 @@ class ApiAccountTest: XCTestCase {
         }
 
         // when
-        XCTAssertThrowsError(try ApiAccount.add(account2)) { error in
+        XCTAssertThrowsError(try repo.add(account2)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.PrimaryKeyViolation)
         }
@@ -117,7 +96,8 @@ class ApiAccountTest: XCTestCase {
         }
 
         // when
-        try! ApiAccount.add(account, to: Api.get(signature: "test")!)
+        // TODO: Api に依存させない
+        try! repo.add(account, to: Repository<Api>().findBy(signature: "test")!)
 
         // then
         let registeredApi = try AssertNotNilAndUnwrap(realm.object(ofType: Api.self, forPrimaryKey: 0))
@@ -142,7 +122,7 @@ class ApiAccountTest: XCTestCase {
         }
 
         // when
-        XCTAssertThrowsError(try ApiAccount.add(account, to: api)) { error in
+        XCTAssertThrowsError(try repo.add(account, to: api)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.NecessaryDataDoesNotExist(""))
         }
@@ -158,7 +138,7 @@ class ApiAccountTest: XCTestCase {
         }
 
         // when
-        XCTAssertThrowsError(try ApiAccount.add(account, to: api)) { error in
+        XCTAssertThrowsError(try repo.add(account, to: api)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.NecessaryDataDoesNotExist(""))
         }
@@ -180,7 +160,7 @@ class ApiAccountTest: XCTestCase {
         }
 
         // when
-        XCTAssertThrowsError(try ApiAccount.add(dupricatedAccount, to: api)) { error in
+        XCTAssertThrowsError(try repo.add(dupricatedAccount, to: api)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.IntegrityConstraintViolation)
         }
@@ -196,7 +176,7 @@ class ApiAccountTest: XCTestCase {
             realm.add(account)
         }
 
-        XCTAssertThrowsError(try ApiAccount.add(dupAccount, to: api)) { error in
+        XCTAssertThrowsError(try repo.add(dupAccount, to: api)) { error in
             XCTAssertTrue(error as! DataModelError == DataModelError.InvalidParameter(""))
         }
     }

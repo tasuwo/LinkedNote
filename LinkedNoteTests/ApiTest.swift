@@ -22,55 +22,18 @@ class ApiTest: XCTestCase {
         super.tearDown()
     }
 
-    // MARK: - .all()
-
-    func testThatItReturn0WhenTryToGetAllObjectsIfThereAreNoObjects() {
-        // given
-        // No objects added to database
-
-        // then       when
-        XCTAssertTrue(apiRepository.all().count == 0)
-    }
-
-    func testThatItGetAllObjects() {
-        // given
-        let realm = try! Realm()
-        try! realm.write {
-            realm.add(apiRepository(signature: "test1"))
-            realm.add(apiRepository(signature: "test2"))
-            realm.add(apiRepository(signature: "test3"))
-        }
-
-        // when
-        let all = apiRepository.all()
-
-        // then
-        XCTAssertTrue(all.count == 3)
-        XCTAssertTrue(all.contains(where: { api in api.signature == "test1" }))
-        XCTAssertTrue(all.contains(where: { api in api.signature == "test2" }))
-        XCTAssertTrue(all.contains(where: { api in api.signature == "test3" }))
-    }
-
-    // MARK: - .get(_)
-
-    func testThatItReturnNilWhenTryToGetObjectBySignatureIfThereAreNoTargetObject() {
-        // given
-        // No objects added to database
-
-        // then      when
-        XCTAssertNil(apiRepository.get(signature: "test"))
-    }
+    // MARK: - .findBy(signature)
 
     func testThatItGetAnObjectBySignature() {
         // given
         let realm = try! Realm()
         try! realm.write {
-            realm.add(apiRepository(signature: "test"))
-            realm.add(apiRepository(signature: "testFake"))
+            realm.add(Api(signature: "test"))
+            realm.add(Api(signature: "testFake"))
         }
 
         // when
-        let api = apiRepository.get(signature: "test")
+        let api = apiRepository.findBy(signature: "test")
 
         // then
         XCTAssertTrue(api?.signature == "test")
@@ -80,14 +43,14 @@ class ApiTest: XCTestCase {
 
     func testThatItAddObject() {
         // given
-        let api = apiRepository(signature: "test")
+        let api = Api(signature: "test")
 
         // when
         try! apiRepository.add(api)
 
         // then
         let realm = try! Realm()
-        let results = realm.objects(apiRepository.self).filter("signature == 'test'")
+        let results = realm.objects(Api.self).filter("signature == 'test'")
         XCTAssertTrue(results.count == 1)
         XCTAssertTrue(results.first?.signature == "test")
     }
@@ -96,9 +59,9 @@ class ApiTest: XCTestCase {
         // given
         let realm = try! Realm()
         try! realm.write {
-            realm.add(apiRepository(signature: "test"))
+            realm.add(Api(signature: "test"))
         }
-        let api = apiRepository(signature: "test")
+        let api = Api(signature: "test")
 
         // when
         XCTAssertThrowsError(try apiRepository.add(api)) { error in
@@ -109,8 +72,8 @@ class ApiTest: XCTestCase {
 
     func testThatItThrowErrorIfTryToAddObjectWithDupricatedId() {
         // given
-        let api1 = apiRepository(signature: "test1")
-        let api2 = apiRepository(signature: "test2")
+        let api1 = Api(signature: "test1")
+        let api2 = Api(signature: "test2")
         let realm = try! Realm()
         try! realm.write {
             realm.add(api1)
@@ -121,30 +84,5 @@ class ApiTest: XCTestCase {
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.PrimaryKeyViolation)
         }
-    }
-
-    // MARK: - .delete(_)
-
-    func testThatItDeleteObject() {
-        // given
-        let realm = try! Realm()
-        try! realm.write {
-            realm.add(apiRepository(signature: "test"))
-        }
-
-        // when
-        apiRepository.delete(signature: "test")
-
-        // then
-        let results = realm.objects(apiRepository.self).filter("signature == 'test'")
-        XCTAssertTrue(results.count == 0)
-    }
-
-    func testThatItThrowNoExceptionIfTryToDeleteNotExistObject() {
-        // given
-        // No object added to database
-
-        // then          when
-        XCTAssertNoThrow(apiRepository.delete(signature: "test"))
     }
 }

@@ -11,6 +11,7 @@ import RealmSwift
 @testable import LinkedNote
 
 class TagTest: XCTestCase {
+    private let repo: Repository<Tag> = Repository<Tag>()
 
     override func setUp() {
         super.setUp()
@@ -21,65 +22,14 @@ class TagTest: XCTestCase {
         super.tearDown()
     }
 
-    // MARK: - .getAll()
-
-    func testThatItReturnEmptyResultIfThereAreNoSavedNotes() {
-        // given
-        // No objects saved
-
-        // then       when
-        XCTAssertTrue(Tag.getAll().count == 0)
-    }
-
-    func testThatItGetAllSavedNotes() {
-        // given
-        let realm = try! Realm()
-        try! realm.write {
-            realm.add(Tag(name: "test_tag1"))
-            realm.add(Tag(name: "test_tag2"))
-        }
-
-        // when
-        let tags = Tag.getAll()
-
-        // then
-        XCTAssertTrue(tags.count == 2)
-        XCTAssertTrue(tags.contains(where: { t in t.name == "test_tag1" }))
-        XCTAssertTrue(tags.contains(where: { t in t.name == "test_tag2" }))
-    }
-
-    // MARK: - .get(_)
-
-    func testThatItReturnNilWhenTryToGetTagByIdIfThereAreNoSavedTargetTag() {
-        // given
-        // No objects saved
-
-        // then      when
-        XCTAssertNil(Tag.get(0))
-    }
-
-    func testThatItGetTagById() throws {
-        // given
-        let realm = try! Realm()
-        try! realm.write {
-            realm.add(Tag(name: "test_tag1"))
-        }
-
-        // when
-        let tag = try AssertNotNilAndUnwrap(Tag.get(0))
-
-        // then
-        XCTAssertTrue(tag.name == "test_tag1")
-    }
-
-    // MARK: - .get(noteId:_)
+    // MARK: - .findBy(noteId:_)
 
     func testThatItReturnEmptyResultWhenTryToGetTagByNoteIdIfThereAreNoSavedTargetTag() {
         // given
         // No objects saved
 
         // then       when
-        XCTAssertTrue(Tag.get(noteId: 0).count == 0)
+        XCTAssertTrue(repo.findBy(noteId: 0).count == 0)
     }
 
     func testThatItGetNoteByNoteId() {
@@ -100,7 +50,7 @@ class TagTest: XCTestCase {
         }
 
         // when
-        let result = Tag.get(noteId: 0)
+        let result = repo.findBy(noteId: 0)
 
         // then
         XCTAssertTrue(result.count == 2)
@@ -115,7 +65,7 @@ class TagTest: XCTestCase {
         let tag = Tag(name: "test_tag")
 
         // when
-        try! Tag.add(tag)
+        try! repo.add(tag)
 
         // then
         let realm = try! Realm()
@@ -134,7 +84,7 @@ class TagTest: XCTestCase {
         }
 
         // when
-        XCTAssertThrowsError(try Tag.add(tag2)) { error in
+        XCTAssertThrowsError(try repo.add(tag2)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.PrimaryKeyViolation)
         }
@@ -152,7 +102,7 @@ class TagTest: XCTestCase {
             realm.add(tag)
         }
 
-        try! Tag.add(tag, to: note)
+        try! repo.add(tag, to: note)
 
         let registeredNote = try AssertNotNilAndUnwrap(realm.object(ofType: Note.self, forPrimaryKey: 0))
         let registeredTag = try AssertNotNilAndUnwrap(realm.object(ofType: Tag.self, forPrimaryKey: 0))
@@ -178,7 +128,7 @@ class TagTest: XCTestCase {
         }
 
         // when
-        XCTAssertThrowsError(try Tag.add(tag, to: note)) { error in
+        XCTAssertThrowsError(try repo.add(tag, to: note)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.NecessaryDataDoesNotExist(""))
         }
@@ -195,38 +145,10 @@ class TagTest: XCTestCase {
         }
 
         // when
-        XCTAssertThrowsError(try Tag.add(tag, to: note)) { error in
+        XCTAssertThrowsError(try repo.add(tag, to: note)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.NecessaryDataDoesNotExist(""))
         }
-    }
-
-    // MARK: - .delete()
-
-    func testThatItDoesNotThrowErrorWhenTryToDeleteNotExistTag() {
-        // given
-        let tag = Tag(name: "test_tag")
-
-        // then          when
-        XCTAssertNoThrow(Tag.delete(tag))
-    }
-
-    func testThatItDeleteTagByDataModelObject() {
-        // given
-        let tag = Tag(name: "test_tag")
-
-        let realm = try! Realm()
-        try! realm.write {
-            realm.add(tag)
-        }
-        // check the tag saved correctly
-        XCTAssertNotNil(realm.object(ofType: Tag.self, forPrimaryKey: 0))
-
-        // when
-        Tag.delete(tag)
-
-        // then
-        XCTAssertNil(realm.object(ofType: Tag.self, forPrimaryKey: 0))
     }
 
     // MARK: - .delete(_, from:_)
@@ -253,7 +175,7 @@ class TagTest: XCTestCase {
         }))
 
         // when
-        try! Tag.delete(tag.id, from: note.id)
+        try! repo.delete(tag.id, from: note.id)
 
         // then
         registeredTag = try AssertNotNilAndUnwrap(realm.object(ofType: Tag.self, forPrimaryKey: 0))
@@ -278,7 +200,7 @@ class TagTest: XCTestCase {
         }
 
         // when
-        XCTAssertThrowsError(try Tag.delete(tag.id, from: note.id)) { error in
+        XCTAssertThrowsError(try repo.delete(tag.id, from: note.id)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.NecessaryDataDoesNotExist(""))
         }
@@ -297,7 +219,7 @@ class TagTest: XCTestCase {
         }
 
         // when
-        XCTAssertThrowsError(try Tag.delete(tag.id, from: note.id)) { error in
+        XCTAssertThrowsError(try repo.delete(tag.id, from: note.id)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.NecessaryDataDoesNotExist(""))
         }
@@ -315,6 +237,6 @@ class TagTest: XCTestCase {
         }
 
         // then          when
-        XCTAssertNoThrow(try Tag.delete(tag.id, from: note.id))
+        XCTAssertNoThrow(try repo.delete(tag.id, from: note.id))
     }
 }

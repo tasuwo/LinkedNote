@@ -38,6 +38,7 @@ extension RepositoryProtocol where Self: Repository<Tag> {
     }
 
     func add(_ tag: Tag) throws {
+        let realm = try! Realm()
         try realm.write {
             if let _ = realm.object(ofType: Tag.self, forPrimaryKey: tag.id) {
                 throw DataModelError.PrimaryKeyViolation
@@ -47,6 +48,7 @@ extension RepositoryProtocol where Self: Repository<Tag> {
     }
 
     func add(_ tag: Tag, to note: Note) throws {
+        let realm = try! Realm()
         try realm.write {
             if realm.object(ofType: Tag.self, forPrimaryKey: tag.id) == nil {
                 throw DataModelError.NecessaryDataDoesNotExist("タグが存在しません")
@@ -61,6 +63,7 @@ extension RepositoryProtocol where Self: Repository<Tag> {
     }
 
     func delete(_ tagId: Int, from noteId: Int) throws {
+        let realm = try! Realm()
         try realm.write {
             if realm.object(ofType: Tag.self, forPrimaryKey: tagId) == nil {
                 throw DataModelError.NecessaryDataDoesNotExist("タグが存在しません")

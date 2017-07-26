@@ -11,6 +11,7 @@ import RealmSwift
 @testable import LinkedNote
 
 class NoteTest: XCTestCase {
+    private let repo = Repository<Note>()
 
     override func setUp() {
         super.setUp()
@@ -21,58 +22,7 @@ class NoteTest: XCTestCase {
         super.tearDown()
     }
 
-    // MARK: - .getAll()
-
-    func testThatItReturn0WhenTryToGetAllObjectsIfThereAreNoSavedObjects() {
-        // given
-        // No ojects saved
-
-        // then       when
-        XCTAssertTrue(Note.getAll().count == 0)
-    }
-
-    func testThatItGetAllObjects() {
-        // given
-        let realm = try! Realm()
-        try! realm.write {
-            realm.add(Note(body: "test_note1"))
-            realm.add(Note(body: "test_note2"))
-        }
-
-        // when
-        let notes = Note.getAll()
-
-        // then
-        XCTAssertTrue(notes.count == 2)
-        XCTAssertTrue(notes.contains(where: { n in n.body == "test_note1" }))
-        XCTAssertTrue(notes.contains(where: { n in n.body == "test_note2" }))
-    }
-
-    // MARK: - .get(_)
-
-    func testThatReturnNullWhenTryToGetObjectByIdIfThereAreNoTargetObject() {
-        // given
-        // No objects saved
-
-        // then      when
-        XCTAssertNil(Note.get(0))
-    }
-
-    func testThatItGetObjectById() throws {
-        // given
-        let realm = try! Realm()
-        try! realm.write {
-            realm.add(Note(body: "test_note1"))
-        }
-
-        // when
-        let note = try AssertNotNilAndUnwrap(Note.get(0))
-
-        // then
-        XCTAssertTrue(note.body == "test_note1")
-    }
-
-    // MARK: - .get(signature:_, username:_, article:_)
+    // MARK: - .findBy(signature:_, username:_, article:_)
 
     func testThatItReturnNilWhenGetObjectByMetaInformationsIfThereAreNoTargetObject() {
         // given
@@ -83,7 +33,7 @@ class NoteTest: XCTestCase {
             thumbnailUrl: "test_thumbnail_url")
 
         // then      when
-        XCTAssertNil(Note.get(
+        XCTAssertNil(repo.findBy(
             signature: "test_signature",
             username: "test_username",
             article: article))
@@ -112,21 +62,21 @@ class NoteTest: XCTestCase {
             realm.add(note)
         }
 
-        let result = try AssertNotNilAndUnwrap(Note.get(
+        let result = try AssertNotNilAndUnwrap(repo.findBy(
             signature: api.signature,
             username: account.username,
             article: article))
         XCTAssertTrue(result.body == "test_note")
     }
 
-    // MARK: - .get(accountId:_, articleLocalId:_)
+    // MARK: - .findBy(accountId:_, articleLocalId:_)
 
     func testThatItReturnNilWhenTryToGetObjectByAccountIdAndLocalIdIfThereAreNoTargetObject() {
         // given
         // No objects saved
 
         // then      when
-        XCTAssertNil(Note.get(accountId: 0, articleLocalId: "test_local_id"))
+        XCTAssertNil(repo.findBy(accountId: 0, articleLocalId: "test_local_id"))
     }
 
     func testThatItGetObjectByAccountIdAndLocalId() throws {
@@ -148,20 +98,20 @@ class NoteTest: XCTestCase {
             realm.add(note)
         }
 
-        let result = try AssertNotNilAndUnwrap(Note.get(
+        let result = try AssertNotNilAndUnwrap(repo.findBy(
             accountId: account.id,
             articleLocalId: article.localId))
         XCTAssertTrue(result.body == "test_note")
     }
 
-    // MARK: - .get(tagId:_)
+    // MARK: - .findBy(tagId:_)
 
     func testThatItOccurNoErrorAndGetemptyResultWhenTryToGetObjectByTagIdIfThereAreNoTargetObject() {
         // given
         // No objects saved
 
         // when
-        let result = Note.get(tagId: 0)
+        let result = repo.findBy(tagId: 0)
 
         // then
         XCTAssertTrue(result.count == 0)
@@ -179,7 +129,7 @@ class NoteTest: XCTestCase {
         }
 
         // when
-        let result = try AssertNotNilAndUnwrap(Note.get(tagId: tag.id))
+        let result = try AssertNotNilAndUnwrap(repo.findBy(tagId: tag.id))
 
         // then
         XCTAssertTrue(result.count == 1)
@@ -196,7 +146,7 @@ class NoteTest: XCTestCase {
         let note = Note(body: "test_note")
 
         // when
-        try! Note.add(note)
+        try! repo.add(note)
 
         // then
         let realm = try! Realm()
@@ -214,7 +164,7 @@ class NoteTest: XCTestCase {
         }
 
         // when
-        XCTAssertThrowsError(try Note.add(note2)) { error in
+        XCTAssertThrowsError(try repo.add(note2)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.PrimaryKeyViolation)
         }
@@ -234,7 +184,7 @@ class NoteTest: XCTestCase {
         }
 
         // when
-        try! Note.add(note, to: article)
+        try! repo.add(note, to: article)
 
         // then
         let registeredNote = try AssertNotNilAndUnwrap(realm.object(ofType: Note.self, forPrimaryKey: note.id))
@@ -262,7 +212,7 @@ class NoteTest: XCTestCase {
         }
 
         // when
-        XCTAssertThrowsError(try Note.add(note, to: article)) { error in
+        XCTAssertThrowsError(try repo.add(note, to: article)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.NecessaryDataDoesNotExist(""))
         }
@@ -280,7 +230,7 @@ class NoteTest: XCTestCase {
         }
 
         // when
-        XCTAssertThrowsError(try Note.add(note, to: article)) { error in
+        XCTAssertThrowsError(try repo.add(note, to: article)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.NecessaryDataDoesNotExist(""))
         }
@@ -305,7 +255,7 @@ class NoteTest: XCTestCase {
         }
 
         // when
-        XCTAssertThrowsError(try Note.add(note2, to: article)) { error in
+        XCTAssertThrowsError(try repo.add(note2, to: article)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.IntegrityConstraintViolation)
         }
@@ -331,7 +281,7 @@ class NoteTest: XCTestCase {
         }
 
         // when
-        XCTAssertThrowsError(try Note.add(note, to: article2)) { error in
+        XCTAssertThrowsError(try repo.add(note, to: article2)) { error in
             // then
             XCTAssertTrue(error as! DataModelError == DataModelError.IntegrityConstraintViolation)
         }
@@ -339,57 +289,32 @@ class NoteTest: XCTestCase {
 
     // MARK: - .update(_)
 
-    func testThatItUpdateNote() throws {
-        // given
-        let note = Note(body: "test_note")
-        let realm = try! Realm()
-        try! realm.write {
-            realm.add(note)
-        }
+    /*
+     func testThatItUpdateNote() throws {
+     // given
+     let note = Note(body: "test_note")
+     let realm = try! Realm()
+     try! realm.write {
+     realm.add(note)
+     }
 
-        // when
-        try! Note.update(note: note, body: "test_note2")
+     // when
+     try! repo.update(note: note, body: "test_note2")
 
-        // then
-        let result = try AssertNotNilAndUnwrap(realm.object(ofType: Note.self, forPrimaryKey: 0))
-        XCTAssertTrue(result.body == "test_note2")
-    }
+     // then
+     let result = try AssertNotNilAndUnwrap(realm.object(ofType: Note.self, forPrimaryKey: 0))
+     XCTAssertTrue(result.body == "test_note2")
+     }
 
-    func testThatItThrowErrorIfTryToUpdateNotSavedNote() {
-        // given
-        let note = Note(body: "test_note")
+     func testThatItThrowErrorIfTryToUpdateNotSavedNote() {
+     // given
+     let note = Note(body: "test_note")
 
-        // when
-        XCTAssertThrowsError(try Note.update(note: note, body: "test_note2")) { error in
-            // then
-            XCTAssertTrue(error as! DataModelError == DataModelError.NecessaryDataDoesNotExist(""))
-        }
-    }
-
-    // MARK: - .delete()
-
-    func testThatItDoesNotThrowErrorIfTryToDeleteNotSavedNote() {
-        // given
-        let note = Note(body: "test_note")
-
-        // then          when
-        XCTAssertNoThrow(Note.delete(note: note))
-    }
-
-    func testThatItDeleteNote() {
-        // given
-        let note = Note(body: "test_note")
-        let realm = try! Realm()
-        try! realm.write {
-            realm.add(note)
-        }
-        // Check the note saved correctly
-        XCTAssertNotNil(realm.object(ofType: Note.self, forPrimaryKey: 0))
-
-        // when
-        Note.delete(note: note)
-
-        // then
-        XCTAssertNil(realm.object(ofType: Note.self, forPrimaryKey: 0))
-    }
+     // when
+     XCTAssertThrowsError(try Note.update(note: note, body: "test_note2")) { error in
+     // then
+     XCTAssertTrue(error as! DataModelError == DataModelError.NecessaryDataDoesNotExist(""))
+     }
+     }
+     */
 }

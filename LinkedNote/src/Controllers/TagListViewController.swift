@@ -67,7 +67,7 @@ extension TagListViewController: UITableViewDelegate {
         return [
             UITableViewRowAction(style: .destructive, title: "削除", handler: { _, indexPath in
                 let cell = self.tagListView.tagList.cellForRow(at: indexPath) as! TagListCustomCell
-                if let tag = self.tagRepository.find(primaryKey: cell.tagId!.description) {
+                if let tag = self.tagRepository.find(primaryKey: cell.tagId!) {
                     self.tagRepository.delete([tag])
                     // self.tagListPresenter.load()
                     self.tagListView.tagList.deleteRows(at: [indexPath], with: .automatic)

@@ -40,6 +40,7 @@ extension RepositoryProtocol where Self: Repository<ApiAccount> {
     }
 
     func add(_ account: ApiAccount) throws {
+        let realm = try! Realm()
         try! realm.write {
             if let _ = realm.object(ofType: ApiAccount.self, forPrimaryKey: account.id) {
                 throw DataModelError.PrimaryKeyViolation
@@ -49,6 +50,7 @@ extension RepositoryProtocol where Self: Repository<ApiAccount> {
     }
 
     func add(_ account: ApiAccount, to api: Api) throws {
+        let realm = try! Realm()
         try! realm.write {
             if let a = realm.object(ofType: ApiAccount.self, forPrimaryKey: account.id) {
                 if !a.isEqual(account) {
