@@ -14,7 +14,7 @@ import RealmSwift
 
 class FakeObject: Object {
     private(set) dynamic var id = 0
-    private(set) dynamic var message = ""
+    dynamic var message = ""
 
     override static func primaryKey() -> String? {
         return "id"
@@ -117,11 +117,22 @@ class RepositoryTest: XCTestCase {
         XCTAssertTrue(results.count == 0)
     }
 
-    func testThatItThrowNoExceptionIfTryToDeleteNotExistObject() {
+    // MARK: - .update(_)
+
+    func testThatItUpdateObject() {
         // given
         let obj = FakeObject(message: "test")
+        let realm = try! Realm()
+        try! realm.write {
+            realm.add(obj)
+        }
+
+        // when
+        repo.transaction {
+            obj.message = "updated"
+        }
 
         // then
-        XCTAssertNoThrow(repo.delete([obj]))
+        XCTAssertTrue(obj.message == "updated")
     }
 }

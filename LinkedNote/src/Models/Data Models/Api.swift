@@ -34,7 +34,7 @@ class Api: Object {
 
 extension RepositoryProtocol where Self: Repository<Api> {
     func findBy(signature: String) -> Api? {
-        return find(predicate: NSPredicate(format: "ANY Api.signature == '%@'", [signature])).first
+        return find(predicate: NSPredicate(format: "signature == %@", signature)).first
     }
 
     func add(_ api: Api) throws {

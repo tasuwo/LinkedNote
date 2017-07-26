@@ -36,12 +36,12 @@ class ApiAccount: Object {
 
 extension RepositoryProtocol where Self: Repository<ApiAccount> {
     func find(apiSignature: String, username: String) -> ApiAccount? {
-        return find(predicate: NSPredicate(format: "ANY api.signature == '%@' AND username == '%@'", [apiSignature, username])).first
+        return find(predicate: NSPredicate(format: "ANY api.signature == %@ AND username == %@", argumentArray: [apiSignature, username])).first
     }
 
     func add(_ account: ApiAccount) throws {
         let realm = try! Realm()
-        try! realm.write {
+        try realm.write {
             if let _ = realm.object(ofType: ApiAccount.self, forPrimaryKey: account.id) {
                 throw DataModelError.PrimaryKeyViolation
             }
@@ -51,7 +51,7 @@ extension RepositoryProtocol where Self: Repository<ApiAccount> {
 
     func add(_ account: ApiAccount, to api: Api) throws {
         let realm = try! Realm()
-        try! realm.write {
+        try realm.write {
             if let a = realm.object(ofType: ApiAccount.self, forPrimaryKey: account.id) {
                 if !a.isEqual(account) {
                     throw DataModelError.InvalidParameter("保存されていない更新が含まれたアカウントオブジェクトです。更新を保存後に本操作を行ってください。")

@@ -52,14 +52,14 @@ extension RepositoryProtocol where Self: Repository<Note> {
         return article?.note
     }
 
-    func findBy(signature: String, username: String, article _: Article) -> Note? {
+    func findBy(signature: String, username: String, article: Article) -> Note? {
         let accountRep: Repository<ApiAccount> = Repository<ApiAccount>()
         guard let account = accountRep.find(apiSignature: signature, username: username) else {
             return nil
         }
 
         let noteRep: Repository<Note> = Repository<Note>()
-        guard let note = noteRep.findBy(accountId: account.id, articleLocalId: username) else {
+        guard let note = noteRep.findBy(accountId: account.id, articleLocalId: article.localId) else {
             return nil
         }
         return note
@@ -94,6 +94,14 @@ extension RepositoryProtocol where Self: Repository<Note> {
             }
             article.notes.append(note)
             realm.add(article, update: true)
+        }
+    }
+
+    func update(_ note: Note, body: String) {
+        let realm = try! Realm()
+        try! realm.write {
+            note.body = body
+            realm.add(note, update: true)
         }
     }
 }

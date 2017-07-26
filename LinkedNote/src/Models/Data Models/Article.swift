@@ -59,7 +59,7 @@ class Article: Object {
 
 extension RepositoryProtocol where Self: Repository<Article> {
     func find(localId: String, accountId: Int) -> Article? {
-        return find(predicate: NSPredicate(format: "ANY apiAccounts.id == '%@' AND localId == '%@'", [accountId, localId])).first
+        return find(predicate: NSPredicate(format: "ANY apiAccounts.id == %@ AND localId == %@", argumentArray: [accountId, localId])).first
     }
 
     func add(_ article: Article) throws {

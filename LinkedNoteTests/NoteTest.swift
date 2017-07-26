@@ -286,35 +286,4 @@ class NoteTest: XCTestCase {
             XCTAssertTrue(error as! DataModelError == DataModelError.IntegrityConstraintViolation)
         }
     }
-
-    // MARK: - .update(_)
-
-    /*
-     func testThatItUpdateNote() throws {
-     // given
-     let note = Note(body: "test_note")
-     let realm = try! Realm()
-     try! realm.write {
-     realm.add(note)
-     }
-
-     // when
-     try! repo.update(note: note, body: "test_note2")
-
-     // then
-     let result = try AssertNotNilAndUnwrap(realm.object(ofType: Note.self, forPrimaryKey: 0))
-     XCTAssertTrue(result.body == "test_note2")
-     }
-
-     func testThatItThrowErrorIfTryToUpdateNotSavedNote() {
-     // given
-     let note = Note(body: "test_note")
-
-     // when
-     XCTAssertThrowsError(try Note.update(note: note, body: "test_note2")) { error in
-     // then
-     XCTAssertTrue(error as! DataModelError == DataModelError.NecessaryDataDoesNotExist(""))
-     }
-     }
-     */
 }

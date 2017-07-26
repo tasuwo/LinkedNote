@@ -14,6 +14,7 @@ protocol RepositoryProtocol {
     func findAll() -> Results<DomainType>
     func find(predicate: NSPredicate) -> Results<DomainType>
     func delete(_ domains: [DomainType])
+    func transaction(_ transactionBlock: () -> Void)
 }
 
 class Repository<DomainType: Object>: RepositoryProtocol {
@@ -36,6 +37,13 @@ class Repository<DomainType: Object>: RepositoryProtocol {
         let realm = try! Realm()
         try! realm.write {
             realm.delete(domains)
+        }
+    }
+
+    func transaction(_ transactionBlock: () -> Void) {
+        let realm = try! Realm()
+        try! realm.write {
+            transactionBlock()
         }
     }
 }

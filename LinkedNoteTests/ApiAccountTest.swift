@@ -89,15 +89,16 @@ class ApiAccountTest: XCTestCase {
     func testThatItRelateObjectToApi() throws {
         // given
         let account = ApiAccount(username: "test_username")
+        let api = Api(signature: "test")
         let realm = try! Realm()
         try! realm.write {
-            realm.add(Api(signature: "test"))
+            realm.add(api)
             realm.add(account)
         }
 
         // when
         // TODO: Api に依存させない
-        try! repo.add(account, to: Repository<Api>().findBy(signature: "test")!)
+        try! repo.add(account, to: api)
 
         // then
         let registeredApi = try AssertNotNilAndUnwrap(realm.object(ofType: Api.self, forPrimaryKey: 0))

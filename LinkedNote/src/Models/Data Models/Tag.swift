@@ -34,7 +34,7 @@ class Tag: Object {
 
 extension RepositoryProtocol where Self: Repository<Tag> {
     func findBy(noteId: Int) -> Results<Tag> {
-        return find(predicate: NSPredicate(format: "ANY notes.id == %@", [noteId]))
+        return find(predicate: NSPredicate(format: "ANY notes.id == %@", argumentArray: [noteId]))
     }
 
     func add(_ tag: Tag) throws {

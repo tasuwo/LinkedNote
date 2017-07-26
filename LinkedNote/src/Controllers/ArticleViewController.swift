@@ -194,9 +194,7 @@ extension ArticleViewController: UITextViewDelegate {
 
     func didEditNoteBody(_ body: String) {
         if let note = self.article.note {
-            //            try! Note.update(note: note, body: body)
-            note.body = body
-            try! noteRepository.add(note)
+            try! noteRepository.update(note, body: body)
         } else {
             self.provider.noteView.text = ""
             self.alertPresenter.error("ノートの保存に失敗しました。ノートの作成に失敗している可能性があります", on: self)
