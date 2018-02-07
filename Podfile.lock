@@ -1,14 +1,14 @@
 PODS:
-  - DynamicColor (3.3)
+  - DynamicColor (4.0.2)
   - Keys (1.0.0)
   - PocketAPI (1.0.3)
-  - Realm (2.8.0):
-    - Realm/Headers (= 2.8.0)
-  - Realm/Headers (2.8.0)
-  - RealmSwift (2.8.0):
-    - Realm (= 2.8.0)
-  - SwiftFormat/CLI (0.28.6)
-  - SwiftyJSON (3.1.4)
+  - Realm (3.1.1):
+    - Realm/Headers (= 3.1.1)
+  - Realm/Headers (3.1.1)
+  - RealmSwift (3.1.1):
+    - Realm (= 3.1.1)
+  - SwiftFormat/CLI (0.33.0)
+  - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
   - DynamicColor
@@ -30,14 +30,14 @@ CHECKOUT OPTIONS:
     :git: https://github.com/tasuwo/Pocket-ObjC-SDK
 
 SPEC CHECKSUMS:
-  DynamicColor: 3cdaa1e01c16e93ba744e0630f768373e0fc7a7d
-  Keys: 9c35bf00f612ee1d48556f4a4b9b4551e224e90f
+  DynamicColor: c7adcfe871781a2b39877a5774e452ba51b79eb3
+  Keys: af65e23feef2a047b3277b1ef0399f1209ef9d46
   PocketAPI: f65f80eee2b05d28aeecf711b0f5b87ee2be3e28
-  Realm: 929243ad2b618b3232e70658bedc61110e7563f1
-  RealmSwift: 5b7079b891f2833d1849294161ba3e092bbda3f6
-  SwiftFormat: 9acb099fdbb44d4ca83e031361b1e3c701cd25ed
-  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  Realm: 42d1c38a5b1bbcc828b48a7ce702cb86fc68adf4
+  RealmSwift: d31937ca6a6ee54acde64ec839523c0a3c04924b
+  SwiftFormat: 40a5e7bc7d9f229411c246e6e7a9d66ebf2fa514
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
 PODFILE CHECKSUM: 45317622d19d71f8fbd2d2d495e24bfe576dc2c7
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.4.0
