@@ -114,7 +114,7 @@ extension ArticleListViewController: UITableViewDelegate {
             return
         }
 
-        guard let _ = accountRepository.find(apiSignature: signature, username: username) else {
+        guard let account = accountRepository.find(apiSignature: signature, username: username) else {
             self.alertPresenter.error("アカウント情報の取得に失敗しました", on: self)
             return
         }
@@ -129,6 +129,7 @@ extension ArticleListViewController: UITableViewDelegate {
             if cell.article?.id == -1 {
                 cell.article!.addId()
                 try! articleRepository.add(cell.article!)
+                try! articleRepository.add(cell.article!, to: account)
                 let n = Note(body: "")
                 try! noteRepository.add(n)
                 try! noteRepository.add(n, to: cell.article!)
