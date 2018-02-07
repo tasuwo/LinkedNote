@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import UIKit
 @testable import LinkedNote
+import UIKit
 
 class FakeThumbnailDownloader: NSObject, ThumbnailDownloader {
     let article: Article

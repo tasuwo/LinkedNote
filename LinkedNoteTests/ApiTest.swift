@@ -6,9 +6,9 @@
 //  Copyright © 2017年 tasuku tozawa. All rights reserved.
 //
 
-import XCTest
-import RealmSwift
 @testable import LinkedNote
+import RealmSwift
+import XCTest
 
 class ApiTest: XCTestCase {
     private let apiRepository: Repository<Api> = Repository<Api>()

@@ -82,7 +82,7 @@ extension RepositoryProtocol where Self: Repository<Tag> {
                 }
             }
             if let i = targetIndex {
-                note.tags.remove(objectAtIndex: i)
+                note.tags.remove(at: i)
                 realm.add(note, update: true)
             }
         }

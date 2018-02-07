@@ -6,9 +6,9 @@
 //  Copyright © 2017年 tasuku tozawa. All rights reserved.
 //
 
-import XCTest
-import RealmSwift
 @testable import LinkedNote
+import RealmSwift
+import XCTest
 
 class TagPickerPresenterTest: XCTestCase {
     var tag1: Tag!

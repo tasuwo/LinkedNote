@@ -18,9 +18,9 @@ class ArticleListCustomCell: UITableViewCell {
         self.delegate?.didPressNoteButton(self.article?.note)
     }
 
-    @IBOutlet weak var noteButton: UIButton!
-    @IBOutlet weak var expr: UILabel!
-    @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var thumbnail: UIImageView!
+    @IBOutlet var noteButton: UIButton!
+    @IBOutlet var expr: UILabel!
+    @IBOutlet var label: UILabel!
+    @IBOutlet var thumbnail: UIImageView!
     var article: Article?
 }

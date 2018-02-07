@@ -6,11 +6,10 @@
 //  Copyright © 2017年 tasuku tozawa. All rights reserved.
 //
 
-import XCTest
-import UIKit
 @testable import LinkedNote
-
 import RealmSwift
+import UIKit
+import XCTest
 
 class FakeObject: Object {
     private(set) dynamic var id = 0

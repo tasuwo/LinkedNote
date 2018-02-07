@@ -6,9 +6,9 @@
 //  Copyright © 2017年 tasuku tozawa. All rights reserved.
 //
 
-import UIKit
 import PocketAPI
 import SwiftyJSON
+import UIKit
 
 fileprivate struct ArticleInfo {
     var localId: String?
@@ -87,7 +87,6 @@ class PocketAPIWrapper: NSObject, APIWrapper {
 
         if let username = PocketAPI.shared().username,
             let account = accountRepo.find(apiSignature: PocketAPIWrapper.signature, username: username) {
-
             let httpMethod = PocketAPIHTTPMethodGET
             let arguments: NSDictionary = ["detailType": "complete", "count": count.description, "offset": offset.description, "sort": "newest"]
 

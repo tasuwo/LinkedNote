@@ -11,7 +11,6 @@
 import UIKit
 
 class ProgressHUD: UIVisualEffectView {
-
     var text: String? {
         didSet {
             label.text = text
@@ -48,7 +47,6 @@ class ProgressHUD: UIVisualEffectView {
         super.didMoveToSuperview()
 
         if let superview = self.superview {
-
             let width = superview.frame.size.width / 2.3
             let height: CGFloat = 50.0
             self.frame = CGRect(x: superview.frame.size.width / 2 - width / 2,

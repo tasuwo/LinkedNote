@@ -106,7 +106,6 @@ extension TagEditViewPresenter {
         if let userInfo = notification.userInfo {
             if let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue,
                 let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue {
-
                 let convertedKeyboardFrame = self.provider.view.convert(keyboardFrame, from: nil)
                 UIView.animate(withDuration: animationDuration, animations: {
                     self.provider.view.frame = self.provider.view.frame.insetBy(dx: 0, dy: -1 * (convertedKeyboardFrame.height))

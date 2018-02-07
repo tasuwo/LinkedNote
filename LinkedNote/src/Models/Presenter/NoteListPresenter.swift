@@ -6,8 +6,8 @@
 //  Copyright © 2017年 tasuku tozawa. All rights reserved.
 //
 
-import UIKit
 import RealmSwift
+import UIKit
 
 class NoteListPresenter: NSObject {
     private let noteRepository: Repository<Note>

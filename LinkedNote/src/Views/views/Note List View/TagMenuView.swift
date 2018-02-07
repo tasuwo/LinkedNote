@@ -29,12 +29,12 @@ protocol TagMenuViewDelegate {
 
 class TagMenuView: UIView {
     var delegate: TagMenuViewDelegate?
-    @IBOutlet weak var newTagNameField_: UITextField!
+    @IBOutlet var newTagNameField_: UITextField!
     @IBOutlet var view_: UIView!
-    @IBOutlet weak var tagPicker_: UIPickerView!
+    @IBOutlet var tagPicker_: UIPickerView!
     var note_: Note?
-    @IBOutlet weak var tagCollectionView_: UICollectionView!
-    @IBOutlet weak var newTagButton_: UIButton!
+    @IBOutlet var tagCollectionView_: UICollectionView!
+    @IBOutlet var newTagButton_: UIButton!
 
     @IBAction func didPressCloseButton(_: Any) {
         self.delegate?.didPressCloseButton()

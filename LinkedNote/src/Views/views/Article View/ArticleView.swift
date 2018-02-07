@@ -24,10 +24,10 @@ protocol SplitBarDelegate {
 class ArticleView: UIView {
     var splitBarDelegate: SplitBarDelegate?
     @IBOutlet var view_: UIView!
-    @IBOutlet weak var webView_: UIWebView!
-    @IBOutlet weak var noteView_: UITextView!
-    @IBOutlet weak var splitBar_: UIButton!
-    @IBOutlet weak var splitBarBottomConstraint_: NSLayoutConstraint!
+    @IBOutlet var webView_: UIWebView!
+    @IBOutlet var noteView_: UITextView!
+    @IBOutlet var splitBar_: UIButton!
+    @IBOutlet var splitBarBottomConstraint_: NSLayoutConstraint!
 
     @IBAction func touchDragInsideSplitBar(_ sender: Any, event: UIEvent) {
         if let touch = event.allTouches?.first {

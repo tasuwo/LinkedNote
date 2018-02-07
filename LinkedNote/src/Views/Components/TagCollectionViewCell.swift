@@ -9,6 +9,6 @@
 import UIKit
 
 class TagCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var name: UILabel!
+    @IBOutlet var name: UILabel!
     var id: Int?
 }

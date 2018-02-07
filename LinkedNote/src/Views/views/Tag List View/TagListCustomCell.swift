@@ -9,6 +9,6 @@
 import UIKit
 
 class TagListCustomCell: UITableViewCell {
-    @IBOutlet weak var tagName: UILabel!
+    @IBOutlet var tagName: UILabel!
     var tagId: Int?
 }

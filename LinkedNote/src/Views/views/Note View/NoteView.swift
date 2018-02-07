@@ -23,8 +23,8 @@ protocol NoteViewDelegate {
 class NoteView: UIView {
     var delegate: NoteViewDelegate?
     @IBOutlet var view_: UIView!
-    @IBOutlet weak var noteView_: UITextView!
-    @IBOutlet weak var tagCollectionView_: UICollectionView!
+    @IBOutlet var noteView_: UITextView!
+    @IBOutlet var tagCollectionView_: UICollectionView!
     @IBAction func didPressEditButton(_: Any) {
         self.delegate?.didPressEditButton()
     }

@@ -6,8 +6,8 @@
 //  Copyright © 2017年 tasuku tozawa. All rights reserved.
 //
 
-import UIKit
 import SwiftyJSON
+import UIKit
 
 protocol ArticleListPresenterObserver {
     func loaded()
@@ -70,7 +70,7 @@ class ArticleListPresenter<T: ThumbnailDownloader>: NSObject, UITableViewDataSou
         if article.thumbnailUrl == "" {
             return
         }
-        let downloader = T.init(article: article, handler: { () in
+        let downloader = T(article: article, handler: { () in
             let cell = tableView.cellForRow(at: indexPath)
             cell?.imageView?.image = article.thumbnail
             cell?.setNeedsLayout()

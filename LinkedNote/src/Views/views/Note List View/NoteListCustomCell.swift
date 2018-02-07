@@ -9,9 +9,9 @@
 import UIKit
 
 class NoteListCustomCell: UITableViewCell {
-    @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var api: UILabel!
-    @IBOutlet weak var account: UILabel!
-    @IBOutlet weak var body: UILabel!
+    @IBOutlet var title: UILabel!
+    @IBOutlet var api: UILabel!
+    @IBOutlet var account: UILabel!
+    @IBOutlet var body: UILabel!
     var note: Note?
 }

@@ -6,14 +6,13 @@
 //  Copyright © 2017年 tasuku tozawa. All rights reserved.
 //
 
-import UIKit
-import RealmSwift
 import Keys
 import PocketAPI
+import RealmSwift
+import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

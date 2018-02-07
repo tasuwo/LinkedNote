@@ -9,7 +9,6 @@
 import XCTest
 
 class LinkedNoteUITests: XCTestCase {
-
     override func setUp() {
         super.setUp()
 

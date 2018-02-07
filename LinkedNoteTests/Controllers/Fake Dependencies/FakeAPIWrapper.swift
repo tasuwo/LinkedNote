@@ -6,9 +6,9 @@
 //  Copyright © 2017年 tasuku tozawa. All rights reserved.
 //
 
-import UIKit
-import RealmSwift
 @testable import LinkedNote
+import RealmSwift
+import UIKit
 
 class FakeAPIWrapper: APIWrapper {
     static var signature: String = "fake"

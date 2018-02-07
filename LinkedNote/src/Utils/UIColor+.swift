@@ -6,8 +6,8 @@
 //  Copyright © 2017年 tasuku tozawa. All rights reserved.
 //
 
-import UIKit
 import DynamicColor
+import UIKit
 
 extension UIColor {
     static func myNavigationBarColor() -> UIColor {

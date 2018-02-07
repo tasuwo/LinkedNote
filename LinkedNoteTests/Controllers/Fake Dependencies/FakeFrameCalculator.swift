@@ -6,8 +6,8 @@
 //  Copyright © 2017年 tasuku tozawa. All rights reserved.
 //
 
-import UIKit
 @testable import LinkedNote
+import UIKit
 
 class FakeFrameCalculator: FrameCalculator {
     func calcFrameOnTabAndNavBar(by: UIViewController) -> CGRect {
