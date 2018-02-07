@@ -18,7 +18,6 @@ DerivedData
 
 # CocoaPod
 Pods/*
-Podfile.lock
 
 # Carthage
 Carthage/Build
