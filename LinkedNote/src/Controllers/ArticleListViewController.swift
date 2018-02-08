@@ -172,18 +172,6 @@ extension ArticleListViewController: UITableViewDelegate {
             self.articleListPresenter.retrieve()
         }
     }
-
-    // The user's finger was released after dragging. Decelarate is True during inertial scrolling.
-    func scrollViewDidEndDragging(_: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
-            self.articleListPresenter.loadImagesForOnscreenRows(tableView: self.provider.articleTableView)
-        }
-    }
-
-    // Immediately stop scrolling
-    func scrollViewDidEndDecelerating(_: UIScrollView) {
-        self.articleListPresenter.loadImagesForOnscreenRows(tableView: self.provider.articleTableView)
-    }
 }
 
 extension ArticleListViewController: ArticleListTableViewDelegate {

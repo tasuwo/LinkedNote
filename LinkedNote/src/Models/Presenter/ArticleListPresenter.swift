@@ -48,21 +48,6 @@ class ArticleListPresenter<T: ThumbnailDownloader>: NSObject, UITableViewDataSou
         self.articles.remove(at: indexPath.row)
     }
 
-    func loadImagesForOnscreenRows(tableView: UITableView) {
-        if self.articles.isEmpty {
-            return
-        }
-        guard let visiblePaths = tableView.indexPathsForVisibleRows else {
-            return
-        }
-        for indexPath in visiblePaths {
-            let article = self.articles[indexPath.row]
-            if article.thumbnail == nil {
-                self.startThumbnailDownload(article: article, forIndexPath: indexPath, tableView: tableView)
-            }
-        }
-    }
-
     func startThumbnailDownload(article: Article, forIndexPath indexPath: IndexPath, tableView: UITableView) {
         guard self.thumbnailDownloadersInProgress[indexPath] == nil else {
             return
@@ -95,9 +80,7 @@ class ArticleListPresenter<T: ThumbnailDownloader>: NSObject, UITableViewDataSou
         if let thumbanail = article.thumbnail {
             newCell.imageView!.image = thumbanail
         } else {
-            if tableView.isDragging == false && tableView.isDecelerating == false {
-                self.startThumbnailDownload(article: article, forIndexPath: indexPath, tableView: tableView)
-            }
+            self.startThumbnailDownload(article: article, forIndexPath: indexPath, tableView: tableView)
             newCell.imageView!.image = UIImage(named: "")
         }
         let v = tableView as! ArticleListTableView
