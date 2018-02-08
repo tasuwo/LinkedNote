@@ -11,6 +11,7 @@ import Foundation
 import UIKit
 
 class FakeThumbnailDownloader: NSObject, ThumbnailDownloader {
+    var key: String!
     let article: Article
     let handler: (() -> Void)
     var isDownloading = true
@@ -32,5 +33,9 @@ class FakeThumbnailDownloader: NSObject, ThumbnailDownloader {
 
     func cancelDownload() {
         isDownloading = false
+    }
+
+    func setKey(key: String) {
+        self.key = key
     }
 }
