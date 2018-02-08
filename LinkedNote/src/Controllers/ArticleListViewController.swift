@@ -21,12 +21,16 @@ class ArticleListViewController: UIViewController {
     let articleRepository: Repository<Article>
     let noteRepository: Repository<Note>
 
+    // TODO: 挙動に関わる設定値は、どこか外部にまとめて切り出す？
+    let SCROLLING_PERCENTAGE_WHICH_TRIGGER_UPDATE: CGFloat = 0.9
+    let NUM_OF_ARTICLES_LOADED_AT_ONCE: Int = 20
+
     init(provider: ArticleListViewProvider, api: APIWrapper, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
         self.provider = provider
         self.api = api
         self.calculator = calculator
         self.alertPresenter = alertPresenter
-        self.articleListPresenter = ArticleListPresenter(api: api, loadUnitNum: 5)
+        self.articleListPresenter = ArticleListPresenter(api: api, loadUnitNum: NUM_OF_ARTICLES_LOADED_AT_ONCE)
         self.tagEditViewPresenter = TagEditViewPresenter(alertPresenter: alertPresenter)
         self.refreshControl = UIRefreshControl()
         // TODO: Factory pattern
@@ -163,11 +167,8 @@ extension ArticleListViewController: UITableViewDelegate {
         let bounds = scrollView.bounds
         let size = scrollView.contentSize
         let inset = scrollView.contentInset
-        let y = offset.y + bounds.size.height - inset.bottom
-        let h = size.height
 
-        let reloadDistance: CGFloat = 10
-        if y > h + reloadDistance {
+        if offset.y > ((size.height * SCROLLING_PERCENTAGE_WHICH_TRIGGER_UPDATE) - (bounds.height - inset.bottom)) {
             self.articleListPresenter.retrieve()
         }
     }
