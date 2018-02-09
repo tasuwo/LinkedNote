@@ -34,7 +34,7 @@ class NoteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.provider.view.frame = self.calculator.calcFrameOnNavVar(by: self)
+        self.provider.view.frame = self.view.frame
         self.provider.noteView.text = note.body
         self.provider.setNoteViewDelegate(self)
         self.view.addSubview(self.provider.view)
@@ -54,12 +54,10 @@ class NoteViewController: UIViewController {
     }
 
     override func viewWillAppear(_: Bool) {
-        self.tabBarController?.tabBar.isHidden = true
         self.tagEditViewPresenter.addObserver()
     }
 
     override func viewWillDisappear(_: Bool) {
-        self.tabBarController?.tabBar.isHidden = false
         self.tagEditViewPresenter.removeObserver()
     }
 }
@@ -107,6 +105,7 @@ extension NoteViewController: NoteViewDelegate {
             return
         }
         let articleVC = ArticleViewController(provider: ArticleView(), article: self.note.article!, calculator: self.calculator, alertPresenter: self.alertPresenter)
+        articleVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(articleVC, animated: true)
     }
 }

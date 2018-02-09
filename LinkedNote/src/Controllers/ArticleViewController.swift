@@ -71,10 +71,6 @@ class ArticleViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
 
-    override func viewWillAppear(_: Bool) {
-        self.navigationController!.tabBarController!.tabBar.isHidden = true
-    }
-
     // viewWillAppear で追加を行うと、画面遷移内にメソッドがトリガーされておかしな挙動になるので、
     // 読み込んでから追加する
     override func viewDidAppear(_: Bool) {

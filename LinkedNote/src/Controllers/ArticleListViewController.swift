@@ -141,6 +141,7 @@ extension ArticleListViewController: UITableViewDelegate {
         }
 
         let articleVC = ArticleViewController(provider: ArticleView(), article: article, calculator: self.calculator, alertPresenter: alertPresenter)
+        articleVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(articleVC, animated: true)
 
         // Update cell informations
