@@ -74,7 +74,7 @@ extension NoteListViewController: UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath)! as! NoteListCustomCell
 
         if let note = cell.note {
-            let noteVC = NoteViewController(provider: NoteView(), note: note, calculator: self.calculator, alertPresenter: self.alertPresenter)
+            let noteVC = NoteViewController(provider: NoteView(), note: note, calculator: self.calculator, alertPresenter: self.alertPresenter, tagEditViewPresenter: TagEditViewPresenter(alertPresenter: self.alertPresenter))
             self.navigationController?.pushViewController(noteVC, animated: true)
         } else {
             self.alertPresenter.error("ノートの読み込みに必要な情報の取得に失敗しました", on: self)

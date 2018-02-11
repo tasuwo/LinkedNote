@@ -178,7 +178,7 @@ extension ArticleListViewController: UITableViewDelegate {
 extension ArticleListViewController: ArticleListTableViewDelegate {
     func didPressNoteButtonOnCell(_ note: Note?) {
         if let note = note {
-            let noteVC = NoteViewController(provider: NoteView(), note: note, calculator: self.calculator, alertPresenter: self.alertPresenter)
+            let noteVC = NoteViewController(provider: NoteView(), note: note, calculator: self.calculator, alertPresenter: self.alertPresenter, tagEditViewPresenter: TagEditViewPresenter(alertPresenter: self.alertPresenter))
             self.navigationController?.pushViewController(noteVC, animated: true)
         } else {
             alertPresenter.error("ノートが存在しません", on: self)

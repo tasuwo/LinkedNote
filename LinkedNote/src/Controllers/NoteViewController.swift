@@ -17,13 +17,17 @@ class NoteViewController: UIViewController {
     let tagEditViewPresenter: TagEditViewPresenter
     let alertPresenter: AlertPresenter
 
-    init(provider: NoteViewProvider, note: Note, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
+    init(provider: NoteViewProvider,
+         note: Note,
+         calculator: FrameCalculator,
+         alertPresenter: AlertPresenter,
+         tagEditViewPresenter: TagEditViewPresenter) {
         self.provider = provider
         self.note = note
         self.calculator = calculator
         self.alertPresenter = alertPresenter
         self.tagPresenter = TagCollectionPresenter()
-        self.tagEditViewPresenter = TagEditViewPresenter(alertPresenter: alertPresenter)
+        self.tagEditViewPresenter = tagEditViewPresenter
         super.init(nibName: nil, bundle: nil)
     }
 
