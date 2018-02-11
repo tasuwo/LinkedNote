@@ -7,7 +7,7 @@ PODS:
   - Realm/Headers (3.1.1)
   - RealmSwift (3.1.1):
     - Realm (= 3.1.1)
-  - SwiftFormat/CLI (0.33.0)
+  - SwiftFormat/CLI (0.33.1)
   - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
@@ -35,9 +35,9 @@ SPEC CHECKSUMS:
   PocketAPI: f65f80eee2b05d28aeecf711b0f5b87ee2be3e28
   Realm: 42d1c38a5b1bbcc828b48a7ce702cb86fc68adf4
   RealmSwift: d31937ca6a6ee54acde64ec839523c0a3c04924b
-  SwiftFormat: 40a5e7bc7d9f229411c246e6e7a9d66ebf2fa514
+  SwiftFormat: f96d738ff37906fa1f32a99c8d3417a7856a9b80
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: 45317622d19d71f8fbd2d2d495e24bfe576dc2c7
+PODFILE CHECKSUM: e4bb95b8de9962baf1f9b018eb327011c886de54
 
 COCOAPODS: 1.4.0

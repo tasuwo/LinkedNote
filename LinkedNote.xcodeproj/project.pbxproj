@@ -15,6 +15,8 @@
 		2C1DBF1B1F0E7D61007A8DB1 /* TagPickerPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1DBF1A1F0E7D61007A8DB1 /* TagPickerPresenterTest.swift */; };
 		2C430F6A203034BF0033C0C5 /* github-markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 2C430F69203034BF0033C0C5 /* github-markdown.css */; };
 		2C430F6C203034C90033C0C5 /* marked.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 2C430F6B203034C90033C0C5 /* marked.min.js */; };
+		2C430F6E203035270033C0C5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C430F6D203035270033C0C5 /* Settings.bundle */; };
+		2C430F702030423C0033C0C5 /* manual_installed_libraries_acknowledgements.yml in Resources */ = {isa = PBXBuildFile; fileRef = 2C430F6F2030423C0033C0C5 /* manual_installed_libraries_acknowledgements.yml */; };
 		2C4D409B1F091DAA008DC554 /* NoteTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D409A1F091DAA008DC554 /* NoteTest.swift */; };
 		2C62D69C1F086FE900DC4041 /* ArticleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C62D69B1F086FE900DC4041 /* ArticleTest.swift */; };
 		2C692EEB202FEDE500BA23A0 /* MockNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C692EEA202FEDE500BA23A0 /* MockNavigationController.swift */; };
@@ -120,6 +122,8 @@
 		2C1DBF1A1F0E7D61007A8DB1 /* TagPickerPresenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagPickerPresenterTest.swift; sourceTree = "<group>"; };
 		2C430F69203034BF0033C0C5 /* github-markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = "github-markdown.css"; path = "LinkedNote/resources/github-markdown.css"; sourceTree = SOURCE_ROOT; };
 		2C430F6B203034C90033C0C5 /* marked.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = marked.min.js; path = LinkedNote/resources/marked.min.js; sourceTree = SOURCE_ROOT; };
+		2C430F6D203035270033C0C5 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = LinkedNote/resources/Settings.bundle; sourceTree = SOURCE_ROOT; };
+		2C430F6F2030423C0033C0C5 /* manual_installed_libraries_acknowledgements.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = manual_installed_libraries_acknowledgements.yml; sourceTree = "<group>"; };
 		2C4D409A1F091DAA008DC554 /* NoteTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTest.swift; sourceTree = "<group>"; };
 		2C62D69B1F086FE900DC4041 /* ArticleTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleTest.swift; sourceTree = "<group>"; };
 		2C692EEA202FEDE500BA23A0 /* MockNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNavigationController.swift; sourceTree = "<group>"; };
@@ -504,6 +508,8 @@
 		A05E17CC1EE2622D005C4566 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				2C430F6D203035270033C0C5 /* Settings.bundle */,
+				2C430F6F2030423C0033C0C5 /* manual_installed_libraries_acknowledgements.yml */,
 				2C692EF5203013F900BA23A0 /* markdown */,
 				A05E172E1EE261DD005C4566 /* Assets.xcassets */,
 				A05E17331EE261DD005C4566 /* Info.plist */,
@@ -719,6 +725,7 @@
 				A05E17B91EE26218005C4566 /* ArticleList.xib in Resources */,
 				A05E17321EE261DD005C4566 /* LaunchScreen.storyboard in Resources */,
 				A05E17B51EE26218005C4566 /* Account.xib in Resources */,
+				2C430F702030423C0033C0C5 /* manual_installed_libraries_acknowledgements.yml in Resources */,
 				A05E17C41EE26218005C4566 /* TagMenu.xib in Resources */,
 				A05E17CA1EE26218005C4566 /* TagListCustomCell.xib in Resources */,
 				A05E17B71EE26218005C4566 /* SignIn.xib in Resources */,
@@ -727,6 +734,7 @@
 				2C430F6A203034BF0033C0C5 /* github-markdown.css in Resources */,
 				2C430F6C203034C90033C0C5 /* marked.min.js in Resources */,
 				A05E172F1EE261DD005C4566 /* Assets.xcassets in Resources */,
+				2C430F6E203035270033C0C5 /* Settings.bundle in Resources */,
 				A05E17C61EE26218005C4566 /* Note.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
