@@ -43,10 +43,10 @@ class ArticleListPresenterTest: XCTestCase {
     func testInitializeProperties() {
         // given
         let unitNum = 5
-        
+
         // when
         self.presenter = ArticleListPresenter(api: apiWrapper, loadUnitNum: unitNum)
-        
+
         // then
         XCTAssertTrue(apiWrapper.unitNum == unitNum)
     }
@@ -59,7 +59,7 @@ class ArticleListPresenterTest: XCTestCase {
 
         // when
         self.presenter.initOffset()
-        
+
         // then
         XCTAssertTrue(apiWrapper.offset == 0)
     }

@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		0E5B6CE76D0C7EF8FA7F84DF /* Pods_LinkedNoteTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C923E310951FC7F9255FFD39 /* Pods_LinkedNoteTests.framework */; };
+		2C0758A3202FDFDF001022AA /* NoteViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0758A2202FDFDF001022AA /* NoteViewControllerTest.swift */; };
 		2C1DBF151F0E6995007A8DB1 /* NoteListPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1DBF141F0E6995007A8DB1 /* NoteListPresenterTest.swift */; };
 		2C1DBF171F0E6D5E007A8DB1 /* TagCollectionPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1DBF161F0E6D5E007A8DB1 /* TagCollectionPresenterTest.swift */; };
 		2C1DBF191F0E6F8A007A8DB1 /* TagListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1DBF181F0E6F8A007A8DB1 /* TagListPresenter.swift */; };
 		2C1DBF1B1F0E7D61007A8DB1 /* TagPickerPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1DBF1A1F0E7D61007A8DB1 /* TagPickerPresenterTest.swift */; };
 		2C4D409B1F091DAA008DC554 /* NoteTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D409A1F091DAA008DC554 /* NoteTest.swift */; };
 		2C62D69C1F086FE900DC4041 /* ArticleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C62D69B1F086FE900DC4041 /* ArticleTest.swift */; };
+		2C692EEB202FEDE500BA23A0 /* MockNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C692EEA202FEDE500BA23A0 /* MockNavigationController.swift */; };
+		2C692EEE202FF1CE00BA23A0 /* MockTagEditViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C692EED202FF1CE00BA23A0 /* MockTagEditViewPresenter.swift */; };
 		2CACD0A31F26398900690583 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACD0A21F26398900690583 /* Repository.swift */; };
 		9BB12095DEC38C7AA06AEC5E /* Pods_LinkedNoteUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DABC6D3DE1353450DA80AAF /* Pods_LinkedNoteUITests.framework */; };
 		A00053B51F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00053B41F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift */; };
@@ -107,12 +110,15 @@
 
 /* Begin PBXFileReference section */
 		01314C2A546B2F55B04D3A70 /* Pods-LinkedNoteTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNoteTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNoteTests/Pods-LinkedNoteTests.release.xcconfig"; sourceTree = "<group>"; };
+		2C0758A2202FDFDF001022AA /* NoteViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewControllerTest.swift; sourceTree = "<group>"; };
 		2C1DBF141F0E6995007A8DB1 /* NoteListPresenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteListPresenterTest.swift; sourceTree = "<group>"; };
 		2C1DBF161F0E6D5E007A8DB1 /* TagCollectionPresenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCollectionPresenterTest.swift; sourceTree = "<group>"; };
 		2C1DBF181F0E6F8A007A8DB1 /* TagListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListPresenter.swift; sourceTree = "<group>"; };
 		2C1DBF1A1F0E7D61007A8DB1 /* TagPickerPresenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagPickerPresenterTest.swift; sourceTree = "<group>"; };
 		2C4D409A1F091DAA008DC554 /* NoteTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTest.swift; sourceTree = "<group>"; };
 		2C62D69B1F086FE900DC4041 /* ArticleTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleTest.swift; sourceTree = "<group>"; };
+		2C692EEA202FEDE500BA23A0 /* MockNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNavigationController.swift; sourceTree = "<group>"; };
+		2C692EED202FF1CE00BA23A0 /* MockTagEditViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTagEditViewPresenter.swift; sourceTree = "<group>"; };
 		2CACD0A21F26398900690583 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		38A9834388FD3C9159855939 /* Pods-LinkedNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNote.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNote/Pods-LinkedNote.release.xcconfig"; sourceTree = "<group>"; };
 		50EA9EFCC3AF4212863C844D /* Pods_LinkedNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkedNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -228,6 +234,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C692EEC202FEDEC00BA23A0 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				2C692EEA202FEDE500BA23A0 /* MockNavigationController.swift */,
+				2C692EED202FF1CE00BA23A0 /* MockTagEditViewPresenter.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		7C1099DC066F6A4EE38A4052 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +287,7 @@
 		A05E173B1EE261DD005C4566 /* LinkedNoteTests */ = {
 			isa = PBXGroup;
 			children = (
+				2C692EEC202FEDEC00BA23A0 /* Mocks */,
 				A0D6F4AA1EE8DB5800430171 /* Fake Dependencies */,
 				A0C8C7F61F07638F00E1F0A1 /* Models */,
 				A068F83E1EE8C92E00767149 /* Controllers */,
@@ -494,6 +510,7 @@
 				A0C8C7F41F0753B800E1F0A1 /* ArticleListViewControllerTest.swift */,
 				A08635F01F0EF866004CDE8F /* ArticleViewControllerTest.swift */,
 				A0DA99201F0F0B7F007D1E7B /* NoteListViewControllerTest.swift */,
+				2C0758A2202FDFDF001022AA /* NoteViewControllerTest.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -958,16 +975,19 @@
 				2C1DBF1B1F0E7D61007A8DB1 /* TagPickerPresenterTest.swift in Sources */,
 				A0B3B5C51F0C537700D410FF /* TagTest.swift in Sources */,
 				2C1DBF151F0E6995007A8DB1 /* NoteListPresenterTest.swift in Sources */,
+				2C692EEE202FF1CE00BA23A0 /* MockTagEditViewPresenter.swift in Sources */,
 				A0D6F4AE1EE8DB8700430171 /* FakeFrameCalculator.swift in Sources */,
 				A0B3B5CA1F0C672C00D410FF /* ArticleListPresenterTest.swift in Sources */,
 				A068F8401EE8C94900767149 /* AccountViewControllerTest.swift in Sources */,
 				A0B69BD01F280262002A59F5 /* RepositoryTest.swift in Sources */,
 				A0C8C7F51F0753B800E1F0A1 /* ArticleListViewControllerTest.swift in Sources */,
 				A0E6C8A21EE8E50F007A6737 /* FakeAlertPresenter.swift in Sources */,
+				2C0758A3202FDFDF001022AA /* NoteViewControllerTest.swift in Sources */,
 				A00053B51F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift in Sources */,
 				A08635F11F0EF866004CDE8F /* ArticleViewControllerTest.swift in Sources */,
 				A0C8C7FD1F07A76900E1F0A1 /* ApiAccountTest.swift in Sources */,
 				A0DAAEE91F15A379007B7192 /* AssertNotNilAndUnwrap.swift in Sources */,
+				2C692EEB202FEDE500BA23A0 /* MockNavigationController.swift in Sources */,
 				A0D6F4AC1EE8DB6E00430171 /* FakeAPIWrapper.swift in Sources */,
 				2C1DBF171F0E6D5E007A8DB1 /* TagCollectionPresenterTest.swift in Sources */,
 				2C4D409B1F091DAA008DC554 /* NoteTest.swift in Sources */,
