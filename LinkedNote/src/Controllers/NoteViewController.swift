@@ -39,12 +39,9 @@ class NoteViewController: UIViewController {
         super.viewDidLoad()
 
         self.provider.view.frame = self.view.frame
-        self.provider.noteView.text = note.body
         self.provider.setNoteViewDelegate(self)
         self.view.addSubview(self.provider.view)
 
-        tagPresenter.load(noteId: note.id)
-        self.provider.tagCollectionView.reloadData()
         self.provider.tagCollectionView.delegate = self
         self.provider.tagCollectionView.dataSource = tagPresenter
 
@@ -59,6 +56,10 @@ class NoteViewController: UIViewController {
 
     override func viewWillAppear(_: Bool) {
         self.tagEditViewPresenter.addObserver()
+
+        self.provider.noteView.text = note.body
+        self.tagPresenter.load(noteId: note.id)
+        self.provider.tagCollectionView.reloadData()
     }
 
     override func viewWillDisappear(_: Bool) {
