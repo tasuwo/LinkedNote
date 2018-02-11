@@ -7,30 +7,41 @@
 //
 
 import UIKit
+import WebKit
 
 protocol NoteViewProvider {
     var view: UIView { get }
-    var noteView: UITextView { get }
+    var notePlainTextView: UITextView { get }
+    var noteMarkdownView: WKWebView { get }
     var tagCollectionView: UICollectionView { get }
+    var segmentedControl: UISegmentedControl { get }
     func setNoteViewDelegate(_: NoteViewDelegate)
 }
 
 protocol NoteViewDelegate {
     func didPressEditButton()
     func didPressViewArticleButton()
+    func didPressSegmentedControl(with index: Int)
 }
 
 class NoteView: UIView {
     var delegate: NoteViewDelegate?
     @IBOutlet var view_: UIView!
-    @IBOutlet var noteView_: UITextView!
+    @IBOutlet var notePlainTextView_: UITextView!
+    @IBOutlet var noteMarkdownView_: WKWebView!
     @IBOutlet var tagCollectionView_: UICollectionView!
+    @IBOutlet var segmentedControl_: UISegmentedControl!
+
     @IBAction func didPressEditButton(_: Any) {
         self.delegate?.didPressEditButton()
     }
 
     @IBAction func didPressViewArticleButton(_: Any) {
         self.delegate?.didPressViewArticleButton()
+    }
+
+    @IBAction func didPressSegmenttedControl(_ sender: UISegmentedControl) {
+        self.delegate?.didPressSegmentedControl(with: sender.selectedSegmentIndex)
     }
 
     init() {
@@ -55,12 +66,20 @@ extension NoteView: NoteViewProvider {
         return self.view_
     }
 
-    var noteView: UITextView {
-        return self.noteView_
+    var notePlainTextView: UITextView {
+        return self.notePlainTextView_
+    }
+
+    var noteMarkdownView: WKWebView {
+        return self.noteMarkdownView_
     }
 
     var tagCollectionView: UICollectionView {
         return self.tagCollectionView_
+    }
+
+    var segmentedControl: UISegmentedControl {
+        return self.segmentedControl_
     }
 
     func setNoteViewDelegate(_ delegate: NoteViewDelegate) {

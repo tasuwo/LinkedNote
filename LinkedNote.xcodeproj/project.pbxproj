@@ -13,10 +13,13 @@
 		2C1DBF171F0E6D5E007A8DB1 /* TagCollectionPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1DBF161F0E6D5E007A8DB1 /* TagCollectionPresenterTest.swift */; };
 		2C1DBF191F0E6F8A007A8DB1 /* TagListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1DBF181F0E6F8A007A8DB1 /* TagListPresenter.swift */; };
 		2C1DBF1B1F0E7D61007A8DB1 /* TagPickerPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1DBF1A1F0E7D61007A8DB1 /* TagPickerPresenterTest.swift */; };
+		2C430F6A203034BF0033C0C5 /* github-markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 2C430F69203034BF0033C0C5 /* github-markdown.css */; };
+		2C430F6C203034C90033C0C5 /* marked.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 2C430F6B203034C90033C0C5 /* marked.min.js */; };
 		2C4D409B1F091DAA008DC554 /* NoteTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D409A1F091DAA008DC554 /* NoteTest.swift */; };
 		2C62D69C1F086FE900DC4041 /* ArticleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C62D69B1F086FE900DC4041 /* ArticleTest.swift */; };
 		2C692EEB202FEDE500BA23A0 /* MockNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C692EEA202FEDE500BA23A0 /* MockNavigationController.swift */; };
 		2C692EEE202FF1CE00BA23A0 /* MockTagEditViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C692EED202FF1CE00BA23A0 /* MockTagEditViewPresenter.swift */; };
+		2C692EF42030139F00BA23A0 /* markdown.html in Resources */ = {isa = PBXBuildFile; fileRef = 2C692EF32030139F00BA23A0 /* markdown.html */; };
 		2CACD0A31F26398900690583 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACD0A21F26398900690583 /* Repository.swift */; };
 		9BB12095DEC38C7AA06AEC5E /* Pods_LinkedNoteUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DABC6D3DE1353450DA80AAF /* Pods_LinkedNoteUITests.framework */; };
 		A00053B51F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00053B41F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift */; };
@@ -115,10 +118,13 @@
 		2C1DBF161F0E6D5E007A8DB1 /* TagCollectionPresenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCollectionPresenterTest.swift; sourceTree = "<group>"; };
 		2C1DBF181F0E6F8A007A8DB1 /* TagListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListPresenter.swift; sourceTree = "<group>"; };
 		2C1DBF1A1F0E7D61007A8DB1 /* TagPickerPresenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagPickerPresenterTest.swift; sourceTree = "<group>"; };
+		2C430F69203034BF0033C0C5 /* github-markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = "github-markdown.css"; path = "LinkedNote/resources/github-markdown.css"; sourceTree = SOURCE_ROOT; };
+		2C430F6B203034C90033C0C5 /* marked.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = marked.min.js; path = LinkedNote/resources/marked.min.js; sourceTree = SOURCE_ROOT; };
 		2C4D409A1F091DAA008DC554 /* NoteTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTest.swift; sourceTree = "<group>"; };
 		2C62D69B1F086FE900DC4041 /* ArticleTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleTest.swift; sourceTree = "<group>"; };
 		2C692EEA202FEDE500BA23A0 /* MockNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNavigationController.swift; sourceTree = "<group>"; };
 		2C692EED202FF1CE00BA23A0 /* MockTagEditViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTagEditViewPresenter.swift; sourceTree = "<group>"; };
+		2C692EF32030139F00BA23A0 /* markdown.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = markdown.html; sourceTree = "<group>"; };
 		2CACD0A21F26398900690583 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		38A9834388FD3C9159855939 /* Pods-LinkedNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNote.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNote/Pods-LinkedNote.release.xcconfig"; sourceTree = "<group>"; };
 		50EA9EFCC3AF4212863C844D /* Pods_LinkedNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkedNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -241,6 +247,16 @@
 				2C692EED202FF1CE00BA23A0 /* MockTagEditViewPresenter.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		2C692EF5203013F900BA23A0 /* markdown */ = {
+			isa = PBXGroup;
+			children = (
+				2C692EF32030139F00BA23A0 /* markdown.html */,
+				2C430F69203034BF0033C0C5 /* github-markdown.css */,
+				2C430F6B203034C90033C0C5 /* marked.min.js */,
+			);
+			path = markdown;
 			sourceTree = "<group>";
 		};
 		7C1099DC066F6A4EE38A4052 /* Frameworks */ = {
@@ -488,6 +504,7 @@
 		A05E17CC1EE2622D005C4566 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				2C692EF5203013F900BA23A0 /* markdown */,
 				A05E172E1EE261DD005C4566 /* Assets.xcassets */,
 				A05E17331EE261DD005C4566 /* Info.plist */,
 			);
@@ -695,6 +712,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A05E17C21EE26218005C4566 /* NoteListCustomCell.xib in Resources */,
+				2C692EF42030139F00BA23A0 /* markdown.html in Resources */,
 				A05E17C01EE26218005C4566 /* NoteList.xib in Resources */,
 				A05E17C81EE26218005C4566 /* TagList.xib in Resources */,
 				A05E17BE1EE26218005C4566 /* Article.xib in Resources */,
@@ -706,6 +724,8 @@
 				A05E17B71EE26218005C4566 /* SignIn.xib in Resources */,
 				A05E17BB1EE26218005C4566 /* ArticleListCustomCell.xib in Resources */,
 				A05E17B41EE26218005C4566 /* TagCollectionViewCell.xib in Resources */,
+				2C430F6A203034BF0033C0C5 /* github-markdown.css in Resources */,
+				2C430F6C203034C90033C0C5 /* marked.min.js in Resources */,
 				A05E172F1EE261DD005C4566 /* Assets.xcassets in Resources */,
 				A05E17C61EE26218005C4566 /* Note.xib in Resources */,
 			);
@@ -1148,6 +1168,7 @@
 				DEVELOPMENT_TEAM = RY2377PP7S;
 				INFOPLIST_FILE = LinkedNote/resources/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.LinkedNote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1163,6 +1184,7 @@
 				DEVELOPMENT_TEAM = RY2377PP7S;
 				INFOPLIST_FILE = LinkedNote/resources/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.LinkedNote;
 				PRODUCT_NAME = "$(TARGET_NAME)";

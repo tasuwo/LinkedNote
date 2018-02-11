@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NoteView" customModule="LinkedNote" customModuleProvider="target">
             <connections>
-                <outlet property="noteView_" destination="lYT-3b-hpF" id="1bO-VL-x6C"/>
+                <outlet property="noteMarkdownView_" destination="yB0-if-vrm" id="dUK-lL-xvX"/>
+                <outlet property="notePlainTextView_" destination="lYT-3b-hpF" id="1bO-VL-x6C"/>
+                <outlet property="segmentedControl_" destination="n77-Rg-Aoj" id="sBF-lB-PNv"/>
                 <outlet property="tagCollectionView_" destination="DJk-my-nIl" id="FhJ-IP-hsp"/>
                 <outlet property="view_" destination="iN0-l3-epB" id="8OW-Ab-yMo"/>
             </connections>
@@ -61,34 +63,57 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="khV-3s-7cg">
-                    <rect key="frame" x="240" y="147" width="108" height="30"/>
+                    <rect key="frame" x="155" y="147" width="30" height="30"/>
                     <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
-                    <state key="normal" title="記事を閲覧する"/>
+                    <state key="normal" title="↗️"/>
                     <connections>
                         <action selector="didPressViewArticleButton:" destination="-1" eventType="touchUpInside" id="P5k-Gu-rZa"/>
                     </connections>
                 </button>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="n77-Rg-Aoj">
+                    <rect key="frame" x="193" y="148" width="155" height="29"/>
+                    <segments>
+                        <segment title="Plain"/>
+                        <segment title="Markdown"/>
+                    </segments>
+                    <connections>
+                        <action selector="didPressSegmenttedControl:" destination="-1" eventType="valueChanged" id="K73-8l-GpH"/>
+                    </connections>
+                </segmentedControl>
+                <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yB0-if-vrm">
+                    <rect key="frame" x="26.5" y="185" width="321.5" height="453"/>
+                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <wkWebViewConfiguration key="configuration">
+                        <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                        <wkPreferences key="preferences"/>
+                    </wkWebViewConfiguration>
+                </wkWebView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="khV-3s-7cg" firstAttribute="height" secondItem="Rgj-qi-8pc" secondAttribute="height" id="2Lx-Mm-Nee"/>
+                <constraint firstItem="yB0-if-vrm" firstAttribute="centerY" secondItem="lYT-3b-hpF" secondAttribute="centerY" id="0SA-Ix-blz"/>
+                <constraint firstItem="n77-Rg-Aoj" firstAttribute="leading" secondItem="khV-3s-7cg" secondAttribute="trailing" constant="8" id="0t8-bL-WLs"/>
                 <constraint firstItem="DJk-my-nIl" firstAttribute="width" secondItem="Yb0-Py-Xyt" secondAttribute="width" id="50A-aq-Dg4"/>
                 <constraint firstItem="DJk-my-nIl" firstAttribute="top" secondItem="Yb0-Py-Xyt" secondAttribute="bottom" constant="8" id="5ND-jD-07e"/>
-                <constraint firstItem="khV-3s-7cg" firstAttribute="trailing" secondItem="lYT-3b-hpF" secondAttribute="trailing" id="8JR-rn-EaH"/>
+                <constraint firstItem="n77-Rg-Aoj" firstAttribute="trailing" secondItem="lYT-3b-hpF" secondAttribute="trailing" id="AEq-EE-Z9Q"/>
                 <constraint firstItem="bUN-c8-XZS" firstAttribute="trailing" secondItem="DJk-my-nIl" secondAttribute="trailing" id="ERT-5K-HWN"/>
-                <constraint firstItem="khV-3s-7cg" firstAttribute="centerY" secondItem="Rgj-qi-8pc" secondAttribute="centerY" id="No9-C7-huv"/>
                 <constraint firstItem="lYT-3b-hpF" firstAttribute="width" secondItem="Rgj-qi-8pc" secondAttribute="width" id="Odx-uU-DcB"/>
-                <constraint firstItem="Yb0-Py-Xyt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="26" id="S4N-fc-NpQ"/>
-                <constraint firstAttribute="bottom" secondItem="lYT-3b-hpF" secondAttribute="bottom" constant="29" id="Sla-Mw-e3p"/>
+                <constraint firstItem="lYT-3b-hpF" firstAttribute="top" secondItem="n77-Rg-Aoj" secondAttribute="bottom" constant="9" id="RX4-Yy-2jI"/>
+                <constraint firstItem="Yb0-Py-Xyt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="26" id="S4N-fc-NpQ" userLabel="タグ.leading = leading + 25"/>
+                <constraint firstAttribute="bottom" secondItem="lYT-3b-hpF" secondAttribute="bottom" constant="29" id="Sla-Mw-e3p" userLabel="bottom = Note View.bottom + 25"/>
                 <constraint firstItem="lYT-3b-hpF" firstAttribute="top" secondItem="Rgj-qi-8pc" secondAttribute="bottom" constant="8" id="TWJ-Ma-C0F"/>
                 <constraint firstItem="Rgj-qi-8pc" firstAttribute="top" secondItem="DJk-my-nIl" secondAttribute="bottom" constant="23" id="UGQ-c3-iWJ"/>
                 <constraint firstItem="Rgj-qi-8pc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="V3K-rb-rlt"/>
                 <constraint firstItem="lYT-3b-hpF" firstAttribute="leading" secondItem="Rgj-qi-8pc" secondAttribute="trailing" constant="-322" id="YM5-Gr-Tiu"/>
                 <constraint firstItem="bUN-c8-XZS" firstAttribute="baseline" secondItem="Yb0-Py-Xyt" secondAttribute="baseline" id="Yea-R4-TqT"/>
-                <constraint firstAttribute="trailing" secondItem="Yb0-Py-Xyt" secondAttribute="trailing" constant="27" id="ZmM-Ic-f1M"/>
+                <constraint firstItem="yB0-if-vrm" firstAttribute="width" secondItem="lYT-3b-hpF" secondAttribute="width" id="YmO-45-2WN"/>
+                <constraint firstAttribute="trailing" secondItem="Yb0-Py-Xyt" secondAttribute="trailing" constant="27" id="ZmM-Ic-f1M" userLabel="trailing = タグ.trailing + 25"/>
+                <constraint firstItem="yB0-if-vrm" firstAttribute="height" secondItem="lYT-3b-hpF" secondAttribute="height" id="aDn-jn-p9e"/>
                 <constraint firstItem="lYT-3b-hpF" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="dU3-F4-YbZ"/>
-                <constraint firstItem="khV-3s-7cg" firstAttribute="baseline" secondItem="Rgj-qi-8pc" secondAttribute="baseline" id="qqM-Xt-qcg"/>
-                <constraint firstItem="Yb0-Py-Xyt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="v1L-kY-vlf"/>
+                <constraint firstItem="n77-Rg-Aoj" firstAttribute="centerY" secondItem="Rgj-qi-8pc" secondAttribute="centerY" id="fSu-IH-BpG"/>
+                <constraint firstItem="yB0-if-vrm" firstAttribute="centerX" secondItem="lYT-3b-hpF" secondAttribute="centerX" id="k3C-qW-IeV"/>
+                <constraint firstItem="Yb0-Py-Xyt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="v1L-kY-vlf" userLabel="タグ.top = top + 25"/>
+                <constraint firstItem="khV-3s-7cg" firstAttribute="centerY" secondItem="Rgj-qi-8pc" secondAttribute="centerY" id="vOJ-hw-7LO"/>
                 <constraint firstItem="DJk-my-nIl" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="vUF-Bf-7Eb"/>
             </constraints>
             <point key="canvasLocation" x="-108.5" y="65.5"/>

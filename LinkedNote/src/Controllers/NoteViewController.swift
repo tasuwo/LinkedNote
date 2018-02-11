@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 
 class NoteViewController: UIViewController {
     let provider: NoteViewProvider
@@ -16,6 +17,8 @@ class NoteViewController: UIViewController {
     let tagPresenter: TagCollectionPresenter
     let tagEditViewPresenter: TagEditViewPresenter
     let alertPresenter: AlertPresenter
+    let IDX_PLAIN_TEXT_NOTE: Int = 0
+    let IDX_MARKDOWN_NOTE: Int = 1
 
     init(provider: NoteViewProvider,
          note: Note,
@@ -41,9 +44,20 @@ class NoteViewController: UIViewController {
         self.provider.view.frame = self.view.frame
         self.provider.setNoteViewDelegate(self)
         self.view.addSubview(self.provider.view)
+        
+        // Setup segmented control
+        self.provider.segmentedControl.contentOffsetForSegment(at: IDX_PLAIN_TEXT_NOTE)
+        self.provider.view.bringSubview(toFront: self.provider.notePlainTextView)
 
+        // Setup tags
         self.provider.tagCollectionView.delegate = self
         self.provider.tagCollectionView.dataSource = tagPresenter
+
+        // Setup markdown web view
+        self.provider.noteMarkdownView.navigationDelegate = self
+        let url = Bundle.main.url(forResource: "markdown", withExtension: "html")
+        let req = URLRequest(url: url!)
+        self.provider.noteMarkdownView.load(req)
 
         self.tagEditViewPresenter.delegate = self
 
@@ -57,13 +71,25 @@ class NoteViewController: UIViewController {
     override func viewWillAppear(_: Bool) {
         self.tagEditViewPresenter.addObserver()
 
-        self.provider.noteView.text = note.body
+        self.provider.notePlainTextView.text = note.body
         self.tagPresenter.load(noteId: note.id)
         self.provider.tagCollectionView.reloadData()
+        if self.provider.noteMarkdownView.isLoading == false {
+            let str = note.body.replacingOccurrences(of: "\n", with: "\\n")
+            self.provider.noteMarkdownView.evaluateJavaScript("insert('\(str)');", completionHandler: nil)
+        }
     }
 
     override func viewWillDisappear(_: Bool) {
         self.tagEditViewPresenter.removeObserver()
+    }
+}
+
+extension NoteViewController: WKNavigationDelegate {
+    // Initial load of markdown web view
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        let str = note.body.replacingOccurrences(of: "\n", with: "\\n")
+        self.provider.noteMarkdownView.evaluateJavaScript("insert('\(str)');", completionHandler: nil)
     }
 }
 
@@ -112,6 +138,21 @@ extension NoteViewController: NoteViewDelegate {
         let articleVC = ArticleViewController(provider: ArticleView(), article: self.note.article!, calculator: self.calculator, alertPresenter: self.alertPresenter)
         articleVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(articleVC, animated: true)
+    }
+
+    func didPressSegmentedControl(with index: Int) {
+        switch index {
+        case IDX_PLAIN_TEXT_NOTE:
+            if self.provider.view.subviews.last != self.provider.notePlainTextView {
+                self.provider.view.bringSubview(toFront: self.provider.notePlainTextView)
+            }
+        case IDX_MARKDOWN_NOTE:
+            if self.provider.view.subviews.last != self.provider.noteMarkdownView {
+                self.provider.view.bringSubview(toFront: self.provider.noteMarkdownView)
+            }
+        default:
+            return
+        }
     }
 }
 
