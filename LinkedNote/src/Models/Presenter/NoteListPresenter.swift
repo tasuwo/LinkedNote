@@ -35,8 +35,8 @@ extension NoteListPresenter: UITableViewDataSource {
         let note = self.notes[indexPath.row]
         newCell.title.text = note.article?.title
         newCell.note = note
-        newCell.api.text = note.article!.apiAccount!.api.first!.signature
-        newCell.account.text = note.article!.apiAccount!.username
+        newCell.api.text = note.article?.apiAccount?.api.first?.signature
+        newCell.account.text = note.article?.apiAccount?.username
         newCell.body.text = note.body
 
         return newCell
