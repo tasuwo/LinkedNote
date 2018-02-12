@@ -29,6 +29,7 @@
 		2C9BAA74203180C4008FD85E /* MarkdownKeyboardKeyKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA73203180C4008FD85E /* MarkdownKeyboardKeyKind.swift */; };
 		2C9BAA77203184F3008FD85E /* MarkdownKeyboardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA76203184F3008FD85E /* MarkdownKeyboardPresenter.swift */; };
 		2C9BAA792031BB7F008FD85E /* UIImage+colorImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA782031BB7F008FD85E /* UIImage+colorImage.swift */; };
+		2C9BAA7B2031CD4A008FD85E /* RealmBackupRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA7A2031CD4A008FD85E /* RealmBackupRestore.swift */; };
 		2CACD0A31F26398900690583 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACD0A21F26398900690583 /* Repository.swift */; };
 		9BB12095DEC38C7AA06AEC5E /* Pods_LinkedNoteUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DABC6D3DE1353450DA80AAF /* Pods_LinkedNoteUITests.framework */; };
 		A00053B51F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00053B41F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift */; };
@@ -157,6 +158,8 @@
 		2C9BAA73203180C4008FD85E /* MarkdownKeyboardKeyKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownKeyboardKeyKind.swift; sourceTree = "<group>"; };
 		2C9BAA76203184F3008FD85E /* MarkdownKeyboardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownKeyboardPresenter.swift; sourceTree = "<group>"; };
 		2C9BAA782031BB7F008FD85E /* UIImage+colorImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+colorImage.swift"; sourceTree = "<group>"; };
+		2C9BAA7A2031CD4A008FD85E /* RealmBackupRestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmBackupRestore.swift; sourceTree = "<group>"; };
+		2C9BAA7C2031D270008FD85E /* LinkedNote.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LinkedNote.entitlements; sourceTree = "<group>"; };
 		2CACD0A21F26398900690583 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		38A9834388FD3C9159855939 /* Pods-LinkedNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNote.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNote/Pods-LinkedNote.release.xcconfig"; sourceTree = "<group>"; };
 		50EA9EFCC3AF4212863C844D /* Pods_LinkedNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkedNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -353,6 +356,7 @@
 		A05E17261EE261DD005C4566 /* LinkedNote */ = {
 			isa = PBXGroup;
 			children = (
+				2C9BAA7C2031D270008FD85E /* LinkedNote.entitlements */,
 				A05E17CC1EE2622D005C4566 /* resources */,
 				A05E17551EE26218005C4566 /* src */,
 			);
@@ -441,6 +445,7 @@
 				A05E176A1EE26218005C4566 /* Tag.swift */,
 				A0C8C7FE1F07D72C00E1F0A1 /* DataModelError.swift */,
 				2CACD0A21F26398900690583 /* Repository.swift */,
+				2C9BAA7A2031CD4A008FD85E /* RealmBackupRestore.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -761,6 +766,11 @@
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = RY2377PP7S;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					A05E17371EE261DD005C4566 = {
 						CreatedOnToolsVersion = 8.3.2;
@@ -1075,6 +1085,7 @@
 				A05E17A11EE26218005C4566 /* TagListViewController.swift in Sources */,
 				A05E17C11EE26218005C4566 /* NoteListCustomCell.swift in Sources */,
 				A05E17A91EE26218005C4566 /* Tag.swift in Sources */,
+				2C9BAA7B2031CD4A008FD85E /* RealmBackupRestore.swift in Sources */,
 				2CACD0A31F26398900690583 /* Repository.swift in Sources */,
 				2C9BAA77203184F3008FD85E /* MarkdownKeyboardPresenter.swift in Sources */,
 				A05E17B31EE26218005C4566 /* TagCollectionViewCell.swift in Sources */,
@@ -1317,6 +1328,7 @@
 			baseConfigurationReference = CF1A0B2F829D1BB6115EB532 /* Pods-LinkedNote.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LinkedNote/LinkedNote.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = RY2377PP7S;
 				INFOPLIST_FILE = LinkedNote/resources/Info.plist;
@@ -1334,6 +1346,7 @@
 			baseConfigurationReference = 38A9834388FD3C9159855939 /* Pods-LinkedNote.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LinkedNote/LinkedNote.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = RY2377PP7S;
 				INFOPLIST_FILE = LinkedNote/resources/Info.plist;
