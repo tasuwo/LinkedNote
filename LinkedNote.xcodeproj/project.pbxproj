@@ -28,6 +28,7 @@
 		2C9BAA72203141F8008FD85E /* MarkdownKeyboardColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA71203141F8008FD85E /* MarkdownKeyboardColor.swift */; };
 		2C9BAA74203180C4008FD85E /* MarkdownKeyboardKeyKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA73203180C4008FD85E /* MarkdownKeyboardKeyKind.swift */; };
 		2C9BAA77203184F3008FD85E /* MarkdownKeyboardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA76203184F3008FD85E /* MarkdownKeyboardPresenter.swift */; };
+		2C9BAA792031BB7F008FD85E /* UIImage+colorImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA782031BB7F008FD85E /* UIImage+colorImage.swift */; };
 		2CACD0A31F26398900690583 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACD0A21F26398900690583 /* Repository.swift */; };
 		9BB12095DEC38C7AA06AEC5E /* Pods_LinkedNoteUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DABC6D3DE1353450DA80AAF /* Pods_LinkedNoteUITests.framework */; };
 		A00053B51F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00053B41F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift */; };
@@ -155,6 +156,7 @@
 		2C9BAA71203141F8008FD85E /* MarkdownKeyboardColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownKeyboardColor.swift; sourceTree = "<group>"; };
 		2C9BAA73203180C4008FD85E /* MarkdownKeyboardKeyKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownKeyboardKeyKind.swift; sourceTree = "<group>"; };
 		2C9BAA76203184F3008FD85E /* MarkdownKeyboardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownKeyboardPresenter.swift; sourceTree = "<group>"; };
+		2C9BAA782031BB7F008FD85E /* UIImage+colorImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+colorImage.swift"; sourceTree = "<group>"; };
 		2CACD0A21F26398900690583 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		38A9834388FD3C9159855939 /* Pods-LinkedNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNote.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNote/Pods-LinkedNote.release.xcconfig"; sourceTree = "<group>"; };
 		50EA9EFCC3AF4212863C844D /* Pods_LinkedNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkedNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -459,6 +461,7 @@
 			isa = PBXGroup;
 			children = (
 				A05E17731EE26218005C4566 /* UIColor+.swift */,
+				2C9BAA782031BB7F008FD85E /* UIImage+colorImage.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1083,6 +1086,7 @@
 				A05E17A71EE26218005C4566 /* Article.swift in Sources */,
 				A05E17AE1EE26218005C4566 /* TagPickerPresenter.swift in Sources */,
 				2C9BAA72203141F8008FD85E /* MarkdownKeyboardColor.swift in Sources */,
+				2C9BAA792031BB7F008FD85E /* UIImage+colorImage.swift in Sources */,
 				A05E17C51EE26218005C4566 /* TagMenuView.swift in Sources */,
 				A05E17B01EE26218005C4566 /* UIColor+.swift in Sources */,
 				2C9BAA74203180C4008FD85E /* MarkdownKeyboardKeyKind.swift in Sources */,

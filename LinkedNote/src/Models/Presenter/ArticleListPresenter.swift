@@ -81,7 +81,10 @@ class ArticleListPresenter<T: ThumbnailDownloader>: NSObject, UITableViewDataSou
             newCell.imageView!.image = thumbanail
         } else {
             self.startThumbnailDownload(article: article, forIndexPath: indexPath, tableView: tableView)
-            newCell.imageView!.image = UIImage(named: "")
+            newCell.imageView!.image = UIImage.colorImage(
+                color: UIColor(r: 220, g: 220, b: 220),
+                size: newCell.thumbnail.frame.size
+            )
         }
         let v = tableView as! ArticleListTableView
         newCell.delegate = v
