@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +14,7 @@
                 <outlet property="splitBarBottomConstraint_" destination="QEn-LR-MC0" id="kLz-Yo-1iV"/>
                 <outlet property="splitBar_" destination="Lh2-X2-ldR" id="ipd-VF-zXS"/>
                 <outlet property="view_" destination="QAq-Qo-oY2" id="aHz-jm-kWC"/>
-                <outlet property="webView_" destination="9Zj-3f-xnR" id="QXI-rI-RYa"/>
+                <outlet property="webView_" destination="yWc-8F-jUo" id="t5D-zW-cHg"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -23,10 +22,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Zj-3f-xnR">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="418"/>
-                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                </webView>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="W6B-Ms-bCL">
                     <rect key="frame" x="0.0" y="432" width="375" height="235"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -45,19 +40,27 @@
                         <action selector="touchDragOutsideSplitBar:event:" destination="-1" eventType="touchDragOutside" id="94K-DY-D2D"/>
                     </connections>
                 </button>
+                <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yWc-8F-jUo">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="418"/>
+                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <wkWebViewConfiguration key="configuration">
+                        <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                        <wkPreferences key="preferences"/>
+                    </wkWebViewConfiguration>
+                </wkWebView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="9Zj-3f-xnR" firstAttribute="centerX" secondItem="QAq-Qo-oY2" secondAttribute="centerX" id="3jR-e8-0wW"/>
                 <constraint firstItem="W6B-Ms-bCL" firstAttribute="top" secondItem="Lh2-X2-ldR" secondAttribute="bottom" id="4Nd-Md-wxe"/>
+                <constraint firstItem="yWc-8F-jUo" firstAttribute="top" secondItem="QAq-Qo-oY2" secondAttribute="top" id="A5X-ci-H1I" userLabel="Web View.top = top"/>
                 <constraint firstAttribute="bottom" secondItem="Lh2-X2-ldR" secondAttribute="bottom" constant="235" id="QEn-LR-MC0"/>
                 <constraint firstItem="Lh2-X2-ldR" firstAttribute="width" secondItem="QAq-Qo-oY2" secondAttribute="width" id="R73-mS-fho"/>
-                <constraint firstItem="9Zj-3f-xnR" firstAttribute="top" secondItem="QAq-Qo-oY2" secondAttribute="top" id="etf-i2-QD8"/>
+                <constraint firstItem="yWc-8F-jUo" firstAttribute="centerX" secondItem="QAq-Qo-oY2" secondAttribute="centerX" id="ggl-XQ-zoI"/>
                 <constraint firstAttribute="bottom" secondItem="W6B-Ms-bCL" secondAttribute="bottom" id="gr9-c9-1GO"/>
-                <constraint firstItem="9Zj-3f-xnR" firstAttribute="width" secondItem="QAq-Qo-oY2" secondAttribute="width" id="haX-xE-ObI"/>
-                <constraint firstItem="Lh2-X2-ldR" firstAttribute="top" secondItem="9Zj-3f-xnR" secondAttribute="bottom" id="kR5-Dn-nzQ"/>
+                <constraint firstItem="Lh2-X2-ldR" firstAttribute="top" secondItem="yWc-8F-jUo" secondAttribute="bottom" id="iXP-jZ-P5s" userLabel="Split Bar.top = Web View.bottom"/>
                 <constraint firstItem="Lh2-X2-ldR" firstAttribute="centerX" secondItem="QAq-Qo-oY2" secondAttribute="centerX" id="mWK-PI-kjb"/>
                 <constraint firstItem="W6B-Ms-bCL" firstAttribute="centerX" secondItem="QAq-Qo-oY2" secondAttribute="centerX" id="tK6-Dn-1oN"/>
+                <constraint firstItem="yWc-8F-jUo" firstAttribute="width" secondItem="QAq-Qo-oY2" secondAttribute="width" id="tP8-4L-Zgq"/>
                 <constraint firstItem="W6B-Ms-bCL" firstAttribute="width" secondItem="QAq-Qo-oY2" secondAttribute="width" id="uRB-AT-qZ2"/>
             </constraints>
             <point key="canvasLocation" x="-65.5" y="12.5"/>

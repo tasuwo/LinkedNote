@@ -61,11 +61,22 @@ class ArticleViewController: UIViewController {
         self.provider.splitBar.addGestureRecognizer(self.singleTapRecognizer)
 
         // Load web view
-        // TODO: 進捗バーをつけたい
         if let url = URL(string: self.article.url) {
-            self.provider.webView.loadRequest(URLRequest(url: url))
+            self.provider.webView.load(URLRequest(url: url))
         }
         self.view.addSubview(self.provider.view)
+
+        // Web view's progress bar
+        self.provider.progressBar.frame = CGRect(
+            x: 0,
+            y: self.navigationController!.navigationBar.frame.size.height - 2,
+            width: self.view.frame.size.width,
+            height: 10
+        )
+        self.navigationController?.navigationBar.addSubview(self.provider.progressBar)
+        // Observers to update display of the progress
+        self.provider.webView.addObserver(self, forKeyPath: "loading", options: .new, context: nil)
+        self.provider.webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
 
         self.navigationItem.title = self.article.title
     }
@@ -93,6 +104,38 @@ class ArticleViewController: UIViewController {
 
         if self.provider.webView.isLoading {
             self.provider.webView.stopLoading()
+        }
+    }
+
+    deinit {
+        self.provider.webView.removeObserver(self, forKeyPath: "estimatedProgress")
+        self.provider.webView.removeObserver(self, forKeyPath: "loading")
+    }
+}
+
+// Progress バー描画
+extension ArticleViewController {
+    override func observeValue(forKeyPath keyPath: String?, of _: Any?, change _: [NSKeyValueChangeKey: Any]?, context _: UnsafeMutableRawPointer?) {
+        guard let path = keyPath else {
+            return
+        }
+
+        switch path {
+        // Progress state was updated
+        case "estimatedProgress":
+            self.provider.progressBar.setProgress(
+                Float(self.provider.webView.estimatedProgress),
+                animated: true
+            )
+        // Finish loading or not
+        case "loading":
+            UIApplication.shared.isNetworkActivityIndicatorVisible = self.provider.webView.isLoading
+            self.provider.progressBar.setProgress(
+                self.provider.webView.isLoading ? 0.1 : 0.0,
+                animated: false
+            )
+        default:
+            return
         }
     }
 }

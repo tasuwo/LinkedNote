@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import WebKit
 
 protocol ArticleViewProvider {
     var view: UIView { get }
-    var webView: UIWebView { get }
+    var webView: WKWebView { get }
     var noteView: UITextView { get }
     var splitBar: UIButton { get }
     var splitBarBottomConstraint: NSLayoutConstraint { get }
+    var progressBar: UIProgressView { get }
     func setSplitBarDelegate(delegate: SplitBarDelegate)
 }
 
@@ -24,10 +26,11 @@ protocol SplitBarDelegate {
 class ArticleView: UIView {
     var splitBarDelegate: SplitBarDelegate?
     @IBOutlet var view_: UIView!
-    @IBOutlet var webView_: UIWebView!
+    @IBOutlet var webView_: WKWebView!
     @IBOutlet var noteView_: UITextView!
     @IBOutlet var splitBar_: UIButton!
     @IBOutlet var splitBarBottomConstraint_: NSLayoutConstraint!
+    var progressBar_: UIProgressView!
 
     @IBAction func touchDragInsideSplitBar(_ sender: Any, event: UIEvent) {
         if let touch = event.allTouches?.first {
@@ -46,6 +49,10 @@ class ArticleView: UIView {
         Bundle.main.loadNibNamed("Article", owner: self, options: nil)
         view_.frame = frame
         addSubview(view_)
+
+        progressBar_ = UIProgressView(frame: CGRect.zero)
+        progressBar_.progressViewStyle = .bar
+        progressBar_.progressTintColor = UIColor.blue
     }
 
     required init?(coder _: NSCoder) {
@@ -58,7 +65,7 @@ extension ArticleView: ArticleViewProvider {
         return self.view_
     }
 
-    var webView: UIWebView {
+    var webView: WKWebView {
         return self.webView_
     }
 
@@ -72,6 +79,10 @@ extension ArticleView: ArticleViewProvider {
 
     var splitBarBottomConstraint: NSLayoutConstraint {
         return self.splitBarBottomConstraint_
+    }
+
+    var progressBar: UIProgressView {
+        return self.progressBar_
     }
 
     func setSplitBarDelegate(delegate: SplitBarDelegate) {
