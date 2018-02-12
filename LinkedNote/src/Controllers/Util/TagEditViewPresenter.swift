@@ -98,6 +98,7 @@ extension TagEditViewPresenter {
 
 extension TagEditViewPresenter {
     func tagEditKeyboardWillBeShown(notification: NSNotification) {
+        // TODO: ここで forced unwrap でクラッシュすることがある
         if self.provider.newTagNameField.isFirstResponder == false {
             return
         }

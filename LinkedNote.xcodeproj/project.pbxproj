@@ -17,11 +17,17 @@
 		2C430F6C203034C90033C0C5 /* marked.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 2C430F6B203034C90033C0C5 /* marked.min.js */; };
 		2C430F6E203035270033C0C5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C430F6D203035270033C0C5 /* Settings.bundle */; };
 		2C430F702030423C0033C0C5 /* manual_installed_libraries_acknowledgements.yml in Resources */ = {isa = PBXBuildFile; fileRef = 2C430F6F2030423C0033C0C5 /* manual_installed_libraries_acknowledgements.yml */; };
+		2C430F73203060CD0033C0C5 /* MarkdownKeyboardAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C430F72203060CD0033C0C5 /* MarkdownKeyboardAccessory.swift */; };
+		2C430F7B203065600033C0C5 /* MarkdownKeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C430F7A203065600033C0C5 /* MarkdownKeyboardKey.swift */; };
 		2C4D409B1F091DAA008DC554 /* NoteTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D409A1F091DAA008DC554 /* NoteTest.swift */; };
 		2C62D69C1F086FE900DC4041 /* ArticleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C62D69B1F086FE900DC4041 /* ArticleTest.swift */; };
 		2C692EEB202FEDE500BA23A0 /* MockNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C692EEA202FEDE500BA23A0 /* MockNavigationController.swift */; };
 		2C692EEE202FF1CE00BA23A0 /* MockTagEditViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C692EED202FF1CE00BA23A0 /* MockTagEditViewPresenter.swift */; };
 		2C692EF42030139F00BA23A0 /* markdown.html in Resources */ = {isa = PBXBuildFile; fileRef = 2C692EF32030139F00BA23A0 /* markdown.html */; };
+		2C6E01DE20309169008320BE /* MarkdownKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6E01DD20309169008320BE /* MarkdownKeyboardViewController.swift */; };
+		2C9BAA72203141F8008FD85E /* MarkdownKeyboardColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA71203141F8008FD85E /* MarkdownKeyboardColor.swift */; };
+		2C9BAA74203180C4008FD85E /* MarkdownKeyboardKeyKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA73203180C4008FD85E /* MarkdownKeyboardKeyKind.swift */; };
+		2C9BAA77203184F3008FD85E /* MarkdownKeyboardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA76203184F3008FD85E /* MarkdownKeyboardPresenter.swift */; };
 		2CACD0A31F26398900690583 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACD0A21F26398900690583 /* Repository.swift */; };
 		9BB12095DEC38C7AA06AEC5E /* Pods_LinkedNoteUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DABC6D3DE1353450DA80AAF /* Pods_LinkedNoteUITests.framework */; };
 		A00053B51F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00053B41F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift */; };
@@ -113,6 +119,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2C430F8B20307AF30033C0C5 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		01314C2A546B2F55B04D3A70 /* Pods-LinkedNoteTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNoteTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNoteTests/Pods-LinkedNoteTests.release.xcconfig"; sourceTree = "<group>"; };
 		2C0758A2202FDFDF001022AA /* NoteViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewControllerTest.swift; sourceTree = "<group>"; };
@@ -124,11 +143,18 @@
 		2C430F6B203034C90033C0C5 /* marked.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = marked.min.js; path = LinkedNote/resources/marked.min.js; sourceTree = SOURCE_ROOT; };
 		2C430F6D203035270033C0C5 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = LinkedNote/resources/Settings.bundle; sourceTree = SOURCE_ROOT; };
 		2C430F6F2030423C0033C0C5 /* manual_installed_libraries_acknowledgements.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = manual_installed_libraries_acknowledgements.yml; sourceTree = "<group>"; };
+		2C430F72203060CD0033C0C5 /* MarkdownKeyboardAccessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownKeyboardAccessory.swift; sourceTree = "<group>"; };
+		2C430F7A203065600033C0C5 /* MarkdownKeyboardKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownKeyboardKey.swift; sourceTree = "<group>"; };
+		2C430F8020307AF30033C0C5 /* MarkdownKeyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MarkdownKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C4D409A1F091DAA008DC554 /* NoteTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTest.swift; sourceTree = "<group>"; };
 		2C62D69B1F086FE900DC4041 /* ArticleTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleTest.swift; sourceTree = "<group>"; };
 		2C692EEA202FEDE500BA23A0 /* MockNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNavigationController.swift; sourceTree = "<group>"; };
 		2C692EED202FF1CE00BA23A0 /* MockTagEditViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTagEditViewPresenter.swift; sourceTree = "<group>"; };
 		2C692EF32030139F00BA23A0 /* markdown.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = markdown.html; sourceTree = "<group>"; };
+		2C6E01DD20309169008320BE /* MarkdownKeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownKeyboardViewController.swift; sourceTree = "<group>"; };
+		2C9BAA71203141F8008FD85E /* MarkdownKeyboardColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownKeyboardColor.swift; sourceTree = "<group>"; };
+		2C9BAA73203180C4008FD85E /* MarkdownKeyboardKeyKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownKeyboardKeyKind.swift; sourceTree = "<group>"; };
+		2C9BAA76203184F3008FD85E /* MarkdownKeyboardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownKeyboardPresenter.swift; sourceTree = "<group>"; };
 		2CACD0A21F26398900690583 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		38A9834388FD3C9159855939 /* Pods-LinkedNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNote.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNote/Pods-LinkedNote.release.xcconfig"; sourceTree = "<group>"; };
 		50EA9EFCC3AF4212863C844D /* Pods_LinkedNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkedNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -217,6 +243,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2C430F7D20307AF30033C0C5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A05E17211EE261DD005C4566 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -244,6 +277,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C430F71203060B50033C0C5 /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				2C430F72203060CD0033C0C5 /* MarkdownKeyboardAccessory.swift */,
+				2C430F7A203065600033C0C5 /* MarkdownKeyboardKey.swift */,
+				2C9BAA71203141F8008FD85E /* MarkdownKeyboardColor.swift */,
+			);
+			path = Keyboard;
+			sourceTree = "<group>";
+		};
 		2C692EEC202FEDEC00BA23A0 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,6 +304,15 @@
 				2C430F6B203034C90033C0C5 /* marked.min.js */,
 			);
 			path = markdown;
+			sourceTree = "<group>";
+		};
+		2C9BAA75203184A6008FD85E /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				2C9BAA73203180C4008FD85E /* MarkdownKeyboardKeyKind.swift */,
+				2C9BAA76203184F3008FD85E /* MarkdownKeyboardPresenter.swift */,
+			);
+			path = Keyboard;
 			sourceTree = "<group>";
 		};
 		7C1099DC066F6A4EE38A4052 /* Frameworks */ = {
@@ -291,6 +343,7 @@
 				A05E17241EE261DD005C4566 /* LinkedNote.app */,
 				A05E17381EE261DD005C4566 /* LinkedNoteTests.xctest */,
 				A05E17431EE261DD005C4566 /* LinkedNoteUITests.xctest */,
+				2C430F8020307AF30033C0C5 /* MarkdownKeyboard.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -349,6 +402,7 @@
 				A05E175C1EE26218005C4566 /* NoteListViewController.swift */,
 				A05E175D1EE26218005C4566 /* NoteViewController.swift */,
 				A05E175F1EE26218005C4566 /* TagListViewController.swift */,
+				2C6E01DD20309169008320BE /* MarkdownKeyboardViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -356,6 +410,7 @@
 		A05E17601EE26218005C4566 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2C9BAA75203184A6008FD85E /* Keyboard */,
 				A05E17621EE26218005C4566 /* API Wrappers */,
 				A05E17651EE26218005C4566 /* Data Models */,
 				A05E176B1EE26218005C4566 /* Presenter */,
@@ -411,6 +466,7 @@
 		A05E17741EE26218005C4566 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2C430F71203060B50033C0C5 /* Keyboard */,
 				A05E17771EE26218005C4566 /* Components */,
 				A05E177B1EE26218005C4566 /* views */,
 				A05E17301EE261DD005C4566 /* LaunchScreen.storyboard */,
@@ -601,6 +657,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2C430F7F20307AF30033C0C5 /* MarkdownKeyboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2C430F8820307AF30033C0C5 /* Build configuration list for PBXNativeTarget "MarkdownKeyboard" */;
+			buildPhases = (
+				2C430F7C20307AF30033C0C5 /* Sources */,
+				2C430F7D20307AF30033C0C5 /* Frameworks */,
+				2C430F7E20307AF30033C0C5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MarkdownKeyboard;
+			productName = MarkdownKeyboard;
+			productReference = 2C430F8020307AF30033C0C5 /* MarkdownKeyboard.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		A05E17231EE261DD005C4566 /* LinkedNote */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A05E174C1EE261DD005C4566 /* Build configuration list for PBXNativeTarget "LinkedNote" */;
@@ -613,6 +686,7 @@
 				A05E17221EE261DD005C4566 /* Resources */,
 				D9FB09B9ECD080EAC68948E4 /* [CP] Embed Pods Frameworks */,
 				4C5C9D379594CC8116249480 /* [CP] Copy Pods Resources */,
+				2C430F8B20307AF30033C0C5 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -671,10 +745,15 @@
 		A05E171C1EE261DD005C4566 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "tasuku tozawa";
 				TargetAttributes = {
+					2C430F7F20307AF30033C0C5 = {
+						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = RY2377PP7S;
+						ProvisioningStyle = Automatic;
+					};
 					A05E17231EE261DD005C4566 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = RY2377PP7S;
@@ -708,11 +787,19 @@
 				A05E17231EE261DD005C4566 /* LinkedNote */,
 				A05E17371EE261DD005C4566 /* LinkedNoteTests */,
 				A05E17421EE261DD005C4566 /* LinkedNoteUITests */,
+				2C430F7F20307AF30033C0C5 /* MarkdownKeyboard */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2C430F7E20307AF30033C0C5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A05E17221EE261DD005C4566 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -944,6 +1031,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2C430F7C20307AF30033C0C5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A05E17201EE261DD005C4566 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -964,11 +1058,14 @@
 				A05E17A81EE26218005C4566 /* Note.swift in Sources */,
 				A0DE75551EE3FCB900EFAA3F /* ThumbnailDownloader.swift in Sources */,
 				A05E17AD1EE26218005C4566 /* TagListPresenter.swift in Sources */,
+				2C430F7B203065600033C0C5 /* MarkdownKeyboardKey.swift in Sources */,
 				A05E17CB1EE26218005C4566 /* TagListView.swift in Sources */,
 				A05E17A31EE26218005C4566 /* APIWrapper.swift in Sources */,
+				2C430F73203060CD0033C0C5 /* MarkdownKeyboardAccessory.swift in Sources */,
 				A05E17991EE26218005C4566 /* AppDelegate.swift in Sources */,
 				A05E17C91EE26218005C4566 /* TagListCustomCell.swift in Sources */,
 				A05E17B21EE26218005C4566 /* ProgressHUD.swift in Sources */,
+				2C6E01DE20309169008320BE /* MarkdownKeyboardViewController.swift in Sources */,
 				A05E17AC1EE26218005C4566 /* TagCollectionPresenter.swift in Sources */,
 				A05E179F1EE26218005C4566 /* NoteViewController.swift in Sources */,
 				A05E179D1EE26218005C4566 /* MainTabBarController.swift in Sources */,
@@ -976,6 +1073,7 @@
 				A05E17C11EE26218005C4566 /* NoteListCustomCell.swift in Sources */,
 				A05E17A91EE26218005C4566 /* Tag.swift in Sources */,
 				2CACD0A31F26398900690583 /* Repository.swift in Sources */,
+				2C9BAA77203184F3008FD85E /* MarkdownKeyboardPresenter.swift in Sources */,
 				A05E17B31EE26218005C4566 /* TagCollectionViewCell.swift in Sources */,
 				A0D6F4A91EE8D58600430171 /* FrameCalculator.swift in Sources */,
 				A05E179B1EE26218005C4566 /* ArticleListViewController.swift in Sources */,
@@ -984,8 +1082,10 @@
 				A05E17BC1EE26218005C4566 /* ArticleListTableView.swift in Sources */,
 				A05E17A71EE26218005C4566 /* Article.swift in Sources */,
 				A05E17AE1EE26218005C4566 /* TagPickerPresenter.swift in Sources */,
+				2C9BAA72203141F8008FD85E /* MarkdownKeyboardColor.swift in Sources */,
 				A05E17C51EE26218005C4566 /* TagMenuView.swift in Sources */,
 				A05E17B01EE26218005C4566 /* UIColor+.swift in Sources */,
+				2C9BAA74203180C4008FD85E /* MarkdownKeyboardKeyKind.swift in Sources */,
 				A05E17A01EE26218005C4566 /* TagEditViewPresenter.swift in Sources */,
 				A05E17A21EE26218005C4566 /* AlertPresenter.swift in Sources */,
 			);
@@ -1059,6 +1159,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2C430F8920307AF30033C0C5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RY2377PP7S;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MarkdownKeyboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.LinkedNote.MarkdownKeyboard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2C430F8A20307AF30033C0C5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RY2377PP7S;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MarkdownKeyboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.LinkedNote.MarkdownKeyboard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		A05E174A1EE261DD005C4566 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1173,6 +1313,7 @@
 			baseConfigurationReference = CF1A0B2F829D1BB6115EB532 /* Pods-LinkedNote.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = RY2377PP7S;
 				INFOPLIST_FILE = LinkedNote/resources/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
@@ -1189,6 +1330,7 @@
 			baseConfigurationReference = 38A9834388FD3C9159855939 /* Pods-LinkedNote.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = RY2377PP7S;
 				INFOPLIST_FILE = LinkedNote/resources/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
@@ -1261,6 +1403,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2C430F8820307AF30033C0C5 /* Build configuration list for PBXNativeTarget "MarkdownKeyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C430F8920307AF30033C0C5 /* Debug */,
+				2C430F8A20307AF30033C0C5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A05E171F1EE261DD005C4566 /* Build configuration list for PBXProject "LinkedNote" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

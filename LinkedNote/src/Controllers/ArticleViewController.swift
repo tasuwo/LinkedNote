@@ -15,6 +15,7 @@ class ArticleViewController: UIViewController {
     let article: Article
     let calculator: FrameCalculator
     let alertPresenter: AlertPresenter
+    var keyboardAccessoryVC: MarkdownKeyboardViewController!
 
     let noteRepository: Repository<Note>
 
@@ -44,12 +45,14 @@ class ArticleViewController: UIViewController {
         // Initialize a view
         self.provider.view.frame = self.defaultFrameSize
         self.provider.setSplitBarDelegate(delegate: self)
-        self.provider.noteView.delegate = self
         if let note = self.article.note {
             self.provider.noteView.text = note.body
         } else {
             self.provider.noteView.text = "ノートがまだ作成されていません"
         }
+
+        // Add markdown keyboard accessory to note view
+        self.keyboardAccessoryVC = MarkdownKeyboardViewController(textView: self.provider.noteView, delegate: self)
 
         // Recognize the touch to out of text field
         self.singleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onSingleTap))
@@ -179,8 +182,8 @@ extension ArticleViewController: UIGestureRecognizerDelegate {
     }
 }
 
-extension ArticleViewController: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
+extension ArticleViewController: MarkdownKeyboardViewControllerDelegate {
+    func didEditTextView(textView: UITextView) {
         guard let text = textView.text else {
             self.alertPresenter.error("不明なエラー: テキスト情報の取得に失敗しました", on: self)
             return

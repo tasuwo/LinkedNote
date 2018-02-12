@@ -44,7 +44,7 @@ class NoteViewController: UIViewController {
         self.provider.view.frame = self.view.frame
         self.provider.setNoteViewDelegate(self)
         self.view.addSubview(self.provider.view)
-        
+
         // Setup segmented control
         self.provider.segmentedControl.contentOffsetForSegment(at: IDX_PLAIN_TEXT_NOTE)
         self.provider.view.bringSubview(toFront: self.provider.notePlainTextView)
@@ -87,7 +87,7 @@ class NoteViewController: UIViewController {
 
 extension NoteViewController: WKNavigationDelegate {
     // Initial load of markdown web view
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    func webView(_: WKWebView, didFinish _: WKNavigation!) {
         let str = note.body.replacingOccurrences(of: "\n", with: "\\n")
         self.provider.noteMarkdownView.evaluateJavaScript("insert('\(str)');", completionHandler: nil)
     }
