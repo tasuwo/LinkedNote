@@ -108,6 +108,9 @@ class ArticleListPresenter<T: ThumbnailDownloader>: NSObject, UITableViewDataSou
         newCell.noteButton.addGestureRecognizer(longPressGesture)
         newCell.noteButton.tag = indexPath.row
 
+        // No color puts to selected cell
+        newCell.selectionStyle = UITableViewCellSelectionStyle.none
+
         return newCell
     }
 
