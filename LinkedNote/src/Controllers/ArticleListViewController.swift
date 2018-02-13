@@ -70,6 +70,8 @@ class ArticleListViewController: UIViewController {
         self.refreshControl.addTarget(self, action: #selector(self.refresh), for: .valueChanged)
         self.provider.articleTableView.addSubview(self.refreshControl)
 
+        self.articleListPresenter.errorObserver = self
+
         self.navigationItem.title = "マイリスト"
     }
 
@@ -195,5 +197,35 @@ extension ArticleListViewController: UIGestureRecognizerDelegate, RecognizableLo
             self.tagEditViewPresenter.initwith(provider: TagMenuView(), note: cell!.article!.note!, frame: self.tabBarController!.view.frame)
             self.tagEditViewPresenter.add(to: self.tabBarController!.view, viewController: self)
         }
+    }
+}
+
+extension ArticleListViewController: ArticleListPresenterErrorHandler {
+    func occured(_ error: APIError, at type: ArticleListPresenterErrorAt) {
+        let title: String
+        switch type {
+        case .Archive:
+            title = "記事の削除に失敗しました"
+        case .Retrieve:
+            title = "記事一覧の取得に失敗しました"
+        }
+
+        let body: String
+        switch error {
+        case .APIError:
+            body = "001"
+        case .FailedToGetUserNameByAPI:
+            body = "002"
+        case .NotLoggedIn:
+            body = "003"
+        case .ResponseIsNil:
+            body = "004"
+        case .UnexpectedAPIResponseFormat:
+            body = "005"
+        case .UserNotFoundInDatabase:
+            body = "006"
+        }
+
+        self.alertPresenter.error("\(title)\n エラーコード: \(body)", on: self)
     }
 }

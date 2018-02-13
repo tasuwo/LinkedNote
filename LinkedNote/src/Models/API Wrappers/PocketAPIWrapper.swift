@@ -53,9 +53,11 @@ class PocketAPIWrapper: NSObject, APIWrapper {
         PocketAPI.shared().logout()
     }
 
-    static func login(completion: @escaping (Error?) -> Void) {
+    static func login(completion: @escaping (APIError?) -> Void) {
         PocketAPI.shared().login(handler: { _, error in
-            completion(error)
+            if let e = error {
+                completion(APIError.APIError(e))
+            }
         })
     }
 
@@ -67,106 +69,128 @@ class PocketAPIWrapper: NSObject, APIWrapper {
         self.currentOffset = 0
     }
 
-    func retrieve(_ completion: @escaping (([Article]) -> Void)) {
+    func retrieve(_ completion: @escaping (([Article], APIError?) -> Void)) {
         if self.isRetrieving { return }
         self.isRetrieving = true
-        self.retrieve(offset: self.currentOffset, count: self.retrieveUnitNum, completion: { infoArray in
-            completion(infoArray)
+        self.retrieve(offset: self.currentOffset, count: self.retrieveUnitNum, completion: { infoArray, error in
+            completion(infoArray, error)
             self.currentOffset += self.retrieveUnitNum
             self.isRetrieving = false
         })
     }
 
-    fileprivate func retrieve(offset: Int, count: Int, completion: @escaping (_ result: [Article]) -> Void) {
+    fileprivate func retrieve(offset: Int, count: Int, completion: @escaping (_ result: [Article], _ error: APIError?) -> Void) {
         var result: [Article] = []
 
         if !PocketAPI.shared().isLoggedIn {
-            completion(result)
+            completion([], APIError.NotLoggedIn)
             return
         }
 
-        if let username = PocketAPI.shared().username,
-            let account = accountRepo.find(apiSignature: PocketAPIWrapper.signature, username: username) {
-            let httpMethod = PocketAPIHTTPMethodGET
-            let arguments: NSDictionary = ["detailType": "complete", "count": count.description, "offset": offset.description, "sort": "newest"]
-
-            PocketAPI.shared().callMethod("get", with: httpMethod, arguments: arguments as! [AnyHashable: Any], handler: { _, _, response, _ in
-                let responseJson: JSON
-                if let r = response {
-                    responseJson = JSON(r)
-                } else {
-                    completion(result)
-                    return
-                }
-
-                let articles: Dictionary<String, JSON>
-                if let p = responseJson["list"].dictionary {
-                    articles = p
-                } else {
-                    completion(result)
-                    return
-                }
-
-                for (id, json) in articles {
-                    var info = ArticleInfo()
-                    info.localId = id
-                    for (key, value) in json {
-                        switch key {
-                        case "resolved_title":
-                            info.title = value.string
-                        case "resolved_url":
-                            info.url = value.string
-                        case "excerpt":
-                            info.excerpt = value.string
-                        case "image":
-                            info.thumbnailUrl = value["src"].string
-                        default: break
-                        }
-                    }
-
-                    if info.thumbnailUrl == nil {
-                        info.thumbnailUrl = ""
-                    }
-
-                    if info.isAbleToCastToArticleDataModel() == false {
-                        Swift.print("Couldn't convert to Artcile \(info)")
-                        continue
-                    }
-
-                    if let storedArticle = self.articleRepo.find(localId: info.localId!, accountId: account.id) {
-                        result.append(storedArticle)
-                    } else {
-                        result.append(Article(localId: info.localId!, title: info.title!, url: info.url!, thumbnailUrl: info.thumbnailUrl!))
-                    }
-                }
-                completion(result)
-            })
-        } else {
-            completion(result)
+        guard let username = PocketAPI.shared().username else {
+            completion([], APIError.FailedToGetUserNameByAPI)
+            return
         }
+
+        guard let account = accountRepo.find(apiSignature: PocketAPIWrapper.signature, username: username) else {
+            completion([], APIError.UserNotFoundInDatabase)
+            return
+        }
+
+        let httpMethod = PocketAPIHTTPMethodGET
+        let arguments: NSDictionary = ["detailType": "complete", "count": count.description, "offset": offset.description, "sort": "newest"]
+
+        PocketAPI.shared().callMethod("get", with: httpMethod, arguments: arguments as! [AnyHashable: Any], handler: {
+            _, _, response, error in
+
+            if let e = error {
+                Swift.print(e.localizedDescription)
+                completion([], APIError.APIError(e))
+                return
+            }
+
+            guard let responseStr = response else {
+                completion([], APIError.ResponseIsNil)
+                return
+            }
+            let responseJson = JSON(responseStr)
+
+            // TODO: API response format validation
+
+            guard let articles: Dictionary<String, JSON> = responseJson["list"].dictionary else {
+                completion([], APIError.UnexpectedAPIResponseFormat)
+                return
+            }
+
+            for (id, json) in articles {
+                var info = ArticleInfo()
+                info.localId = id
+                for (key, value) in json {
+                    switch key {
+                    case "resolved_title":
+                        info.title = value.string
+                    case "resolved_url":
+                        info.url = value.string
+                    case "excerpt":
+                        info.excerpt = value.string
+                    case "image":
+                        info.thumbnailUrl = value["src"].string
+                    default: break
+                    }
+                }
+
+                if info.thumbnailUrl == nil {
+                    info.thumbnailUrl = ""
+                }
+
+                if info.isAbleToCastToArticleDataModel() == false {
+                    Swift.print("Couldn't convert to Artcile \(info)")
+                    continue
+                }
+
+                if let storedArticle = self.articleRepo.find(localId: info.localId!, accountId: account.id) {
+                    result.append(storedArticle)
+                } else {
+                    result.append(Article(localId: info.localId!, title: info.title!, url: info.url!, thumbnailUrl: info.thumbnailUrl!))
+                }
+            }
+
+            completion(result, nil)
+        })
     }
 
-    func archive(id: String, completion: @escaping ((Bool) -> Void)) {
-        if PocketAPI.shared().isLoggedIn {
-            let time = Int(NSDate().timeIntervalSince1970)
-            let httpMethod = PocketAPIHTTPMethodPOST
-            let arguments: NSDictionary = ["actions": [["action": "archive", "item_id": "\(id)", "time": "\(time.description)"]]]
-
-            PocketAPI.shared().callMethod("send", with: httpMethod, arguments: arguments as! [AnyHashable: Any], handler: {
-                _, _, response, error in
-                Swift.print(error?.localizedDescription ?? "")
-                let responseJson: JSON
-                if let r = response {
-                    responseJson = JSON(r)
-                } else {
-                    completion(false)
-                    return
-                }
-
-                Swift.print(responseJson["action_results"].array![0])
-                Swift.print(responseJson["status"])
-                completion(true)
-            })
+    func archive(id: String, completion: @escaping ((APIError?) -> Void)) {
+        if !PocketAPI.shared().isLoggedIn {
+            completion(APIError.NotLoggedIn)
+            return
         }
+
+        let time = Int(NSDate().timeIntervalSince1970)
+        let httpMethod = PocketAPIHTTPMethodPOST
+        let arguments: NSDictionary = ["actions": [["action": "archive", "item_id": "\(id)", "time": "\(time.description)"]]]
+
+        // TODO: API Response format validation
+
+        PocketAPI.shared().callMethod("send", with: httpMethod, arguments: arguments as! [AnyHashable: Any], handler: {
+            _, _, response, error in
+
+            if let e = error {
+                Swift.print(e.localizedDescription)
+                completion(APIError.APIError(e))
+                return
+            }
+
+            guard let responseStr = response else {
+                Swift.print("Pocket API return nil response")
+                completion(APIError.ResponseIsNil)
+                return
+            }
+
+            let responseJson = JSON(responseStr)
+            Swift.print(responseJson["action_results"].array![0])
+            Swift.print(responseJson["status"])
+
+            completion(nil)
+        })
     }
 }

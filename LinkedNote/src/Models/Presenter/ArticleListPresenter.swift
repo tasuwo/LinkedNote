@@ -9,6 +9,15 @@
 import SwiftyJSON
 import UIKit
 
+enum ArticleListPresenterErrorAt {
+    case Retrieve
+    case Archive
+}
+
+protocol ArticleListPresenterErrorHandler {
+    func occured(_: APIError, at: ArticleListPresenterErrorAt)
+}
+
 protocol ArticleListPresenterObserver {
     func loaded()
 }
@@ -24,6 +33,7 @@ class ArticleListPresenter<T: ThumbnailDownloader>: NSObject, UITableViewDataSou
     var recognizer: ArticleListViewController?
     var observer: ArticleListPresenterObserver?
     var api: APIWrapper!
+    var errorObserver: ArticleListPresenterErrorHandler?
 
     init(api: APIWrapper, loadUnitNum: Int) {
         self.api = api
@@ -37,15 +47,24 @@ class ArticleListPresenter<T: ThumbnailDownloader>: NSObject, UITableViewDataSou
     }
 
     func retrieve() {
-        self.api.retrieve({ infoArray in
+        self.api.retrieve({ infoArray, error in
+            if let e = error {
+                self.errorObserver?.occured(e, at: .Retrieve)
+                return
+            }
             self.articles += infoArray
             self.observer?.loaded()
         })
     }
 
     func archiveRow(at indexPath: IndexPath, id: String) {
-        self.api.archive(id: id, completion: { _ in })
-        self.articles.remove(at: indexPath.row)
+        self.api.archive(id: id, completion: { error in
+            if let e = error {
+                self.errorObserver?.occured(e, at: .Archive)
+                return
+            }
+            self.articles.remove(at: indexPath.row)
+        })
     }
 
     func startThumbnailDownload(article: Article, forIndexPath indexPath: IndexPath, tableView: UITableView) {
@@ -83,7 +102,8 @@ class ArticleListPresenter<T: ThumbnailDownloader>: NSObject, UITableViewDataSou
             self.startThumbnailDownload(article: article, forIndexPath: indexPath, tableView: tableView)
             newCell.imageView!.image = UIImage.colorImage(
                 color: UIColor(r: 220, g: 220, b: 220),
-                size: newCell.thumbnail.frame.size
+                // TODO: Research for the situation that the thumbnail is nil
+                size: newCell.thumbnail?.frame.size ?? CGSize.zero
             )
         }
         let v = tableView as! ArticleListTableView

@@ -26,6 +26,13 @@ class ArticleListPresenterTest: XCTestCase {
         }
     }
 
+    class FakeErrorHandler: PresenterErrorHandler {
+        var lastOccurredError: Error?
+        func occured(_ error: Error) {
+            lastOccurredError = error
+        }
+    }
+
     override func setUp() {
         super.setUp()
 
@@ -203,9 +210,14 @@ class ArticleListPresenterTest: XCTestCase {
         self.presenter.articles = [targetArticle]
         // Download won't complete. So we could check if the download process started or not.
         FakeThumbnailDownloader.willExecuteHandler = false
+        // Insert cell to use the thumbnail view size (if not prepare this, thumbnail's view will be nil and error occurred
+        let tableView = FakeTableView()
+        tableView.beginUpdates()
+        tableView.insertRows(at: [targetIndexPath], with: .none)
+        tableView.endUpdates()
 
         // when
-        _ = self.presenter.tableView(FakeTableView(), cellForRowAt: targetIndexPath)
+        _ = self.presenter.tableView(tableView, cellForRowAt: targetIndexPath)
 
         // then
         XCTAssertNil(targetArticle.thumbnail)
@@ -282,5 +294,38 @@ class ArticleListPresenterTest: XCTestCase {
         // then
         XCTAssertFalse(tableView.lastDequeuedCell.noteButton.isEnabled)
         XCTAssertTrue(tableView.lastDequeuedCell.noteButton.currentImage == UIImage(named: "note_disable"))
+    }
+
+    func testThatItSendErrorNotificationToHandlerIfErrorOccurredAtRetrieving() {
+        // given
+        let unitNum = 5
+        self.presenter = ArticleListPresenter(api: apiWrapper, loadUnitNum: unitNum)
+        // Setup fake observer
+        let observer = FakeArticleListPresenterObserver()
+        self.presenter.observer = observer
+        // Articles that will be retrieved
+        let articles = [
+            Article(localId: "0", title: "test", url: "", thumbnailUrl: ""),
+            Article(localId: "1", title: "test1", url: "", thumbnailUrl: ""),
+            Article(localId: "2", title: "test2", url: "", thumbnailUrl: ""),
+        ]
+        apiWrapper.articles = articles
+        XCTAssertTrue(self.presenter.articles.isEmpty)
+        XCTAssertFalse(observer.isLoaded)
+        // Setup fake error handler (controller)
+        FakeAPIWrapper.willErrorAtRetrieve = true
+        FakeAPIWrapper.errorAtRetrieve = PocketAPIWrapperError.NotLoggedIn
+        let handler = FakeErrorHandler()
+        self.presenter.errorObserver = handler
+        XCTAssertNil(handler.lastOccurredError)
+
+        // when
+        presenter.retrieve()
+
+        // then
+        XCTAssertTrue(self.presenter.articles.isEmpty)
+        XCTAssertFalse(observer.isLoaded)
+        XCTAssertNotNil(handler.lastOccurredError)
+        XCTAssertTrue(handler.lastOccurredError! == PocketAPIWrapperError.NotLoggedIn)
     }
 }

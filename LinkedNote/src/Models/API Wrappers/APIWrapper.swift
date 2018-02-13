@@ -6,14 +6,28 @@
 //  Copyright © 2017年 tasuku tozawa. All rights reserved.
 //
 
+enum APIError: Error {
+    // Login
+    case NotLoggedIn
+
+    // API side error
+    case APIError(Error)
+    case FailedToGetUserNameByAPI
+    case ResponseIsNil
+    case UnexpectedAPIResponseFormat
+
+    // Client side error
+    case UserNotFoundInDatabase
+}
+
 protocol APIWrapper {
     static var signature: String { get }
     static func getUsername() -> String?
     static func isLoggedIn() -> Bool
-    static func login(completion: @escaping (_: Error?) -> Void)
+    static func login(completion: @escaping (_: APIError?) -> Void)
     static func logout()
     func setUnitNum(_ num: Int)
     func initOffset()
-    func retrieve(_ completion: @escaping (([Article]) -> Void))
-    func archive(id: String, completion: @escaping ((Bool) -> Void))
+    func retrieve(_ completion: @escaping (([Article], APIError?) -> Void))
+    func archive(id: String, completion: @escaping ((APIError?) -> Void))
 }

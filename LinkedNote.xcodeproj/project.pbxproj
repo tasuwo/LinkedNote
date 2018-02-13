@@ -320,6 +320,13 @@
 			path = Keyboard;
 			sourceTree = "<group>";
 		};
+		2C9BAA7D2031F5C3008FD85E /* API Wrappers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "API Wrappers";
+			sourceTree = "<group>";
+		};
 		7C1099DC066F6A4EE38A4052 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -617,6 +624,7 @@
 		A0C8C7F61F07638F00E1F0A1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2C9BAA7D2031F5C3008FD85E /* API Wrappers */,
 				A0B3B5C61F0C640200D410FF /* Presenter */,
 				A0C8C7F91F07A60F00E1F0A1 /* Data Models */,
 			);
@@ -1366,6 +1374,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = LinkedNoteTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.LinkedNoteTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1381,6 +1390,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = LinkedNoteTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.LinkedNoteTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1395,6 +1405,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = LinkedNoteUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.LinkedNoteUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1409,6 +1420,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = LinkedNoteUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.LinkedNoteUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

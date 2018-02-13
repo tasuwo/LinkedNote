@@ -16,6 +16,8 @@ class FakeAPIWrapper: APIWrapper {
     static var willOccurLoginError = false
     static var willLoginWithoutUsername = false
     static var username: String?
+    static var willErrorAtRetrieve = false
+    static var errorAtRetrieve: Error?
     var unitNum: Int?
     var lastArchivedId: String?
     var offset: Int = 0
@@ -27,6 +29,7 @@ class FakeAPIWrapper: APIWrapper {
         willOccurLoginError = false
         willLoginWithoutUsername = false
         username = nil
+        willErrorAtRetrieve = false
     }
 
     static func getUsername() -> String? {
@@ -61,8 +64,12 @@ class FakeAPIWrapper: APIWrapper {
         self.offset = 0
     }
 
-    func retrieve(_ completion: @escaping (([Article]) -> Void)) {
-        completion(articles)
+    func retrieve(_ completion: @escaping (([Article], Error?) -> Void)) {
+        if FakeAPIWrapper.willErrorAtRetrieve {
+            completion([], FakeAPIWrapper.errorAtRetrieve)
+        } else {
+            completion(articles, nil)
+        }
     }
 
     func archive(id: String, completion _: @escaping ((Bool) -> Void)) {

@@ -78,7 +78,7 @@ class ArticleViewControllerTest: XCTestCase {
         let textView = UITextView(frame: CGRect.zero)
         textView.text = modifiedBody
 
-        self.vc.textViewDidChange(textView)
+        self.vc.didEditTextView(textView: textView)
 
         let realm = try! Realm()
         let n = realm.object(ofType: Note.self, forPrimaryKey: 0)!
@@ -92,7 +92,7 @@ class ArticleViewControllerTest: XCTestCase {
         let textView = UITextView(frame: CGRect.zero)
         textView.text = modifiedBody
 
-        self.vc.textViewDidChange(textView)
+        self.vc.didEditTextView(textView: textView)
 
         XCTAssertTrue(ap.lastErrorMessage == "ノートの保存に失敗しました。ノートの作成に失敗している可能性があります")
         XCTAssertTrue(vc.provider.noteView.text == "")
