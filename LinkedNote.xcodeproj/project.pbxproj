@@ -9,10 +9,13 @@
 /* Begin PBXBuildFile section */
 		0E5B6CE76D0C7EF8FA7F84DF /* Pods_LinkedNoteTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C923E310951FC7F9255FFD39 /* Pods_LinkedNoteTests.framework */; };
 		2C0758A3202FDFDF001022AA /* NoteViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0758A2202FDFDF001022AA /* NoteViewControllerTest.swift */; };
+		2C081881203B880600811430 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C081880203B880600811430 /* SignInViewController.swift */; };
 		2C1DBF151F0E6995007A8DB1 /* NoteListPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1DBF141F0E6995007A8DB1 /* NoteListPresenterTest.swift */; };
 		2C1DBF171F0E6D5E007A8DB1 /* TagCollectionPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1DBF161F0E6D5E007A8DB1 /* TagCollectionPresenterTest.swift */; };
 		2C1DBF191F0E6F8A007A8DB1 /* TagListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1DBF181F0E6F8A007A8DB1 /* TagListPresenter.swift */; };
 		2C1DBF1B1F0E7D61007A8DB1 /* TagPickerPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1DBF1A1F0E7D61007A8DB1 /* TagPickerPresenterTest.swift */; };
+		2C2E2900203B7C8B00E71E01 /* SignIn.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C2E28FF203B7C8B00E71E01 /* SignIn.xib */; };
+		2C2E2904203B808800E71E01 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2E2903203B808800E71E01 /* SignInView.swift */; };
 		2C430F6A203034BF0033C0C5 /* github-markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 2C430F69203034BF0033C0C5 /* github-markdown.css */; };
 		2C430F6C203034C90033C0C5 /* marked.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 2C430F6B203034C90033C0C5 /* marked.min.js */; };
 		2C430F6E203035270033C0C5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C430F6D203035270033C0C5 /* Settings.bundle */; };
@@ -30,6 +33,9 @@
 		2C9BAA77203184F3008FD85E /* MarkdownKeyboardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA76203184F3008FD85E /* MarkdownKeyboardPresenter.swift */; };
 		2C9BAA792031BB7F008FD85E /* UIImage+colorImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA782031BB7F008FD85E /* UIImage+colorImage.swift */; };
 		2C9BAA7B2031CD4A008FD85E /* RealmBackupRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA7A2031CD4A008FD85E /* RealmBackupRestore.swift */; };
+		2C9BAA8220333CFA008FD85E /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA8120333CFA008FD85E /* SettingView.swift */; };
+		2C9BAA8420333F6A008FD85E /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA8320333F6A008FD85E /* SettingViewController.swift */; };
+		2C9BAA86203341E1008FD85E /* SettingViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA85203341E1008FD85E /* SettingViewPresenter.swift */; };
 		2CACD0A31F26398900690583 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACD0A21F26398900690583 /* Repository.swift */; };
 		9BB12095DEC38C7AA06AEC5E /* Pods_LinkedNoteUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DABC6D3DE1353450DA80AAF /* Pods_LinkedNoteUITests.framework */; };
 		A00053B51F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00053B41F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift */; };
@@ -38,7 +44,6 @@
 		A05E17321EE261DD005C4566 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A05E17301EE261DD005C4566 /* LaunchScreen.storyboard */; };
 		A05E17481EE261DD005C4566 /* LinkedNoteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17471EE261DD005C4566 /* LinkedNoteUITests.swift */; };
 		A05E17991EE26218005C4566 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17561EE26218005C4566 /* AppDelegate.swift */; };
-		A05E179A1EE26218005C4566 /* AccontViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17581EE26218005C4566 /* AccontViewController.swift */; };
 		A05E179B1EE26218005C4566 /* ArticleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17591EE26218005C4566 /* ArticleListViewController.swift */; };
 		A05E179C1EE26218005C4566 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E175A1EE26218005C4566 /* ArticleViewController.swift */; };
 		A05E179D1EE26218005C4566 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E175B1EE26218005C4566 /* MainTabBarController.swift */; };
@@ -63,9 +68,6 @@
 		A05E17B21EE26218005C4566 /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17781EE26218005C4566 /* ProgressHUD.swift */; };
 		A05E17B31EE26218005C4566 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17791EE26218005C4566 /* TagCollectionViewCell.swift */; };
 		A05E17B41EE26218005C4566 /* TagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E177A1EE26218005C4566 /* TagCollectionViewCell.xib */; };
-		A05E17B51EE26218005C4566 /* Account.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E177D1EE26218005C4566 /* Account.xib */; };
-		A05E17B61EE26218005C4566 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E177E1EE26218005C4566 /* AccountView.swift */; };
-		A05E17B71EE26218005C4566 /* SignIn.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E177F1EE26218005C4566 /* SignIn.xib */; };
 		A05E17B91EE26218005C4566 /* ArticleList.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E17821EE26218005C4566 /* ArticleList.xib */; };
 		A05E17BA1EE26218005C4566 /* ArticleListCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17831EE26218005C4566 /* ArticleListCustomCell.swift */; };
 		A05E17BB1EE26218005C4566 /* ArticleListCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E17841EE26218005C4566 /* ArticleListCustomCell.xib */; };
@@ -137,10 +139,13 @@
 /* Begin PBXFileReference section */
 		01314C2A546B2F55B04D3A70 /* Pods-LinkedNoteTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNoteTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNoteTests/Pods-LinkedNoteTests.release.xcconfig"; sourceTree = "<group>"; };
 		2C0758A2202FDFDF001022AA /* NoteViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewControllerTest.swift; sourceTree = "<group>"; };
+		2C081880203B880600811430 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		2C1DBF141F0E6995007A8DB1 /* NoteListPresenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteListPresenterTest.swift; sourceTree = "<group>"; };
 		2C1DBF161F0E6D5E007A8DB1 /* TagCollectionPresenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCollectionPresenterTest.swift; sourceTree = "<group>"; };
 		2C1DBF181F0E6F8A007A8DB1 /* TagListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListPresenter.swift; sourceTree = "<group>"; };
 		2C1DBF1A1F0E7D61007A8DB1 /* TagPickerPresenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagPickerPresenterTest.swift; sourceTree = "<group>"; };
+		2C2E28FF203B7C8B00E71E01 /* SignIn.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignIn.xib; sourceTree = "<group>"; };
+		2C2E2903203B808800E71E01 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		2C430F69203034BF0033C0C5 /* github-markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = "github-markdown.css"; path = "LinkedNote/resources/github-markdown.css"; sourceTree = SOURCE_ROOT; };
 		2C430F6B203034C90033C0C5 /* marked.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = marked.min.js; path = LinkedNote/resources/marked.min.js; sourceTree = SOURCE_ROOT; };
 		2C430F6D203035270033C0C5 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = LinkedNote/resources/Settings.bundle; sourceTree = SOURCE_ROOT; };
@@ -160,6 +165,9 @@
 		2C9BAA782031BB7F008FD85E /* UIImage+colorImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+colorImage.swift"; sourceTree = "<group>"; };
 		2C9BAA7A2031CD4A008FD85E /* RealmBackupRestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmBackupRestore.swift; sourceTree = "<group>"; };
 		2C9BAA7C2031D270008FD85E /* LinkedNote.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LinkedNote.entitlements; sourceTree = "<group>"; };
+		2C9BAA8120333CFA008FD85E /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		2C9BAA8320333F6A008FD85E /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		2C9BAA85203341E1008FD85E /* SettingViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewPresenter.swift; sourceTree = "<group>"; };
 		2CACD0A21F26398900690583 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		38A9834388FD3C9159855939 /* Pods-LinkedNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNote.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNote/Pods-LinkedNote.release.xcconfig"; sourceTree = "<group>"; };
 		50EA9EFCC3AF4212863C844D /* Pods_LinkedNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkedNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,7 +184,6 @@
 		A05E17471EE261DD005C4566 /* LinkedNoteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedNoteUITests.swift; sourceTree = "<group>"; };
 		A05E17491EE261DD005C4566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A05E17561EE26218005C4566 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A05E17581EE26218005C4566 /* AccontViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccontViewController.swift; sourceTree = "<group>"; };
 		A05E17591EE26218005C4566 /* ArticleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListViewController.swift; sourceTree = "<group>"; };
 		A05E175A1EE26218005C4566 /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		A05E175B1EE26218005C4566 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -201,9 +208,6 @@
 		A05E17781EE26218005C4566 /* ProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
 		A05E17791EE26218005C4566 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		A05E177A1EE26218005C4566 /* TagCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagCollectionViewCell.xib; sourceTree = "<group>"; };
-		A05E177D1EE26218005C4566 /* Account.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Account.xib; sourceTree = "<group>"; };
-		A05E177E1EE26218005C4566 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
-		A05E177F1EE26218005C4566 /* SignIn.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignIn.xib; sourceTree = "<group>"; };
 		A05E17821EE26218005C4566 /* ArticleList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticleList.xib; sourceTree = "<group>"; };
 		A05E17831EE26218005C4566 /* ArticleListCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListCustomCell.swift; sourceTree = "<group>"; };
 		A05E17841EE26218005C4566 /* ArticleListCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArticleListCustomCell.xib; sourceTree = "<group>"; };
@@ -327,6 +331,16 @@
 			name = "API Wrappers";
 			sourceTree = "<group>";
 		};
+		2C9BAA7E20333ABF008FD85E /* Setting View */ = {
+			isa = PBXGroup;
+			children = (
+				2C9BAA8120333CFA008FD85E /* SettingView.swift */,
+				2C2E28FF203B7C8B00E71E01 /* SignIn.xib */,
+				2C2E2903203B808800E71E01 /* SignInView.swift */,
+			);
+			path = "Setting View";
+			sourceTree = "<group>";
+		};
 		7C1099DC066F6A4EE38A4052 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -408,7 +422,6 @@
 			isa = PBXGroup;
 			children = (
 				A068F83D1EE8B5FA00767149 /* Util */,
-				A05E17581EE26218005C4566 /* AccontViewController.swift */,
 				A05E17591EE26218005C4566 /* ArticleListViewController.swift */,
 				A05E175A1EE26218005C4566 /* ArticleViewController.swift */,
 				A05E175B1EE26218005C4566 /* MainTabBarController.swift */,
@@ -416,6 +429,8 @@
 				A05E175D1EE26218005C4566 /* NoteViewController.swift */,
 				A05E175F1EE26218005C4566 /* TagListViewController.swift */,
 				2C6E01DD20309169008320BE /* MarkdownKeyboardViewController.swift */,
+				2C9BAA8320333F6A008FD85E /* SettingViewController.swift */,
+				2C081880203B880600811430 /* SignInViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -465,6 +480,7 @@
 				A05E176E1EE26218005C4566 /* TagCollectionPresenter.swift */,
 				A05E176F1EE26218005C4566 /* TagListPresenter.swift */,
 				A05E17701EE26218005C4566 /* TagPickerPresenter.swift */,
+				2C9BAA85203341E1008FD85E /* SettingViewPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -502,7 +518,7 @@
 		A05E177B1EE26218005C4566 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				A05E177C1EE26218005C4566 /* Account View */,
+				2C9BAA7E20333ABF008FD85E /* Setting View */,
 				A05E17811EE26218005C4566 /* Article List View */,
 				A05E17871EE26218005C4566 /* Article View */,
 				A05E178A1EE26218005C4566 /* Note List View */,
@@ -510,16 +526,6 @@
 				A05E17941EE26218005C4566 /* Tag List View */,
 			);
 			path = views;
-			sourceTree = "<group>";
-		};
-		A05E177C1EE26218005C4566 /* Account View */ = {
-			isa = PBXGroup;
-			children = (
-				A05E177D1EE26218005C4566 /* Account.xib */,
-				A05E177E1EE26218005C4566 /* AccountView.swift */,
-				A05E177F1EE26218005C4566 /* SignIn.xib */,
-			);
-			path = "Account View";
 			sourceTree = "<group>";
 		};
 		A05E17811EE26218005C4566 /* Article List View */ = {
@@ -832,11 +838,10 @@
 				A05E17BE1EE26218005C4566 /* Article.xib in Resources */,
 				A05E17B91EE26218005C4566 /* ArticleList.xib in Resources */,
 				A05E17321EE261DD005C4566 /* LaunchScreen.storyboard in Resources */,
-				A05E17B51EE26218005C4566 /* Account.xib in Resources */,
+				2C2E2900203B7C8B00E71E01 /* SignIn.xib in Resources */,
 				2C430F702030423C0033C0C5 /* manual_installed_libraries_acknowledgements.yml in Resources */,
 				A05E17C41EE26218005C4566 /* TagMenu.xib in Resources */,
 				A05E17CA1EE26218005C4566 /* TagListCustomCell.xib in Resources */,
-				A05E17B71EE26218005C4566 /* SignIn.xib in Resources */,
 				A05E17BB1EE26218005C4566 /* ArticleListCustomCell.xib in Resources */,
 				A05E17B41EE26218005C4566 /* TagCollectionViewCell.xib in Resources */,
 				2C430F6A203034BF0033C0C5 /* github-markdown.css in Resources */,
@@ -1066,13 +1071,11 @@
 				A05E179E1EE26218005C4566 /* NoteListViewController.swift in Sources */,
 				A05E17BD1EE26218005C4566 /* ArticleListView.swift in Sources */,
 				A05E17C31EE26218005C4566 /* NoteListView.swift in Sources */,
-				A05E179A1EE26218005C4566 /* AccontViewController.swift in Sources */,
 				A05E17BA1EE26218005C4566 /* ArticleListCustomCell.swift in Sources */,
 				A05E17A61EE26218005C4566 /* ApiAccount.swift in Sources */,
 				A05E17BF1EE26218005C4566 /* ArticleView.swift in Sources */,
 				A05E179C1EE26218005C4566 /* ArticleViewController.swift in Sources */,
 				A05E17A51EE26218005C4566 /* Api.swift in Sources */,
-				A05E17B61EE26218005C4566 /* AccountView.swift in Sources */,
 				A05E17AB1EE26218005C4566 /* NoteListPresenter.swift in Sources */,
 				A05E17C71EE26218005C4566 /* NoteView.swift in Sources */,
 				A0C8C7FF1F07D72C00E1F0A1 /* DataModelError.swift in Sources */,
@@ -1087,18 +1090,22 @@
 				A05E17C91EE26218005C4566 /* TagListCustomCell.swift in Sources */,
 				A05E17B21EE26218005C4566 /* ProgressHUD.swift in Sources */,
 				2C6E01DE20309169008320BE /* MarkdownKeyboardViewController.swift in Sources */,
+				2C081881203B880600811430 /* SignInViewController.swift in Sources */,
 				A05E17AC1EE26218005C4566 /* TagCollectionPresenter.swift in Sources */,
 				A05E179F1EE26218005C4566 /* NoteViewController.swift in Sources */,
 				A05E179D1EE26218005C4566 /* MainTabBarController.swift in Sources */,
 				A05E17A11EE26218005C4566 /* TagListViewController.swift in Sources */,
 				A05E17C11EE26218005C4566 /* NoteListCustomCell.swift in Sources */,
+				2C9BAA86203341E1008FD85E /* SettingViewPresenter.swift in Sources */,
 				A05E17A91EE26218005C4566 /* Tag.swift in Sources */,
 				2C9BAA7B2031CD4A008FD85E /* RealmBackupRestore.swift in Sources */,
 				2CACD0A31F26398900690583 /* Repository.swift in Sources */,
 				2C9BAA77203184F3008FD85E /* MarkdownKeyboardPresenter.swift in Sources */,
 				A05E17B31EE26218005C4566 /* TagCollectionViewCell.swift in Sources */,
 				A0D6F4A91EE8D58600430171 /* FrameCalculator.swift in Sources */,
+				2C9BAA8420333F6A008FD85E /* SettingViewController.swift in Sources */,
 				A05E179B1EE26218005C4566 /* ArticleListViewController.swift in Sources */,
+				2C2E2904203B808800E71E01 /* SignInView.swift in Sources */,
 				A05E17AA1EE26218005C4566 /* ArticleListPresenter.swift in Sources */,
 				A05E17A41EE26218005C4566 /* PocketAPIWrapper.swift in Sources */,
 				A05E17BC1EE26218005C4566 /* ArticleListTableView.swift in Sources */,
@@ -1108,6 +1115,7 @@
 				2C9BAA792031BB7F008FD85E /* UIImage+colorImage.swift in Sources */,
 				A05E17C51EE26218005C4566 /* TagMenuView.swift in Sources */,
 				A05E17B01EE26218005C4566 /* UIColor+.swift in Sources */,
+				2C9BAA8220333CFA008FD85E /* SettingView.swift in Sources */,
 				2C9BAA74203180C4008FD85E /* MarkdownKeyboardKeyKind.swift in Sources */,
 				A05E17A01EE26218005C4566 /* TagEditViewPresenter.swift in Sources */,
 				A05E17A21EE26218005C4566 /* AlertPresenter.swift in Sources */,
