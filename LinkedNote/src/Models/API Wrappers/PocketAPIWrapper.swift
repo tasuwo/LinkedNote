@@ -58,6 +58,7 @@ class PocketAPIWrapper: NSObject, APIWrapper {
             if let e = error {
                 completion(APIError.APIError(e))
             }
+            completion(nil)
         })
     }
 
