@@ -72,6 +72,6 @@ extension SettingViewController: SettingViewCellDelegate {
     }
 
     func didPressBackUpButton() {
-        print("backup")
+        alertPresenter.error("バックアップ設定はまだ実装されていません", on: self)
     }
 }

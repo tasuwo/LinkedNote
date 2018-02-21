@@ -22,6 +22,8 @@ class SettingView: UIView {
     init() {
         self.tableView = UITableView(frame: CGRect.zero, style: .grouped)
         super.init(frame: CGRect.zero)
+
+        self.tableView.register(UINib(nibName: "SettingAccountCustomCell", bundle: nil), forCellReuseIdentifier: AccountSection.ACCOUNT_BTN_SIGNATURE)
     }
 
     required init?(coder _: NSCoder) {

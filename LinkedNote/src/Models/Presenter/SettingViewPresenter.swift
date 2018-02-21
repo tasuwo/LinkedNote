@@ -43,11 +43,32 @@ extension SettingViewPresenter: UITableViewDataSource {
         return sections[section].numberOfColumns()
     }
 
-    func tableView(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let newCell = SettingViewCell()
-
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = sections[indexPath.section]
-        newCell.textLabel?.text = section.getColumnTitle(at: indexPath.row)
+        let newCell: UITableViewCell
+
+        if let cellSignature = section.getCellSignature(at: indexPath.row) {
+            newCell = tableView.dequeueReusableCell(withIdentifier: cellSignature, for: indexPath)
+        } else {
+            newCell = SettingViewCell()
+        }
+
+        switch section {
+        case is AccountSection:
+            if let cell = newCell as? SettingAccountCustomCell,
+                let s = section as? AccountSection {
+                cell.apiNameLabel.text = s.getColumnTitle(at: indexPath.row)
+                cell.usernameLabel.text = s.getUsername(at: indexPath.row)
+                if s.loggedIn(at: indexPath.row) {
+                    cell.backgroundColor = UIColor.red
+                }
+            }
+        case is BackupSection:
+            newCell.textLabel?.text = section.getColumnTitle(at: indexPath.row)
+        default:
+            break
+        }
+
         newCell.selectionStyle = .none
 
         return newCell
@@ -65,6 +86,7 @@ protocol SettingViewCellDelegate {
 }
 
 protocol SettingViewSection {
+    func getCellSignature(at index: Int) -> String?
     func getSectionTitle() -> String
     func numberOfColumns() -> Int
     func getColumnTitle(at index: Int) -> String
@@ -74,6 +96,8 @@ protocol SettingViewSection {
 
 class AccountSection: NSObject, SettingViewSection {
     var delegate: SettingViewCellDelegate?
+
+    static let ACCOUNT_BTN_SIGNATURE = "account_btn"
 
     private let apiRepository: Repository<Api>
     private let apiAccountRepository: Repository<ApiAccount>
@@ -85,6 +109,13 @@ class AccountSection: NSObject, SettingViewSection {
         self.apiAccountRepository = Repository<ApiAccount>()
         self.apis = self.apiRepository.findAll()
         self.accounts = self.apiAccountRepository.findAll()
+    }
+
+    func getCellSignature(at index: Int) -> String? {
+        if index == self.accounts.count {
+            return nil
+        }
+        return AccountSection.ACCOUNT_BTN_SIGNATURE
     }
 
     func getSectionTitle() -> String {
@@ -100,8 +131,12 @@ class AccountSection: NSObject, SettingViewSection {
             return "追加"
         }
 
-        // TODO: error handling
-        return self.accounts[index].api.first?.signature ?? ""
+        guard let signature = self.accounts[index].api.first?.signature else {
+            // TODO: Error handling
+            return ""
+        }
+
+        return signature
     }
 
     func setDelegate(_ delegate: SettingViewCellDelegate) {
@@ -121,10 +156,41 @@ class AccountSection: NSObject, SettingViewSection {
 
         self.delegate?.didPressLogoutButton(type: api.signature)
     }
+
+    func getUsername(at index: Int) -> String {
+        if index >= self.accounts.count {
+            // TODO: Error handling
+            return ""
+        }
+        return self.accounts[index].username
+    }
+
+    func loggedIn(at index: Int) -> Bool {
+        if index >= self.accounts.count {
+            return false
+        }
+
+        guard let api = self.accounts[index].api.first else {
+            return false
+        }
+
+        let username = self.accounts[index].username
+
+        switch api.signature {
+        case PocketAPIWrapper.signature:
+            return PocketAPIWrapper.isLoggedIn() && PocketAPIWrapper.getUsername() == username
+        default:
+            return false
+        }
+    }
 }
 
 class BackupSection: NSObject, SettingViewSection {
     var delegate: SettingViewCellDelegate?
+
+    func getCellSignature(at _: Int) -> String? {
+        return nil
+    }
 
     func getSectionTitle() -> String {
         return "バックアップ"
