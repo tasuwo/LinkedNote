@@ -35,9 +35,6 @@ class SignInView: UIView {
         Bundle.main.loadNibNamed("SignIn", owner: self, options: nil)
         view_.frame = frame
         addSubview(view_)
-
-        // TODO: レイアウトの修正。かっこよくする
-        pocketButton_.backgroundColor = UIColor.blue
     }
 
     required init?(coder _: NSCoder) {

@@ -36,6 +36,7 @@ class SettingViewController: UIViewController {
         super.viewDidLoad()
 
         self.presenter.setDelegate(self)
+        self.presenter.setViewColorSetting(setting: self.provider.view)
 
         self.provider.view.frame = self.calculator.calcFrameOnTabAndNavBar(by: self)
         self.provider.view.delegate = self
@@ -47,6 +48,12 @@ class SettingViewController: UIViewController {
 
     override func viewWillAppear(_: Bool) {
         self.provider.view.reloadData()
+    }
+
+    override func viewDidAppear(_: Bool) {
+        if let indexPath = self.provider.view.indexPathForSelectedRow {
+            self.provider.view.deselectRow(at: indexPath, animated: true)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,8 +74,47 @@ extension SettingViewController: SettingViewCellDelegate {
         self.navigationController?.pushViewController(vc, animated: true)
     }
 
-    func didPressLogoutButton(type _: String) {
-        print("logout")
+    func didPressAccountButton(signature: String, userName: String, isLoggedIn: Bool) {
+        if isLoggedIn {
+            self.logoutFrom(signature, userName)
+        } else {
+            self.loginTo(signature, userName)
+        }
+    }
+
+    // TODO: コールバックを平坦にする
+    private func loginTo(_ signature: String, _ username: String) {
+        alertPresenter.yn(
+            title: "ログイン",
+            message: "\(signature) に \(username) としてログインしますか？",
+            on: self,
+            y: { _ in
+                self.alertPresenter.check("", "Pocket ではアカウント切り替えがサポートされていません。\n別アカウントでログインしたい場合は、設定 > Safari > 履歴とWebサイトデータを削除 を実行して下さい。", on: self, { _ in
+                    PocketAPIWrapper.logout()
+                    PocketAPIWrapper.login(completion: { error in
+                        if let e = error {
+                            self.alertPresenter.error(e.localizedDescription, on: self)
+                            return
+                        }
+                        self.provider.view.reloadData()
+                    })
+                })
+            },
+            n: { _ in }
+        )
+    }
+
+    private func logoutFrom(_ signature: String, _: String) {
+        alertPresenter.yn(
+            title: "ログアウト",
+            message: "\(signature) からログアウトしますか？",
+            on: self,
+            y: { _ in
+                PocketAPIWrapper.logout()
+                self.provider.view.reloadData()
+            },
+            n: { _ in }
+        )
     }
 
     func didPressBackUpButton() {

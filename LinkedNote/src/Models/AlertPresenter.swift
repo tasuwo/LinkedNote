@@ -10,6 +10,7 @@ import UIKit
 
 protocol AlertPresenter {
     func error(_ message: String, on: UIViewController)
+    func check(_ title: String, _ message: String, on vc: UIViewController, _ handler: @escaping (_ action: UIAlertAction?) -> Void)
     func yn(title: String, message: String, on vc: UIViewController, y: @escaping (_ action: UIAlertAction?) -> Void, n: @escaping (_ action: UIAlertAction?) -> Void)
 }
 
@@ -21,6 +22,15 @@ class AlertPresenterImplement: AlertPresenter {
             (_: UIAlertAction!) -> Void in
             print("OK")
         })
+        alert.addAction(action)
+
+        vc.present(alert, animated: true, completion: nil)
+    }
+
+    func check(_ title: String, _ message: String, on vc: UIViewController, _ handler: @escaping (_ action: UIAlertAction?) -> Void) {
+        let alert: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+
+        let action: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: handler)
         alert.addAction(action)
 
         vc.present(alert, animated: true, completion: nil)

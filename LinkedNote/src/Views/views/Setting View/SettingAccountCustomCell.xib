@@ -11,47 +11,71 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="118" id="WjJ-ss-kBP" customClass="SettingAccountCustomCell" customModule="LinkedNote" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="118"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="WjJ-ss-kBP" customClass="SettingAccountCustomCell" customModule="LinkedNote" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WjJ-ss-kBP" id="6Yw-qH-YyI">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="117.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="u9o-sP-rSU">
-                        <rect key="frame" x="12" y="12" width="93.5" height="93.5"/>
+                        <rect key="frame" x="8" y="8" width="53.5" height="53.5"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="u9o-sP-rSU" secondAttribute="height" multiplier="1:1" id="iwe-u4-5Wf"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8dC-xU-Hta">
-                        <rect key="frame" x="122.5" y="24" width="227.5" height="24"/>
+                        <rect key="frame" x="74" y="8" width="213" height="24"/>
                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dYM-dO-VOD">
-                        <rect key="frame" x="122.5" y="67" width="227.5" height="18"/>
+                        <rect key="frame" x="74" y="37" width="213" height="18"/>
                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ログイン中" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSR-BQ-hTG" customClass="LoginMarkLabel" customModule="LinkedNote" customModuleProvider="target">
+                        <rect key="frame" x="295" y="20.5" width="68" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="68" id="2eO-Iz-ou2"/>
+                            <constraint firstAttribute="height" constant="28" id="rnn-Ep-S9b"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="10"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" red="0.24941001374388505" green="0.27134345854208841" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="6"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="u9o-sP-rSU" firstAttribute="leading" secondItem="6Yw-qH-YyI" secondAttribute="leading" constant="12" id="0WQ-Pr-yh5"/>
-                    <constraint firstItem="dYM-dO-VOD" firstAttribute="top" secondItem="8dC-xU-Hta" secondAttribute="bottom" constant="19" id="0dB-53-Bae"/>
-                    <constraint firstItem="u9o-sP-rSU" firstAttribute="top" secondItem="6Yw-qH-YyI" secondAttribute="top" constant="12" id="1nO-ie-m1c"/>
-                    <constraint firstAttribute="bottom" secondItem="u9o-sP-rSU" secondAttribute="bottom" constant="12" id="Izg-5W-Rih"/>
+                    <constraint firstItem="u9o-sP-rSU" firstAttribute="leading" secondItem="6Yw-qH-YyI" secondAttribute="leading" constant="8" id="0WQ-Pr-yh5"/>
+                    <constraint firstItem="dYM-dO-VOD" firstAttribute="top" secondItem="8dC-xU-Hta" secondAttribute="bottom" constant="5" id="0dB-53-Bae"/>
+                    <constraint firstItem="u9o-sP-rSU" firstAttribute="top" secondItem="6Yw-qH-YyI" secondAttribute="top" constant="8" id="1nO-ie-m1c"/>
+                    <constraint firstAttribute="bottom" secondItem="u9o-sP-rSU" secondAttribute="bottom" constant="8" id="Izg-5W-Rih"/>
+                    <constraint firstItem="WSR-BQ-hTG" firstAttribute="leading" secondItem="8dC-xU-Hta" secondAttribute="trailing" constant="8" id="JGK-S6-XBn"/>
+                    <constraint firstAttribute="trailing" secondItem="WSR-BQ-hTG" secondAttribute="trailing" constant="12" id="MVv-Om-ZBE"/>
                     <constraint firstItem="dYM-dO-VOD" firstAttribute="width" secondItem="8dC-xU-Hta" secondAttribute="width" id="Tpx-6Z-Ekp"/>
-                    <constraint firstItem="8dC-xU-Hta" firstAttribute="top" secondItem="6Yw-qH-YyI" secondAttribute="top" constant="24" id="bJA-1U-ZBx"/>
-                    <constraint firstAttribute="trailing" secondItem="8dC-xU-Hta" secondAttribute="trailing" constant="25" id="f7V-pA-XwF"/>
+                    <constraint firstItem="8dC-xU-Hta" firstAttribute="top" secondItem="6Yw-qH-YyI" secondAttribute="top" constant="8" id="bJA-1U-ZBx"/>
                     <constraint firstItem="dYM-dO-VOD" firstAttribute="leading" secondItem="8dC-xU-Hta" secondAttribute="leading" id="idp-rw-27B"/>
-                    <constraint firstItem="8dC-xU-Hta" firstAttribute="leading" secondItem="u9o-sP-rSU" secondAttribute="trailing" constant="17" id="oR0-iy-x47"/>
+                    <constraint firstItem="8dC-xU-Hta" firstAttribute="leading" secondItem="u9o-sP-rSU" secondAttribute="trailing" constant="12" id="oR0-iy-x47"/>
+                    <constraint firstItem="WSR-BQ-hTG" firstAttribute="centerY" secondItem="6Yw-qH-YyI" secondAttribute="centerY" id="qHy-QV-dmc"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="apiImageView" destination="u9o-sP-rSU" id="ENA-kU-MU6"/>
                 <outlet property="apiNameLabel" destination="8dC-xU-Hta" id="JN5-ou-6vU"/>
+                <outlet property="loginMark" destination="WSR-BQ-hTG" id="xMC-O6-OEF"/>
                 <outlet property="usernameLabel" destination="dYM-dO-VOD" id="4ve-G5-jT8"/>
             </connections>
             <point key="canvasLocation" x="-256.5" y="-1043"/>

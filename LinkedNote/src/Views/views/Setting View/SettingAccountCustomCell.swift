@@ -12,4 +12,5 @@ class SettingAccountCustomCell: UITableViewCell {
     @IBOutlet var apiImageView: UIImageView!
     @IBOutlet var apiNameLabel: UILabel!
     @IBOutlet var usernameLabel: UILabel!
+    @IBOutlet var loginMark: LoginMarkLabel!
 }

@@ -18,6 +18,8 @@
 		2C1DBF1B1F0E7D61007A8DB1 /* TagPickerPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1DBF1A1F0E7D61007A8DB1 /* TagPickerPresenterTest.swift */; };
 		2C2E2900203B7C8B00E71E01 /* SignIn.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C2E28FF203B7C8B00E71E01 /* SignIn.xib */; };
 		2C2E2904203B808800E71E01 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2E2903203B808800E71E01 /* SignInView.swift */; };
+		2C409D47204D9E9C00AE874A /* ApiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C409D46204D9E9C00AE874A /* ApiButton.swift */; };
+		2C409D49204DA76000AE874A /* LoginMarkLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C409D48204DA76000AE874A /* LoginMarkLabel.swift */; };
 		2C430F6A203034BF0033C0C5 /* github-markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 2C430F69203034BF0033C0C5 /* github-markdown.css */; };
 		2C430F6C203034C90033C0C5 /* marked.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 2C430F6B203034C90033C0C5 /* marked.min.js */; };
 		2C430F6E203035270033C0C5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C430F6D203035270033C0C5 /* Settings.bundle */; };
@@ -39,6 +41,9 @@
 		2C9BAA8420333F6A008FD85E /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA8320333F6A008FD85E /* SettingViewController.swift */; };
 		2C9BAA86203341E1008FD85E /* SettingViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA85203341E1008FD85E /* SettingViewPresenter.swift */; };
 		2CACD0A31F26398900690583 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACD0A21F26398900690583 /* Repository.swift */; };
+		2CC30DC0204D85E6009D4593 /* AccountSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC30DBF204D85E6009D4593 /* AccountSection.swift */; };
+		2CC30DC2204D860D009D4593 /* BackupSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC30DC1204D860D009D4593 /* BackupSection.swift */; };
+		2CC30DC4204D864A009D4593 /* SettingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC30DC3204D864A009D4593 /* SettingViewCell.swift */; };
 		9BB12095DEC38C7AA06AEC5E /* Pods_LinkedNoteUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DABC6D3DE1353450DA80AAF /* Pods_LinkedNoteUITests.framework */; };
 		A00053B51F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00053B41F0D9FB2001DE6CC /* FakeArticleListPresenterObserver.swift */; };
 		A00053B71F0DAF7B001DE6CC /* FakeThumbnailDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00053B61F0DAF7B001DE6CC /* FakeThumbnailDownloader.swift */; };
@@ -91,6 +96,7 @@
 		A05E17CB1EE26218005C4566 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17981EE26218005C4566 /* TagListView.swift */; };
 		A068F8401EE8C94900767149 /* AccountViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068F83F1EE8C94900767149 /* AccountViewControllerTest.swift */; };
 		A08635F11F0EF866004CDE8F /* ArticleViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08635F01F0EF866004CDE8F /* ArticleViewControllerTest.swift */; };
+		A09646F02040129200254DD7 /* ViewColorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09646EF2040129200254DD7 /* ViewColorSettings.swift */; };
 		A0B3B5C51F0C537700D410FF /* TagTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B3B5C41F0C537700D410FF /* TagTest.swift */; };
 		A0B3B5CA1F0C672C00D410FF /* ArticleListPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B3B5C91F0C672C00D410FF /* ArticleListPresenterTest.swift */; };
 		A0B69BD01F280262002A59F5 /* RepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B69BCF1F280262002A59F5 /* RepositoryTest.swift */; };
@@ -150,6 +156,8 @@
 		2C1DBF1A1F0E7D61007A8DB1 /* TagPickerPresenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagPickerPresenterTest.swift; sourceTree = "<group>"; };
 		2C2E28FF203B7C8B00E71E01 /* SignIn.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignIn.xib; sourceTree = "<group>"; };
 		2C2E2903203B808800E71E01 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		2C409D46204D9E9C00AE874A /* ApiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiButton.swift; sourceTree = "<group>"; };
+		2C409D48204DA76000AE874A /* LoginMarkLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMarkLabel.swift; sourceTree = "<group>"; };
 		2C430F69203034BF0033C0C5 /* github-markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = "github-markdown.css"; path = "LinkedNote/resources/github-markdown.css"; sourceTree = SOURCE_ROOT; };
 		2C430F6B203034C90033C0C5 /* marked.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = marked.min.js; path = LinkedNote/resources/marked.min.js; sourceTree = SOURCE_ROOT; };
 		2C430F6D203035270033C0C5 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = LinkedNote/resources/Settings.bundle; sourceTree = SOURCE_ROOT; };
@@ -173,6 +181,9 @@
 		2C9BAA8320333F6A008FD85E /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		2C9BAA85203341E1008FD85E /* SettingViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewPresenter.swift; sourceTree = "<group>"; };
 		2CACD0A21F26398900690583 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		2CC30DBF204D85E6009D4593 /* AccountSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSection.swift; sourceTree = "<group>"; };
+		2CC30DC1204D860D009D4593 /* BackupSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupSection.swift; sourceTree = "<group>"; };
+		2CC30DC3204D864A009D4593 /* SettingViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewCell.swift; sourceTree = "<group>"; };
 		38A9834388FD3C9159855939 /* Pods-LinkedNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkedNote.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkedNote/Pods-LinkedNote.release.xcconfig"; sourceTree = "<group>"; };
 		50EA9EFCC3AF4212863C844D /* Pods_LinkedNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkedNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DABC6D3DE1353450DA80AAF /* Pods_LinkedNoteUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkedNoteUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -233,6 +244,7 @@
 		A05E17981EE26218005C4566 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
 		A068F83F1EE8C94900767149 /* AccountViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewControllerTest.swift; sourceTree = "<group>"; };
 		A08635F01F0EF866004CDE8F /* ArticleViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTest.swift; sourceTree = "<group>"; };
+		A09646EF2040129200254DD7 /* ViewColorSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewColorSettings.swift; sourceTree = "<group>"; };
 		A0B3B5C41F0C537700D410FF /* TagTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagTest.swift; sourceTree = "<group>"; };
 		A0B3B5C91F0C672C00D410FF /* ArticleListPresenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListPresenterTest.swift; sourceTree = "<group>"; };
 		A0B69BCF1F280262002A59F5 /* RepositoryTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryTest.swift; sourceTree = "<group>"; };
@@ -343,8 +355,21 @@
 				2C2E2903203B808800E71E01 /* SignInView.swift */,
 				2C081882203C6A9800811430 /* SettingAccountCustomCell.xib */,
 				2C081884203C6C2800811430 /* SettingAccountCustomCell.swift */,
+				2C409D46204D9E9C00AE874A /* ApiButton.swift */,
+				2C409D48204DA76000AE874A /* LoginMarkLabel.swift */,
 			);
 			path = "Setting View";
+			sourceTree = "<group>";
+		};
+		2CC30DBC204D85B7009D4593 /* SettingView */ = {
+			isa = PBXGroup;
+			children = (
+				2C9BAA85203341E1008FD85E /* SettingViewPresenter.swift */,
+				2CC30DBF204D85E6009D4593 /* AccountSection.swift */,
+				2CC30DC1204D860D009D4593 /* BackupSection.swift */,
+				2CC30DC3204D864A009D4593 /* SettingViewCell.swift */,
+			);
+			path = SettingView;
 			sourceTree = "<group>";
 		};
 		7C1099DC066F6A4EE38A4052 /* Frameworks */ = {
@@ -450,6 +475,7 @@
 				A05E176B1EE26218005C4566 /* Presenter */,
 				A05E17611EE26218005C4566 /* AlertPresenter.swift */,
 				A0DE75541EE3FCB900EFAA3F /* ThumbnailDownloader.swift */,
+				A09646EF2040129200254DD7 /* ViewColorSettings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -481,12 +507,12 @@
 		A05E176B1EE26218005C4566 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				2CC30DBC204D85B7009D4593 /* SettingView */,
 				A05E176C1EE26218005C4566 /* ArticleListPresenter.swift */,
 				A05E176D1EE26218005C4566 /* NoteListPresenter.swift */,
 				A05E176E1EE26218005C4566 /* TagCollectionPresenter.swift */,
 				A05E176F1EE26218005C4566 /* TagListPresenter.swift */,
 				A05E17701EE26218005C4566 /* TagPickerPresenter.swift */,
-				2C9BAA85203341E1008FD85E /* SettingViewPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -1084,12 +1110,16 @@
 				A05E17BF1EE26218005C4566 /* ArticleView.swift in Sources */,
 				A05E179C1EE26218005C4566 /* ArticleViewController.swift in Sources */,
 				A05E17A51EE26218005C4566 /* Api.swift in Sources */,
+				2CC30DC4204D864A009D4593 /* SettingViewCell.swift in Sources */,
 				A05E17AB1EE26218005C4566 /* NoteListPresenter.swift in Sources */,
 				A05E17C71EE26218005C4566 /* NoteView.swift in Sources */,
 				A0C8C7FF1F07D72C00E1F0A1 /* DataModelError.swift in Sources */,
 				A05E17A81EE26218005C4566 /* Note.swift in Sources */,
+				2C409D47204D9E9C00AE874A /* ApiButton.swift in Sources */,
+				2CC30DC0204D85E6009D4593 /* AccountSection.swift in Sources */,
 				A0DE75551EE3FCB900EFAA3F /* ThumbnailDownloader.swift in Sources */,
 				A05E17AD1EE26218005C4566 /* TagListPresenter.swift in Sources */,
+				2CC30DC2204D860D009D4593 /* BackupSection.swift in Sources */,
 				2C430F7B203065600033C0C5 /* MarkdownKeyboardKey.swift in Sources */,
 				A05E17CB1EE26218005C4566 /* TagListView.swift in Sources */,
 				A05E17A31EE26218005C4566 /* APIWrapper.swift in Sources */,
@@ -1098,10 +1128,12 @@
 				A05E17C91EE26218005C4566 /* TagListCustomCell.swift in Sources */,
 				A05E17B21EE26218005C4566 /* ProgressHUD.swift in Sources */,
 				2C6E01DE20309169008320BE /* MarkdownKeyboardViewController.swift in Sources */,
+				2C409D49204DA76000AE874A /* LoginMarkLabel.swift in Sources */,
 				2C081881203B880600811430 /* SignInViewController.swift in Sources */,
 				A05E17AC1EE26218005C4566 /* TagCollectionPresenter.swift in Sources */,
 				A05E179F1EE26218005C4566 /* NoteViewController.swift in Sources */,
 				A05E179D1EE26218005C4566 /* MainTabBarController.swift in Sources */,
+				A09646F02040129200254DD7 /* ViewColorSettings.swift in Sources */,
 				A05E17A11EE26218005C4566 /* TagListViewController.swift in Sources */,
 				A05E17C11EE26218005C4566 /* NoteListCustomCell.swift in Sources */,
 				2C9BAA86203341E1008FD85E /* SettingViewPresenter.swift in Sources */,
