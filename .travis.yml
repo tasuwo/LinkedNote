@@ -5,6 +5,7 @@ xcode_sdk: iphonesimulator11.2
 osx_image: xcode9.2
 
 before_install:
+    - gem install xcpretty
     - pod repo update
     - gem install cocoapods-keys
     - pod keys set PocketAPIConsumerKey "-"
@@ -12,4 +13,4 @@ before_install:
     - echo "POCKET_APP_ID=pocketapp" > .env
 
 script:
-    - xcodebuild -scheme LinkedNote -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=11.2,name=iPhone 7' -configuration Debug test
+    - xcodebuild -workspace LinkedNote.xcworkspace -scheme LinkedNote -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=11.2,name=iPhone 7' -configuration Debug test | xcpretty
