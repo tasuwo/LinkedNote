@@ -1,8 +1,8 @@
-xcode_sdk: iphonesimulator
 language: objective-c
-matrix:
-    include:
-        - osx_image: xcode8.3
+xcode_workspace: LinkedNote.xcworkspace
+xcode_scheme: LinkedNote
+xcode_sdk: iphonesimulator11.2
+osx_image: xcode9.2
 
 before_install:
     - gem install cocoapods-keys
@@ -11,4 +11,4 @@ before_install:
     - echo "POCKET_APP_ID=pocketapp" > .env
 
 script:
-    - xcodebuild -scheme LinkedNote -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=10.3.1,name=iPhone 7' -configuration Debug test | xcpretty -c
+    - xcodebuild -scheme LinkedNote -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=11.2,name=iPhone 7' -configuration Debug test
