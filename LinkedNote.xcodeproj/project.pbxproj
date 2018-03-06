@@ -94,7 +94,6 @@
 		A05E17C91EE26218005C4566 /* TagListCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17961EE26218005C4566 /* TagListCustomCell.swift */; };
 		A05E17CA1EE26218005C4566 /* TagListCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A05E17971EE26218005C4566 /* TagListCustomCell.xib */; };
 		A05E17CB1EE26218005C4566 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E17981EE26218005C4566 /* TagListView.swift */; };
-		A068F8401EE8C94900767149 /* AccountViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068F83F1EE8C94900767149 /* AccountViewControllerTest.swift */; };
 		A08635F11F0EF866004CDE8F /* ArticleViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08635F01F0EF866004CDE8F /* ArticleViewControllerTest.swift */; };
 		A09646F02040129200254DD7 /* ViewColorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09646EF2040129200254DD7 /* ViewColorSettings.swift */; };
 		A0B3B5C51F0C537700D410FF /* TagTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B3B5C41F0C537700D410FF /* TagTest.swift */; };
@@ -242,7 +241,6 @@
 		A05E17961EE26218005C4566 /* TagListCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListCustomCell.swift; sourceTree = "<group>"; };
 		A05E17971EE26218005C4566 /* TagListCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagListCustomCell.xib; sourceTree = "<group>"; };
 		A05E17981EE26218005C4566 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
-		A068F83F1EE8C94900767149 /* AccountViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewControllerTest.swift; sourceTree = "<group>"; };
 		A08635F01F0EF866004CDE8F /* ArticleViewControllerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewControllerTest.swift; sourceTree = "<group>"; };
 		A09646EF2040129200254DD7 /* ViewColorSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewColorSettings.swift; sourceTree = "<group>"; };
 		A0B3B5C41F0C537700D410FF /* TagTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagTest.swift; sourceTree = "<group>"; };
@@ -638,7 +636,6 @@
 		A068F83E1EE8C92E00767149 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				A068F83F1EE8C94900767149 /* AccountViewControllerTest.swift */,
 				A0C8C7F41F0753B800E1F0A1 /* ArticleListViewControllerTest.swift */,
 				A08635F01F0EF866004CDE8F /* ArticleViewControllerTest.swift */,
 				A0DA99201F0F0B7F007D1E7B /* NoteListViewControllerTest.swift */,
@@ -1177,7 +1174,6 @@
 				2C692EEE202FF1CE00BA23A0 /* MockTagEditViewPresenter.swift in Sources */,
 				A0D6F4AE1EE8DB8700430171 /* FakeFrameCalculator.swift in Sources */,
 				A0B3B5CA1F0C672C00D410FF /* ArticleListPresenterTest.swift in Sources */,
-				A068F8401EE8C94900767149 /* AccountViewControllerTest.swift in Sources */,
 				A0B69BD01F280262002A59F5 /* RepositoryTest.swift in Sources */,
 				A0C8C7F51F0753B800E1F0A1 /* ArticleListViewControllerTest.swift in Sources */,
 				A0E6C8A21EE8E50F007A6737 /* FakeAlertPresenter.swift in Sources */,

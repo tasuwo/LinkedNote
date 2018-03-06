@@ -17,7 +17,7 @@ class FakeAPIWrapper: APIWrapper {
     static var willLoginWithoutUsername = false
     static var username: String?
     static var willErrorAtRetrieve = false
-    static var errorAtRetrieve: Error?
+    static var errorAtRetrieve: APIError?
     var unitNum: Int?
     var lastArchivedId: String?
     var offset: Int = 0
@@ -40,10 +40,10 @@ class FakeAPIWrapper: APIWrapper {
         return loggedIn
     }
 
-    static func login(completion: @escaping (Error?) -> Void) {
+    static func login(completion: @escaping (APIError?) -> Void) {
         if willOccurLoginError {
             let error = NSError(domain: NSCocoaErrorDomain, code: 0, userInfo: [NSLocalizedDescriptionKey: "test"])
-            completion(error)
+            completion(error as? APIError)
         }
         if !willLoginWithoutUsername {
             username = "testUsername"
@@ -64,7 +64,7 @@ class FakeAPIWrapper: APIWrapper {
         self.offset = 0
     }
 
-    func retrieve(_ completion: @escaping (([Article], Error?) -> Void)) {
+    func retrieve(_ completion: @escaping (([Article], APIError?) -> Void)) {
         if FakeAPIWrapper.willErrorAtRetrieve {
             completion([], FakeAPIWrapper.errorAtRetrieve)
         } else {
@@ -72,7 +72,8 @@ class FakeAPIWrapper: APIWrapper {
         }
     }
 
-    func archive(id: String, completion _: @escaping ((Bool) -> Void)) {
+    func archive(id: String, completion: @escaping ((APIError?) -> Void)) {
         lastArchivedId = id
+        completion(nil)
     }
 }

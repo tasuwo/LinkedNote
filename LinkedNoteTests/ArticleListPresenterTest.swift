@@ -26,9 +26,9 @@ class ArticleListPresenterTest: XCTestCase {
         }
     }
 
-    class FakeErrorHandler: PresenterErrorHandler {
+    class FakeErrorHandler: ArticleListPresenterErrorHandler {
         var lastOccurredError: Error?
-        func occured(_ error: Error) {
+        func occured(_ error: APIError, at _: ArticleListPresenterErrorAt) {
             lastOccurredError = error
         }
     }
@@ -119,6 +119,8 @@ class ArticleListPresenterTest: XCTestCase {
                         "Archiving process at ApiWrapper didn't executed.")
         XCTAssertTrue(apiWrapper.lastArchivedId == archievedId)
         articles.remove(at: 2)
+        print(articles)
+        print(self.presenter.articles)
         XCTAssertTrue(self.presenter.articles == articles)
     }
 
@@ -314,7 +316,7 @@ class ArticleListPresenterTest: XCTestCase {
         XCTAssertFalse(observer.isLoaded)
         // Setup fake error handler (controller)
         FakeAPIWrapper.willErrorAtRetrieve = true
-        FakeAPIWrapper.errorAtRetrieve = PocketAPIWrapperError.NotLoggedIn
+        FakeAPIWrapper.errorAtRetrieve = APIError.NotLoggedIn
         let handler = FakeErrorHandler()
         self.presenter.errorObserver = handler
         XCTAssertNil(handler.lastOccurredError)
@@ -326,6 +328,6 @@ class ArticleListPresenterTest: XCTestCase {
         XCTAssertTrue(self.presenter.articles.isEmpty)
         XCTAssertFalse(observer.isLoaded)
         XCTAssertNotNil(handler.lastOccurredError)
-        XCTAssertTrue(handler.lastOccurredError! == PocketAPIWrapperError.NotLoggedIn)
+        XCTAssertTrue(handler.lastOccurredError! == APIError.NotLoggedIn)
     }
 }
