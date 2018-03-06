@@ -17,6 +17,10 @@ class ArticleViewController: UIViewController {
     let alertPresenter: AlertPresenter
     var keyboardAccessoryVC: MarkdownKeyboardViewController!
 
+    var isKeyboardHidden = true
+    var lastPoint: CGFloat = 0
+    var isNavigationBarShown = true
+
     let noteRepository: Repository<Note>
 
     init(provider: ArticleViewProvider, article: Article, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
@@ -64,6 +68,7 @@ class ArticleViewController: UIViewController {
         if let url = URL(string: self.article.url) {
             self.provider.webView.load(URLRequest(url: url))
         }
+        self.provider.webView.scrollView.delegate = self
         self.view.addSubview(self.provider.view)
 
         // Web view's progress bar
@@ -111,6 +116,36 @@ class ArticleViewController: UIViewController {
         self.provider.webView.removeObserver(self, forKeyPath: "estimatedProgress")
         self.provider.webView.removeObserver(self, forKeyPath: "loading")
     }
+
+    func hideNavigationBar() {
+        let newFrame = CGRect(
+            x: 0,
+            y: 0,
+            width: self.view.bounds.width,
+            height: self.defaultFrameSize.height + self.navigationController!.navigationBar.frame.height + UIApplication.shared.statusBarFrame.height)
+        self.provider.view.frame = newFrame
+        // TODO: 0.2 秒が固定値なので、animated のデフォルト遷移時間にしたい (nav bar の遷移時間とあわせたい)
+        UIView.animate(withDuration: 0.2, animations: {
+            self.provider.view.layoutIfNeeded()
+        }, completion: { _ in })
+
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+
+    func showNavigationBar() {
+        let newFrame = CGRect(
+            x: 0,
+            y: 0,
+            width: self.view.bounds.width,
+            height: self.defaultFrameSize.height)
+        self.provider.view.frame = newFrame
+        // TODO: 0.2 秒が固定値なので、animated のデフォルト遷移時間にしたい (nav bar の遷移時間とあわせたい)
+        UIView.animate(withDuration: 0.2, animations: {
+            self.provider.view.layoutIfNeeded()
+        }, completion: { _ in })
+
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
 }
 
 // Progress バー描画
@@ -150,15 +185,15 @@ extension ArticleViewController {
         }
         let convertedKeyboardFrame = self.provider.view.convert(keyboardFrame, from: nil)
 
-        // TODO: webView の上側が少し隠れてしまう
-        //       auto layout を使用していると動的に view の frame を削除できないらしい。
-        //       どうするか...
-        //       より強い制約を追加すればなんとかなるかもしれない
+        if isNavigationBarShown {
+            hideNavigationBar()
+        }
+
         let newFrame = CGRect(
-            x: self.defaultFrameSize!.origin.x,
-            y: self.defaultFrameSize!.origin.y - convertedKeyboardFrame.height,
-            width: self.defaultFrameSize!.size.width,
-            height: self.defaultFrameSize!.size.height)
+            x: 0,
+            y: 0,
+            width: self.view.bounds.width,
+            height: self.defaultFrameSize.height + self.navigationController!.navigationBar.frame.height + UIApplication.shared.statusBarFrame.height - convertedKeyboardFrame.height)
         self.provider.view.frame = newFrame
         self.provider.splitBarBottomConstraint.constant = 100
 
@@ -166,10 +201,7 @@ extension ArticleViewController {
             self.provider.view.layoutIfNeeded()
         }, completion: { _ in })
 
-        self.navigationController?.navigationBar.isHidden = true
-        UIView.animate(withDuration: animationDuration, animations: {
-            self.navigationController?.navigationBar.layer.layoutIfNeeded()
-        }, completion: { _ in })
+        isKeyboardHidden = false
     }
 
     func keyboardWillBeHidden(notification: NSNotification) {
@@ -178,15 +210,15 @@ extension ArticleViewController {
             return
         }
 
+        showNavigationBar()
+
         self.provider.view.frame = self.defaultFrameSize!
+
         UIView.animate(withDuration: animationDuration, animations: {
             self.provider.view.layoutIfNeeded()
         }, completion: { _ in })
 
-        self.navigationController?.navigationBar.isHidden = false
-        UIView.animate(withDuration: animationDuration, animations: {
-            self.navigationController?.navigationBar.layer.layoutIfNeeded()
-        }, completion: { _ in })
+        isKeyboardHidden = true
     }
 }
 
@@ -198,14 +230,14 @@ extension ArticleViewController: SplitBarDelegate {
 
         let nextYPos = self.provider.splitBarBottomConstraint.constant + splitBarPosY - touchedPosY
 
-        if nextYPos > 80 {
-            if nextYPos > self.provider.view.frame.maxY - 80 {
-                self.provider.splitBarBottomConstraint.constant = self.provider.view.frame.maxY - 90
+        if nextYPos > 60 {
+            if nextYPos > self.provider.view.frame.maxY - 60 {
+                self.provider.splitBarBottomConstraint.constant = self.provider.view.frame.maxY - 70
             } else {
                 self.provider.splitBarBottomConstraint.constant = nextYPos
             }
         } else {
-            self.provider.splitBarBottomConstraint.constant = 90
+            self.provider.splitBarBottomConstraint.constant = 70
         }
     }
 }
@@ -241,5 +273,25 @@ extension ArticleViewController: MarkdownKeyboardViewControllerDelegate {
             self.provider.noteView.text = ""
             self.alertPresenter.error("ノートの保存に失敗しました。ノートの作成に失敗している可能性があります", on: self)
         }
+    }
+}
+
+extension ArticleViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentPoint = scrollView.contentOffset.y
+
+        if isKeyboardHidden == false {
+            return
+        }
+
+        if currentPoint < 50 {
+            showNavigationBar()
+        } else if lastPoint - currentPoint < 0 {
+            hideNavigationBar()
+        } else if lastPoint - currentPoint > 10 {
+            showNavigationBar()
+        }
+
+        lastPoint = currentPoint
     }
 }
