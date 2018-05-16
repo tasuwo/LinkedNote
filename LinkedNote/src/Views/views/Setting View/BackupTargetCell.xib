@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="a0L-60-iLH" customClass="BackupTargetCell" customModule="LinkedNote" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="a0L-60-iLH" id="SR5-Nl-yBH">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2K-rG-V4e">
+                        <rect key="frame" x="16" y="12" width="239" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HwV-ux-rEk">
+                        <rect key="frame" x="328" y="7" width="31" height="30"/>
+                        <state key="normal" title="復元"/>
+                        <connections>
+                            <action selector="didPressRestoreButton:" destination="a0L-60-iLH" eventType="touchUpInside" id="8JD-wn-Ay8"/>
+                        </connections>
+                    </button>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gWG-u2-wDP">
+                        <rect key="frame" x="263" y="6" width="51" height="31"/>
+                        <connections>
+                            <action selector="didPressBackupStateToggleButton:" destination="a0L-60-iLH" eventType="valueChanged" id="VHF-Ix-LoS"/>
+                        </connections>
+                    </switch>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="gWG-u2-wDP" firstAttribute="leading" secondItem="O2K-rG-V4e" secondAttribute="trailing" constant="8" id="0rw-mF-wks"/>
+                    <constraint firstItem="O2K-rG-V4e" firstAttribute="centerY" secondItem="SR5-Nl-yBH" secondAttribute="centerY" id="GIt-gH-460"/>
+                    <constraint firstItem="HwV-ux-rEk" firstAttribute="leading" secondItem="gWG-u2-wDP" secondAttribute="trailing" constant="16" id="YEf-IE-Bf0"/>
+                    <constraint firstItem="gWG-u2-wDP" firstAttribute="centerY" secondItem="SR5-Nl-yBH" secondAttribute="centerY" id="huW-l3-WxS"/>
+                    <constraint firstItem="HwV-ux-rEk" firstAttribute="centerY" secondItem="SR5-Nl-yBH" secondAttribute="centerY" id="k0T-U5-QOW"/>
+                    <constraint firstAttribute="trailing" secondItem="HwV-ux-rEk" secondAttribute="trailing" constant="16" id="wgF-fe-VFu"/>
+                    <constraint firstItem="O2K-rG-V4e" firstAttribute="leading" secondItem="SR5-Nl-yBH" secondAttribute="leading" constant="16" id="wst-70-q5E"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="isEnable" destination="gWG-u2-wDP" id="sJD-oc-se3"/>
+                <outlet property="titleLabel" destination="O2K-rG-V4e" id="WUo-89-2aO"/>
+            </connections>
+            <point key="canvasLocation" x="-203" y="32"/>
+        </tableViewCell>
+    </objects>
+</document>

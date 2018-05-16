@@ -12,8 +12,7 @@ class SettingViewCell: UITableViewCell {
     var delegate: (() -> Void)?
 }
 
-protocol SettingViewCellDelegate {
+protocol SettingViewCellDelegate: BackupTargetCellDelegate {
     func didPressAccountButton(signature: String, userName: String, isLoggedIn: Bool)
     func didPressAddApiButton()
-    func didPressBackUpButton()
 }

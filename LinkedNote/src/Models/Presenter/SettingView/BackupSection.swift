@@ -8,7 +8,13 @@
 
 import UIKit
 
-class BackupSection: NSObject, SettingViewSection {
+protocol BackupTargetSpecifiable {
+    func getBackupTarget(at index: Int) -> BackupTargetType?
+}
+
+class BackupSection: NSObject, SettingViewSection, BackupTargetSpecifiable {
+    static let BACKUP_BTN_SIGNATURE = "backup_signature"
+    static let BACKUP_TARGET_BTN_SIGNATURE = "backup_target_signature"
     var delegate: SettingViewCellDelegate?
     var viewColors: ViewColorSettings?
 
@@ -17,7 +23,7 @@ class BackupSection: NSObject, SettingViewSection {
     }
 
     func numberOfColumns() -> Int {
-        return 1
+        return BackupTargetType.count
     }
 
     func setDelegate(_ delegate: SettingViewCellDelegate) {
@@ -25,12 +31,28 @@ class BackupSection: NSObject, SettingViewSection {
     }
 
     func doDelegation(at _: Int) {
-        self.delegate?.didPressBackUpButton()
+        return
     }
 
-    func getCell(_: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = SettingViewCell()
-        cell.textLabel?.text = self.getColumnTitle(at: indexPath.row)
+    func getCell(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: BackupSection.BACKUP_TARGET_BTN_SIGNATURE, for: indexPath) as! BackupTargetCell
+
+        cell.delegate = self.delegate
+        cell.index = indexPath.row
+        cell.titleLabel.text = BackupTargetType(rawValue: indexPath.row)?.toString() ?? ""
+
+        if let target = getBackupTarget(at: indexPath.row) {
+            if AppSettings.getIsBackup(target: target) == nil {
+                AppSettings.setIsBackup(isBackup: false, target: target)
+            }
+
+            cell.isEnable.isOn = AppSettings.getIsBackup(target: target) ?? false
+        } else {
+            cell.isEnable.isOn = false
+        }
+
+        cell.selectionStyle = .none
+
         return cell
     }
 
@@ -38,7 +60,7 @@ class BackupSection: NSObject, SettingViewSection {
         self.viewColors = setting
     }
 
-    private func getColumnTitle(at _: Int) -> String {
-        return "iCloud"
+    func getBackupTarget(at index: Int) -> BackupTargetType? {
+        return BackupTargetType(rawValue: index)
     }
 }

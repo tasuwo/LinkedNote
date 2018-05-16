@@ -8,6 +8,18 @@
 
 import UIKit
 
+enum AlertPresenterResult {
+    case didCheck
+    case didPressYes
+    case didPressNo
+}
+
+struct AlertPresenterInfo {
+    let title: String
+    let message: String
+    let viewControlelr: UIViewController
+}
+
 protocol AlertPresenter {
     func error(_ message: String, on: UIViewController)
     func check(_ title: String, _ message: String, on vc: UIViewController, _ handler: @escaping (_ action: UIAlertAction?) -> Void)

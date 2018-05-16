@@ -42,6 +42,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         configureStyling()
 
+        // iCloud の有効化状態を更新する
+        let currentiCloudToken = FileManager.default.ubiquityIdentityToken
+        if let token = currentiCloudToken {
+            let newTokenData = NSKeyedArchiver.archivedData(withRootObject: token)
+            UserDefaults.standard.set(newTokenData, forKey: "com.apple.LinkedNote.UbiquityIdentityToken")
+        } else {
+            UserDefaults.standard.removeObject(forKey: "com.apple.LinkedNote.UbiquityIdentityToken")
+        }
+
         return true
     }
 

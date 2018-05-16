@@ -82,22 +82,19 @@ extension SettingViewController: SettingViewCellDelegate {
         }
     }
 
-    // TODO: コールバックを平坦にする
     private func loginTo(_ signature: String, _ username: String) {
         alertPresenter.yn(
             title: "ログイン",
             message: "\(signature) に \(username) としてログインしますか？",
             on: self,
             y: { _ in
-                self.alertPresenter.check("", "Pocket ではアカウント切り替えがサポートされていません。\n別アカウントでログインしたい場合は、設定 > Safari > 履歴とWebサイトデータを削除 を実行して下さい。", on: self, { _ in
-                    PocketAPIWrapper.logout()
-                    PocketAPIWrapper.login(completion: { error in
-                        if let e = error {
-                            self.alertPresenter.error(e.localizedDescription, on: self)
-                            return
-                        }
-                        self.provider.view.reloadData()
-                    })
+                PocketAPIWrapper.logout()
+                PocketAPIWrapper.login(completion: { error in
+                    if let e = error {
+                        self.alertPresenter.error(e.localizedDescription, on: self)
+                        return
+                    }
+                    self.provider.view.reloadData()
                 })
             },
             n: { _ in }
@@ -117,7 +114,104 @@ extension SettingViewController: SettingViewCellDelegate {
         )
     }
 
-    func didPressBackUpButton() {
-        alertPresenter.error("バックアップ設定はまだ実装されていません", on: self)
+    func didToggleBackupState(isOn: Bool, at index: Int) {
+        guard let target = self.presenter.getBackupTarget(by: index) else {
+            // TODO: error handling
+            return
+        }
+
+        guard let strategy = target.getStrategy() else {
+            self.alertPresenter.check(
+                "バックアップを有効化できません",
+                "未実装です",
+                on: self,
+                { _ in self.provider.view.reloadData() }
+            )
+            return
+        }
+
+        if !strategy.isAvailable() {
+            self.alertPresenter.check(
+                "バックアップを有効化できません",
+                "ここに何が問題だったか書く",
+                on: self,
+                { _ in self.provider.view.reloadData() }
+            )
+            return
+        }
+
+        let title: String
+        let message: String
+        let isBackupAtY: Bool
+        let isBackupAtN: Bool
+        if isOn {
+            title = "バックアップの有効化"
+            message = "バックアップが自動的に作成されます。\n他の端末でのバックアップデータが存在する場合、上書きされます。"
+            isBackupAtY = true
+            isBackupAtN = false
+        } else {
+            title = "バックアップの無効化"
+            message = "アプリ内のデータは削除されません。\nまた、バックアップ済みのデータも削除されずに残ります。"
+            isBackupAtY = false
+            isBackupAtN = true
+        }
+
+        alertPresenter.yn(
+            title: title,
+            message: message,
+            on: self,
+            y: { _ in
+                AppSettings.setIsBackup(isBackup: isBackupAtY, target: target)
+                self.provider.view.reloadData()
+            },
+            n: { _ in
+                AppSettings.setIsBackup(isBackup: isBackupAtN, target: target)
+                self.provider.view.reloadData()
+            }
+        )
+    }
+
+    func didPressRestoreButton(at index: Int) {
+        guard let target = self.presenter.getBackupTarget(by: index),
+            let strategy = target.getStrategy(),
+            let isBackupEnabled = AppSettings.getIsBackup(target: target) else {
+            // TODO: エラーハンドリング
+            return
+        }
+        if isBackupEnabled {
+            alertPresenter.check(
+                "バックアップデータの復元",
+                "バックアップ有効化中は、データの復元が行えません。\n"
+                    + "バックアップの無効化後、適切なバックアップ先からデータの復元を行ってください。",
+                on: self,
+                { _ in self.provider.view.reloadData() }
+            )
+        }
+        alertPresenter.yn(
+            title: "復元",
+            message: "データの復元を行いますか？\n現在のアプリ上のデータは上書きされます",
+            on: self,
+            y: { _ in
+                do {
+                    try strategy.restore()
+                    self.alertPresenter.check(
+                        "バックアップデータの復元",
+                        "バックアップデータの復元を完了しました",
+                        on: self,
+                        { _ in }
+                    )
+
+                } catch {
+                    self.alertPresenter.check(
+                        "復元に失敗",
+                        // TODO: エラーコードによるエラーメッセージの変化
+                        "バックアップデータの復元に失敗しました: \(error)",
+                        on: self,
+                        { _ in }
+                    )
+                }
+            },
+            n: { _ in self.provider.view.reloadData() }
+        )
     }
 }

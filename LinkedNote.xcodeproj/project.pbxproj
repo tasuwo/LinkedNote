@@ -18,6 +18,10 @@
 		2C1DBF1B1F0E7D61007A8DB1 /* TagPickerPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1DBF1A1F0E7D61007A8DB1 /* TagPickerPresenterTest.swift */; };
 		2C2E2900203B7C8B00E71E01 /* SignIn.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C2E28FF203B7C8B00E71E01 /* SignIn.xib */; };
 		2C2E2904203B808800E71E01 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2E2903203B808800E71E01 /* SignInView.swift */; };
+		2C4009C12051948C00248A97 /* BackupTargetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C4009C02051948C00248A97 /* BackupTargetCell.xib */; };
+		2C4009C32051951A00248A97 /* BackupTargetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4009C22051951A00248A97 /* BackupTargetCell.swift */; };
+		2C4009C72051976C00248A97 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4009C62051976C00248A97 /* AppSettings.swift */; };
+		2C4009C920520BDA00248A97 /* BackupTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4009C820520BDA00248A97 /* BackupTargetType.swift */; };
 		2C409D47204D9E9C00AE874A /* ApiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C409D46204D9E9C00AE874A /* ApiButton.swift */; };
 		2C409D49204DA76000AE874A /* LoginMarkLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C409D48204DA76000AE874A /* LoginMarkLabel.swift */; };
 		2C430F6A203034BF0033C0C5 /* github-markdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 2C430F69203034BF0033C0C5 /* github-markdown.css */; };
@@ -36,10 +40,11 @@
 		2C9BAA74203180C4008FD85E /* MarkdownKeyboardKeyKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA73203180C4008FD85E /* MarkdownKeyboardKeyKind.swift */; };
 		2C9BAA77203184F3008FD85E /* MarkdownKeyboardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA76203184F3008FD85E /* MarkdownKeyboardPresenter.swift */; };
 		2C9BAA792031BB7F008FD85E /* UIImage+colorImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA782031BB7F008FD85E /* UIImage+colorImage.swift */; };
-		2C9BAA7B2031CD4A008FD85E /* RealmBackupRestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA7A2031CD4A008FD85E /* RealmBackupRestore.swift */; };
+		2C9BAA7B2031CD4A008FD85E /* ICloudBackupTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA7A2031CD4A008FD85E /* ICloudBackupTarget.swift */; };
 		2C9BAA8220333CFA008FD85E /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA8120333CFA008FD85E /* SettingView.swift */; };
 		2C9BAA8420333F6A008FD85E /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA8320333F6A008FD85E /* SettingViewController.swift */; };
 		2C9BAA86203341E1008FD85E /* SettingViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BAA85203341E1008FD85E /* SettingViewPresenter.swift */; };
+		2CAA5EAB205411C800C3AE4F /* BackupRestoreStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAA5EAA205411C800C3AE4F /* BackupRestoreStrategy.swift */; };
 		2CACD0A31F26398900690583 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACD0A21F26398900690583 /* Repository.swift */; };
 		2CC30DC0204D85E6009D4593 /* AccountSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC30DBF204D85E6009D4593 /* AccountSection.swift */; };
 		2CC30DC2204D860D009D4593 /* BackupSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC30DC1204D860D009D4593 /* BackupSection.swift */; };
@@ -155,6 +160,10 @@
 		2C1DBF1A1F0E7D61007A8DB1 /* TagPickerPresenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagPickerPresenterTest.swift; sourceTree = "<group>"; };
 		2C2E28FF203B7C8B00E71E01 /* SignIn.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignIn.xib; sourceTree = "<group>"; };
 		2C2E2903203B808800E71E01 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		2C4009C02051948C00248A97 /* BackupTargetCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BackupTargetCell.xib; sourceTree = "<group>"; };
+		2C4009C22051951A00248A97 /* BackupTargetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupTargetCell.swift; sourceTree = "<group>"; };
+		2C4009C62051976C00248A97 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		2C4009C820520BDA00248A97 /* BackupTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupTargetType.swift; sourceTree = "<group>"; };
 		2C409D46204D9E9C00AE874A /* ApiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiButton.swift; sourceTree = "<group>"; };
 		2C409D48204DA76000AE874A /* LoginMarkLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMarkLabel.swift; sourceTree = "<group>"; };
 		2C430F69203034BF0033C0C5 /* github-markdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = "github-markdown.css"; path = "LinkedNote/resources/github-markdown.css"; sourceTree = SOURCE_ROOT; };
@@ -174,11 +183,12 @@
 		2C9BAA73203180C4008FD85E /* MarkdownKeyboardKeyKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownKeyboardKeyKind.swift; sourceTree = "<group>"; };
 		2C9BAA76203184F3008FD85E /* MarkdownKeyboardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownKeyboardPresenter.swift; sourceTree = "<group>"; };
 		2C9BAA782031BB7F008FD85E /* UIImage+colorImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+colorImage.swift"; sourceTree = "<group>"; };
-		2C9BAA7A2031CD4A008FD85E /* RealmBackupRestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmBackupRestore.swift; sourceTree = "<group>"; };
+		2C9BAA7A2031CD4A008FD85E /* ICloudBackupTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudBackupTarget.swift; sourceTree = "<group>"; };
 		2C9BAA7C2031D270008FD85E /* LinkedNote.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LinkedNote.entitlements; sourceTree = "<group>"; };
 		2C9BAA8120333CFA008FD85E /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		2C9BAA8320333F6A008FD85E /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		2C9BAA85203341E1008FD85E /* SettingViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewPresenter.swift; sourceTree = "<group>"; };
+		2CAA5EAA205411C800C3AE4F /* BackupRestoreStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupRestoreStrategy.swift; sourceTree = "<group>"; };
 		2CACD0A21F26398900690583 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		2CC30DBF204D85E6009D4593 /* AccountSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSection.swift; sourceTree = "<group>"; };
 		2CC30DC1204D860D009D4593 /* BackupSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupSection.swift; sourceTree = "<group>"; };
@@ -300,6 +310,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C4009C42051972300248A97 /* Property List */ = {
+			isa = PBXGroup;
+			children = (
+				2C4009C62051976C00248A97 /* AppSettings.swift */,
+			);
+			path = "Property List";
+			sourceTree = "<group>";
+		};
+		2C4009C52051973400248A97 /* Realm Objects */ = {
+			isa = PBXGroup;
+			children = (
+				2CACD0A21F26398900690583 /* Repository.swift */,
+				A0C8C7FE1F07D72C00E1F0A1 /* DataModelError.swift */,
+				A05E17671EE26218005C4566 /* ApiAccount.swift */,
+				A05E17661EE26218005C4566 /* Api.swift */,
+				A05E17681EE26218005C4566 /* Article.swift */,
+				A05E17691EE26218005C4566 /* Note.swift */,
+				A05E176A1EE26218005C4566 /* Tag.swift */,
+			);
+			path = "Realm Objects";
+			sourceTree = "<group>";
+		};
 		2C430F71203060B50033C0C5 /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -355,8 +387,20 @@
 				2C081884203C6C2800811430 /* SettingAccountCustomCell.swift */,
 				2C409D46204D9E9C00AE874A /* ApiButton.swift */,
 				2C409D48204DA76000AE874A /* LoginMarkLabel.swift */,
+				2C4009C02051948C00248A97 /* BackupTargetCell.xib */,
+				2C4009C22051951A00248A97 /* BackupTargetCell.swift */,
 			);
 			path = "Setting View";
+			sourceTree = "<group>";
+		};
+		2CAA5EA9205411A600C3AE4F /* BackupRestore */ = {
+			isa = PBXGroup;
+			children = (
+				2C9BAA7A2031CD4A008FD85E /* ICloudBackupTarget.swift */,
+				2C4009C820520BDA00248A97 /* BackupTargetType.swift */,
+				2CAA5EAA205411C800C3AE4F /* BackupRestoreStrategy.swift */,
+			);
+			path = BackupRestore;
 			sourceTree = "<group>";
 		};
 		2CC30DBC204D85B7009D4593 /* SettingView */ = {
@@ -490,8 +534,9 @@
 		A05E17651EE26218005C4566 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
-				2C9BAA7A2031CD4A008FD85E /* RealmBackupRestore.swift */,
+				2CAA5EA9205411A600C3AE4F /* BackupRestore */,
 				2C4009C52051973400248A97 /* Realm Objects */,
+				2C4009C42051972300248A97 /* Property List */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -859,6 +904,7 @@
 				2C692EF42030139F00BA23A0 /* markdown.html in Resources */,
 				A05E17C01EE26218005C4566 /* NoteList.xib in Resources */,
 				A05E17C81EE26218005C4566 /* TagList.xib in Resources */,
+				2C4009C12051948C00248A97 /* BackupTargetCell.xib in Resources */,
 				A05E17BE1EE26218005C4566 /* Article.xib in Resources */,
 				A05E17B91EE26218005C4566 /* ArticleList.xib in Resources */,
 				A05E17321EE261DD005C4566 /* LaunchScreen.storyboard in Resources */,
@@ -1092,12 +1138,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C4009C920520BDA00248A97 /* BackupTargetType.swift in Sources */,
 				A05E179E1EE26218005C4566 /* NoteListViewController.swift in Sources */,
 				A05E17BD1EE26218005C4566 /* ArticleListView.swift in Sources */,
 				A05E17C31EE26218005C4566 /* NoteListView.swift in Sources */,
 				2C081885203C6C2800811430 /* SettingAccountCustomCell.swift in Sources */,
 				A05E17BA1EE26218005C4566 /* ArticleListCustomCell.swift in Sources */,
 				A05E17A61EE26218005C4566 /* ApiAccount.swift in Sources */,
+				2CAA5EAB205411C800C3AE4F /* BackupRestoreStrategy.swift in Sources */,
 				A05E17BF1EE26218005C4566 /* ArticleView.swift in Sources */,
 				A05E179C1EE26218005C4566 /* ArticleViewController.swift in Sources */,
 				A05E17A51EE26218005C4566 /* Api.swift in Sources */,
@@ -1113,6 +1161,7 @@
 				2CC30DC2204D860D009D4593 /* BackupSection.swift in Sources */,
 				2C430F7B203065600033C0C5 /* MarkdownKeyboardKey.swift in Sources */,
 				A05E17CB1EE26218005C4566 /* TagListView.swift in Sources */,
+				2C4009C32051951A00248A97 /* BackupTargetCell.swift in Sources */,
 				A05E17A31EE26218005C4566 /* APIWrapper.swift in Sources */,
 				2C430F73203060CD0033C0C5 /* MarkdownKeyboardAccessory.swift in Sources */,
 				A05E17991EE26218005C4566 /* AppDelegate.swift in Sources */,
@@ -1129,9 +1178,10 @@
 				A05E17C11EE26218005C4566 /* NoteListCustomCell.swift in Sources */,
 				2C9BAA86203341E1008FD85E /* SettingViewPresenter.swift in Sources */,
 				A05E17A91EE26218005C4566 /* Tag.swift in Sources */,
-				2C9BAA7B2031CD4A008FD85E /* RealmBackupRestore.swift in Sources */,
+				2C9BAA7B2031CD4A008FD85E /* ICloudBackupTarget.swift in Sources */,
 				2CACD0A31F26398900690583 /* Repository.swift in Sources */,
 				2C9BAA77203184F3008FD85E /* MarkdownKeyboardPresenter.swift in Sources */,
+				2C4009C72051976C00248A97 /* AppSettings.swift in Sources */,
 				A05E17B31EE26218005C4566 /* TagCollectionViewCell.swift in Sources */,
 				A0D6F4A91EE8D58600430171 /* FrameCalculator.swift in Sources */,
 				2C9BAA8420333F6A008FD85E /* SettingViewController.swift in Sources */,

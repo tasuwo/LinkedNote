@@ -11,11 +11,14 @@ import UIKit
 
 class SettingViewPresenter: NSObject {
     private(set) var sections: [SettingViewSection]
+    private let backupTargetSpecifiable: BackupTargetSpecifiable
 
     override init() {
+        let backupSection = BackupSection()
+        self.backupTargetSpecifiable = backupSection
         self.sections = [
             AccountSection(),
-            BackupSection(),
+            backupSection,
         ]
     }
 
@@ -29,6 +32,10 @@ class SettingViewPresenter: NSObject {
         for section in sections {
             section.setViewColorSetting(setting: setting)
         }
+    }
+
+    func getBackupTarget(by indexInSection: Int) -> BackupTargetType? {
+        return self.backupTargetSpecifiable.getBackupTarget(at: indexInSection)
     }
 }
 
