@@ -490,14 +490,8 @@
 		A05E17651EE26218005C4566 /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
-				A05E17661EE26218005C4566 /* Api.swift */,
-				A05E17671EE26218005C4566 /* ApiAccount.swift */,
-				A05E17681EE26218005C4566 /* Article.swift */,
-				A05E17691EE26218005C4566 /* Note.swift */,
-				A05E176A1EE26218005C4566 /* Tag.swift */,
-				A0C8C7FE1F07D72C00E1F0A1 /* DataModelError.swift */,
-				2CACD0A21F26398900690583 /* Repository.swift */,
 				2C9BAA7A2031CD4A008FD85E /* RealmBackupRestore.swift */,
+				2C4009C52051973400248A97 /* Realm Objects */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";

@@ -28,9 +28,18 @@ class Note: Object {
         return realm.objects(Note.self).last?.id ?? -1
     }
 
+    static func newId() -> Int {
+        var newId = Note.lastId() + 1
+        let realm = try! Realm()
+        while let _ = realm.object(ofType: Note.self, forPrimaryKey: newId) {
+            newId += 1
+        }
+        return newId
+    }
+
     convenience init(body: String) {
         self.init()
-        self.id = Note.lastId() + 1
+        self.id = Note.newId()
         self.body = body
     }
 }
