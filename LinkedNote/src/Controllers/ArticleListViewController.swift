@@ -155,8 +155,9 @@ extension ArticleListViewController: UITableViewDelegate {
         return [UITableViewRowAction(style: .default, title: "Archive", handler: { _, indexPath in
             let cell = self.provider.articleTableView.cellForRow(at: indexPath) as! ArticleListCustomCell
 
-            self.articleListPresenter.archiveRow(at: indexPath, id: cell.article!.localId)
-            self.provider.articleTableView.deleteRows(at: [indexPath], with: .automatic)
+            self.articleListPresenter.archiveRow(at: indexPath, id: cell.article!.localId, handler: { _ in
+                self.provider.articleTableView.deleteRows(at: [indexPath], with: .automatic)
+            })
         })]
     }
 

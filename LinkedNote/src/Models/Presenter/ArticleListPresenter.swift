@@ -57,13 +57,14 @@ class ArticleListPresenter<T: ThumbnailDownloader>: NSObject, UITableViewDataSou
         })
     }
 
-    func archiveRow(at indexPath: IndexPath, id: String) {
+    func archiveRow(at indexPath: IndexPath, id: String, handler: @escaping () -> Void) {
         self.api.archive(id: id, completion: { error in
             if let e = error {
                 self.errorObserver?.occured(e, at: .Archive)
                 return
             }
             self.articles.remove(at: indexPath.row)
+            handler()
         })
     }
 
