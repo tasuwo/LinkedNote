@@ -39,7 +39,7 @@ class Article: Object {
 
     static func lastId() -> Int {
         let realm = try! Realm()
-        return realm.objects(Article.self).last?.id ?? -1
+        return realm.objects(Article.self).max(ofProperty: "id") ?? -1
     }
 
     convenience init(localId: String, title: String, url: String, thumbnailUrl: String) {

@@ -25,7 +25,7 @@ class Note: Object {
 
     static func lastId() -> Int {
         let realm = try! Realm()
-        return realm.objects(Note.self).last?.id ?? -1
+        return realm.objects(Note.self).max(ofProperty: "id") ?? -1
     }
 
     static func newId() -> Int {

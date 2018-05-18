@@ -20,7 +20,7 @@ class Tag: Object {
 
     static func lastId() -> Int {
         let realm = try! Realm()
-        return realm.objects(Tag.self).last?.id ?? -1
+        return realm.objects(Tag.self).max(ofProperty: "id") ?? -1
     }
 
     convenience init(name: String) {

@@ -22,7 +22,7 @@ class ApiAccount: Object {
 
     static func lastId() -> Int {
         let realm = try! Realm()
-        return realm.objects(ApiAccount.self).last?.id ?? -1
+        return realm.objects(ApiAccount.self).max(ofProperty: "id") ?? -1
     }
 
     convenience init(username: String) {
