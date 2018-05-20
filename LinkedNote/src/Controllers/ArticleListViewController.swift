@@ -196,9 +196,9 @@ extension ArticleListViewController: UITableViewDelegate {
 
         switch state {
         case .ARCHIVE:
-            return [readdAction, deleteAction]
+            return [deleteAction, readdAction]
         case .UNREAD:
-            return [archiveAction, deleteAction]
+            return [deleteAction, archiveAction]
         }
     }
 
