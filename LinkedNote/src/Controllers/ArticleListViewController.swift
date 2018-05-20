@@ -104,8 +104,19 @@ class ArticleListViewController: UIViewController {
 
 extension ArticleListViewController {
     func refresh() {
+        guard let state = self.provider.articleListState else {
+            // TODO: Error Handling
+            return
+        }
+
         self.articleListPresenter.initOffset()
-        self.articleListPresenter.retrieve()
+
+        switch state {
+        case .ARCHIVE:
+            self.articleListPresenter.retrieveArchive()
+        case .UNREAD:
+            self.articleListPresenter.retrieve()
+        }
         self.refreshControl.endRefreshing()
     }
 }
@@ -152,6 +163,7 @@ extension ArticleListViewController: UITableViewDelegate {
         cell.article = article
     }
 
+    // Edit row
     func tableView(_: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         guard let state = self.provider.articleListState else {
             // TODO: Error Handling
@@ -172,17 +184,29 @@ extension ArticleListViewController: UITableViewDelegate {
                 self.provider.articleTableView.deleteRows(at: [indexPath], with: .automatic)
             })
         })
+        let readdAction = UITableViewRowAction(style: .normal, title: "Readd", handler: { _, indexPath in
+            let cell = self.provider.articleTableView.cellForRow(at: indexPath) as! ArticleListCustomCell
+
+            self.articleListPresenter.readdRow(at: indexPath, id: cell.article!.localId, handler: { _ in
+                self.provider.articleTableView.deleteRows(at: [indexPath], with: .automatic)
+            })
+        })
 
         switch state {
         case .ARCHIVE:
-            return [deleteAction]
+            return [readdAction, deleteAction]
         case .UNREAD:
-            return [deleteAction, archiveAction]
+            return [archiveAction, deleteAction]
         }
     }
 
     // Scrolled
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let state = self.provider.articleListState else {
+            // TODO: Error Handling
+            return
+        }
+
         if self.refreshControl.isRefreshing {
             return
         }
@@ -193,7 +217,12 @@ extension ArticleListViewController: UITableViewDelegate {
         let inset = scrollView.contentInset
 
         if offset.y > ((size.height * SCROLLING_PERCENTAGE_WHICH_TRIGGER_UPDATE) - (bounds.height - inset.bottom)) {
-            self.articleListPresenter.retrieve()
+            switch state {
+            case .ARCHIVE:
+                self.articleListPresenter.retrieveArchive()
+            case .UNREAD:
+                self.articleListPresenter.retrieve()
+            }
         }
     }
 }

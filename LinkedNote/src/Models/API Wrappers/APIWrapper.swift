@@ -32,4 +32,5 @@ protocol APIWrapper {
     func retrieveArchives(_ completion: @escaping (([Article], APIError?) -> Void))
     func archive(id: String, completion: @escaping ((APIError?) -> Void))
     func delete(id: String, completion: @escaping ((APIError?) -> Void))
+    func readd(id: String, completion: @escaping ((APIError?) -> Void))
 }
