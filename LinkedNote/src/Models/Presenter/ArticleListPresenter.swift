@@ -79,6 +79,17 @@ class ArticleListPresenter<T: ThumbnailDownloader>: NSObject, UITableViewDataSou
         })
     }
 
+    func deleteRow(at indexPath: IndexPath, id: String, handler: @escaping () -> Void) {
+        self.api.delete(id: id, completion: { error in
+            if let e = error {
+                self.errorObserver?.occured(e, at: .Archive)
+                return
+            }
+            self.articles.remove(at: indexPath.row)
+            handler()
+        })
+    }
+
     func startThumbnailDownload(article: Article, forIndexPath indexPath: IndexPath, tableView: UITableView) {
         guard self.thumbnailDownloadersInProgress[indexPath] == nil else {
             return

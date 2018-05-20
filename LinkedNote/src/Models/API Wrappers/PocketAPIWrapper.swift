@@ -210,4 +210,39 @@ class PocketAPIWrapper: NSObject, APIWrapper {
             completion(nil)
         })
     }
+
+    func delete(id: String, completion: @escaping ((APIError?) -> Void)) {
+        if !PocketAPI.shared().isLoggedIn {
+            completion(APIError.NotLoggedIn)
+            return
+        }
+
+        let time = Int(NSDate().timeIntervalSince1970)
+        let httpMethod = PocketAPIHTTPMethodPOST
+        let arguments: NSDictionary = ["actions": [["action": "delete", "item_id": "\(id)", "time": "\(time.description)"]]]
+
+        // TODO: API Response format validation
+
+        PocketAPI.shared().callMethod("send", with: httpMethod, arguments: arguments as! [AnyHashable: Any], handler: {
+            _, _, response, error in
+
+            if let e = error {
+                Swift.print(e.localizedDescription)
+                completion(APIError.APIError(e))
+                return
+            }
+
+            guard let responseStr = response else {
+                Swift.print("Pocket API return nil response")
+                completion(APIError.ResponseIsNil)
+                return
+            }
+
+            let responseJson = JSON(responseStr)
+            Swift.print(responseJson["action_results"].array![0])
+            Swift.print(responseJson["status"])
+
+            completion(nil)
+        })
+    }
 }

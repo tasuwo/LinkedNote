@@ -158,17 +158,27 @@ extension ArticleListViewController: UITableViewDelegate {
             return []
         }
 
-        if state == .ARCHIVE {
-            return []
-        }
-
-        return [UITableViewRowAction(style: .default, title: "Archive", handler: { _, indexPath in
+        let archiveAction = UITableViewRowAction(style: .normal, title: "Archive", handler: { _, indexPath in
             let cell = self.provider.articleTableView.cellForRow(at: indexPath) as! ArticleListCustomCell
 
             self.articleListPresenter.archiveRow(at: indexPath, id: cell.article!.localId, handler: { _ in
                 self.provider.articleTableView.deleteRows(at: [indexPath], with: .automatic)
             })
-        })]
+        })
+        let deleteAction = UITableViewRowAction(style: .default, title: "Delete", handler: { _, indexPath in
+            let cell = self.provider.articleTableView.cellForRow(at: indexPath) as! ArticleListCustomCell
+
+            self.articleListPresenter.deleteRow(at: indexPath, id: cell.article!.localId, handler: { _ in
+                self.provider.articleTableView.deleteRows(at: [indexPath], with: .automatic)
+            })
+        })
+
+        switch state {
+        case .ARCHIVE:
+            return [deleteAction]
+        case .UNREAD:
+            return [deleteAction, archiveAction]
+        }
     }
 
     // Scrolled
