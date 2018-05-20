@@ -8,7 +8,7 @@
 
 import UIKit
 
-let kAppIconSize: CGFloat = 100
+let kAppIconSize: CGFloat = 55
 
 protocol ThumbnailDownloader {
     init(article: Article, handler: @escaping (() -> Void))

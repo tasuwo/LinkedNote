@@ -25,6 +25,8 @@ class ArticleListViewController: UIViewController {
     let SCROLLING_PERCENTAGE_WHICH_TRIGGER_UPDATE: CGFloat = 0.9
     let NUM_OF_ARTICLES_LOADED_AT_ONCE: Int = 20
 
+    var cellHeightList: [IndexPath: CGFloat] = [:]
+
     init(provider: ArticleListViewProvider, api: APIWrapper, calculator: FrameCalculator, alertPresenter: AlertPresenter) {
         self.provider = provider
         self.api = api

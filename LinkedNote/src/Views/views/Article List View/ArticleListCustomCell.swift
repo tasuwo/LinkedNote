@@ -21,6 +21,15 @@ class ArticleListCustomCell: UITableViewCell {
     @IBOutlet var noteButton: UIButton!
     @IBOutlet var expr: UILabel!
     @IBOutlet var label: UILabel!
+    @IBOutlet var url: UILabel!
     @IBOutlet var thumbnail: UIImageView!
     var article: Article?
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        self.label.preferredMaxLayoutWidth = self.label.bounds.width
+        self.expr.preferredMaxLayoutWidth = self.expr.bounds.width
+        self.url.preferredMaxLayoutWidth = self.url.bounds.width
+    }
 }

@@ -56,7 +56,9 @@ class ArticleListView: UIView {
         view_.frame = frame
         addSubview(view_)
 
-        myList!.rowHeight = 150
+        // myList!.rowHeight = 80
+        // myList!.rowHeight = 100
+        myList!.rowHeight = UITableViewAutomaticDimension
         myList!.register(UINib(nibName: "ArticleListCustomCell", bundle: nil), forCellReuseIdentifier: "ArticleListCustomCell")
 
         // view_.addSubview(myList_!)

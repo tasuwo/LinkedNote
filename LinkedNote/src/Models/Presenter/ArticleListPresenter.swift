@@ -129,6 +129,7 @@ class ArticleListPresenter<T: ThumbnailDownloader>: NSObject, UITableViewDataSou
         newCell.article = article
         newCell.label?.text = article.title
         newCell.expr?.text = article.excerpt
+        newCell.url?.text = article.url
 
         if let thumbanail = article.thumbnail {
             newCell.imageView!.image = thumbanail
@@ -137,7 +138,7 @@ class ArticleListPresenter<T: ThumbnailDownloader>: NSObject, UITableViewDataSou
             newCell.imageView!.image = UIImage.colorImage(
                 color: UIColor(r: 220, g: 220, b: 220),
                 // TODO: Research for the situation that the thumbnail is nil
-                size: newCell.thumbnail?.frame.size ?? CGSize.zero
+                size: CGSize(width: 55, height: 55)
             )
         }
         let v = tableView as! ArticleListTableView
