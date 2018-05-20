@@ -10,15 +10,45 @@ import UIKit
 
 protocol ArticleListViewProvider {
     var view: UIView { get }
+    var articleListState: ArticleListSegmentState? { get }
     var articleTableView: UITableView { get }
     var observer: ArticleListPresenterObserver { get }
 
+    func setDelegate(delegate: ArticleListViewProtocol)
     func setArticleTableViewDelegate(delegate: ArticleListTableViewDelegate)
+}
+
+protocol ArticleListViewProtocol {
+    func didChangeMyListState(_ state: ArticleListSegmentState?)
+}
+
+enum ArticleListSegmentState {
+    case UNREAD
+    case ARCHIVE
+
+    static func getStateBy(index: Int) -> ArticleListSegmentState? {
+        switch index {
+        case 0:
+            return .UNREAD
+        case 1:
+            return .ARCHIVE
+        default:
+            return nil
+        }
+    }
 }
 
 class ArticleListView: UIView {
     @IBOutlet var view_: UIView!
-    var myList: ArticleListTableView?
+    @IBOutlet var myList: ArticleListTableView!
+    @IBOutlet var myListState: UISegmentedControl!
+    @IBAction func didChangeMyListState(_: Any) {
+        self.delegate?.didChangeMyListState(
+            ArticleListSegmentState.getStateBy(index: myListState.selectedSegmentIndex)
+        )
+    }
+
+    var delegate: ArticleListViewProtocol?
 
     init() {
         super.init(frame: CGRect.zero)
@@ -26,11 +56,10 @@ class ArticleListView: UIView {
         view_.frame = frame
         addSubview(view_)
 
-        myList = ArticleListTableView(frame: frame)
         myList!.rowHeight = 150
         myList!.register(UINib(nibName: "ArticleListCustomCell", bundle: nil), forCellReuseIdentifier: "ArticleListCustomCell")
 
-        view_.addSubview(myList!)
+        // view_.addSubview(myList_!)
     }
 
     required init?(coder _: NSCoder) {
@@ -49,12 +78,20 @@ extension ArticleListView: ArticleListViewProvider {
         return self
     }
 
+    var articleListState: ArticleListSegmentState? {
+        return ArticleListSegmentState.getStateBy(index: self.myListState.selectedSegmentIndex)
+    }
+
     var articleTableView: UITableView {
         return self.myList!
     }
 
     var observer: ArticleListPresenterObserver {
         return self
+    }
+
+    func setDelegate(delegate: ArticleListViewProtocol) {
+        self.delegate = delegate
     }
 
     func setArticleTableViewDelegate(delegate: ArticleListTableViewDelegate) {

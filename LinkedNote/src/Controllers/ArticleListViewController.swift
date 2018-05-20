@@ -60,6 +60,7 @@ class ArticleListViewController: UIViewController {
         // Prepare the table view
         self.provider.articleTableView.dataSource = articleListPresenter
         self.provider.articleTableView.delegate = self
+        self.provider.setDelegate(delegate: self)
         self.provider.setArticleTableViewDelegate(delegate: self)
 
         // Update model and display them on the table view
@@ -152,6 +153,15 @@ extension ArticleListViewController: UITableViewDelegate {
     }
 
     func tableView(_: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        guard let state = self.provider.articleListState else {
+            // TODO: Error Handling
+            return []
+        }
+
+        if state == .ARCHIVE {
+            return []
+        }
+
         return [UITableViewRowAction(style: .default, title: "Archive", handler: { _, indexPath in
             let cell = self.provider.articleTableView.cellForRow(at: indexPath) as! ArticleListCustomCell
 
@@ -185,6 +195,24 @@ extension ArticleListViewController: ArticleListTableViewDelegate {
             self.navigationController?.pushViewController(noteVC, animated: true)
         } else {
             alertPresenter.error("ノートが存在しません", on: self)
+        }
+    }
+}
+
+extension ArticleListViewController: ArticleListViewProtocol {
+    func didChangeMyListState(_ state: ArticleListSegmentState?) {
+        guard let s = state else {
+            // TODO: Error handling
+            return
+        }
+
+        self.articleListPresenter.initOffset()
+
+        switch s {
+        case .UNREAD:
+            self.articleListPresenter.retrieve()
+        case .ARCHIVE:
+            self.articleListPresenter.retrieveArchive()
         }
     }
 }

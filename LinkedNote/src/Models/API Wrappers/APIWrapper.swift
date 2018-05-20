@@ -29,5 +29,6 @@ protocol APIWrapper {
     func setUnitNum(_ num: Int)
     func initOffset()
     func retrieve(_ completion: @escaping (([Article], APIError?) -> Void))
+    func retrieveArchives(_ completion: @escaping (([Article], APIError?) -> Void))
     func archive(id: String, completion: @escaping ((APIError?) -> Void))
 }

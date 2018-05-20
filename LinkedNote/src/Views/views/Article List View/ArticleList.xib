@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ArticleListView" customModule="pocket_client" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ArticleListView" customModule="LinkedNote" customModuleProvider="target">
             <connections>
+                <outlet property="myList" destination="P6W-iM-BN8" id="B6a-pf-WPl"/>
+                <outlet property="myListState" destination="yVs-hn-guu" id="FXr-uT-YWr"/>
                 <outlet property="view_" destination="iN0-l3-epB" id="KY3-CJ-9n4"/>
             </connections>
         </placeholder>
@@ -18,7 +19,36 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yVs-hn-guu">
+                    <rect key="frame" x="62" y="20" width="250" height="29"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="250" id="AgR-zG-K99"/>
+                        <constraint firstAttribute="height" constant="28" id="UY5-fi-TXs"/>
+                    </constraints>
+                    <segments>
+                        <segment title="Unread"/>
+                        <segment title="Archive"/>
+                    </segments>
+                    <connections>
+                        <action selector="didChangeMyListState:" destination="-1" eventType="valueChanged" id="Pwb-IH-l3W"/>
+                    </connections>
+                </segmentedControl>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="P6W-iM-BN8" customClass="ArticleListTableView" customModule="LinkedNote" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="62" width="375" height="605"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </tableView>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="P6W-iM-BN8" firstAttribute="top" secondItem="yVs-hn-guu" secondAttribute="bottom" constant="14" id="B0B-Tc-6cN"/>
+                <constraint firstItem="yVs-hn-guu" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="DDw-li-blU"/>
+                <constraint firstItem="P6W-iM-BN8" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="Tn5-Az-Jjk"/>
+                <constraint firstAttribute="bottom" secondItem="P6W-iM-BN8" secondAttribute="bottom" id="VJo-1I-CCA"/>
+                <constraint firstItem="P6W-iM-BN8" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="feX-ej-PFp"/>
+                <constraint firstItem="yVs-hn-guu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="k2C-O8-Xx4"/>
+            </constraints>
+            <point key="canvasLocation" x="24.5" y="51.5"/>
         </view>
     </objects>
 </document>

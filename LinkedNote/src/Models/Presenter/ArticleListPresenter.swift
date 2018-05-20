@@ -57,6 +57,17 @@ class ArticleListPresenter<T: ThumbnailDownloader>: NSObject, UITableViewDataSou
         })
     }
 
+    func retrieveArchive() {
+        self.api.retrieveArchives({ infoArray, error in
+            if let e = error {
+                self.errorObserver?.occured(e, at: .Retrieve)
+                return
+            }
+            self.articles += infoArray
+            self.observer?.loaded()
+        })
+    }
+
     func archiveRow(at indexPath: IndexPath, id: String, handler: @escaping () -> Void) {
         self.api.archive(id: id, completion: { error in
             if let e = error {

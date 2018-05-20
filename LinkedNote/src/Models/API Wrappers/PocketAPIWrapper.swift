@@ -73,14 +73,24 @@ class PocketAPIWrapper: NSObject, APIWrapper {
     func retrieve(_ completion: @escaping (([Article], APIError?) -> Void)) {
         if self.isRetrieving { return }
         self.isRetrieving = true
-        self.retrieve(offset: self.currentOffset, count: self.retrieveUnitNum, completion: { infoArray, error in
+        self.retrieve(offset: self.currentOffset, count: self.retrieveUnitNum, state: "unread", completion: { infoArray, error in
             completion(infoArray, error)
             self.currentOffset += self.retrieveUnitNum
             self.isRetrieving = false
         })
     }
 
-    fileprivate func retrieve(offset: Int, count: Int, completion: @escaping (_ result: [Article], _ error: APIError?) -> Void) {
+    func retrieveArchives(_ completion: @escaping (([Article], APIError?) -> Void)) {
+        if self.isRetrieving { return }
+        self.isRetrieving = true
+        self.retrieve(offset: self.currentOffset, count: self.retrieveUnitNum, state: "archive", completion: { infoArray, error in
+            completion(infoArray, error)
+            self.currentOffset += self.retrieveUnitNum
+            self.isRetrieving = false
+        })
+    }
+
+    fileprivate func retrieve(offset: Int, count: Int, state: String, completion: @escaping (_ result: [Article], _ error: APIError?) -> Void) {
         var result: [Article] = []
 
         if !PocketAPI.shared().isLoggedIn {
@@ -99,7 +109,13 @@ class PocketAPIWrapper: NSObject, APIWrapper {
         }
 
         let httpMethod = PocketAPIHTTPMethodGET
-        let arguments: NSDictionary = ["detailType": "complete", "count": count.description, "offset": offset.description, "sort": "newest"]
+        let arguments: NSDictionary = [
+            "detailType": "complete",
+            "count": count.description,
+            "offset": offset.description,
+            "sort": "newest",
+            "state": state,
+        ]
 
         PocketAPI.shared().callMethod("get", with: httpMethod, arguments: arguments as! [AnyHashable: Any], handler: {
             _, _, response, error in
