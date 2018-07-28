@@ -84,6 +84,10 @@ class ArticleViewController: UIViewController {
         self.provider.webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
 
         self.navigationItem.title = self.article.title
+        self.navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(title: ">", style: .plain, target: self, action: #selector(self.forwardWebView)),
+            UIBarButtonItem(title: "<", style: .plain, target: self, action: #selector(self.backWebView)),
+        ]
     }
 
     override func didReceiveMemoryWarning() {
@@ -145,6 +149,18 @@ class ArticleViewController: UIViewController {
         }, completion: { _ in })
 
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+
+    @objc private func backWebView() {
+        if self.provider.webView.canGoBack {
+            self.provider.webView.goBack()
+        }
+    }
+
+    @objc private func forwardWebView() {
+        if self.provider.webView.canGoForward {
+            self.provider.webView.goForward()
+        }
     }
 }
 
