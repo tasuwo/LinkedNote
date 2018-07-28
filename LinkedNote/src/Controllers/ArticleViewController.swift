@@ -10,7 +10,7 @@ import UIKit
 
 class ArticleViewController: UIViewController {
     var provider: ArticleViewProvider
-    var singleTapRecognizer: UITapGestureRecognizer!
+    var splitBarTapRecognizer: UIGestureRecognizer!
     var defaultFrameSize: CGRect!
     let article: Article
     let calculator: FrameCalculator
@@ -59,10 +59,9 @@ class ArticleViewController: UIViewController {
         self.keyboardAccessoryVC = MarkdownKeyboardViewController(textView: self.provider.noteView, delegate: self)
 
         // Recognize the touch to out of text field
-        self.singleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onSingleTap))
-        self.singleTapRecognizer.delegate = self
-        self.provider.view.addGestureRecognizer(self.singleTapRecognizer)
-        self.provider.splitBar.addGestureRecognizer(self.singleTapRecognizer)
+        self.splitBarTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onSplitBarTap))
+        self.splitBarTapRecognizer.delegate = self
+        self.provider.splitBar.addGestureRecognizer(self.splitBarTapRecognizer)
 
         // Load web view
         if let url = URL(string: self.article.url) {
@@ -136,15 +135,23 @@ class ArticleViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
-    func showNavigationBar() {
+    func showNavigationBar(keepPosition: Bool = false) {
         let newFrame = CGRect(
             x: 0,
             y: 0,
             width: self.view.bounds.width,
             height: self.defaultFrameSize.height)
         self.provider.view.frame = newFrame
+
         // TODO: 0.2 秒が固定値なので、animated のデフォルト遷移時間にしたい (nav bar の遷移時間とあわせたい)
         UIView.animate(withDuration: 0.2, animations: {
+            if keepPosition {
+                let now = self.provider.webView.scrollView.contentOffset
+                self.provider.webView.scrollView.contentOffset = CGPoint(
+                    x: now.x,
+                    y: now.y + self.navigationController!.navigationBar.frame.height + UIApplication.shared.statusBarFrame.height
+                )
+            }
             self.provider.view.layoutIfNeeded()
         }, completion: { _ in })
 
@@ -226,7 +233,7 @@ extension ArticleViewController {
             return
         }
 
-        showNavigationBar()
+        showNavigationBar(keepPosition: true)
 
         self.provider.view.frame = self.defaultFrameSize!
 
@@ -261,14 +268,11 @@ extension ArticleViewController: SplitBarDelegate {
 // articleView/SplitBar へのシングルタップを検知する
 // キーボード表示を解除するために responder を resign する
 extension ArticleViewController: UIGestureRecognizerDelegate {
-    func onSingleTap(recognizer _: UIGestureRecognizer) {
+    func onSplitBarTap(_: UIGestureRecognizer) {
         self.provider.noteView.resignFirstResponder()
     }
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive _: UITouch) -> Bool {
-        if gestureRecognizer == self.singleTapRecognizer {
-            return self.provider.noteView.isFirstResponder
-        }
         return true
     }
 }
