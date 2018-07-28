@@ -112,7 +112,7 @@ class ArticleListPresenterTest: XCTestCase {
         let archievedId = "test_id"
         let indexPathRow = 2
         let indexPath = IndexPath(row: indexPathRow, section: 0)
-        self.presenter.archiveRow(at: indexPath, id: archievedId)
+        self.presenter.archiveRow(at: indexPath, id: archievedId, handler: {})
 
         // then
         XCTAssertNotNil(apiWrapper.lastArchivedId,

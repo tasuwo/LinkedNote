@@ -11,6 +11,12 @@ import RealmSwift
 import UIKit
 
 class FakeAPIWrapper: APIWrapper {
+    func retrieveArchives(_: @escaping (([Article], APIError?) -> Void)) {}
+
+    func delete(id _: String, completion _: @escaping ((APIError?) -> Void)) {}
+
+    func readd(id _: String, completion _: @escaping ((APIError?) -> Void)) {}
+
     static var signature: String = "fake"
     static var loggedIn = false
     static var willOccurLoginError = false
