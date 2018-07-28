@@ -13,4 +13,4 @@ before_install:
     - echo "POCKET_APP_ID=pocketapp" > .env
 
 script:
-    - xcodebuild -workspace LinkedNote.xcworkspace -scheme LinkedNote -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=11.2,name=iPhone 7' -configuration Debug test | xcpretty
+    - xcodebuild -workspace LinkedNote.xcworkspace -scheme LinkedNote -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=11.2,name=iPhone 7' -configuration Debug test | xcpretty && exit ${PIPESTATUS[0]}
